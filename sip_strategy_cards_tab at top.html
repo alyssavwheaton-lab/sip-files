@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIP Suite Strategy Selector — V6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:       #002855;
+    --navy-mid:   #00447C;
+    --navy-deep:  #001E42;
+    --navy-hover: #003670;
+    --gold:       #A39161;
+    --gold-light: #B8A574;
+    --white:      #ffffff;
+    --cream:      #F8F6F1;
+    --cream-warm: #F4F1EA;
+    --border:     #E4E1DA;
+    --border-lt:  #ECEAE4;
+    --text:       #3A3E44;
+    --muted:      #5A6270;
+    --label:      #949AA4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sip-selector {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 72px 32px 80px;
+  }
+
+  /* ═══ SECTION HEADER ═══ */
+  .sel-header { margin-bottom: 48px; }
+  .sel-eyebrow {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  .sel-headline {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 34px; font-weight: 700;
+    color: var(--navy); text-transform: uppercase;
+    line-height: 1.1; margin-bottom: 16px;
+  }
+  .sel-headline em { font-style: normal; color: var(--gold); }
+  .sel-intro {
+    font-size: 15px; line-height: 1.7;
+    color: var(--muted); max-width: 640px;
+  }
+
+  /* ═══ STRATEGY TABS (the selector row) ═══ */
+  .strat-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-bottom: 0;
+    position: relative;
+  }
+  .strat-tab {
+    padding: 24px 28px 22px;
+    cursor: pointer;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-bottom: none;
+    position: relative;
+    transition: background 0.3s ease;
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .strat-tab + .strat-tab { border-left: none; }
+
+  /* Inactive state */
+  .strat-tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: transparent;
+    transition: background 0.3s ease;
+  }
+  .strat-tab:hover { background: var(--cream-warm); }
+
+  /* Active state */
+  .strat-tab.active {
+    background: var(--white);
+    border-bottom-color: transparent;
+    z-index: 2;
+  }
+  .strat-tab.active::after {
+    background: var(--gold);
+  }
+  /* Strategy color accent on hover for inactive */
+  .strat-tab:not(.active):hover::after {
+    background: var(--border);
+  }
+
+  .tab-handle {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--label);
+    transition: color 0.3s ease;
+  }
+  .strat-tab.active .tab-handle { color: var(--gold); }
+
+  .tab-name {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 22px; font-weight: 700;
+    text-transform: uppercase;
+    color: var(--navy);
+    line-height: 1.1;
+    transition: color 0.3s ease;
+  }
+  .strat-tab:not(.active) .tab-name { color: var(--label); }
+  .strat-tab:hover .tab-name { color: var(--navy); }
+
+  .tab-oneliner {
+    font-size: 13px; font-weight: 500;
+    color: var(--muted);
+    transition: color 0.3s ease;
+  }
+  .strat-tab:not(.active) .tab-oneliner { color: var(--border); }
+  .strat-tab:hover .tab-oneliner { color: var(--muted); }
+
+  /* ═══ DETAIL PANEL ═══ */
+  .detail-panel {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    overflow: hidden;
+    margin-bottom: 22px;
+    box-shadow: 0 6px 20px rgba(0,40,85,0.04);
+  }
+
+  .detail-view {
+    display: none;
+    animation: fadeUp 0.35s ease;
+  }
+  .detail-view.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── Detail Layout: 2-column ─── */
+  .detail-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 320px;
+  }
+
+  /* Left: Identity + Quote */
+  .detail-left {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .detail-left::after {
+    content: '';
+    position: absolute;
+    top: 36px; bottom: 36px; right: 0;
+    width: 1px;
+    background: var(--border-lt);
+  }
+
+  .detail-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .badge-color {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .badge-color--sip  { background: var(--navy); }
+  .badge-color--sp   { background: var(--navy-mid); }
+  .badge-color--gsip { background: var(--navy-deep); }
+  .badge-text {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--label);
+  }
+
+  .detail-quote-label {
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 1.8px; text-transform: uppercase;
+    color: var(--label); margin-bottom: 12px;
+  }
+  .detail-quote-inner {
+    padding-left: 16px;
+    border-left: 3px solid var(--gold);
+    margin-bottom: 24px;
+  }
+  .detail-quote {
+    font-size: 20px; font-weight: 700;
+    color: var(--navy);
+    line-height: 1.35; margin-bottom: 10px;
+  }
+  .detail-fit {
+    font-size: 14px; color: var(--muted); line-height: 1.55;
+  }
+
+  .detail-objective-label {
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 1.8px; text-transform: uppercase;
+    color: var(--label); margin-bottom: 6px;
+    margin-top: auto;
+  }
+  .detail-objective {
+    font-size: 14px; color: var(--muted); line-height: 1.55;
+  }
+
+  /* Right: Data + CTA */
+  .detail-right {
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Risk/Income Visual Scales */
+  .scale-block { margin-bottom: 24px; }
+  .scale-block:last-of-type { margin-bottom: 28px; }
+  .scale-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .scale-label {
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--label);
+  }
+  .scale-value {
+    font-size: 13px; font-weight: 700;
+    color: var(--navy);
+  }
+  .scale-track {
+    position: relative;
+    height: 6px;
+    background: var(--border-lt);
+    border-radius: 3px;
+  }
+  .scale-fill {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    border-radius: 3px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .scale-fill--risk {
+    background: linear-gradient(90deg, var(--navy) 0%, var(--navy-mid) 100%);
+  }
+  .scale-fill--income {
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+  }
+  .scale-dot {
+    position: absolute;
+    top: 50%;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 2.5px solid var(--white);
+    transform: translate(-50%, -50%);
+    box-shadow: 0 1px 4px rgba(0,40,85,0.18);
+    transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .scale-dot--risk { background: var(--navy); }
+  .scale-dot--income { background: var(--gold); }
+  .scale-endpoints {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+  }
+  .scale-endpoint {
+    font-size: 9px;
+    color: var(--label);
+    letter-spacing: 0.3px;
+  }
+
+  /* Key Facts */
+  .key-facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-lt);
+    margin-bottom: 28px;
+  }
+  .fact-label {
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--label); margin-bottom: 2px;
+  }
+  .fact-value {
+    font-size: 13px; font-weight: 600;
+    color: var(--navy); line-height: 1.3;
+  }
+
+  /* CTA */
+  .detail-cta { margin-top: auto; }
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 4px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.8px; text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+  }
+  .cta-btn svg {
+    width: 14px; height: 14px; flex-shrink: 0;
+    stroke: var(--gold-light);
+  }
+  .cta-btn:hover {
+    background: var(--navy-hover);
+    box-shadow: 0 4px 12px rgba(0,40,85,0.25);
+  }
+
+  /* ═══ SUITE BAR ═══ */
+  .suite-bar {
+    background: var(--navy);
+    border-radius: 6px;
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .suite-bar svg { width: 20px; height: 20px; flex-shrink: 0; }
+  .suite-bar-text {
+    font-size: 14px; font-weight: 600;
+    color: var(--white); line-height: 1.4;
+  }
+  .suite-bar-text span { color: var(--gold-light); }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 768px) {
+    .strat-tabs { grid-template-columns: 1fr; gap: 0; }
+    .strat-tab { border-radius: 0; border-left: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .strat-tab + .strat-tab { border-top: none; }
+    .strat-tab:first-child { border-radius: 6px 6px 0 0; }
+    .strat-tab.active::after { display: none; }
+    .strat-tab.active { border-left: 3px solid var(--gold); }
+    .detail-inner { grid-template-columns: 1fr; }
+    .detail-left::after { display: none; }
+    .detail-left { padding: 28px 24px; }
+    .detail-right { padding: 0 24px 28px; }
+    .sel-headline { font-size: 28px; }
+    .suite-bar { flex-direction: column; text-align: center; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="sip-selector">
+
+  <div class="sel-header">
+    <div class="sel-eyebrow">The SIP Suite</div>
+    <h2 class="sel-headline"><em>One</em> Disciplined Process.<br><em>Three</em> Dynamic Strategies.</h2>
+    <p class="sel-intro">Each strategy is built on the same tactical, risk-conscious framework &mdash; differentiated by income objective, risk profile, and client fit. Match the strategy to the conversation.</p>
+  </div>
+
+  <!-- ═══ STRATEGY TABS ═══ -->
+  <div class="strat-tabs" role="tablist">
+    <div class="strat-tab active" role="tab" data-strategy="sip" tabindex="0">
+      <span class="tab-handle">The Anchor</span>
+      <span class="tab-name">SIP</span>
+      <span class="tab-oneliner">Steady Income</span>
+    </div>
+    <div class="strat-tab" role="tab" data-strategy="sp" tabindex="0">
+      <span class="tab-handle">The Step-Up</span>
+      <span class="tab-name">SIP Plus</span>
+      <span class="tab-oneliner">Higher Income</span>
+    </div>
+    <div class="strat-tab" role="tab" data-strategy="gsip" tabindex="0">
+      <span class="tab-handle">The Diversifier</span>
+      <span class="tab-name">Global SIP</span>
+      <span class="tab-oneliner">Global Income</span>
+    </div>
+  </div>
+
+  <!-- ═══ DETAIL PANEL ═══ -->
+  <div class="detail-panel">
+
+    <!-- SIP Detail -->
+    <div class="detail-view active" data-detail="sip">
+      <div class="detail-inner">
+        <div class="detail-left">
+          <div class="detail-badge">
+            <span class="badge-color badge-color--sip"></span>
+            <span class="badge-text">SIP &mdash; The Anchor</span>
+          </div>
+          <div class="detail-quote-label">The Client Who Says</div>
+          <div class="detail-quote-inner">
+            <div class="detail-quote">&ldquo;I can&rsquo;t afford to lose what I&rsquo;ve built.&rdquo;</div>
+            <div class="detail-fit">Retirees seeking a steady paycheck and capital appreciation. The income anchor for clients prioritizing stability and capital discipline.</div>
+          </div>
+          <div class="detail-objective-label">Objective</div>
+          <div class="detail-objective">Seeks steady income and consistent growth through dividend-growth U.S. equities, investment-grade fixed income, and cash.</div>
+        </div>
+        <div class="detail-right">
+          <div class="scale-block">
+            <div class="scale-header">
+              <span class="scale-label">Risk Tolerance</span>
+              <span class="scale-value">Conservative to Moderate</span>
+            </div>
+            <div class="scale-track">
+              <div class="scale-fill scale-fill--risk" style="width:30%;"></div>
+              <div class="scale-dot scale-dot--risk" style="left:30%;"></div>
+            </div>
+            <div class="scale-endpoints">
+              <span class="scale-endpoint">Low</span>
+              <span class="scale-endpoint">High</span>
+            </div>
+          </div>
+          <div class="scale-block">
+            <div class="scale-header">
+              <span class="scale-label">Income Potential</span>
+              <span class="scale-value">Moderate</span>
+            </div>
+            <div class="scale-track">
+              <div class="scale-fill scale-fill--income" style="width:40%;"></div>
+              <div class="scale-dot scale-dot--income" style="left:40%;"></div>
+            </div>
+            <div class="scale-endpoints">
+              <span class="scale-endpoint">Low</span>
+              <span class="scale-endpoint">High</span>
+            </div>
+          </div>
+          <div class="key-facts">
+            <div>
+              <div class="fact-label">Benchmark</div>
+              <div class="fact-value">50% S&P 500 / 50% Bloomberg Intermediate Govt/Credit</div>
+            </div>
+            <div>
+              <div class="fact-label">Minimum Investment</div>
+              <div class="fact-value">$250K Tax Free<br>$250K Tax Aware</div>
+            </div>
+          </div>
+          <div class="detail-cta">
+            <a href="#" class="cta-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download SIP Factsheet
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIP PLUS Detail -->
+    <div class="detail-view" data-detail="sp">
+      <div class="detail-inner">
+        <div class="detail-left">
+          <div class="detail-badge">
+            <span class="badge-color badge-color--sp"></span>
+            <span class="badge-text">SIP Plus &mdash; The Step-Up</span>
+          </div>
+          <div class="detail-quote-label">The Client Who Says</div>
+          <div class="detail-quote-inner">
+            <div class="detail-quote">&ldquo;My expenses are higher than we planned. I need more yield.&rdquo;</div>
+            <div class="detail-fit">Clients seeking increased cash flow and higher income potential within a disciplined framework. Accepts moderate volatility for meaningfully higher income.</div>
+          </div>
+          <div class="detail-objective-label">Objective</div>
+          <div class="detail-objective">Seeks higher income potential through higher-yielding dividend U.S. equities, investment-grade and selective high-yield corporate credit (primarily BB), and cash.</div>
+        </div>
+        <div class="detail-right">
+          <div class="scale-block">
+            <div class="scale-header">
+              <span class="scale-label">Risk Tolerance</span>
+              <span class="scale-value">Moderate to High</span>
+            </div>
+            <div class="scale-track">
+              <div class="scale-fill scale-fill--risk" style="width:65%;"></div>
+              <div class="scale-dot scale-dot--risk" style="left:65%;"></div>
+            </div>
+            <div class="scale-endpoints">
+              <span class="scale-endpoint">Low</span>
+              <span class="scale-endpoint">High</span>
+            </div>
+          </div>
+          <div class="scale-block">
+            <div class="scale-header">
+              <span class="scale-label">Income Potential</span>
+              <span class="scale-value">High</span>
+            </div>
+            <div class="scale-track">
+              <div class="scale-fill scale-fill--income" style="width:80%;"></div>
+              <div class="scale-dot scale-dot--income" style="left:80%;"></div>
+            </div>
+            <div class="scale-endpoints">
+              <span class="scale-endpoint">Low</span>
+              <span class="scale-endpoint">High</span>
+            </div>
+          </div>
+          <div class="key-facts">
+            <div>
+              <div class="fact-label">Benchmark</div>
+              <div class="fact-value">50% DJ Dividend Select / 25% Bloomberg Baa Corp / 25% Bloomberg Ba Corp</div>
+            </div>
+            <div>
+              <div class="fact-label">Minimum Investment</div>
+              <div class="fact-value">$250K Tax Free<br>$500K Tax Aware</div>
+            </div>
+          </div>
+          <div class="detail-cta">
+            <a href="#" class="cta-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download SIP Plus Factsheet
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GLOBAL SIP Detail -->
+    <div class="detail-view" data-detail="gsip">
+      <div class="detail-inner">
+        <div class="detail-left">
+          <div class="detail-badge">
+            <span class="badge-color badge-color--gsip"></span>
+            <span class="badge-text">Global SIP &mdash; The Diversifier</span>
+          </div>
+          <div class="detail-quote-label">The Client Who Says</div>
+          <div class="detail-quote-inner">
+            <div class="detail-quote">&ldquo;Should we be looking beyond U.S. markets for income?&rdquo;</div>
+            <div class="detail-fit">Investors seeking global diversification with an income-oriented approach. Broadens income sources beyond U.S. markets by adding international dividend exposure.</div>
+          </div>
+          <div class="detail-objective-label">Objective</div>
+          <div class="detail-objective">Seeks diversified, international income through U.S. and international dividend equities, U.S. investment-grade fixed income, and cash, tactically managed to broaden income potential.</div>
+        </div>
+        <div class="detail-right">
+          <div class="scale-block">
+            <div class="scale-header">
+              <span class="scale-label">Risk Tolerance</span>
+              <span class="scale-value">Moderate</span>
+            </div>
+            <div class="scale-track">
+              <div class="scale-fill scale-fill--risk" style="width:45%;"></div>
+              <div class="scale-dot scale-dot--risk" style="left:45%;"></div>
+            </div>
+            <div class="scale-endpoints">
+              <span class="scale-endpoint">Low</span>
+              <span class="scale-endpoint">High</span>
+            </div>
+          </div>
+          <div class="scale-block">
+            <div class="scale-header">
+              <span class="scale-label">Income Potential</span>
+              <span class="scale-value">Moderate to High</span>
+            </div>
+            <div class="scale-track">
+              <div class="scale-fill scale-fill--income" style="width:60%;"></div>
+              <div class="scale-dot scale-dot--income" style="left:60%;"></div>
+            </div>
+            <div class="scale-endpoints">
+              <span class="scale-endpoint">Low</span>
+              <span class="scale-endpoint">High</span>
+            </div>
+          </div>
+          <div class="key-facts">
+            <div>
+              <div class="fact-label">Benchmark</div>
+              <div class="fact-value">50% Bloomberg Intermediate Govt/Credit / 25% MSCI EAFE / 25% S&P 500</div>
+            </div>
+            <div>
+              <div class="fact-label">Minimum Investment</div>
+              <div class="fact-value">$250K Tax Aware</div>
+            </div>
+          </div>
+          <div class="detail-cta">
+            <a href="#" class="cta-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download Global SIP Factsheet
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="suite-bar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#A39161" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+    <div class="suite-bar-text">Client needs change. <span>Move within the suite</span> &mdash; same team, same philosophy, no starting over.</div>
+  </div>
+
+</section>
+
+<script>
+(function() {
+  const tabs = document.querySelectorAll('.strat-tab');
+  const views = document.querySelectorAll('.detail-view');
+
+  function activate(strategy) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.strategy === strategy));
+    views.forEach(v => v.classList.toggle('active', v.dataset.detail === strategy));
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => activate(tab.dataset.strategy));
+    tab.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activate(tab.dataset.strategy);
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amplify Your Income Potential | The SIP Suite | Eagle Asset Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   EAGLE ASSET MANAGEMENT — AMPLIFY YOUR INCOME POTENTIAL
+   SIP Suite Campaign Landing Page
+   CloudPages-Compatible Build
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #002855;
+  --navy-deep: #001A3A;
+  --navy-mid: #003A75;
+  --gold: #A09162;
+  --gold-light: #CBB88B;
+  --gold-pale: #E8DEC8;
+  --gold-bright: #C4AA6A;
+  --white: #FFFFFF;
+  --off-white: #F7F5F0;
+  --warm-gray: #F0EDE6;
+  --slate: #3D4F5F;
+  --text-primary: #1A2B3C;
+  --text-secondary: #5A6B7C;
+  --text-light: rgba(255,255,255,0.85);
+  --border-light: rgba(0,40,85,0.08);
+  --shadow-sm: 0 1px 3px rgba(0,40,85,0.06);
+  --shadow-md: 0 4px 20px rgba(0,40,85,0.08);
+  --shadow-lg: 0 8px 40px rgba(0,40,85,0.12);
+  --shadow-card: 0 2px 16px rgba(0,40,85,0.07);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --max-width: 1140px;
+  --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Source Sans 3', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-primary);
+  background: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; }
+
+/* ---- UTILITY ---- */
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+/* ---- ANIMATIONS ---- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes waveFloat {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-12px) translateY(-6px); }
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.animate-delay-1 { transition-delay: 0.1s; }
+.animate-delay-2 { transition-delay: 0.2s; }
+.animate-delay-3 { transition-delay: 0.3s; }
+.animate-delay-4 { transition-delay: 0.4s; }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(0, 26, 58, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(160, 145, 98, 0.15);
+  transition: all var(--transition);
+}
+.site-nav.scrolled {
+  background: rgba(0, 26, 58, 0.98);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+}
+.nav-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.nav-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-brand-eagle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+.nav-brand-sep {
+  width: 1px;
+  height: 18px;
+  background: var(--gold);
+  opacity: 0.4;
+  align-self: center;
+}
+.nav-brand-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color var(--transition);
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width var(--transition);
+}
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 22px;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold-light) !important;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all var(--transition);
+}
+.nav-cta:hover {
+  background: var(--gold);
+  color: var(--navy) !important;
+}
+.nav-cta::after { display: none !important; }
+
+.nav-mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+.nav-mobile-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--white);
+  margin: 5px 0;
+  transition: var(--transition);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(165deg, var(--navy-deep) 0%, var(--navy) 40%, #003566 100%);
+  overflow: hidden;
+  padding-top: 64px;
+}
+.hero-waves {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-waves svg {
+  position: absolute;
+  width: 140%;
+  left: -20%;
+}
+.hero-wave-1 {
+  bottom: 8%;
+  opacity: 0.12;
+  animation: waveFloat 12s ease-in-out infinite;
+}
+.hero-wave-2 {
+  bottom: 15%;
+  opacity: 0.08;
+  animation: waveFloat 16s ease-in-out infinite reverse;
+}
+.hero-wave-3 {
+  top: 20%;
+  opacity: 0.06;
+  animation: waveFloat 20s ease-in-out infinite;
+}
+.hero-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(160,145,98,0.08) 0%, transparent 70%);
+  top: -100px;
+  right: -150px;
+  animation: pulseGlow 8s ease-in-out infinite;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 80px 24px 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.hero-text { animation: fadeUp 1s ease-out 0.2s both; }
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.hero-label-line {
+  width: 32px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+}
+.hero-title {
+  font-size: clamp(42px, 5.5vw, 68px);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.hero-title-accent {
+  color: var(--gold);
+  display: block;
+}
+.hero-subtitle {
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: 300;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.5;
+  margin-top: 24px;
+  max-width: 500px;
+}
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition);
+}
+.btn-primary:hover {
+  background: var(--gold-bright);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(160,145,98,0.3);
+}
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: transparent;
+  color: var(--white);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition);
+}
+.btn-secondary:hover {
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.05);
+}
+
+/* Hero Right — Suite Preview Cards */
+.hero-suite-preview {
+  animation: fadeUp 1s ease-out 0.5s both;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.hero-suite-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-md);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: all var(--transition);
+  backdrop-filter: blur(8px);
+}
+.hero-suite-card:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(160,145,98,0.25);
+  transform: translateX(4px);
+}
+.hero-suite-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.hero-suite-icon svg { width: 24px; height: 24px; }
+.hero-suite-icon.anchor { background: rgba(160,145,98,0.15); }
+.hero-suite-icon.step-up { background: rgba(160,145,98,0.2); }
+.hero-suite-icon.diversifier { background: rgba(160,145,98,0.25); }
+.hero-suite-card-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.hero-suite-card-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+/* Hero bottom wave separator */
+.hero-bottom-wave {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  z-index: 3;
+}
+
+/* ============================================================
+   SECTION SHARED STYLES
+   ============================================================ */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.section-label-line {
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+.section-title {
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.section-title-light {
+  color: var(--white);
+}
+.section-subtitle {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-width: 640px;
+}
+.section-subtitle-light {
+  color: rgba(255,255,255,0.65);
+}
+
+/* ============================================================
+   WHY THE SIP SUITE
+   ============================================================ */
+.why-suite {
+  padding: 100px 0;
+  background: var(--white);
+}
+.why-suite-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.why-suite-content { max-width: 480px; }
+.why-suite-content .section-subtitle { margin-top: 20px; }
+.why-suite-philosophy {
+  margin-top: 32px;
+  padding: 24px 0;
+  border-top: 1px solid var(--border-light);
+}
+.why-suite-philosophy blockquote {
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--navy);
+  line-height: 1.6;
+  position: relative;
+  padding-left: 20px;
+  border-left: 2px solid var(--gold);
+}
+.why-suite-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.why-feature {
+  background: var(--off-white);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  border: 1px solid var(--border-light);
+  transition: all var(--transition);
+}
+.why-feature:hover {
+  border-color: rgba(160,145,98,0.2);
+  box-shadow: var(--shadow-card);
+}
+.why-feature-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 16px;
+}
+.why-feature-icon svg {
+  width: 40px;
+  height: 40px;
+  stroke: var(--gold);
+  stroke-width: 1.2;
+  fill: none;
+}
+.why-feature-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.why-feature-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* ============================================================
+   VIDEO SECTION — SUITE OVERVIEW
+   ============================================================ */
+.video-section {
+  padding: 100px 0;
+  background: var(--off-white);
+  position: relative;
+}
+.video-section-inner {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.video-wrapper {
+  margin-top: 48px;
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: var(--navy);
+  border: 1px solid rgba(0,40,85,0.1);
+}
+.video-aspect {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+}
+.video-aspect iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.video-caption {
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* ============================================================
+   STRATEGY CARDS
+   ============================================================ */
+.strategies {
+  padding: 100px 0;
+  background: var(--white);
+}
+.strategies-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 60px;
+}
+.strategy-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.strategy-card {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+.strategy-card:hover {
+  border-color: rgba(160,145,98,0.3);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+.strategy-card-accent {
+  height: 4px;
+  background: linear-gradient(90deg, var(--navy), var(--navy-mid));
+}
+.strategy-card.card-anchor .strategy-card-accent {
+  background: linear-gradient(90deg, var(--navy), var(--navy-mid));
+}
+.strategy-card.card-step-up .strategy-card-accent {
+  background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+}
+.strategy-card.card-diversifier .strategy-card-accent {
+  background: linear-gradient(90deg, var(--navy-mid), var(--gold));
+}
+.strategy-card-body { padding: 36px 32px; }
+.strategy-card-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.card-anchor .strategy-card-badge {
+  background: rgba(0,40,85,0.08);
+  color: var(--navy);
+}
+.card-step-up .strategy-card-badge {
+  background: rgba(160,145,98,0.12);
+  color: #7A6D4E;
+}
+.card-diversifier .strategy-card-badge {
+  background: rgba(0,53,102,0.08);
+  color: var(--navy-mid);
+}
+.strategy-card-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.strategy-card-tagline {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.strategy-card-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+.strategy-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light);
+}
+.strategy-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.strategy-meta-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.strategy-meta-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.strategy-card-cta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold);
+  text-decoration: none;
+  transition: gap var(--transition), color var(--transition);
+}
+.strategy-card-cta:hover { gap: 12px; color: var(--navy); }
+.strategy-card-cta svg { width: 16px; height: 16px; transition: transform var(--transition); }
+.strategy-card:hover .strategy-card-cta svg { transform: translateX(3px); }
+
+/* Client Fit Tag */
+.strategy-client-fit {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: var(--off-white);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--gold);
+}
+.strategy-client-fit-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.strategy-client-fit-text {
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* ============================================================
+   COMPARISON TABLE
+   ============================================================ */
+.comparison {
+  padding: 80px 0 100px;
+  background: var(--white);
+}
+.comparison-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 48px;
+}
+.comparison-table-wrapper {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+}
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.comparison-table thead th {
+  background: var(--navy);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  padding: 18px 24px;
+  text-align: left;
+  border-bottom: 2px solid var(--gold);
+}
+.comparison-table thead th:first-child {
+  width: 22%;
+}
+.comparison-table thead th.col-sip { border-bottom-color: var(--navy-mid); }
+.comparison-table thead th.col-sip-plus { border-bottom-color: var(--gold); }
+.comparison-table thead th.col-gsip { border-bottom-color: var(--gold-light); }
+.comparison-table thead th .th-sub {
+  display: block;
+  font-weight: 300;
+  font-size: 11px;
+  opacity: 0.65;
+  margin-top: 2px;
+}
+.comparison-table tbody td {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.comparison-table tbody tr:last-child td { border-bottom: none; }
+.comparison-table tbody tr:hover { background: rgba(247,245,240,0.6); }
+.comparison-table tbody td:first-child {
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+.comparison-table tbody td {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.table-highlight {
+  display: inline-block;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+/* ============================================================
+   MONTHLY VIDEO SERIES — STRATEGIC PLAYBOOK
+   ============================================================ */
+.playbook {
+  padding: 100px 0;
+  background: linear-gradient(170deg, var(--navy-deep) 0%, var(--navy) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.playbook-waves {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.playbook-waves svg {
+  position: absolute;
+  width: 120%;
+  left: -10%;
+  opacity: 0.05;
+}
+.playbook-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.playbook-content { max-width: 480px; }
+.playbook-content .section-label { color: var(--gold-light); }
+.playbook-content .section-subtitle-light { margin-top: 20px; }
+.playbook-features {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.playbook-feature {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.playbook-feature-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(160,145,98,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+.playbook-feature-text {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.55;
+}
+.playbook-feature-text strong {
+  color: var(--white);
+  font-weight: 600;
+}
+.playbook-cta {
+  margin-top: 40px;
+}
+
+/* Playbook visual — Episode Cards */
+.playbook-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.episode-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  transition: all var(--transition);
+}
+.episode-card:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(160,145,98,0.2);
+}
+.episode-card.featured {
+  background: rgba(160,145,98,0.08);
+  border-color: rgba(160,145,98,0.2);
+}
+.episode-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: rgba(160,145,98,0.2);
+  color: var(--gold-light);
+  margin-bottom: 8px;
+}
+.episode-thumb {
+  width: 80px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.episode-thumb svg {
+  width: 24px;
+  height: 24px;
+  opacity: 0.5;
+}
+.episode-info { flex: 1; }
+.episode-date {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.episode-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.3;
+}
+.episode-duration {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 4px;
+}
+
+/* ============================================================
+   WEBINAR SECTION
+   ============================================================ */
+.webinar {
+  padding: 80px 0;
+  background: var(--off-white);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+.webinar-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.webinar-visual {
+  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 100%);
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.webinar-visual-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.08;
+}
+.webinar-visual .section-label { color: var(--gold-light); position: relative; z-index: 2; }
+.webinar-visual-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
+}
+.webinar-visual-subtitle {
+  font-size: 15px;
+  color: rgba(255,255,255,0.6);
+  font-weight: 300;
+  line-height: 1.5;
+  position: relative;
+  z-index: 2;
+}
+.webinar-details {
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.webinar-detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.webinar-detail-row:last-of-type { border-bottom: none; }
+.webinar-detail-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--off-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.webinar-detail-icon svg { width: 16px; height: 16px; stroke: var(--navy); stroke-width: 1.5; fill: none; }
+.webinar-detail-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.webinar-detail-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--navy);
+  margin-top: 2px;
+}
+.webinar-register {
+  margin-top: 24px;
+}
+
+/* ============================================================
+   CONTACT FORM
+   ============================================================ */
+.contact {
+  padding: 100px 0;
+  background: var(--white);
+  position: relative;
+}
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.contact-content { max-width: 440px; }
+.contact-content .section-subtitle { margin-top: 20px; }
+.contact-trust-signals {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.contact-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.contact-trust-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.contact-trust-icon svg { width: 20px; height: 20px; stroke: var(--gold); stroke-width: 1.5; fill: none; }
+
+.contact-form {
+  background: var(--off-white);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  border: 1px solid var(--border-light);
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.form-group { margin-bottom: 16px; }
+.form-group:last-of-type { margin-bottom: 0; }
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--white);
+  border: 1px solid rgba(0,40,85,0.12);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+.form-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(160,145,98,0.1);
+}
+.form-input::placeholder { color: #B0B8C0; }
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%235A6B7C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.form-submit {
+  margin-top: 24px;
+  width: 100%;
+}
+.form-disclaimer {
+  margin-top: 16px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+  background: var(--navy-deep);
+  padding: 48px 0 32px;
+  border-top: 1px solid rgba(160,145,98,0.15);
+}
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.footer-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.footer-brand-eagle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.footer-brand-sep {
+  width: 1px;
+  height: 14px;
+  background: var(--gold);
+  opacity: 0.3;
+  align-self: center;
+}
+.footer-brand-sub {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.footer-disclosure {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  line-height: 1.7;
+  max-width: 900px;
+}
+.footer-disclosure p { margin-bottom: 12px; }
+.footer-bottom {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-bottom-text {
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+}
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+.footer-links a {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.footer-links a:hover { color: var(--gold-light); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; gap: 48px; }
+  .hero-suite-preview { max-width: 500px; }
+  .why-suite-grid { grid-template-columns: 1fr; gap: 48px; }
+  .why-suite-features { max-width: 600px; }
+  .strategy-cards { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .playbook-inner { grid-template-columns: 1fr; gap: 48px; }
+  .playbook-visual { max-width: 500px; }
+  .webinar-card { grid-template-columns: 1fr; }
+  .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+  .contact-form { max-width: 560px; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-mobile-toggle { display: block; }
+  .hero { min-height: 80vh; }
+  .hero-content { padding: 60px 24px 80px; }
+  .hero-title { font-size: 36px; }
+  .hero-actions { flex-direction: column; }
+  .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+  .comparison-table-wrapper { overflow-x: auto; }
+  .comparison-table { min-width: 640px; }
+  .form-row { grid-template-columns: 1fr; }
+  .webinar-visual { padding: 36px 28px; }
+  .webinar-details { padding: 36px 28px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .why-suite-features { grid-template-columns: 1fr; }
+  .hero-suite-card { padding: 18px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <span class="nav-brand-eagle">EAGLE</span>
+      <span class="nav-brand-sep"></span>
+      <span class="nav-brand-sub">Asset Management</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#strategies">Strategies</a></li>
+      <li><a href="#playbook">Video Series</a></li>
+      <li><a href="#webinar">Webinar</a></li>
+      <li><a href="#connect" class="nav-cta">Connect With Us</a></li>
+    </ul>
+    <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="hero">
+  <div class="hero-waves">
+    <svg class="hero-wave-1" viewBox="0 0 1440 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-40 80C200 20 400 160 720 100S1200 20 1480 80" stroke="rgba(160,145,98,0.4)" stroke-width="1.5" fill="none"/>
+      <path d="M-40 120C200 60 400 180 720 120S1200 60 1480 120" stroke="rgba(100,160,220,0.3)" stroke-width="1" fill="none"/>
+    </svg>
+    <svg class="hero-wave-2" viewBox="0 0 1440 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-40 60C300 140 600 20 900 80S1300 140 1480 60" stroke="rgba(100,160,220,0.35)" stroke-width="1" fill="none"/>
+    </svg>
+    <svg class="hero-wave-3" viewBox="0 0 1440 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-40 100C200 40 500 160 800 100S1200 40 1480 100" stroke="rgba(100,160,220,0.25)" stroke-width="0.8" fill="none"/>
+    </svg>
+  </div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-label">
+        <span class="hero-label-line"></span>
+        The Strategic Income Portfolio Suite
+      </div>
+      <h1 class="hero-title">
+        Amplify
+        <span class="hero-title-accent">Your Income Potential.</span>
+      </h1>
+      <p class="hero-subtitle">
+        One disciplined process. Three dynamic strategies. A multi-asset income framework designed to help you match the right solution to every client's income objective.
+      </p>
+      <div class="hero-actions">
+        <a href="#video" class="btn-primary">
+          Watch Suite Overview
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </a>
+        <a href="#strategies" class="btn-secondary">
+          Explore Strategies
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-suite-preview">
+      <div class="hero-suite-card">
+        <div class="hero-suite-icon anchor">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0020 0h-3"/><circle cx="12" cy="5" r="3"/></svg>
+        </div>
+        <div>
+          <div class="hero-suite-card-name">SIP &mdash; The Anchor</div>
+          <div class="hero-suite-card-desc">Steady income and consistent growth for clients who prioritize stability</div>
+        </div>
+      </div>
+      <div class="hero-suite-card">
+        <div class="hero-suite-icon step-up">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </div>
+        <div>
+          <div class="hero-suite-card-name">SIP Plus &mdash; The Step-Up</div>
+          <div class="hero-suite-card-desc">Higher-yielding income through disciplined credit and dividend focus</div>
+        </div>
+      </div>
+      <div class="hero-suite-card">
+        <div class="hero-suite-icon diversifier">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold-pale)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        </div>
+        <div>
+          <div class="hero-suite-card-name">Global SIP &mdash; The Diversifier</div>
+          <div class="hero-suite-card-desc">Broadened income sources across international dividend equities</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-bottom-wave">
+    <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:60px;display:block;">
+      <path d="M0 60V20C240 40 480 0 720 20S1200 40 1440 20V60H0Z" fill="#FFFFFF"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHY THE SIP SUITE
+     ============================================================ -->
+<section class="why-suite" id="why">
+  <div class="container">
+    <div class="why-suite-grid">
+      <div class="why-suite-content animate-on-scroll">
+        <div class="section-label">
+          <span class="section-label-line"></span>
+          Why the SIP Suite
+        </div>
+        <h2 class="section-title">A multi-asset income<br>framework backed by<br>one proven philosophy</h2>
+        <p class="section-subtitle">
+          The SIP Suite brings together Eagle's tenured equity income and fixed income teams under a single, actively managed allocation framework. Three strategies. One disciplined process. Each calibrated to a different point on the income spectrum so you can align the right solution to every client conversation.
+        </p>
+        <div class="why-suite-philosophy">
+          <blockquote>
+            Help amplify your clients' income through broader diversification and higher-yield opportunities &mdash; all with the same tactical, risk-conscious core approach you trust.
+          </blockquote>
+        </div>
+      </div>
+      <div class="why-suite-features">
+        <div class="why-feature animate-on-scroll animate-delay-1">
+          <div class="why-feature-icon">
+            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="15"/><path d="M14 20l4 4 8-8"/></svg>
+          </div>
+          <div class="why-feature-title">Active, Tactical Management</div>
+          <div class="why-feature-desc">Tenured investment teams dynamically adjust allocations based on macroeconomic indicators and relative value assessment.</div>
+        </div>
+        <div class="why-feature animate-on-scroll animate-delay-2">
+          <div class="why-feature-icon">
+            <svg viewBox="0 0 40 40"><rect x="8" y="16" width="6" height="16" rx="1"/><rect x="17" y="10" width="6" height="22" rx="1"/><rect x="26" y="6" width="6" height="26" rx="1"/></svg>
+          </div>
+          <div class="why-feature-title">Disciplined Construction</div>
+          <div class="why-feature-desc">Bottom-up equity selection paired with rigorous fixed income analysis within defined allocation ranges of 35-65%.</div>
+        </div>
+        <div class="why-feature animate-on-scroll animate-delay-3">
+          <div class="why-feature-icon">
+            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="8"/><circle cx="20" cy="20" r="15"/><line x1="20" y1="5" x2="20" y2="9"/><line x1="20" y1="31" x2="20" y2="35"/><line x1="5" y1="20" x2="9" y2="20"/><line x1="31" y1="20" x2="35" y2="20"/></svg>
+          </div>
+          <div class="why-feature-title">Strategic Flexibility</div>
+          <div class="why-feature-desc">Framework adapts to income generation, risk-adjusted returns, and tailored positioning as market conditions evolve.</div>
+        </div>
+        <div class="why-feature animate-on-scroll animate-delay-4">
+          <div class="why-feature-icon">
+            <svg viewBox="0 0 40 40"><path d="M8 28 L16 16 L24 22 L32 10"/><circle cx="8" cy="28" r="2"/><circle cx="16" cy="16" r="2"/><circle cx="24" cy="22" r="2"/><circle cx="32" cy="10" r="2"/></svg>
+          </div>
+          <div class="why-feature-title">Diversified Income Sources</div>
+          <div class="why-feature-desc">Income drawn from dividend-paying equities, investment-grade fixed income, and cash, balanced to each strategy's mandate.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SUITE OVERVIEW VIDEO
+     ============================================================ -->
+<section class="video-section" id="video">
+  <div class="container">
+    <div class="video-section-inner animate-on-scroll">
+      <div class="section-label" style="justify-content:center;">
+        <span class="section-label-line"></span>
+        Suite Overview
+        <span class="section-label-line"></span>
+      </div>
+      <h2 class="section-title" style="text-align:center;">Hear Directly From the Investment Team</h2>
+      <p class="section-subtitle" style="margin:0 auto;">
+        James Camp, CFA, and the SIP Suite portfolio management team introduce the framework, philosophy, and positioning behind each of the three income strategies.
+      </p>
+      <div class="video-wrapper">
+        <div class="video-aspect">
+          <iframe 
+            id="kmsembed-1_a5fz5af5" 
+            src="https://raymondjames.mediaspace.kaltura.com/embed/secure/iframe/entryId/1_a5fz5af5/uiConfId/42313661/st/0" 
+            class="kmsembed" 
+            allowfullscreen 
+            webkitallowfullscreen 
+            mozAllowFullScreen 
+            allow="autoplay *; fullscreen *; encrypted-media *" 
+            referrerPolicy="no-referrer-when-downgrade" 
+            sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" 
+            frameborder="0" 
+            title="Eagle SIP Suite Overview">
+          </iframe>
+        </div>
+      </div>
+      <p class="video-caption">Strategic Income Portfolio Suite Overview &mdash; Eagle Asset Management</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STRATEGY CARDS
+     ============================================================ -->
+<section class="strategies" id="strategies">
+  <div class="container">
+    <div class="strategies-header animate-on-scroll">
+      <div class="section-label" style="justify-content:center;">
+        <span class="section-label-line"></span>
+        Three Strategies, One Framework
+        <span class="section-label-line"></span>
+      </div>
+      <h2 class="section-title" style="text-align:center;">Match the Right Income Solution<br>to Every Client Conversation</h2>
+      <p class="section-subtitle" style="margin:0 auto;">
+        Each strategy within the SIP Suite targets a distinct income objective, giving you the flexibility to address different client needs without leaving a proven investment framework.
+      </p>
+    </div>
+
+    <div class="strategy-cards">
+      <!-- SIP -->
+      <div class="strategy-card card-anchor animate-on-scroll animate-delay-1">
+        <div class="strategy-card-accent"></div>
+        <div class="strategy-card-body">
+          <span class="strategy-card-badge">The Anchor</span>
+          <h3 class="strategy-card-name">Strategic Income Portfolio</h3>
+          <div class="strategy-card-tagline">Steady income and consistent growth</div>
+          <p class="strategy-card-desc">
+            The foundation of the suite. SIP blends dividend-paying equities with investment-grade fixed income in one dynamic, risk-aware portfolio guided by macro indicators and fundamental insights.
+          </p>
+          <div class="strategy-card-meta">
+            <div class="strategy-meta-row">
+              <span class="strategy-meta-label">Risk Profile</span>
+              <span class="strategy-meta-value">Conservative to Moderate</span>
+            </div>
+            <div class="strategy-meta-row">
+              <span class="strategy-meta-label">Income Potential</span>
+              <span class="strategy-meta-value">Moderate</span>
+            </div>
+            <div class="strategy-meta-row">
+              <span class="strategy-meta-label">Minimum</span>
+              <span class="strategy-meta-value">$250K</span>
+            </div>
+          </div>
+          <div class="strategy-client-fit">
+            <div class="strategy-client-fit-label">Client Fit</div>
+            <div class="strategy-client-fit-text">"I want reliable income and I don't want to worry about my principal."</div>
+          </div>
+          <a href="#connect" class="strategy-card-cta">
+            Request Factsheet
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- SIP Plus -->
+      <div class="strategy-card card-step-up animate-on-scroll animate-delay-2">
+        <div class="strategy-card-accent"></div>
+        <div class="strategy-card-body">
+          <span class="strategy-card-badge">The Step-Up</span>
+          <h3 class="strategy-card-name">SIP Plus</h3>
+          <div class="strategy-card-tagline">Increased income potential</div>
+          <p class="strategy-card-desc">
+            The higher-yielding solution. Designed for investors seeking more income without compromising oversight, through a focused blend of high-dividend equities and carefully constructed BBB/BB corporate credit.
+          </p>
+          <div class="strategy-card-meta">
+            <div class="strategy-meta-row">
+              <span class="strategy-meta-label">Risk Profile</span>
+              <span class="strategy-meta-value">Moderate to High</span>
+            </div>
+            <div class="strategy-meta-row">
+              <span class="strategy-meta-label">Income Potential</span>
+              <span class="strategy-meta-value">High</span>
+            </div>
+            <div class="strategy-meta-row">
+              <span class="strategy-meta-label">Minimum</span>
+              <span class="strategy-meta-value">$250K</span>
+            </div>
+          </div>
+          <div class="strategy-client-fit">
+            <div class="strategy-client-fit-label">Client Fit</div>
+            <div class="strategy-client-fit-text">"I want more yield &mdash; but I still want someone watching the risk."</div>
+          </div>
+          <a href="#connect" class="strategy-card-cta">
+            Request Factsheet
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Global SIP -->
+      <div class="strategy-card card-diversifier animate-on-scroll animate-delay-3">
+        <div class="strategy-card-accent"></div>
+        <div class="strategy-card-body">
+          <span class="strategy-card-badge">The Diversifier</span>
+          <h3 class="strategy-card-name">Global SIP</h3>
+          <div class="strategy-card-tagline">Diversified, international income</div>
+          <p class="strategy-card-desc">
+            Extends the suite's core balanced approach beyond U.S. markets. Integrates international dividend equities with domestic investment-grade fixed income to broaden and diversify the income opportunity set.
+          </p>
+          <div class="strategy-card-meta">
+            <div class="strategy-meta-row">
+              <span class="strategy-meta-label">Risk Profile</span>
+              <span class="strategy-meta-value">Moderate</span>
+            </div>
+            <div class="strategy-meta-row">
+              <span class="strategy-meta-label">Income Potential</span>
+              <span class="strategy-meta-value">Moderate to High</span>
+            </div>
+            <div class="strategy-meta-row">
+              <span class="strategy-meta-label">Minimum</span>
+              <span class="strategy-meta-value">$250K</span>
+            </div>
+          </div>
+          <div class="strategy-client-fit">
+            <div class="strategy-client-fit-label">Client Fit</div>
+            <div class="strategy-client-fit-text">"I want income, but I also want exposure beyond just U.S. markets."</div>
+          </div>
+          <a href="#connect" class="strategy-card-cta">
+            Request Factsheet
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     COMPARISON TABLE
+     ============================================================ -->
+<section class="comparison" id="compare">
+  <div class="container">
+    <div class="comparison-header animate-on-scroll">
+      <div class="section-label" style="justify-content:center;">
+        <span class="section-label-line"></span>
+        Side by Side
+        <span class="section-label-line"></span>
+      </div>
+      <h2 class="section-title" style="text-align:center;">Strategy Comparison</h2>
+    </div>
+    <div class="comparison-table-wrapper animate-on-scroll animate-delay-1">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="col-sip">SIP<span class="th-sub">The Anchor</span></th>
+            <th class="col-sip-plus">SIP Plus<span class="th-sub">The Step-Up</span></th>
+            <th class="col-gsip">Global SIP<span class="th-sub">The Diversifier</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Objective</td>
+            <td>Steady income and consistent growth</td>
+            <td>Increased income potential</td>
+            <td>Diversified, international income</td>
+          </tr>
+          <tr>
+            <td>Asset Focus</td>
+            <td>Dividend-growth U.S. equities, IG fixed income, cash</td>
+            <td>Higher-yielding dividend equities, IG and selective HY credit, cash</td>
+            <td>U.S. and intl. dividend equities, IG fixed income, cash</td>
+          </tr>
+          <tr>
+            <td>Income Potential</td>
+            <td><span class="table-highlight">Moderate</span></td>
+            <td><span class="table-highlight">High</span></td>
+            <td><span class="table-highlight">Moderate to High</span></td>
+          </tr>
+          <tr>
+            <td>Risk Profile</td>
+            <td>Conservative to Moderate</td>
+            <td>Moderate to High</td>
+            <td>Moderate</td>
+          </tr>
+          <tr>
+            <td>Allocation Range</td>
+            <td>35-65% Equities / 35-65% FI / 0-30% Cash</td>
+            <td>35-65% Equities / 35-65% FI / 0-30% Cash</td>
+            <td>35-65% Equities / 35-65% FI / 0-30% Cash</td>
+          </tr>
+          <tr>
+            <td>Account Minimum</td>
+            <td>$250K</td>
+            <td>$250K Tax-Free / $500K Tax-Aware</td>
+            <td>$250K Tax-Aware</td>
+          </tr>
+          <tr>
+            <td>Benchmark</td>
+            <td>50% S&P 500 / 50% Bloomberg Int. Govt/Credit</td>
+            <td>50% DJ Dividend Select / 25% Baa Corp / 25% Ba Corp</td>
+            <td>50% Bloomberg Int. Govt/Credit / 25% MSCI EAFE / 25% S&P 500</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STRATEGIC PLAYBOOK — MONTHLY VIDEO SERIES
+     ============================================================ -->
+<section class="playbook" id="playbook">
+  <div class="playbook-waves">
+    <svg viewBox="0 0 1440 200" style="top:30%;">
+      <path d="M-40 80C200 20 400 160 720 100S1200 20 1480 80" stroke="rgba(160,145,98,0.5)" stroke-width="1" fill="none"/>
+    </svg>
+    <svg viewBox="0 0 1440 200" style="bottom:10%;">
+      <path d="M-40 60C300 140 600 20 900 80S1300 140 1480 60" stroke="rgba(100,160,220,0.4)" stroke-width="0.8" fill="none"/>
+    </svg>
+  </div>
+  <div class="container">
+    <div class="playbook-inner">
+      <div class="playbook-content animate-on-scroll">
+        <div class="section-label">
+          <span class="section-label-line" style="background:var(--gold-light);"></span>
+          Monthly Series
+        </div>
+        <h2 class="section-title section-title-light">Strategic Income<br>Playbook</h2>
+        <p class="section-subtitle section-subtitle-light">
+          Each month, Eagle's investment team delivers a concise market briefing built for your next client conversation. Current allocation positioning, income themes, and one actionable takeaway &mdash; in under four minutes.
+        </p>
+        <div class="playbook-features">
+          <div class="playbook-feature">
+            <div class="playbook-feature-num">1</div>
+            <div class="playbook-feature-text"><strong>Market context</strong> &mdash; what happened and what it means for income investors</div>
+          </div>
+          <div class="playbook-feature">
+            <div class="playbook-feature-num">2</div>
+            <div class="playbook-feature-text"><strong>Portfolio positioning</strong> &mdash; current allocation stance, tactical shifts, and rationale</div>
+          </div>
+          <div class="playbook-feature">
+            <div class="playbook-feature-num">3</div>
+            <div class="playbook-feature-text"><strong>Advisor takeaway</strong> &mdash; one specific insight for your next client meeting</div>
+          </div>
+        </div>
+        <div class="playbook-cta">
+          <a href="#connect" class="btn-primary" style="background:var(--gold);color:var(--navy);">
+            Get Monthly Updates
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="playbook-visual animate-on-scroll animate-delay-2">
+        <div class="episode-card featured">
+          <div class="episode-thumb">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="episode-info">
+            <span class="episode-badge">Latest Episode</span>
+            <div class="episode-title">March 2026: Rates, Rotation & Income Positioning</div>
+            <div class="episode-duration">3:42 &mdash; James Camp, CFA</div>
+          </div>
+        </div>
+        <div class="episode-card">
+          <div class="episode-thumb">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="episode-info">
+            <div class="episode-date">February 2026</div>
+            <div class="episode-title">Navigating Credit Spreads in a Shifting Landscape</div>
+            <div class="episode-duration">3:28</div>
+          </div>
+        </div>
+        <div class="episode-card">
+          <div class="episode-thumb">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="episode-info">
+            <div class="episode-date">January 2026</div>
+            <div class="episode-title">Dividend Quality in an Uncertain Rate Environment</div>
+            <div class="episode-duration">3:55</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WEBINAR
+     ============================================================ -->
+<section class="webinar" id="webinar">
+  <div class="container">
+    <div class="webinar-card animate-on-scroll">
+      <div class="webinar-visual">
+        <svg class="webinar-visual-wave" viewBox="0 0 500 100" fill="none"><path d="M0 60C100 20 200 80 300 50S450 20 500 60V100H0Z" fill="rgba(160,145,98,0.1)"/></svg>
+        <div class="section-label">
+          <span class="section-label-line" style="background:var(--gold-light);"></span>
+          Upcoming Event
+        </div>
+        <div class="webinar-visual-title">Quarterly Income<br>Webinar</div>
+        <div class="webinar-visual-subtitle">Join Eagle's income team for a live discussion on current market dynamics, allocation positioning, and how the SIP Suite is built to navigate the income landscape ahead.</div>
+      </div>
+      <div class="webinar-details">
+        <div class="webinar-detail-row">
+          <div class="webinar-detail-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div>
+            <div class="webinar-detail-label">Date</div>
+            <div class="webinar-detail-value">Last Week of March 2026</div>
+          </div>
+        </div>
+        <div class="webinar-detail-row">
+          <div class="webinar-detail-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="webinar-detail-label">Duration</div>
+            <div class="webinar-detail-value">45 Minutes + Live Q&A</div>
+          </div>
+        </div>
+        <div class="webinar-detail-row">
+          <div class="webinar-detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div>
+            <div class="webinar-detail-label">Speakers</div>
+            <div class="webinar-detail-value">James Camp, CFA &amp; SIP Suite Team</div>
+          </div>
+        </div>
+        <div class="webinar-detail-row">
+          <div class="webinar-detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+          </div>
+          <div>
+            <div class="webinar-detail-label">CE Credit</div>
+            <div class="webinar-detail-value">Pending Approval</div>
+          </div>
+        </div>
+        <div class="webinar-register">
+          <a href="#connect" class="btn-primary" style="width:100%;justify-content:center;">
+            Register for Webinar
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT FORM
+     ============================================================ -->
+<section class="contact" id="connect">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-content animate-on-scroll">
+        <div class="section-label">
+          <span class="section-label-line"></span>
+          Connect
+        </div>
+        <h2 class="section-title">Let's Discuss How the SIP Suite Fits Your Practice</h2>
+        <p class="section-subtitle">
+          Whether you're looking for a deep dive on a specific strategy, factsheets for a client meeting, or a conversation with the investment team &mdash; we're here to help.
+        </p>
+        <div class="contact-trust-signals">
+          <div class="contact-trust-item">
+            <div class="contact-trust-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            Nearly 200 years of combined investment experience
+          </div>
+          <div class="contact-trust-item">
+            <div class="contact-trust-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            Dedicated equity income and fixed income teams
+          </div>
+          <div class="contact-trust-item">
+            <div class="contact-trust-icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+            </div>
+            Monthly market intelligence built for advisor conversations
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form animate-on-scroll animate-delay-2" id="contactForm" onsubmit="return false;">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="firstName">First Name *</label>
+            <input class="form-input" type="text" id="firstName" name="firstName" placeholder="First name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lastName">Last Name *</label>
+            <input class="form-input" type="text" id="lastName" name="lastName" placeholder="Last name" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Business Email *</label>
+          <input class="form-input" type="email" id="email" name="email" placeholder="you@firm.com" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="firm">Firm Name</label>
+            <input class="form-input" type="text" id="firm" name="firm" placeholder="Firm or broker-dealer">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone</label>
+            <input class="form-input" type="tel" id="phone" name="phone" placeholder="(555) 000-0000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="interest">Area of Interest</label>
+          <select class="form-input form-select" id="interest" name="interest">
+            <option value="" disabled selected>Select an option</option>
+            <option value="suite-overview">SIP Suite Overview</option>
+            <option value="sip">Strategic Income Portfolio (SIP)</option>
+            <option value="sip-plus">SIP Plus</option>
+            <option value="gsip">Global SIP</option>
+            <option value="video-series">Monthly Video Series</option>
+            <option value="webinar">Quarterly Webinar</option>
+            <option value="meeting">Schedule a Meeting</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="message">Additional Notes</label>
+          <textarea class="form-input form-textarea" id="message" name="message" placeholder="Anything specific you'd like to discuss..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary form-submit">
+          Submit Request
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+        <p class="form-disclaimer">
+          By submitting this form, you agree to be contacted by Eagle Asset Management or your Raymond James representative regarding the SIP Suite strategies. 
+          For financial advisor use only. Not for distribution to the public.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-brand-eagle">EAGLE</span>
+      <span class="footer-brand-sep"></span>
+      <span class="footer-brand-sub">Asset Management</span>
+    </div>
+    <div class="footer-disclosure">
+      <p>Eagle Asset Management, Inc. ("Eagle") is a wholly owned subsidiary of Raymond James Investment Management ("RJIM"). RJIM is an SEC registered investment adviser and wholly owned subsidiary of Raymond James Financial, Inc.</p>
+      <p>The information provided should not be construed as a recommendation to buy, sell, or hold any particular security. Past performance does not guarantee future results. Investing involves risk including the possible loss of principal. The strategies described involve risk and may not be suitable for all investors.</p>
+      <p>For financial advisor use only. Not for distribution to the general public.</p>
+      <p>M-847233 &nbsp;|&nbsp; Exp. 12/15/26 &nbsp;|&nbsp; BR-EA-SIP</p>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-bottom-text">&copy; 2026 Eagle Asset Management, Inc. All rights reserved. 880 Carillon Parkway, St. Petersburg, FL 33716</span>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Disclosures</a>
+        <a href="https://eagleasset.com" target="_blank" rel="noopener">eagleasset.com</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  // Scroll-triggered animations
+  var animElements = document.querySelectorAll('.animate-on-scroll');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  animElements.forEach(function(el) { observer.observe(el); });
+
+  // Nav scroll state
+  var nav = document.getElementById('siteNav');
+  var lastScroll = 0;
+  window.addEventListener('scroll', function() {
+    var currentScroll = window.pageYOffset;
+    if (currentScroll > 60) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+    lastScroll = currentScroll;
+  }, { passive: true });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      var target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        var navHeight = nav.offsetHeight;
+        var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+      }
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>

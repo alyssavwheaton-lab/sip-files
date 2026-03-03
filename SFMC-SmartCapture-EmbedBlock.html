@@ -1,0 +1,187 @@
+<!--
+=======================================================================
+  EAGLE ASSET MANAGEMENT — SIP SUITE CAMPAIGN
+  MARKETING CLOUD SMART CAPTURE FORM EMBED BLOCK
+  For use inside: eagle-sip-suite-landing.html (CloudPage)
+=======================================================================
+
+HOW TO USE THIS FILE
+─────────────────────────────────────────────────────────────────────
+1. Complete the PRE-BUILD CHECKLIST below before touching the CloudPage.
+2. Copy the SMART CAPTURE FORM CODE block (Step 3) into your CloudPage
+   HTML editor, replacing the sc-placeholder div.
+3. Copy the DATA EXTENSION SCHEMA (Step 1) to create your DE in
+   Email Studio > Subscribers > Data Extensions.
+4. Use the AMPSCRIPT REFERENCE at the bottom for any conditional logic
+   you want to add post-submission.
+
+PRE-BUILD CHECKLIST
+─────────────────────────────────────────────────────────────────────
+Before publishing, confirm each item is complete:
+
+[ ] Data Extension created (schema below)
+[ ] Smart Capture form created and named: "SIP-Suite-Connect-Form"
+[ ] Smart Capture form mapped to Data Extension: "SIP_Suite_Leads"
+[ ] Completion action set to redirect to thank-you CloudPage URL
+[ ] Thank-you CloudPage published and URL confirmed
+[ ] Form tested end-to-end in Preview mode
+[ ] Journey Builder entry event connected to DE (if using Journey)
+
+=======================================================================
+  STEP 1 — DATA EXTENSION SCHEMA
+  Create this DE in Email Studio before building the Smart Capture form.
+  Name it exactly: SIP_Suite_Leads
+=======================================================================
+
+  Field Name              Data Type     Length    Required    Primary Key
+  ─────────────────────────────────────────────────────────────────────
+  EmailAddress            EmailAddress  254       Yes         Yes
+  FirstName               Text          50        Yes         No
+  LastName                Text          50        Yes         No
+  FirmName                Text          100       No          No
+  PhoneNumber             Phone         20        No          No
+  AdvisorType             Text          50        No          No
+  StrategiesOfInterest    Text          200       No          No
+  AUMRange                Text          50        No          No
+  HowDidYouHear           Text          100       No          No
+  SubmissionDate          Date          —         No          No
+  SourcePage              Text          200       No          No
+  CampaignCode            Text          50        No          No
+
+  Notes:
+  - EmailAddress as Primary Key prevents duplicate records per email.
+  - StrategiesOfInterest will capture comma-separated checkbox values
+    (e.g., "SIP, SIP Plus").
+  - CampaignCode should default to "SIP-AMPLIFY-2026" at the form level.
+  - SubmissionDate auto-populates via AMPscript (see below).
+
+=======================================================================
+  STEP 2 — SMART CAPTURE FORM SETUP IN CONTENT BUILDER
+=======================================================================
+
+  1. Go to Content Builder > Create > Smart Capture Form
+  2. Name: SIP-Suite-Connect-Form
+  3. Add fields matching the DE schema above
+  4. Map each field to its DE column
+  5. Completion Action: Redirect to URL
+     URL: [your thank-you CloudPage URL]
+  6. Save and note the exact form name — you will reference it in
+     the AMPscript embed below.
+
+  RECOMMENDED FIELD LABELS FOR ADVISORS:
+
+  EmailAddress         →  "Business Email Address *"
+  FirstName            →  "First Name *"
+  LastName             →  "Last Name *"
+  FirmName             →  "Firm / RIA Name"
+  PhoneNumber          →  "Best Phone Number"
+  AdvisorType          →  Dropdown: "Independent RIA | Wirehouse | 
+                           Regional BD | Independent BD | Other"
+  StrategiesOfInterest →  Checkboxes: "SIP | SIP Plus | Global SIP |
+                           Full Suite Overview"
+  AUMRange             →  Dropdown: "Under $50M | $50M–$150M | 
+                           $150M–$500M | $500M+"
+  HowDidYouHear        →  Dropdown: "Email | Wholesaler | Event | 
+                           Online Search | Colleague | Other"
+
+=======================================================================
+  STEP 3 — SMART CAPTURE EMBED CODE
+  Copy everything inside the dashed lines into your CloudPage HTML,
+  replacing the entire sc-placeholder div block.
+=======================================================================
+-->
+
+<!-- ─────────────────── COPY FROM HERE ─────────────────── -->
+
+%%[
+  /* Capture source page and set campaign code for DE */
+  VAR @sourceURL, @campaignCode, @submissionDate
+  SET @sourceURL = RequestParameter("SourcePage")
+  SET @campaignCode = "SIP-AMPLIFY-2026"
+  SET @submissionDate = NOW()
+]%%
+
+<div class="sfmc-form-wrap" style="width:100%;">
+  %%=ContentBlockByName("SIP-Suite-Connect-Form")=%%
+</div>
+
+<!-- ─────────────────── COPY TO HERE ─────────────────── -->
+
+<!--
+=======================================================================
+  STEP 4 — HIDDEN FIELDS TO AUTO-POPULATE (add inside Smart Capture)
+  In Content Builder Smart Capture, add hidden fields for:
+=======================================================================
+
+  Field: SubmissionDate   →  Value: %%=NOW()=%%
+  Field: SourcePage       →  Value: %%=RequestParameter("SourcePage")=%%
+  Field: CampaignCode     →  Value: SIP-AMPLIFY-2026
+
+  These fields pass silently into the DE on every submission without
+  the advisor seeing them. They are critical for Journey Builder
+  entry segmentation and campaign attribution reporting.
+
+=======================================================================
+  STEP 5 — JOURNEY BUILDER CONNECTION (optional but recommended)
+=======================================================================
+
+  After the DE is receiving submissions:
+
+  1. Go to Journey Builder > Create New Journey
+  2. Entry Source: Data Extension — SIP_Suite_Leads
+  3. Entry Event: Record added to DE
+  4. Add Wait Step: 0 minutes (immediate)
+  5. Add Email Activity: Internal lead notification to Eagle sales team
+  6. Add Wait Step: 1 business day
+  7. Add Email Activity: Advisor follow-up email with SIP Suite materials
+  8. Optional: Add Salesforce Activity to create lead record in CRM
+
+  Journey Name suggestion: SIP-Suite-Advisor-Nurture-2026
+
+=======================================================================
+  AMPSCRIPT REFERENCE — Useful snippets for the landing page or emails
+=======================================================================
+
+  Personalize the thank-you page with submitted first name:
+  ──────────────────────────────────────────────────────────
+  %%[
+    VAR @firstName
+    SET @firstName = RequestParameter("FirstName")
+    IF EMPTY(@firstName) THEN SET @firstName = "Advisor" ENDIF
+  ]%%
+  <p>Thank you, %%=v(@firstName)=%%. We will be in touch shortly.</p>
+
+
+  Show strategy-specific content based on checkbox selection:
+  ──────────────────────────────────────────────────────────
+  %%[
+    VAR @strategies
+    SET @strategies = RequestParameter("StrategiesOfInterest")
+  ]%%
+  %%[ IF IndexOf(@strategies, "SIP Plus") > 0 THEN ]%%
+    <!-- Show SIP Plus specific content -->
+  %%[ ENDIF ]%%
+
+
+  Suppress form if already submitted (cookie-based, basic):
+  ──────────────────────────────────────────────────────────
+  Not natively available in Smart Capture. Handle via Journey Builder
+  by checking for existing DE record before sending follow-up emails.
+
+=======================================================================
+  TESTING CHECKLIST BEFORE GO-LIVE
+=======================================================================
+
+  [ ] Preview CloudPage in Marketing Cloud — form renders correctly
+  [ ] Submit test entry — record appears in SIP_Suite_Leads DE
+  [ ] Redirect fires to thank-you page after submission
+  [ ] SubmissionDate, SourcePage, CampaignCode fields populated
+  [ ] Journey entry event fires on test record
+  [ ] Internal notification email delivers to sales team inbox
+  [ ] Advisor follow-up email delivers with correct content
+  [ ] All factsheet download links open correct PDFs
+  [ ] Kaltura video plays without errors
+  [ ] Mobile layout tested on iOS and Android
+
+=======================================================================
+-->

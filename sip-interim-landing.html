@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIP Suite | Eagle Asset Management</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;0,900&1,400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+  :root {
+    --navy: #1B2A55;
+    --navy-deep: #111D3A;
+    --navy-light: #2A3F73;
+    --gold: #B5985A;
+    --gold-light: #D4BC82;
+    --white: #FFFFFF;
+    --off-white: #FAFAF8;
+    --mid-gray: #6B7280;
+    --light-gray: #E5E5E2;
+    --dark-text: #2B2B2B;
+    --disc-gray: #9CA3AF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
+    color: var(--dark-text);
+    background: var(--navy-deep);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ═══ SINGLE-PAGE LAYOUT ═══ */
+  /* The entire page is one continuous navy field with a centered card. */
+  /* This reads as intentional and branded, not as a "coming soon" page. */
+
+  .page-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Wave texture — subtle brand continuity from brochure */
+  .wave-bg {
+    position: absolute;
+    width: 140%;
+    left: -20%;
+    top: 15%;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+
+  /* ═══ HEADER BAR ═══ */
+  .site-header {
+    background: var(--navy-deep);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .logo-text {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: var(--white);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .logo-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--gold);
+    margin: 0 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .logo-sub {
+    font-size: 10px;
+    color: var(--white);
+    line-height: 1.2;
+    display: inline-block;
+    vertical-align: middle;
+    opacity: 0.8;
+  }
+
+  /* ═══ MAIN CARD ═══ */
+  .main-card {
+    background: var(--white);
+    border-radius: 12px;
+    max-width: 480px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Card hero band */
+  .card-hero {
+    background: var(--navy);
+    padding: 36px 32px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-hero .wave-inner {
+    position: absolute;
+    width: 130%;
+    left: -15%;
+    top: 10%;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+  .card-suite-label {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .card-headline {
+    font-size: 26px;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .card-headline .wh { color: var(--white); }
+  .card-headline .gd { color: var(--gold); }
+  .card-context {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+    position: relative;
+  }
+
+  /* Strategy strip — compact version */
+  .mini-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 20px 24px;
+    background: var(--off-white);
+    border-bottom: 1px solid var(--light-gray);
+  }
+  .mini-strip-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+  .mini-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+    text-align: center;
+    line-height: 1.1;
+  }
+  .mini-circle.navy { background: var(--navy); }
+  .mini-circle.gold { background: var(--gold); }
+  .mini-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--mid-gray);
+    text-align: center;
+  }
+  .mini-dash {
+    flex: 0 0 24px;
+    height: 1px;
+    border-top: 1.5px dashed var(--light-gray);
+    margin-bottom: 20px;
+  }
+
+  /* Form zone */
+  .card-form {
+    padding: 28px 32px 32px;
+  }
+  .form-intro {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .form-heading {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 5px;
+  }
+  .form-input {
+    background: var(--off-white);
+    border: 1px solid var(--light-gray);
+    border-radius: 6px;
+    padding: 11px 12px;
+    font-size: 14px;
+    font-family: 'Source Sans 3', sans-serif;
+    color: var(--dark-text);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-input::placeholder { color: #C0C0C0; }
+  .form-input:focus { border-color: var(--gold); }
+  .form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23B5985A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+    cursor: pointer;
+  }
+  .form-submit {
+    background: var(--gold);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    padding: 13px 24px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Source Sans 3', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    width: 100%;
+    margin-top: 4px;
+  }
+  .form-submit:hover {
+    background: var(--gold-light);
+    box-shadow: 0 4px 16px rgba(181, 152, 90, 0.3);
+  }
+  .form-submit:active {
+    transform: scale(0.98);
+  }
+
+  /* ═══ FOOTER ═══ */
+  .site-footer {
+    padding: 20px 24px;
+    text-align: center;
+  }
+  .footer-line {
+    font-size: 9px;
+    color: rgba(255,255,255,0.2);
+    line-height: 1.7;
+  }
+  .footer-line a {
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+  }
+
+  /* ═══ CONFIRMATION STATE ═══ */
+  .confirmation {
+    display: none;
+    padding: 48px 32px;
+    text-align: center;
+  }
+  .confirmation.active { display: block; }
+  .confirm-check {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .confirm-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .confirm-text {
+    font-size: 14px;
+    color: var(--mid-gray);
+    line-height: 1.5;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 520px) {
+    .card-hero { padding: 28px 24px 26px; }
+    .card-form { padding: 24px 24px 28px; }
+    .card-headline { font-size: 23px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-group.full { grid-column: 1; }
+    .main-card { border-radius: 10px; }
+    .mini-strip { padding: 16px 16px; }
+    .mini-circle { width: 32px; height: 32px; font-size: 7px; }
+    .mini-dash { flex: 0 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="site-header">
+  <span class="logo-text">EAGLE</span>
+  <span class="logo-divider"></span>
+  <span class="logo-sub">Asset<br>Management</span>
+</header>
+
+<!-- ═══ MAIN ═══ -->
+<main class="page-wrapper">
+
+  <!-- Background wave texture -->
+  <svg class="wave-bg" viewBox="0 0 1200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M-50 100 C200 30, 400 170, 600 100 S1000 30, 1250 100" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none"/>
+    <path d="M-50 130 C150 50, 350 190, 550 130 S950 50, 1250 130" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
+    <path d="M-50 70 C250 10, 450 150, 650 70 S1050 10, 1250 70" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" fill="none"/>
+  </svg>
+
+  <div class="main-card">
+
+    <!-- Hero band -->
+    <div class="card-hero">
+      <svg class="wave-inner" viewBox="0 0 1200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M-50 100 C200 30, 400 170, 600 100 S1000 30, 1250 100" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none"/>
+        <path d="M-50 120 C150 60, 350 180, 550 120 S950 60, 1250 120" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
+      </svg>
+      <div class="card-suite-label">THE STRATEGIC INCOME PORTFOLIO SUITE</div>
+      <h1 class="card-headline">
+        <span class="wh">AMPLIFY </span><span class="gd">YOUR INCOME POTENTIAL.</span>
+      </h1>
+      <p class="card-context">Three income strategies. One proven process. Connect with your dedicated team to explore the right fit for your clients.</p>
+    </div>
+
+    <!-- Strategy strip -->
+    <div class="mini-strip">
+      <div class="mini-strip-item">
+        <div class="mini-circle navy">SIP</div>
+        <div class="mini-label">Stable Income</div>
+      </div>
+      <div class="mini-dash"></div>
+      <div class="mini-strip-item">
+        <div class="mini-circle gold">SIP +</div>
+        <div class="mini-label">Amplified Income</div>
+      </div>
+      <div class="mini-dash"></div>
+      <div class="mini-strip-item">
+        <div class="mini-circle navy" style="font-size:6px;">GLOBAL<br>SIP</div>
+        <div class="mini-label">Global Income</div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="card-form" id="formSection">
+      <div class="form-intro">Connect with your team</div>
+      <div class="form-heading">Share a few details and we&rsquo;ll be in touch.</div>
+
+      <form class="form-grid" id="leadForm" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" placeholder="First" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" placeholder="Last" required>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="name@firm.com" required>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Firm / Broker-Dealer</label>
+          <input type="text" class="form-input" placeholder="Firm name" required>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Strategy Interest</label>
+          <select class="form-input form-select" required>
+            <option value="" disabled selected>Which strategy interests you?</option>
+            <option>SIP &mdash; Stable Income</option>
+            <option>SIP Plus &mdash; Amplified Income</option>
+            <option>Global SIP &mdash; Global Income</option>
+            <option>All three &mdash; help me compare</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <button type="submit" class="form-submit">Request a Consultation</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Confirmation state (shown after submit) -->
+    <div class="confirmation" id="confirmSection">
+      <div class="confirm-check">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L19 7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="confirm-title">Thank you.</div>
+      <div class="confirm-text">Your dedicated support team will be in touch shortly to discuss which SIP strategy may be the right fit for your clients.</div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer">
+  <div class="footer-line">
+    For Financial Professional and/or Client use only.<br>
+    880 Carillon Parkway | St. Petersburg, FL 33716 | <a href="#">eagleasset.com</a><br>
+    Eagle Asset Management, Inc. All rights reserved. M-847233 | Exp. 12/15/26
+  </div>
+</footer>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  // In production: POST to Salesforce Cloud endpoint
+  document.getElementById('formSection').style.display = 'none';
+  document.getElementById('confirmSection').classList.add('active');
+  document.querySelector('.mini-strip').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amplify Your Income | Eagle Asset Management</title>
+
+<!-- Eagle Stylesheets -->
+<link href="https://www.eagleasset.com/content/common/maincss.css" rel="stylesheet"/>
+<link href="https://www.eagleasset.com/content/affiliatesites/maincss.css" rel="stylesheet"/>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet"/>
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+<style>
+
+/* =============================================
+   EAGLE BRAND VARIABLES
+   ============================================= */
+:root {
+  --navy:   #002855;
+  --gold:   #A09162;
+  --gray:   #808084;
+  --light:  #F0F0F0;
+  --white:  #ffffff;
+  --dark:   #1a1a2e;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: var(--gray);
+  background-color: var(--light);
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+a { color: var(--navy); text-decoration: none; }
+a:hover { color: var(--gold); }
+
+.container-fluid { width: 100%; padding: 0; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* =============================================
+   EAGLE HEADER OVERRIDE — simplified for LP
+   ============================================= */
+.eagle-header {
+  background: var(--white);
+  border-bottom: 3px solid var(--gold);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.eagle-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eagle-header img {
+  height: 48px;
+  width: auto;
+}
+
+.eagle-header .header-cta {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--gold);
+  padding: 10px 24px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.eagle-header .header-cta:hover { background: var(--navy); color: var(--white); }
+
+/* =============================================
+   HERO SECTION
+   ============================================= */
+.hero-section {
+  background: linear-gradient(135deg, var(--navy) 0%, #003d7a 60%, #00437C 100%);
+  padding: 72px 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: url('https://www.eagleasset.com/-/media/RJ/Affiliate-Sites/Eagle/Homepage/Source_of_Income_banner_1440x370.png') center/cover no-repeat;
+  opacity: 0.15;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
+
+.hero-eyebrow {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  background: var(--gold);
+}
+
+.hero-section h1 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 54px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.1;
+  margin: 0 0 20px;
+  text-transform: uppercase;
+}
+
+.hero-section h1 span {
+  color: var(--gold);
+}
+
+.hero-section p {
+  font-size: 18px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+  margin-bottom: 32px;
+  max-width: 580px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-primary-eagle {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--gold);
+  padding: 14px 36px;
+  border: 2px solid var(--gold);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-block;
+}
+
+.btn-primary-eagle:hover {
+  background: transparent;
+  color: var(--gold);
+}
+
+.btn-outline-eagle {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--white);
+  background: transparent;
+  padding: 14px 36px;
+  border: 2px solid rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-block;
+}
+
+.btn-outline-eagle:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* =============================================
+   PROOF POINTS BAR
+   ============================================= */
+.proof-bar {
+  background: var(--navy);
+  padding: 28px 0;
+  border-top: 3px solid var(--gold);
+}
+
+.proof-bar .container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.proof-stat {
+  text-align: center;
+  padding: 0 16px;
+}
+
+.proof-stat .stat-number {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  display: block;
+}
+
+.proof-stat .stat-label {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  display: block;
+  margin-top: 6px;
+}
+
+.proof-divider {
+  width: 1px;
+  height: 48px;
+  background: rgba(160,145,98,0.3);
+}
+
+/* =============================================
+   SECTION LAYOUT
+   ============================================= */
+.section-pad { padding: 64px 0; }
+.section-pad-sm { padding: 40px 0; }
+.bg-white { background: var(--white); }
+.bg-light { background: var(--light); }
+.bg-navy { background: var(--navy); }
+
+.section-header {
+  margin-bottom: 48px;
+}
+
+.section-eyebrow {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin: 0 0 16px;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 48px;
+  height: 3px;
+  background: var(--gold);
+}
+
+.section-title.centered::after { left: 50%; transform: translateX(-50%); }
+.section-title.centered { text-align: center; }
+
+.section-subtitle {
+  font-size: 16px;
+  color: var(--gray);
+  line-height: 1.7;
+  max-width: 640px;
+  margin: 0;
+}
+
+.section-subtitle.centered { text-align: center; margin: 0 auto; }
+
+/* =============================================
+   VIDEO SECTION
+   ============================================= */
+.video-section {
+  background: var(--white);
+  padding: 64px 0;
+}
+
+.video-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.video-wrapper {
+  position: relative;
+  background: var(--navy);
+  border: 3px solid var(--gold);
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Replace this div with actual Kaltura iframe */
+.video-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--navy), #003d7a);
+  color: rgba(255,255,255,0.5);
+  font-family: 'Roboto Condensed', sans-serif;
+  text-align: center;
+  padding: 24px;
+}
+
+.video-placeholder .play-icon {
+  width: 64px;
+  height: 64px;
+  border: 3px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.video-placeholder .play-icon i {
+  color: var(--gold);
+  font-size: 24px;
+  margin-left: 4px;
+}
+
+.video-placeholder p {
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin: 0;
+}
+
+/* ACTUAL KALTURA IFRAME — replace placeholder div with this when ready:
+   <iframe src="https://cdnapisec.kaltura.com/p/[PARTNER_ID]/sp/[PARTNER_ID]00/embedIframeJs/uiconf_id/[UICONF_ID]/partner_id/[PARTNER_ID]?iframeembed=true&playerId=kaltura_player&entry_id=[ENTRY_ID]"
+     width="100%" height="100%" style="border:none;" allowfullscreen webkitallowfullscreen mozAllowFullScreen></iframe>
+*/
+
+.video-copy h2 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin: 0 0 20px;
+  line-height: 1.15;
+}
+
+.video-copy h2 span { color: var(--gold); }
+
+.video-copy p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--gray);
+  margin-bottom: 16px;
+}
+
+.video-copy .video-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 700;
+  margin-top: 24px;
+}
+
+.video-copy .video-meta i { font-size: 14px; }
+
+/* =============================================
+   SUITE OVERVIEW — Strategy Cards
+   ============================================= */
+.suite-section {
+  background: var(--light);
+  padding: 64px 0;
+}
+
+.suite-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-bottom: 56px;
+}
+
+.strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.strategy-card {
+  background: var(--white);
+  border-top: 4px solid var(--navy);
+  padding: 32px 28px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.strategy-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,40,85,0.12);
+}
+
+.strategy-card.featured {
+  border-top-color: var(--gold);
+}
+
+.card-tag {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--gold);
+  padding: 4px 10px;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.card-tag.equity { background: var(--navy); }
+.card-tag.fixed { background: var(--gold); }
+.card-tag.multi { background: var(--gray); }
+
+.strategy-card h3 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.strategy-card .card-descriptor {
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 16px;
+  font-family: 'Roboto Condensed', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.strategy-card p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--gray);
+  margin-bottom: 20px;
+}
+
+.client-fit-box {
+  background: #f8f8fa;
+  border-left: 3px solid var(--gold);
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+
+.client-fit-box .fit-label {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.client-fit-box p {
+  font-size: 13px;
+  color: var(--navy);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.card-links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 16px;
+  border-top: 1px solid #ebebeb;
+}
+
+.card-link {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+
+.card-link:hover { color: var(--gold); }
+.card-link i { font-size: 14px; }
+
+/* =============================================
+   DATA PROOF POINTS SECTION
+   ============================================= */
+.proof-section {
+  background: var(--navy);
+  padding: 64px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.proof-section::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -10%;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: rgba(160,145,98,0.05);
+  pointer-events: none;
+}
+
+.proof-section .section-title { color: var(--white); }
+.proof-section .section-subtitle { color: rgba(255,255,255,0.65); }
+
+.proof-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.proof-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(160,145,98,0.2);
+  border-top: 3px solid var(--gold);
+  padding: 32px 24px;
+}
+
+.proof-card .big-number {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.proof-card .big-number sup {
+  font-size: 24px;
+  vertical-align: top;
+  margin-top: 8px;
+}
+
+.proof-card h4 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px;
+}
+
+.proof-card p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* =============================================
+   FACTSHEET DOWNLOAD SECTION
+   ============================================= */
+.factsheet-section {
+  background: var(--white);
+  padding: 64px 0;
+}
+
+.factsheet-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+
+.factsheet-card {
+  border: 1px solid #e8e8e8;
+  border-top: 3px solid var(--gold);
+  padding: 24px 20px;
+  text-align: center;
+  transition: all 0.2s;
+  background: var(--white);
+}
+
+.factsheet-card:hover {
+  border-color: var(--navy);
+  border-top-color: var(--navy);
+  box-shadow: 0 8px 24px rgba(0,40,85,0.1);
+  transform: translateY(-2px);
+}
+
+.factsheet-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.factsheet-icon i {
+  color: var(--navy);
+  font-size: 20px;
+}
+
+.factsheet-card h4 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.factsheet-card p {
+  font-size: 12px;
+  color: var(--gray);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.factsheet-card .download-btn {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+
+.factsheet-card .download-btn:hover { color: var(--navy); }
+
+/* =============================================
+   FORM SECTION
+   ============================================= */
+.form-section {
+  background: linear-gradient(180deg, var(--light) 0%, #e8eaed 100%);
+  padding: 72px 0;
+}
+
+.form-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.form-copy h2 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+
+.form-copy p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--gray);
+  margin-bottom: 24px;
+}
+
+.form-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.form-benefits li {
+  font-size: 14px;
+  color: var(--navy);
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+}
+
+.form-benefits li i {
+  color: var(--gold);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.form-wrapper {
+  background: var(--white);
+  border-top: 4px solid var(--gold);
+  padding: 40px 36px;
+  box-shadow: 0 8px 32px rgba(0,40,85,0.08);
+}
+
+.form-wrapper h3 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.form-wrapper .form-subhead {
+  font-size: 13px;
+  color: var(--gray);
+  margin-bottom: 28px;
+}
+
+/* SMART CAPTURE FORM PLACEHOLDER */
+/* Replace the .form-placeholder div with your Marketing Cloud Smart Capture embed code */
+.form-placeholder {
+  background: #f8f8fa;
+  border: 2px dashed #ddd;
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--gray);
+}
+
+.form-placeholder p {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.form-placeholder i {
+  font-size: 32px;
+  color: #ddd;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.form-disclosure {
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 16px;
+  line-height: 1.5;
+}
+
+/* =============================================
+   EAGLE FOOTER
+   ============================================= */
+.eagle-footer {
+  background: var(--white);
+  border-top: 3px solid var(--gold);
+  padding: 32px 0 0;
+}
+
+.footer-nav-links {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #eee;
+}
+
+.footer-nav-links a {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--navy);
+  transition: color 0.2s;
+}
+
+.footer-nav-links a:hover { color: var(--gold); }
+
+.footer-legal {
+  text-align: center;
+  padding: 24px 20px;
+}
+
+.footer-legal .rj-link {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--navy);
+  display: block;
+  margin-bottom: 16px;
+}
+
+.footer-legal p {
+  font-size: 12px;
+  color: var(--gray);
+  line-height: 1.6;
+  max-width: 900px;
+  margin: 0 auto 8px;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 991px) {
+  .hero-section h1 { font-size: 38px; }
+  .video-layout { grid-template-columns: 1fr; }
+  .suite-intro { grid-template-columns: 1fr; }
+  .strategy-grid { grid-template-columns: 1fr; }
+  .proof-cards { grid-template-columns: 1fr 1fr; }
+  .factsheet-grid { grid-template-columns: 1fr 1fr; }
+  .form-layout { grid-template-columns: 1fr; }
+  .proof-divider { display: none; }
+  .proof-bar .container { justify-content: flex-start; gap: 32px; }
+}
+
+@media (max-width: 576px) {
+  .hero-section h1 { font-size: 30px; }
+  .proof-cards { grid-template-columns: 1fr; }
+  .factsheet-grid { grid-template-columns: 1fr 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- =============================================
+     EAGLE HEADER
+     ============================================= -->
+<header class="eagle-header">
+  <div class="container">
+    <a href="https://www.eagleasset.com/retail">
+      <img src="https://www.eagleasset.com/-/media/RJ/Affiliate-Sites/CTA-Affiliates-Common/eagle-logo-no-affiliate.png"
+           alt="Eagle Asset Management" />
+    </a>
+    <a href="#request-materials" class="btn-primary-eagle">Request Materials</a>
+  </div>
+</header>
+
+
+<!-- =============================================
+     HERO
+     ============================================= -->
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Sources of Income Suite</div>
+      <h1>Amplify Your<br><span>Income</span></h1>
+      <p>In a market defined by uncertainty, income requires a deliberate strategy. Eagle's Sources of Income Suite brings together a family of complementary strategies — each independently managed, each purpose-built to seek consistent, sustainable income for your clients.</p>
+      <div class="hero-actions">
+        <a href="#suite-overview" class="btn-primary-eagle">Explore the Suite</a>
+        <a href="#request-materials" class="btn-outline-eagle">Request Materials</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================================
+     PROOF POINTS BAR
+     ============================================= -->
+<div class="proof-bar">
+  <div class="container">
+    <div class="proof-stat">
+      <span class="stat-number">40<sup style="font-size:20px;color:var(--gold)">+</sup></span>
+      <span class="stat-label">Years of Investment Experience</span>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-stat">
+      <span class="stat-number">4</span>
+      <span class="stat-label">Income-Focused Strategies</span>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-stat">
+      <span class="stat-number">$X<sup style="font-size:20px">B</sup></span>
+      <span class="stat-label">Assets Under Management</span>
+    </div>
+    <div class="proof-divider"></div>
+    <div class="proof-stat">
+      <span class="stat-number">100<sup style="font-size:20px">%</sup></span>
+      <span class="stat-label">Independent Research-Driven</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- =============================================
+     VIDEO INTRO
+     ============================================= -->
+<section class="video-section" id="video">
+  <div class="container">
+    <div class="video-layout">
+
+      <!-- VIDEO EMBED — Replace .video-placeholder with Kaltura iframe -->
+      <div class="video-wrapper">
+        <div class="video-placeholder">
+          <div class="play-icon">
+            <i class="fa fa-play"></i>
+          </div>
+          <!-- REPLACE WITH KALTURA IFRAME:
+          <iframe src="https://cdnapisec.kaltura.com/p/[PARTNER_ID]/sp/[PARTNER_ID]00/embedIframeJs/
+          uiconf_id/[UICONF_ID]/partner_id/[PARTNER_ID]?iframeembed=true&playerId=kaltura_player
+          &entry_id=[ENTRY_ID]" width="100%" height="100%"
+          style="border:none;position:absolute;top:0;left:0;"
+          allowfullscreen></iframe> -->
+          <p>Kaltura Video Intro</p>
+        </div>
+      </div>
+
+      <div class="video-copy">
+        <span class="section-eyebrow">Suite Overview</span>
+        <h2>A Purposeful Approach to <span>Generating Income</span></h2>
+        <p>Hear directly from Eagle's portfolio managers on the philosophy underpinning the Sources of Income Suite — and why a diversified, multi-strategy approach is increasingly critical in today's rate environment.</p>
+        <p>Each strategy within the suite operates with full research independence, allowing your clients to access differentiated sources of return without redundant exposures.</p>
+        <div class="video-meta">
+          <i class="fa fa-clock-o"></i>
+          [X] min overview &nbsp;|&nbsp; Portfolio Manager Commentary
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================================
+     SUITE OVERVIEW — STRATEGY CARDS
+     ============================================= -->
+<section class="suite-section" id="suite-overview">
+  <div class="container">
+
+    <div class="suite-intro">
+      <div>
+        <span class="section-eyebrow">The Suite</span>
+        <h2 class="section-title">Four Strategies.<br>One Income Mandate.</h2>
+      </div>
+      <div>
+        <p class="section-subtitle" style="padding-top:16px;">Each strategy in Eagle's Sources of Income Suite is independently managed with a dedicated research team — providing genuine diversification across income sources, not just names. Together, they offer advisors a modular framework to build income-oriented allocations tailored to client risk profiles and time horizons.</p>
+      </div>
+    </div>
+
+    <div class="strategy-grid">
+
+      <!-- STRATEGY 1 -->
+      <div class="strategy-card">
+        <span class="card-tag fixed">Fixed Income</span>
+        <h3>[Strategy Name 1]<br>Fixed Income Strategy</h3>
+        <div class="card-descriptor">Core | Broad Market Income</div>
+        <p>A diversified, actively managed fixed income strategy seeking consistent income generation across the full credit spectrum. The team employs rigorous bottom-up credit research to identify compelling risk-adjusted opportunities, with a disciplined focus on capital preservation alongside yield.</p>
+        <div class="client-fit-box">
+          <span class="fit-label">Client Fit</span>
+          <p>Conservative to moderate investors seeking predictable income streams with lower volatility. Well-suited for clients transitioning into or through retirement who require income without undue principal risk.</p>
+        </div>
+        <div class="card-links">
+          <a href="#" class="card-link"><i class="fa fa-file-pdf-o"></i> Factsheet</a>
+          <a href="#" class="card-link"><i class="fa fa-file-text-o"></i> Commentary</a>
+          <a href="#" class="card-link"><i class="fa fa-angle-right"></i> Learn More</a>
+        </div>
+      </div>
+
+      <!-- STRATEGY 2 -->
+      <div class="strategy-card featured">
+        <span class="card-tag equity">Equity Income</span>
+        <h3>[Strategy Name 2]<br>Equity Income Strategy</h3>
+        <div class="card-descriptor">Dividend Growth | Capital Appreciation</div>
+        <p>A high-conviction equity strategy built around companies with durable dividend profiles and the financial strength to grow those distributions over time. Seeks to deliver competitive total returns through a blend of current income and long-term capital appreciation.</p>
+        <div class="client-fit-box">
+          <span class="fit-label">Client Fit</span>
+          <p>Moderate risk clients seeking equity participation with a built-in income component. Ideal for clients who want growth potential alongside meaningful current yield — particularly those in the accumulation phase approaching retirement.</p>
+        </div>
+        <div class="card-links">
+          <a href="#" class="card-link"><i class="fa fa-file-pdf-o"></i> Factsheet</a>
+          <a href="#" class="card-link"><i class="fa fa-file-text-o"></i> Commentary</a>
+          <a href="#" class="card-link"><i class="fa fa-angle-right"></i> Learn More</a>
+        </div>
+      </div>
+
+      <!-- STRATEGY 3 -->
+      <div class="strategy-card">
+        <span class="card-tag multi">Multi-Asset</span>
+        <h3>[Strategy Name 3]<br>Multi-Asset Income Strategy</h3>
+        <div class="card-descriptor">Blended | Flexible Allocation</div>
+        <p>A flexible, multi-asset approach that dynamically allocates across equities, fixed income, and specialty income sources to pursue an elevated income target while managing downside risk. Tactical positioning allows the team to respond to shifting market conditions without being constrained to a fixed allocation model.</p>
+        <div class="client-fit-box">
+          <span class="fit-label">Client Fit</span>
+          <p>Moderate to moderately aggressive clients who require a higher income target but benefit from diversified risk management. A strong core holding for clients seeking a managed, all-in-one income solution without the complexity of a multi-manager structure.</p>
+        </div>
+        <div class="card-links">
+          <a href="#" class="card-link"><i class="fa fa-file-pdf-o"></i> Factsheet</a>
+          <a href="#" class="card-link"><i class="fa fa-file-text-o"></i> Commentary</a>
+          <a href="#" class="card-link"><i class="fa fa-angle-right"></i> Learn More</a>
+        </div>
+      </div>
+
+      <!-- STRATEGY 4 -->
+      <div class="strategy-card">
+        <span class="card-tag fixed">Short Duration</span>
+        <h3>[Strategy Name 4]<br>Short Duration Strategy</h3>
+        <div class="card-descriptor">Capital Preservation | Liquidity-Aware</div>
+        <p>A capital preservation-oriented fixed income strategy focused on the short end of the yield curve. Designed to deliver income above cash alternatives while limiting interest rate sensitivity — providing stability and liquidity without sacrificing meaningful yield in the current environment.</p>
+        <div class="client-fit-box">
+          <span class="fit-label">Client Fit</span>
+          <p>Conservative clients, near-term liquidity needs, or as a cash alternative for clients sitting on elevated idle assets. Particularly timely for clients waiting to redeploy capital who require a defensible, income-generating holding period solution.</p>
+        </div>
+        <div class="card-links">
+          <a href="#" class="card-link"><i class="fa fa-file-pdf-o"></i> Factsheet</a>
+          <a href="#" class="card-link"><i class="fa fa-file-text-o"></i> Commentary</a>
+          <a href="#" class="card-link"><i class="fa fa-angle-right"></i> Learn More</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================================
+     DATA PROOF POINTS
+     ============================================= -->
+<section class="proof-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow" style="color:var(--gold);">The Case for Income</span>
+      <h2 class="section-title" style="color:var(--white);">Why Income, Why Now</h2>
+      <p class="section-subtitle">The interest rate environment has fundamentally reset the opportunity set for income investors. Eagle's independent investment teams are positioned to capitalize on what may be a generational entry point across fixed income and dividend equity.</p>
+    </div>
+
+    <div class="proof-cards">
+
+      <div class="proof-card">
+        <span class="big-number">[X]<sup>%</sup></span>
+        <h4>Current Yield Opportunity</h4>
+        <p>Yields across investment grade fixed income remain near decade highs, offering advisors a compelling entry point for income-seeking clients — particularly those who have been underallocated to bonds.</p>
+      </div>
+
+      <div class="proof-card">
+        <span class="big-number">[X]<sup>yrs</sup></span>
+        <h4>Average Strategy Tenure</h4>
+        <p>Eagle's investment teams bring decades of through-cycle experience managing income-oriented strategies — navigating rising rates, credit cycles, and volatile equity environments with consistent discipline.</p>
+      </div>
+
+      <div class="proof-card">
+        <span class="big-number">[X]<sup>%</sup></span>
+        <h4>Dividend Growth Differential</h4>
+        <p>Companies with growing dividend profiles have historically demonstrated greater resilience during drawdown periods, while delivering competitive long-term total returns relative to the broader equity market.</p>
+      </div>
+
+    </div>
+
+    <p style="font-size:11px; color:rgba(255,255,255,0.3); margin-top:32px; text-align:center; line-height:1.6;">
+      [Insert performance disclosures and data attribution. Past performance does not guarantee future results. All figures as of [DATE]. Source: [SOURCE].]
+    </p>
+
+  </div>
+</section>
+
+
+<!-- =============================================
+     FACTSHEET DOWNLOADS
+     ============================================= -->
+<section class="factsheet-section" id="resources">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">Resources</span>
+      <h2 class="section-title">Strategy Factsheets</h2>
+      <p class="section-subtitle">Download the latest factsheets for each strategy in the Sources of Income Suite. Updated quarterly.</p>
+    </div>
+
+    <div class="factsheet-grid">
+
+      <div class="factsheet-card">
+        <div class="factsheet-icon">
+          <i class="fa fa-file-pdf-o"></i>
+        </div>
+        <h4>[Strategy 1]</h4>
+        <p>Fixed Income Strategy<br>Q[X] [YEAR]</p>
+        <a href="#" class="download-btn">
+          <i class="fa fa-download"></i> Download PDF
+        </a>
+      </div>
+
+      <div class="factsheet-card">
+        <div class="factsheet-icon">
+          <i class="fa fa-file-pdf-o"></i>
+        </div>
+        <h4>[Strategy 2]</h4>
+        <p>Equity Income Strategy<br>Q[X] [YEAR]</p>
+        <a href="#" class="download-btn">
+          <i class="fa fa-download"></i> Download PDF
+        </a>
+      </div>
+
+      <div class="factsheet-card">
+        <div class="factsheet-icon">
+          <i class="fa fa-file-pdf-o"></i>
+        </div>
+        <h4>[Strategy 3]</h4>
+        <p>Multi-Asset Income Strategy<br>Q[X] [YEAR]</p>
+        <a href="#" class="download-btn">
+          <i class="fa fa-download"></i> Download PDF
+        </a>
+      </div>
+
+      <div class="factsheet-card">
+        <div class="factsheet-icon">
+          <i class="fa fa-file-pdf-o"></i>
+        </div>
+        <h4>[Strategy 4]</h4>
+        <p>Short Duration Strategy<br>Q[X] [YEAR]</p>
+        <a href="#" class="download-btn">
+          <i class="fa fa-download"></i> Download PDF
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================================
+     FORM SECTION
+     ============================================= -->
+<section class="form-section" id="request-materials">
+  <div class="container">
+    <div class="form-layout">
+
+      <div class="form-copy">
+        <span class="section-eyebrow">Connect With Eagle</span>
+        <h2>Ready to Build an Income Strategy for Your Clients?</h2>
+        <p>Speak with an Eagle representative to discuss which strategies within the Sources of Income Suite are best positioned for your client base — and access the full suite of advisor support materials.</p>
+        <ul class="form-benefits">
+          <li><i class="fa fa-check-circle"></i> Full suite factsheet and commentary package</li>
+          <li><i class="fa fa-check-circle"></i> Client-ready presentation materials</li>
+          <li><i class="fa fa-check-circle"></i> Portfolio construction guidance</li>
+          <li><i class="fa fa-check-circle"></i> Direct access to Eagle's investment team</li>
+          <li><i class="fa fa-check-circle"></i> Customized proposal support</li>
+        </ul>
+      </div>
+
+      <div class="form-wrapper">
+        <h3>Request Information</h3>
+        <p class="form-subhead">Complete the form below and an Eagle representative will be in touch within one business day.</p>
+
+        <!-- =============================================
+             REPLACE THIS PLACEHOLDER WITH YOUR
+             MARKETING CLOUD SMART CAPTURE FORM EMBED
+             ============================================= -->
+        <div class="form-placeholder">
+          <i class="fa fa-wpforms"></i>
+          <p>Marketing Cloud Smart Capture Form</p>
+        </div>
+        <!-- END FORM PLACEHOLDER -->
+
+        <p class="form-disclosure">By submitting this form, you agree to be contacted by Eagle Asset Management regarding investment strategies and products. Eagle Asset Management is registered with the U.S. Securities and Exchange Commission. <a href="https://www.eagleasset.com/about-us/privacy-policy" style="color:var(--gold);">Privacy Policy</a></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================================
+     EAGLE FOOTER
+     ============================================= -->
+<footer class="eagle-footer">
+  <div class="footer-nav-links">
+    <a href="https://www.eagleasset.com/about-us">About Us</a>
+    <a href="https://www.eagleasset.com/about-us/privacy-policy">Privacy Policy</a>
+    <a href="https://www.eagleasset.com/-/media/RJ/Affiliate-Sites/Eagle/About-Us/adv-eagle-partii.pdf">ADV</a>
+    <a href="https://www.eagleasset.com/contact">Contact</a>
+  </div>
+  <div class="footer-legal">
+    <a href="http://www.rjinvestmentmanagement.com" target="_blank" class="rj-link">A Boutique of Raymond James Investment Management</a>
+    <p>&copy;2026 Eagle Asset Management, Inc. All rights reserved. Eagle Asset Management is the trade name for Eagle Asset Management, Inc., an investment adviser registered with the U.S. Securities and Exchange Commission (SEC).</p>
+    <p style="margin-top:12px; font-size:11px; color:#bbb;">For Financial Professional Use Only. Not for Distribution to the Public. Past performance does not guarantee future results. Investing involves risk, including the possible loss of principal.</p>
+  </div>
+</footer>
+
+<script src="https://www.eagleasset.com/bundles/affiliatesites/affiliatescripts.js"></script>
+
+</body>
+</html>

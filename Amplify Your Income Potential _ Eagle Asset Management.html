@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amplify Your Income Potential | Eagle Asset Management</title>
+<link href="https://www.eagleasset.com/content/common/maincss.css" rel="stylesheet"/>
+<link href="https://www.eagleasset.com/content/affiliatesites/maincss.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+<!-- Eagle site theme colors — exact from source -->
+<style type="text/css">
+.global-navigation .navigation-top-bar { background-color: #A09162; }
+.global-navigation .site-logo-cont .site-navigation-toggle .cus-nav-icon span { background-color: #002855; }
+h1,.h1,h2,.h2,a,.footer-nav .fn-main-nav a,.global-navigation .site-logo-cont .site-navigation-toggle .cus-close { color: #002855; }
+a:hover,.footer-nav .fn-main-nav a:hover,.global-navigation .site-navigation li.active>a,.global-navigation .site-subnavigation li.subnav-mobile-title,.global-navigation .site-navigation li:hover>a { color: #A09162; }
+.footer-nav .fn-main-nav a { border-color: #002855; }
+.global-navigation .site-navigation li,.global-navigation .site-subnavigation li { border-color: #808084; }
+@media(max-width:991px){ .footer-nav .fn-main-nav a:hover { background-color: #002855; } }
+</style>
+
+<style>
+/* =============================================
+   DESIGN SYSTEM
+   Tone: Refined institutional — Capital Group /
+   AB / JPMorgan AM sensibility.
+   White dominant. Navy and gold as accents only.
+   No decorative motion. Typography does the work.
+   ============================================= */
+
+:root {
+  --navy:       #002855;
+  --gold:       #A09162;
+  --gray-dark:  #3a3a3a;
+  --gray:       #808084;
+  --gray-light: #b0b0b4;
+  --rule:       #e2e2e2;
+  --bg:         #fafafa;
+  --white:      #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: var(--gray-dark);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5 { font-family: 'Roboto Condensed', sans-serif; }
+a { text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+.lp { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+
+/* =============================================
+   HERO
+   One strong statement. Navy field.
+   Sound wave as a single static SVG mark —
+   not decoration, used once as a brand signal.
+   ============================================= */
+.hero {
+  background: var(--navy);
+  padding: 96px 0 80px;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 80px;
+  align-items: end;
+}
+
+.hero-label {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 28px;
+}
+
+.hero h1 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 32px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--gold);
+  display: block;
+}
+
+.hero h1 .sub {
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 6px;
+  color: rgba(255,255,255,0.5);
+  display: block;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+
+.hero-body {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.7);
+  max-width: 520px;
+  margin-bottom: 40px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.btn-primary {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: var(--gold);
+  padding: 14px 36px;
+  border: 1px solid var(--gold);
+  display: inline-block;
+  transition: all 0.18s;
+  cursor: pointer;
+}
+.btn-primary:hover { background: transparent; color: var(--gold); }
+
+.btn-ghost {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  background: transparent;
+  padding: 14px 0;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.18s;
+  cursor: pointer;
+}
+.btn-ghost:hover { color: var(--gold); }
+.btn-ghost i { font-size: 10px; }
+
+/* Hero right — static wave mark */
+.hero-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 8px;
+}
+
+.wave-mark {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 80px;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.wave-mark span {
+  display: inline-block;
+  width: 7px;
+  border-radius: 2px 2px 0 0;
+  background: var(--gold);
+}
+
+.wave-mark span:nth-child(odd) { background: rgba(255,255,255,0.3); }
+
+.wave-mark span:nth-child(1)  { height: 18px; }
+.wave-mark span:nth-child(2)  { height: 30px; }
+.wave-mark span:nth-child(3)  { height: 24px; }
+.wave-mark span:nth-child(4)  { height: 46px; }
+.wave-mark span:nth-child(5)  { height: 62px; }
+.wave-mark span:nth-child(6)  { height: 80px; background: var(--gold); opacity: 1; }
+.wave-mark span:nth-child(7)  { height: 72px; }
+.wave-mark span:nth-child(8)  { height: 80px; background: #fff; opacity: 0.9; }
+.wave-mark span:nth-child(9)  { height: 72px; }
+.wave-mark span:nth-child(10) { height: 80px; background: var(--gold); opacity: 1; }
+.wave-mark span:nth-child(11) { height: 62px; }
+.wave-mark span:nth-child(12) { height: 46px; }
+.wave-mark span:nth-child(13) { height: 24px; }
+.wave-mark span:nth-child(14) { height: 30px; }
+.wave-mark span:nth-child(15) { height: 18px; }
+
+.hero-suite-names {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+/* =============================================
+   EDITORIAL STATEMENT
+   Single confident line. No checklist.
+   ============================================= */
+.statement {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 40px 0;
+}
+
+.statement-inner {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.statement-rule {
+  width: 48px;
+  height: 3px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.statement p {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--navy);
+  line-height: 1.4;
+}
+
+/* =============================================
+   VIDEO
+   Clean two-column. Frame only. No background fills.
+   ============================================= */
+.video-section {
+  background: var(--white);
+  padding: 88px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.video-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+
+.video-frame {
+  position: relative;
+  aspect-ratio: 16/9;
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  background: var(--navy);
+}
+
+/* ── Replace .video-inner with Kaltura <iframe> ── */
+.video-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--navy);
+}
+
+.video-inner .play-ring {
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(160,145,98,0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.video-inner .play-ring i { color: var(--gold); font-size: 16px; margin-left: 3px; }
+
+.video-inner .vid-label {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+}
+/* ── End Kaltura placeholder ── */
+
+.video-copy .v-label {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 16px;
+}
+
+.video-copy h2 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.video-copy p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--gray);
+  margin-bottom: 14px;
+}
+
+.video-copy .v-meta {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gray-light);
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* =============================================
+   STRATEGIES
+   White cards. Top border accent only.
+   Generous padding. Typography-led.
+   ============================================= */
+.strategies {
+  background: var(--bg);
+  padding: 88px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.section-label {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.section-intro {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--gray);
+  max-width: 640px;
+  margin-bottom: 56px;
+}
+
+.strat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--rule);
+}
+
+.strat-card {
+  background: var(--white);
+  padding: 36px 32px 32px;
+  border-top: 3px solid transparent;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.18s;
+}
+
+.strat-card.sip     { border-top-color: var(--navy); }
+.strat-card.sip-plus { border-top-color: var(--gold); }
+.strat-card.gsip    { border-top-color: #4a7fb5; }
+
+.strat-card:hover { box-shadow: 0 4px 24px rgba(0,40,85,0.07); position: relative; z-index: 1; }
+
+.strat-tag {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.strat-card h3 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.strat-card .strat-sub {
+  font-size: 13px;
+  color: var(--gray);
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--rule);
+  line-height: 1.4;
+}
+
+.strat-card .strat-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--gray);
+  margin-bottom: 24px;
+  flex: 1;
+}
+
+/* Client fit — clean, no background fill */
+.fit {
+  margin-bottom: 28px;
+}
+
+.fit-label {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--navy);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.fit p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--gray-dark);
+}
+
+/* Risk / income pills — minimal */
+.pills {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gray);
+  border: 1px solid var(--rule);
+  padding: 4px 10px;
+}
+
+.strat-links {
+  display: flex;
+  gap: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+}
+
+.strat-link {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+}
+.strat-link:hover { color: var(--gold); }
+.strat-link i { font-size: 12px; }
+
+/* =============================================
+   PHILOSOPHY — replaces the cluttered goals/features
+   One clear editorial block. White on navy.
+   ============================================= */
+.philosophy {
+  background: var(--navy);
+  padding: 88px 0;
+}
+
+.phil-inner {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 88px;
+  align-items: start;
+}
+
+.phil-left {}
+
+.phil-left h2 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin-bottom: 24px;
+}
+
+.phil-left p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.6);
+}
+
+.phil-right {}
+
+.phil-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px 48px;
+}
+
+.phil-item {}
+
+.phil-item .pi-num {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.phil-item h4 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.phil-item p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.5);
+}
+
+.phil-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 56px 0 0;
+  grid-column: 1 / -1;
+}
+
+/* =============================================
+   DOWNLOADS — quiet, table-like list
+   ============================================= */
+.downloads {
+  background: var(--white);
+  padding: 88px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.dl-table {
+  border-top: 1px solid var(--rule);
+  margin-top: 48px;
+}
+
+.dl-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--rule);
+  transition: background 0.15s;
+}
+
+.dl-row:hover { background: var(--bg); }
+
+.dl-name h4 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.dl-name span {
+  font-size: 12px;
+  color: var(--gray-light);
+  font-family: 'Roboto Condensed', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.dl-type {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.dl-period {
+  font-size: 12px;
+  color: var(--gray-light);
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.dl-btn {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.dl-btn:hover { color: var(--gold); }
+.dl-btn i { font-size: 12px; }
+
+/* =============================================
+   FORM — institutional, clean
+   ============================================= */
+.form-section {
+  background: var(--bg);
+  padding: 88px 0;
+}
+
+.form-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 88px;
+  align-items: start;
+}
+
+.form-copy h2 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.form-copy p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--gray);
+  margin-bottom: 36px;
+}
+
+.form-items {
+  border-top: 1px solid var(--rule);
+}
+
+.form-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.form-item i {
+  color: var(--gold);
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.form-item span {
+  font-size: 14px;
+  color: var(--gray-dark);
+  line-height: 1.5;
+}
+
+.form-box {
+  background: var(--white);
+  border-top: 3px solid var(--gold);
+  padding: 44px 40px;
+}
+
+.form-box h3 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.form-box .f-sub {
+  font-size: 13px;
+  color: var(--gray-light);
+  margin-bottom: 32px;
+  display: block;
+  font-family: 'Roboto Condensed', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* ── Replace with Smart Capture embed ── */
+.sc-placeholder {
+  background: var(--bg);
+  border: 1px dashed var(--rule);
+  padding: 56px 24px;
+  text-align: center;
+}
+.sc-placeholder i { font-size: 24px; color: var(--rule); display: block; margin-bottom: 10px; }
+.sc-placeholder p {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-light);
+  margin: 0;
+}
+
+.form-disc {
+  font-size: 11px;
+  color: var(--gray-light);
+  line-height: 1.6;
+  margin-top: 16px;
+}
+
+.form-disc a { color: var(--gold); font-size: 11px; }
+
+/* =============================================
+   DISCLOSURE
+   ============================================= */
+.disclosure {
+  background: var(--white);
+  border-top: 1px solid var(--rule);
+  padding: 32px 0;
+}
+
+.disclosure p {
+  font-size: 11px;
+  color: var(--gray-light);
+  line-height: 1.7;
+  margin-bottom: 6px;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-mark { display: none; }
+  .hero h1 { font-size: 52px; }
+  .video-layout { grid-template-columns: 1fr; }
+  .phil-inner { grid-template-columns: 1fr; gap: 48px; }
+  .phil-items { grid-template-columns: 1fr; }
+  .strat-grid { grid-template-columns: 1fr; }
+  .form-layout { grid-template-columns: 1fr; gap: 48px; }
+  .dl-row { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .dl-period { display: none; }
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 64px 0 56px; }
+  .hero h1 { font-size: 40px; }
+  .form-box { padding: 28px 24px; }
+  .lp { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- EAGLE HEADER — exact from eagleasset.com/retail -->
+<header>
+  <div class="global-navigation">
+    <div class="navigation-top-bar hidden-xs hidden-sm">
+      <div class="container"><div class="row"><ul></ul></div></div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="site-logo-cont col-xs-12">
+          <div class="site-logo">
+            <a href="https://www.eagleasset.com/retail" data-urltype="Internal">
+              <img src="https://www.eagleasset.com/-/media/RJ/Affiliate-Sites/CTA-Affiliates-Common/eagle-logo-no-affiliate.png?la=en&h=128&w=558&hash=207D3676D6C5C67F398C65DC849C944D"
+                   class="img-responsive" alt="Eagle Asset Management"/>
+            </a>
+          </div>
+          <a href="#" class="site-navigation-toggle visible-xs-inline-block visible-sm-inline-block">
+            <div class="cus-nav-icon"><span></span><span></span><span></span></div>
+            <div class="cus-close">X</div>
+          </a>
+        </div>
+        <div class="mega-menu-cont col-xs-12">
+          <nav class="mega-menu">
+            <ul class="site-navigation">
+              <li>
+                <a href="https://www.eagleasset.com/about-us" class="has-child">About Us<span class="subnavigation-arrow"></span></a>
+                <ul class="site-subnavigation">
+                  <li class="back"><a href="#"><span class="subnavigation-back"></span>Back</a></li>
+                  <li class="subnav-mobile-title">About Us</li>
+                  <li><a href="https://www.eagleasset.com/about-us"> About Us</a></li>
+                  <li><a href="https://www.eagleasset.com/about-us/our-leadership-team"> Our Leadership Team</a></li>
+                  <li><a href="https://www.eagleasset.com/about-us/our-philosophy"> Our Philosophy</a></li>
+                  <li><a href="https://www.eagleasset.com/about-us/our-investment-teams"> Our Investment Teams</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="https://www.eagleasset.com/strategies/investment-strategies" class="has-child">Strategies<span class="subnavigation-arrow"></span></a>
+                <ul class="site-subnavigation">
+                  <li class="back"><a href="#"><span class="subnavigation-back"></span>Back</a></li>
+                  <li class="subnav-mobile-title">Strategies</li>
+                  <li><a href="https://www.eagleasset.com/strategies/investment-strategies"> Investment Strategies</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="https://www.eagleasset.com/insights-and-commentary" class="has-child">Insights<span class="subnavigation-arrow"></span></a>
+                <ul class="site-subnavigation">
+                  <li class="back"><a href="#"><span class="subnavigation-back"></span>Back</a></li>
+                  <li class="subnav-mobile-title">Insights</li>
+                </ul>
+              </li>
+              <li>
+                <a href="https://www.eagleasset.com/contact" class="has-child">Contact<span class="subnavigation-arrow"></span></a>
+                <ul class="site-subnavigation">
+                  <li class="back"><a href="#"><span class="subnavigation-back"></span>Back</a></li>
+                  <li class="subnav-mobile-title">Contact</li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="lp">
+    <div class="hero-inner">
+
+      <div>
+        <span class="hero-label">The Strategic Income Portfolio Suite</span>
+        <h1>
+          Amplify
+          <em>Your Income</em>
+          <span class="sub">Potential.</span>
+        </h1>
+        <p class="hero-body">
+          Turn the volume up on your income strategy. One disciplined process. Three dynamic strategies. A multi-asset income framework designed to help your clients generate consistent, sustainable income — across varying risk profiles and market conditions.
+        </p>
+        <div class="hero-actions">
+          <a href="#suite" class="btn-primary">Explore the Suite</a>
+          <a href="#connect" class="btn-ghost">Connect With Eagle <i class="fa fa-long-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="hero-mark" aria-hidden="true">
+        <div class="wave-mark">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="hero-suite-names">SIP &nbsp;&nbsp;|&nbsp;&nbsp; SIP Plus &nbsp;&nbsp;|&nbsp;&nbsp; Global SIP</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- EDITORIAL STATEMENT -->
+<div class="statement">
+  <div class="lp">
+    <div class="statement-inner">
+      <div class="statement-rule"></div>
+      <p>Help amplify your clients' income through broader diversification and higher-yield opportunities — all with the same tactical, risk-conscious core SIP approach you trust.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- VIDEO -->
+<section class="video-section" id="video">
+  <div class="lp">
+    <div class="video-layout">
+
+      <div class="video-frame">
+        <!-- ══ REPLACE WITH KALTURA IFRAME ══
+        <iframe
+          src="https://cdnapisec.kaltura.com/p/[PARTNER_ID]/sp/[PARTNER_ID]00/embedIframeJs/uiconf_id/[UICONF_ID]/partner_id/[PARTNER_ID]?iframeembed=true&playerId=kaltura_player&entry_id=[ENTRY_ID]"
+          width="100%" height="100%"
+          style="position:absolute;top:0;left:0;border:none;"
+          allowfullscreen>
+        </iframe>
+        ══ END KALTURA ══ -->
+        <div class="video-inner">
+          <div class="play-ring"><i class="fa fa-play"></i></div>
+          <span class="vid-label">Kaltura Video — Insert Embed Code</span>
+        </div>
+      </div>
+
+      <div class="video-copy">
+        <span class="v-label">Suite Overview</span>
+        <h2>One Process.<br>Three Ways to<br>Generate Income.</h2>
+        <p>The SIP Suite provides one disciplined, actively managed framework designed to support client income needs across varying risk profiles and objectives — from the income anchor client prioritizing stability to the investor seeking global income diversification.</p>
+        <p>Hear from Eagle's investment team on the philosophy behind the suite and why their tactical, risk-conscious approach is positioned to deliver income across any market cycle.</p>
+        <span class="v-meta"><i class="fa fa-clock-o"></i> [X] min &nbsp;|&nbsp; Eagle Investment Team</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- THREE STRATEGIES -->
+<section class="strategies" id="suite">
+  <div class="lp">
+    <span class="section-label">The SIP Suite</span>
+    <h2 class="section-title">One Disciplined Process.<br>Three Dynamic Strategies.</h2>
+    <p class="section-intro">Each strategy within the suite is built on the same tactical, risk-conscious framework — differentiated by income objective, risk profile, and asset class exposure to meet clients where they are.</p>
+
+    <div class="strat-grid">
+
+      <!-- SIP -->
+      <div class="strat-card sip">
+        <span class="strat-tag">Core Income</span>
+        <h3>SIP</h3>
+        <div class="strat-sub">Seeks steady income and consistent growth</div>
+        <p class="strat-desc">Dividend-growth U.S. equities, investment-grade fixed income, and cash — actively balanced to pursue steady income and capital preservation. Allocation limits: 35–65% equities, 35–65% bonds, 0–30% cash.</p>
+        <div class="fit">
+          <span class="fit-label">Client Fit</span>
+          <p>Retirees seeking a steady paycheck and capital appreciation. The income anchor within multi-asset lineups for clients prioritizing stability and capital discipline.</p>
+        </div>
+        <div class="pills">
+          <span class="pill">Conservative–Moderate</span>
+          <span class="pill">Moderate Income</span>
+        </div>
+        <div class="strat-links">
+          <a href="#" class="strat-link"><i class="fa fa-file-pdf-o"></i> Factsheet</a>
+          <a href="#" class="strat-link"><i class="fa fa-file-text-o"></i> Commentary</a>
+        </div>
+      </div>
+
+      <!-- SIP PLUS -->
+      <div class="strat-card sip-plus">
+        <span class="strat-tag">Increased Income</span>
+        <h3>SIP Plus</h3>
+        <div class="strat-sub">Seeks higher income potential</div>
+        <p class="strat-desc">Higher-yielding dividend U.S. equities, investment-grade and selective high-yield corporate credit (primarily BB), and cash — managed to seek higher income within a disciplined, quality-first framework.</p>
+        <div class="fit">
+          <span class="fit-label">Client Fit</span>
+          <p>Clients seeking increased cash flow and higher income potential who accept moderate volatility within a structured, quality-conscious framework.</p>
+        </div>
+        <div class="pills">
+          <span class="pill">Moderate–High</span>
+          <span class="pill">High Income</span>
+        </div>
+        <div class="strat-links">
+          <a href="#" class="strat-link"><i class="fa fa-file-pdf-o"></i> Factsheet</a>
+          <a href="#" class="strat-link"><i class="fa fa-file-text-o"></i> Commentary</a>
+        </div>
+      </div>
+
+      <!-- GLOBAL SIP -->
+      <div class="strat-card gsip">
+        <span class="strat-tag">Global Income</span>
+        <h3>Global SIP</h3>
+        <div class="strat-sub">Seeks diversified, international income</div>
+        <p class="strat-desc">U.S. and international dividend equities, U.S. investment-grade fixed income, and cash — tactically managed to broaden and diversify income potential beyond U.S. markets.</p>
+        <div class="fit">
+          <span class="fit-label">Client Fit</span>
+          <p>Investors seeking global diversification with an income-oriented approach. Broadens income sources beyond U.S. markets by adding international dividend exposure.</p>
+        </div>
+        <div class="pills">
+          <span class="pill">Moderate</span>
+          <span class="pill">Moderate–High Income</span>
+        </div>
+        <div class="strat-links">
+          <a href="#" class="strat-link"><i class="fa fa-file-pdf-o"></i> Factsheet</a>
+          <a href="#" class="strat-link"><i class="fa fa-file-text-o"></i> Commentary</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <div class="lp">
+    <div class="phil-inner">
+
+      <div class="phil-left">
+        <span class="section-label" style="color:var(--gold);">Our Approach</span>
+        <h2>A Fine-Tuned Approach to Income</h2>
+        <p>The SIP Suite is backed by a consistent bottom-up investment philosophy and active tactical management — built to pursue income without sacrificing discipline. Each strategy shares three core goals, executed with a team-specific approach to risk and opportunity.</p>
+      </div>
+
+      <div class="phil-right">
+        <div class="phil-items">
+          <div class="phil-item">
+            <span class="pi-num">01</span>
+            <h4>Capital Preservation</h4>
+            <p>Disciplined risk management across equities, bonds, and cash as market conditions evolve — so income generation never comes at the cost of principal discipline.</p>
+          </div>
+          <div class="phil-item">
+            <span class="pi-num">02</span>
+            <h4>Steady Income Production</h4>
+            <p>Consistently producing current and future income through dividend-producing stocks and fixed-income securities across multiple market cycles.</p>
+          </div>
+          <div class="phil-item">
+            <span class="pi-num">03</span>
+            <h4>Broad Market Exposure</h4>
+            <p>Both equity and bond exposure with flexibility to adjust allocations to support income needs and maintain capital through changing market conditions.</p>
+          </div>
+          <div class="phil-item">
+            <span class="pi-num">04</span>
+            <h4>Active Tactical Management</h4>
+            <p>Tenured investment teams with the autonomy to pursue decisions guided by their individual philosophies — and the discipline to act within a unified framework.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- DOWNLOADS -->
+<section class="downloads" id="resources">
+  <div class="lp">
+    <span class="section-label">Resources</span>
+    <h2 class="section-title">Strategy Materials</h2>
+
+    <div class="dl-table">
+
+      <div class="dl-row">
+        <div class="dl-name">
+          <h4>SIP Suite Overview</h4>
+          <span>Amplify Your Income — Full Suite Brochure</span>
+        </div>
+        <div class="dl-type">Brochure</div>
+        <div class="dl-period">Current</div>
+        <a href="#" class="dl-btn"><i class="fa fa-download"></i> Download</a>
+      </div>
+
+      <div class="dl-row">
+        <div class="dl-name">
+          <h4>SIP</h4>
+          <span>Strategic Income Portfolio — Factsheet</span>
+        </div>
+        <div class="dl-type">Factsheet</div>
+        <div class="dl-period">Q[X] [YEAR]</div>
+        <a href="#" class="dl-btn"><i class="fa fa-download"></i> Download</a>
+      </div>
+
+      <div class="dl-row">
+        <div class="dl-name">
+          <h4>SIP Plus</h4>
+          <span>Strategic Income Portfolio Plus — Factsheet</span>
+        </div>
+        <div class="dl-type">Factsheet</div>
+        <div class="dl-period">Q[X] [YEAR]</div>
+        <a href="#" class="dl-btn"><i class="fa fa-download"></i> Download</a>
+      </div>
+
+      <div class="dl-row">
+        <div class="dl-name">
+          <h4>Global SIP</h4>
+          <span>Global Strategic Income Portfolio — Factsheet</span>
+        </div>
+        <div class="dl-type">Factsheet</div>
+        <div class="dl-period">Q[X] [YEAR]</div>
+        <a href="#" class="dl-btn"><i class="fa fa-download"></i> Download</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- FORM -->
+<section class="form-section" id="connect">
+  <div class="lp">
+    <div class="form-layout">
+
+      <div class="form-copy">
+        <span class="section-label">Connect With Eagle</span>
+        <h2>Ready to Amplify Your Clients' Income Potential?</h2>
+        <p>Your Regional Vice President and Internal Consultant team can help build a SIP Suite income strategy tailored to your clients' goals. Complete the form and we will be in touch within one business day.</p>
+        <div class="form-items">
+          <div class="form-item"><i class="fa fa-check"></i><span>Full SIP Suite brochure and factsheet package</span></div>
+          <div class="form-item"><i class="fa fa-check"></i><span>Client-ready presentation materials</span></div>
+          <div class="form-item"><i class="fa fa-check"></i><span>Strategy comparison and client fit guidance</span></div>
+          <div class="form-item"><i class="fa fa-check"></i><span>Portfolio construction and proposal support</span></div>
+          <div class="form-item"><i class="fa fa-check"></i><span>Direct access to your regional consultant team</span></div>
+        </div>
+      </div>
+
+      <div class="form-box">
+        <h3>Request Information</h3>
+        <span class="f-sub">An Eagle representative will follow up within one business day.</span>
+
+        <!-- ══ REPLACE WITH MARKETING CLOUD SMART CAPTURE FORM ══ -->
+        <div class="sc-placeholder">
+          <i class="fa fa-wpforms"></i>
+          <p>Marketing Cloud Smart Capture Form</p>
+        </div>
+        <!-- ══ END SMART CAPTURE PLACEHOLDER ══ -->
+
+        <p class="form-disc">For Financial Professional Use Only. Not for distribution to the public. By submitting this form you agree to be contacted by Eagle Asset Management. <a href="https://www.eagleasset.com/about-us/privacy-policy">Privacy Policy</a></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- COMPLIANCE DISCLOSURES -->
+<div class="disclosure">
+  <div class="lp">
+    <p>The information provided should not be construed as a recommendation to buy, sell or hold any particular strategy or security. The data is shown for informational purposes only and is not indicative of future portfolio characteristics or returns. Past performance does not guarantee future results.</p>
+    <p>Equity Income investing involves risks, including that dividend-issuing companies may choose not to pay a dividend or may not have the ability to pay. Fixed income investing involves risk, including interest-rate risk, credit risk and reinvestment risk. Strategies that invest in below-investment-grade ("high-yield") securities involve greater credit and liquidity risk. International investments involve additional risks, including currency fluctuations, political and economic instability, and differences in accounting and disclosure standards. All investments involve risk, including possible loss of principal. Diversification and asset allocation do not ensure a profit or protect against loss.</p>
+    <p>For Financial Professional and/or Client use only. &nbsp;880 Carillon Parkway | St. Petersburg, FL 33716 | eagleasset.com &nbsp;|&nbsp; M-847233 &nbsp;|&nbsp; Exp. 12/15/26 &nbsp;|&nbsp; BR-EA-SIP</p>
+  </div>
+</div>
+
+
+<!-- EAGLE FOOTER — exact from eagleasset.com/retail source -->
+<footer>
+  <div class="container footer-nav">
+    <div class="row">
+      <div class="col-xs-12 col-md-7 col-md-push-3 fn-main-nav">
+        <a href="https://www.eagleasset.com/about-us">About Us</a>
+        <a href="https://www.eagleasset.com/about-us/privacy-policy">Privacy Policy</a>
+        <a href="https://www.eagleasset.com/-/media/RJ/Affiliate-Sites/Eagle/About-Us/adv-eagle-partii.pdf">ADV</a>
+        <a href="https://www.eagleasset.com/contact">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 footer-legal-copy">
+        <style>
+          .footer-legal-copy .title { text-align:center; }
+          .title { font-weight:300; font-size:20px; line-height:1.5; font-family:Roboto,sans-serif; color:#002855; }
+          .footer-legal-copy a { color:inherit; font-size:20px; }
+          .footer-legal-copy a:hover { color:#a09162; }
+        </style>
+        <p class="title">
+          <a href="http://www.rjinvestmentmanagement.com" target="_blank" rel="noopener noreferrer">
+            A Boutique of Raymond James Investment Management
+          </a>
+        </p>
+        <p>&copy;2026 Eagle Asset Management, Inc. All rights reserved. Eagle Asset Management is the trade name for Eagle Asset Management, Inc., an investment adviser registered with the U.S. Securities and Exchange Commission (SEC).</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://www.eagleasset.com/bundles/affiliatesites/affiliatescripts.js"></script>
+</body>
+</html>
