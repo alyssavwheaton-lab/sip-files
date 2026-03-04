@@ -588,9 +588,17 @@ h+=`<button onclick="event.stopPropagation();moveBlock('${b.uid}',-1)" title="Up
 h+=`<button onclick="event.stopPropagation();moveBlock('${b.uid}',1)" title="Down">▼</button>`;
 h+=`<button onclick="event.stopPropagation();dupBlock('${b.uid}')" title="Duplicate">⧉</button>`;
 h+=`<button onclick="event.stopPropagation();removeBlock('${b.uid}')" title="Remove" style="color:#ef4444">✕</button>`;
-h+=`</div></div><div class="block-html">${def.html(b.data)}</div></div>`});
+h+=`</div></div><div class="block-html">${renderBlockHtml(def, b.data)}</div></div>`});
 h+=`<div class="drop-zone" data-idx="${blocks.length}" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,${blocks.length})">Drop here</div>`;
 cv.innerHTML=h}
+
+// Render block HTML — inject styles for uploaded components
+function renderBlockHtml(def, data) {
+  const content = def.html(data);
+  if (!def._srcFile || !uploadedStyles[def._srcFile]) return content;
+  const s = uploadedStyles[def._srcFile];
+  return s.styles + '\n' + content;
+}
 
 // DRAG
 function onDragStart(e,id){dragSrc={type:"new",compId:id};e.dataTransfer.setData("text/plain",id);e.dataTransfer.effectAllowed="copy"}
@@ -614,19 +622,39 @@ h+=`</div><div class="ed-section"><h3>Actions</h3><button class="btn-ghost" styl
 p.innerHTML=h}
 
 function upd(uid,k,v){const b=blocks.find(x=>x.uid===uid);if(!b)return;b.data[k]=v;
-const el=document.querySelector(`[data-uid="${uid}"] .block-html`);if(el){const def=findDef(b.compId);if(def)el.innerHTML=def.html(b.data)}
+const el=document.querySelector(`[data-uid="${uid}"] .block-html`);if(el){const def=findDef(b.compId);if(def)el.innerHTML=renderBlockHtml(def,b.data)}
 updatePreview();updateCode()}
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
 
 // PREVIEW
 function genHtml(){
-let body="";for(const b of blocks){const def=findDef(b.compId);if(def)body+=def.html(b.data)+"\n"}
+let body="";
+// Collect which uploaded source files are used
+const usedSrcFiles = new Set();
+for(const b of blocks){
+  const def=findDef(b.compId);
+  if(def){
+    body+=def.html(b.data)+"\n";
+    if(def._srcFile) usedSrcFiles.add(def._srcFile);
+  }
+}
+// Gather styles from uploaded files that are in use
+let extraLinks="", extraStyles="";
+for(const f of usedSrcFiles){
+  if(uploadedStyles[f]){
+    extraLinks+=uploadedStyles[f].links+"\n";
+    extraStyles+=uploadedStyles[f].styles+"\n";
+  }
+}
 return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>SIP Suite — Eagle Asset Management</title>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Source Sans 3',sans-serif;margin:0;padding:0}</style></head><body>${body}</body></html>`}
+${extraLinks}
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Source Sans 3',sans-serif;margin:0;padding:0}</style>
+${extraStyles}
+</head><body>${body}</body></html>`}
 
 function updatePreview(){const f=document.getElementById("previewFrame");const h=genHtml();const blob=new Blob([h],{type:"text/html"});f.src=URL.createObjectURL(blob);updateCode()}
 function updateCode(){const c=document.getElementById("codeArea");if(c)c.value=genHtml()}
@@ -661,6 +689,7 @@ document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="z"){
 // =====================================================
 let parsedSections = [];
 let uploadFileCount = 0;
+let uploadedStyles = {}; // filename -> {styles, links}
 
 function handleUpload(e) {
   const files = Array.from(e.target.files);
@@ -699,10 +728,50 @@ function parseHtmlIntoSections(html, filename) {
   const sections = [];
   const parser = new DOMParser();
 
+  // Extract <style> blocks from the full HTML (head + body)
+  const styleBlocks = [];
+  const styleRegex = /<style[^>]*>([\s\S]*?)<\/style>/gi;
+  let sm;
+  while ((sm = styleRegex.exec(html)) !== null) {
+    styleBlocks.push(sm[0]);
+  }
+
+  // Extract <link> stylesheet tags
+  const linkTags = [];
+  const linkRegex = /<link[^>]*rel=["']stylesheet["'][^>]*\/?>/gi;
+  let lm;
+  while ((lm = linkRegex.exec(html)) !== null) {
+    linkTags.push(lm[0]);
+  }
+
+  // Also grab Google Fonts links
+  const fontRegex = /<link[^>]*href=["'][^"']*fonts\.googleapis[^"']*["'][^>]*\/?>/gi;
+  while ((lm = fontRegex.exec(html)) !== null) {
+    if (!linkTags.includes(lm[0])) linkTags.push(lm[0]);
+  }
+
+  // Font Awesome
+  const faRegex = /<link[^>]*href=["'][^"']*font-awesome[^"']*["'][^>]*\/?>/gi;
+  while ((lm = faRegex.exec(html)) !== null) {
+    if (!linkTags.includes(lm[0])) linkTags.push(lm[0]);
+  }
+
+  // Store styles for this file
+  uploadedStyles[filename] = {
+    styles: styleBlocks.join('\n'),
+    links: linkTags.join('\n')
+  };
+
   // Extract body content (or full content if no body tag)
   let bodyHtml = html;
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
   if (bodyMatch) bodyHtml = bodyMatch[1];
+
+  // Also check for content inside a wrapper div (MC content blocks have no body tag)
+  // Remove any <style> blocks from the body content so they don't duplicate
+  bodyHtml = bodyHtml.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
+  // Remove <script> tags
+  bodyHtml = bodyHtml.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
 
   // Strategy 1: Split on HTML comments that look like section markers
   // Matches patterns like <!-- ══ HERO ══ --> or <!-- ===== HERO SECTION ===== -->
@@ -877,9 +946,7 @@ function importSelectedSections() {
 
     sections.forEach((s, j) => {
       const compId = `upload_${filename.replace(/[^a-z0-9]/gi,'_')}_${Date.now()}_${j}`;
-
-      // Store the raw HTML as a static component (editable via raw HTML)
-      const rawHtml = s.html;
+      const srcFile = filename; // capture for closure
 
       C[catName].push({
         id: compId,
@@ -888,8 +955,9 @@ function importSelectedSections() {
         badge: "UP",
         badgeBg: "#7c3aed",
         badgeColor: "#fff",
+        _srcFile: srcFile,
         editable: ["rawHtml"],
-        defaults: { rawHtml: rawHtml },
+        defaults: { rawHtml: s.html },
         html: d => d.rawHtml
       });
       imported++;
