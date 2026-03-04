@@ -145,13 +145,7 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 </div>
 <div class="canvas-wrap">
   <div class="canvas-bar"><span>Build Canvas</span> — <span class="ct" id="blockCount">0</span> <span>components</span></div>
-  <div class="canvas" id="canvas">
-    <div class="canvas-empty" id="canvasEmpty">
-      <div class="ico">&#128233;</div>
-      <p>Drag components here to start building</p>
-      <p style="font-size:10px">Or double-click a component in the sidebar</p>
-    </div>
-  </div>
+  <div class="canvas" id="canvas"></div>
 </div>
 <div class="right-panel">
   <div class="right-tabs">
@@ -505,7 +499,15 @@ html:d=>`<footer style="background:#00263A;color:rgba(255,255,255,0.5);padding:3
 // =====================================================
 let blocks=[],selId=null,undoStack=[],redoStack=[],dragSrc=null,expType="cloudpage";
 
-function init(){renderSidebar();updatePreview()}
+function init(){
+  renderSidebar();
+  renderCanvas();
+  updatePreview();
+  // Make the entire canvas a drop target
+  const cv=document.getElementById("canvas");
+  cv.addEventListener("dragover",e=>{e.preventDefault()});
+  cv.addEventListener("drop",e=>{e.preventDefault();handleDrop(blocks.length)});
+}
 
 function findDef(id){for(const cs of Object.values(C)){const f=cs.find(c=>c.id===id);if(f)return f}return null}
 
@@ -543,13 +545,12 @@ function moveBlock(uid,dir){const i=blocks.findIndex(b=>b.uid===uid);const j=i+d
 function selectBlock(uid){selId=uid;document.querySelectorAll(".canvas-block").forEach(e=>e.classList.remove("selected"));const e=document.querySelector(`[data-uid="${uid}"]`);if(e)e.classList.add("selected");renderEditor()}
 
 function renderCanvas(){
-const cv=document.getElementById("canvas"),em=document.getElementById("canvasEmpty");
+const cv=document.getElementById("canvas");
 document.getElementById("blockCount").textContent=blocks.length;
-if(!blocks.length){cv.innerHTML="";cv.appendChild(em);em.style.display="flex";
-const dz=document.createElement("div");dz.className="drop-zone";dz.innerHTML="Drop components here";
-dz.ondragover=e=>{e.preventDefault();dz.classList.add("over")};dz.ondragleave=()=>dz.classList.remove("over");
-dz.ondrop=e=>{e.preventDefault();dz.classList.remove("over");handleDrop(0)};cv.appendChild(dz);return}
-em.style.display="none";let h="";
+if(!blocks.length){
+cv.innerHTML=`<div class="canvas-empty" style="display:flex"><div class="ico">&#128233;</div><p>Drag components here to start building</p><p style="font-size:10px">Or double-click a component in the sidebar</p></div><div class="drop-zone" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,0)">Drop components here</div>`;
+return}
+let h="";
 blocks.forEach((b,i)=>{const def=findDef(b.compId);if(!def)return;
 const sel=b.uid===selId?" selected":"";
 h+=`<div class="drop-zone" data-idx="${i}" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,${i})"></div>`;
