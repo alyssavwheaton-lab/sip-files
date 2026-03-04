@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIP Suite Email Builder — Eagle Strategies</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--navy:#002855;--navy-dark:#001a3a;--gold:#C8A951;--gold-light:#d4ba6a;
+--bg:#0f1117;--panel:#1a1d27;--panel-border:#2a2d3a;--text:#e0e0e0;
+--text-dim:#8a8d9a;--accent:#3b82f6;--success:#22c55e;--danger:#ef4444;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+/* TOP BAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:var(--navy-dark);border-bottom:2px solid var(--gold);height:48px;flex-shrink:0}
+.topbar h1{font-size:16px;color:var(--gold);font-weight:700;letter-spacing:1px}
+.topbar-actions{display:flex;gap:8px}
+.topbar-actions button{padding:6px 14px;border:none;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-secondary{background:var(--panel);color:var(--text);border:1px solid var(--panel-border)!important}
+.btn-secondary:hover{background:var(--panel-border)}
+.btn-primary{background:var(--gold);color:var(--navy-dark)}
+.btn-primary:hover{background:var(--gold-light)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-export{background:var(--success);color:#fff}
+.btn-export:hover{opacity:.9}
+/* MAIN LAYOUT */
+.main{display:flex;flex:1;overflow:hidden}
+/* LEFT SIDEBAR */
+.sidebar{width:260px;background:var(--panel);border-right:1px solid var(--panel-border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
+.sidebar-header{padding:12px;border-bottom:1px solid var(--panel-border);font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px}
+.sidebar-search{padding:8px 12px}
+.sidebar-search input{width:100%;padding:6px 10px;background:var(--bg);border:1px solid var(--panel-border);border-radius:4px;color:var(--text);font-size:12px;outline:none}
+.sidebar-search input:focus{border-color:var(--gold)}
+.sidebar-scroll{flex:1;overflow-y:auto;padding:4px 0}
+.sidebar-scroll::-webkit-scrollbar{width:4px}
+.sidebar-scroll::-webkit-scrollbar-thumb{background:var(--panel-border);border-radius:2px}
+.cat-header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;cursor:pointer;font-size:12px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;user-select:none}
+.cat-header:hover{color:var(--text)}
+.cat-header .arrow{transition:transform .2s;font-size:10px}
+.cat-header.open .arrow{transform:rotate(90deg)}
+.cat-items{display:none;padding:0 8px 8px}
+.cat-items.open{display:block}
+.comp-item{display:flex;align-items:center;gap:8px;padding:8px 10px;margin:2px 0;border-radius:6px;cursor:grab;font-size:12px;border:1px solid transparent;transition:all .15s;user-select:none}
+.comp-item:hover{background:rgba(200,169,81,.1);border-color:var(--gold)}
+.comp-item:active{cursor:grabbing;opacity:.7}
+.comp-icon{width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.comp-info{flex:1;min-width:0}
+.comp-name{font-weight:600;color:var(--text)}
+.comp-desc{font-size:10px;color:var(--text-dim);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* CENTER CANVAS */
+.canvas-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.canvas-toolbar{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--panel-border);background:var(--panel);font-size:12px}
+.canvas-toolbar span{color:var(--text-dim)}
+.canvas-toolbar .count{color:var(--gold);font-weight:700}
+.canvas{flex:1;overflow-y:auto;padding:16px;background:var(--bg)}
+.canvas::-webkit-scrollbar{width:6px}
+.canvas::-webkit-scrollbar-thumb{background:var(--panel-border);border-radius:3px}
+.canvas-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--text-dim);gap:12px}
+.canvas-empty .icon{font-size:48px;opacity:.3}
+.canvas-empty p{font-size:14px}
+.drop-zone{min-height:60px;border:2px dashed var(--panel-border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:12px;margin:4px 0;transition:all .2s}
+.drop-zone.over{border-color:var(--gold);background:rgba(200,169,81,.05);color:var(--gold)}
+.canvas-block{position:relative;border:1px solid transparent;border-radius:6px;margin:4px 0;transition:all .15s;group:block}
+.canvas-block:hover{border-color:var(--panel-border)}
+.canvas-block.selected{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.block-actions{position:absolute;top:4px;right:4px;display:none;gap:2px;z-index:10}
+.canvas-block:hover .block-actions,.canvas-block.selected .block-actions{display:flex}
+.block-actions button{width:24px;height:24px;border:none;border-radius:4px;background:var(--panel);color:var(--text-dim);cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center}
+.block-actions button:hover{background:var(--gold);color:var(--navy-dark)}
+.block-label{position:absolute;top:4px;left:4px;padding:2px 8px;background:var(--navy);color:var(--gold);font-size:10px;font-weight:700;border-radius:3px;z-index:10;display:none;text-transform:uppercase;letter-spacing:.5px}
+.canvas-block:hover .block-label,.canvas-block.selected .block-label{display:block}
+.block-content{padding:2px;pointer-events:none}
+.block-content *{max-width:100%}
+/* RIGHT PANEL - PREVIEW + EDITOR */
+.right-panel{width:420px;display:flex;flex-direction:column;border-left:1px solid var(--panel-border);flex-shrink:0;overflow:hidden}
+.right-tabs{display:flex;border-bottom:1px solid var(--panel-border);background:var(--panel)}
+.right-tab{flex:1;padding:10px;text-align:center;font-size:12px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;color:var(--text-dim);transition:all .15s}
+.right-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.right-tab:hover{color:var(--text)}
+.right-content{flex:1;overflow:hidden;position:relative}
+.tab-pane{display:none;height:100%;flex-direction:column}
+.tab-pane.active{display:flex}
+/* PREVIEW */
+.preview-frame-wrap{flex:1;background:#fff;overflow:auto;padding:0}
+.preview-frame-wrap iframe{width:100%;height:100%;border:none}
+/* EDITOR */
+.editor-pane{padding:12px;overflow-y:auto;flex:1}
+.editor-pane::-webkit-scrollbar{width:4px}
+.editor-pane::-webkit-scrollbar-thumb{background:var(--panel-border);border-radius:2px}
+.editor-section{margin-bottom:16px}
+.editor-section h3{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:8px;font-weight:700}
+.editor-field{margin-bottom:10px}
+.editor-field label{display:block;font-size:11px;color:var(--text-dim);margin-bottom:3px}
+.editor-field input,.editor-field textarea,.editor-field select{width:100%;padding:6px 8px;background:var(--bg);border:1px solid var(--panel-border);border-radius:4px;color:var(--text);font-size:12px;font-family:inherit;outline:none}
+.editor-field input:focus,.editor-field textarea:focus{border-color:var(--gold)}
+.editor-field textarea{min-height:60px;resize:vertical}
+.color-row{display:flex;gap:8px;align-items:center}
+.color-row input[type=color]{width:32px;height:32px;border:1px solid var(--panel-border);border-radius:4px;padding:2px;cursor:pointer;background:var(--bg)}
+.color-row input[type=text]{flex:1}
+/* CODE VIEW */
+.code-view{flex:1;position:relative}
+.code-view textarea{width:100%;height:100%;background:var(--bg);color:#a6e3a1;border:none;padding:12px;font-family:'Cascadia Code','Fira Code',monospace;font-size:12px;line-height:1.6;resize:none;outline:none}
+/* EXPORT MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:var(--panel);border:1px solid var(--panel-border);border-radius:12px;width:700px;max-height:80vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--panel-border)}
+.modal-header h2{font-size:16px;color:var(--gold)}
+.modal-header button{background:none;border:none;color:var(--text-dim);font-size:18px;cursor:pointer}
+.modal-body{padding:20px;overflow-y:auto;flex:1}
+.modal-body textarea{width:100%;height:300px;background:var(--bg);color:#a6e3a1;border:1px solid var(--panel-border);border-radius:6px;padding:12px;font-family:'Cascadia Code','Fira Code',monospace;font-size:11px;line-height:1.5;resize:vertical;outline:none}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;padding:12px 20px;border-top:1px solid var(--panel-border)}
+.export-options{display:flex;gap:12px;margin-bottom:16px}
+.export-opt{flex:1;padding:12px;border:1px solid var(--panel-border);border-radius:8px;cursor:pointer;text-align:center;transition:all .15s}
+.export-opt:hover{border-color:var(--gold)}
+.export-opt.selected{border-color:var(--gold);background:rgba(200,169,81,.1)}
+.export-opt h4{font-size:13px;color:var(--text);margin-bottom:4px}
+.export-opt p{font-size:10px;color:var(--text-dim)}
+/* DRAG GHOST */
+.drag-ghost{position:fixed;pointer-events:none;z-index:9999;padding:6px 12px;background:var(--gold);color:var(--navy-dark);font-size:12px;font-weight:700;border-radius:4px;opacity:.9;white-space:nowrap}
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;padding:10px 20px;background:var(--success);color:#fff;border-radius:6px;font-size:13px;font-weight:600;z-index:9999;transform:translateY(100px);opacity:0;transition:all .3s}
+.toast.show{transform:translateY(0);opacity:1}
+</style>
+</head>
+<body>
+<!-- TOP BAR -->
+<div class="topbar">
+  <h1>&#9670; SIP SUITE EMAIL BUILDER</h1>
+  <div class="topbar-actions">
+    <button class="btn-secondary" onclick="clearCanvas()">Clear All</button>
+    <button class="btn-secondary" onclick="saveProject()">&#128190; Save</button>
+    <button class="btn-secondary" onclick="loadProject()">&#128194; Load</button>
+    <button class="btn-primary" onclick="showExportModal()">&#9889; Export for SFMC</button>
+  </div>
+</div>
+
+<!-- MAIN 3-PANEL LAYOUT -->
+<div class="main">
+
+<!-- LEFT SIDEBAR: Component Library -->
+<div class="sidebar">
+  <div class="sidebar-header">Components</div>
+  <div class="sidebar-search"><input type="text" id="compSearch" placeholder="Search components..." oninput="filterComponents()"></div>
+  <div class="sidebar-scroll" id="sidebarScroll"></div>
+</div>
+
+<!-- CENTER: Build Canvas -->
+<div class="canvas-wrap">
+  <div class="canvas-toolbar">
+    <span>Build Canvas</span> &mdash; <span class="count" id="blockCount">0</span> <span>components</span>
+    <div style="flex:1"></div>
+    <button class="btn-secondary" onclick="undoAction()" title="Undo">&#8617; Undo</button>
+    <button class="btn-secondary" onclick="redoAction()" title="Redo">&#8618; Redo</button>
+  </div>
+  <div class="canvas" id="canvas">
+    <div class="canvas-empty" id="canvasEmpty">
+      <div class="icon">&#128233;</div>
+      <p>Drag components here to start building</p>
+      <p style="font-size:11px">Or double-click a component in the sidebar</p>
+    </div>
+  </div>
+</div>
+
+<!-- RIGHT: Preview / Editor / Code -->
+<div class="right-panel">
+  <div class="right-tabs">
+    <div class="right-tab active" data-tab="preview" onclick="switchTab('preview')">Preview</div>
+    <div class="right-tab" data-tab="editor" onclick="switchTab('editor')">Editor</div>
+    <div class="right-tab" data-tab="code" onclick="switchTab('code')">HTML Code</div>
+  </div>
+  <div class="right-content">
+    <div class="tab-pane active" id="tab-preview">
+      <div class="preview-frame-wrap">
+        <iframe id="previewFrame" title="Email Preview"></iframe>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab-editor">
+      <div class="editor-pane" id="editorPane">
+        <div style="color:var(--text-dim);font-size:13px;text-align:center;padding:40px">
+          Select a component on the canvas to edit its properties
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab-code">
+      <div class="code-view">
+        <textarea id="codeArea" spellcheck="false" readonly></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- EXPORT MODAL -->
+<div class="modal-overlay" id="exportModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>&#9889; Export for SFMC</h2>
+      <button onclick="closeExportModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="export-options">
+        <div class="export-opt selected" data-type="cloudpage" onclick="selectExportType('cloudpage')">
+          <h4>CloudPage</h4>
+          <p>Full HTML landing page for SFMC CloudPages</p>
+        </div>
+        <div class="export-opt" data-type="contentblock" onclick="selectExportType('contentblock')">
+          <h4>Content Block</h4>
+          <p>HTML block for Content Builder</p>
+        </div>
+        <div class="export-opt" data-type="email" onclick="selectExportType('email')">
+          <h4>Email Template</h4>
+          <p>Table-based email with inline styles</p>
+        </div>
+      </div>
+      <textarea id="exportCode" spellcheck="false"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="copyExport()">&#128203; Copy to Clipboard</button>
+      <button class="btn-primary" onclick="downloadExport()">&#11015; Download HTML</button>
+      <button class="btn-secondary" onclick="closeExportModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+<script>
+// ========== COMPONENT LIBRARY ==========
+const COMPONENTS = {
+  "Headers & Navigation": [
+    {
+      id: "header-eagle",
+      name: "Eagle Header Bar",
+      desc: "Navy header with Eagle Strategies logo and gold accent",
+      icon: "&#9670;",
+      iconBg: "#002855",
+      editable: ["logoText","bgColor","accentColor"],
+      defaults: {logoText:"EAGLE STRATEGIES", bgColor:"#002855", accentColor:"#C8A951"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${d.bgColor}"><tr><td style="padding:16px 30px;border-bottom:3px solid ${d.accentColor}"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:22px;font-weight:700;color:${d.accentColor};letter-spacing:3px">${d.logoText}</td><td style="text-align:right;font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.6)">Financial Advisors</td></tr></table></td></tr></table>`
+    },
+    {
+      id: "header-sip",
+      name: "SIP Suite Header",
+      desc: "Full header with SIP Suite branding and navigation links",
+      icon: "&#9776;",
+      iconBg: "#0A2240",
+      editable: ["navLinks","bgColor"],
+      defaults: {navLinks:"Overview,Strategies,Resources,Contact", bgColor:"#0A2240"},
+      html: (d) => {
+        const links = d.navLinks.split(",").map(l=>`<td style="padding:0 14px"><a href="#" style="color:rgba(255,255,255,.85);text-decoration:none;font-family:Arial,sans-serif;font-size:13px;font-weight:600">${l.trim()}</a></td>`).join("");
+        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${d.bgColor}"><tr><td style="padding:14px 30px;border-bottom:2px solid #C8A951"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:18px;font-weight:700;color:#C8A951;letter-spacing:2px">&#9670; SIP SUITE</td><td style="text-align:right"><table cellpadding="0" cellspacing="0"><tr>${links}</tr></table></td></tr></table></td></tr></table>`;
+      }
+    },
+    {
+      id: "nav-tabbed",
+      name: "Tab Navigation",
+      desc: "Horizontal tab navigation for multi-section pages",
+      icon: "&#9644;",
+      iconBg: "#1a365d",
+      editable: ["tabs","activeBg","activeText"],
+      defaults: {tabs:"Income Amplifier,Retirement Bridge,Tax-Smart,Estate Shield", activeBg:"#C8A951", activeText:"#002855"},
+      html: (d) => {
+        const tabs = d.tabs.split(",");
+        const tabHtml = tabs.map((t,i)=>`<td style="padding:10px 20px;background:${i===0?d.activeBg:'transparent'};color:${i===0?d.activeText:'rgba(255,255,255,.7)'};font-family:Arial,sans-serif;font-size:13px;font-weight:${i===0?'700':'400'};text-align:center;border-radius:4px 4px 0 0;cursor:pointer">${t.trim()}</td>`).join("");
+        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#002855"><tr><td style="padding:0 30px"><table cellpadding="0" cellspacing="4"><tr>${tabHtml}</tr></table></td></tr></table>`;
+      }
+    }
+  ],
+  "Hero Sections": [
+    {
+      id: "hero-gradient",
+      name: "Gradient Hero Banner",
+      desc: "Navy-to-dark gradient with headline and subtext",
+      icon: "&#9733;",
+      iconBg: "#002855",
+      editable: ["headline","subtext","ctaText","ctaUrl","bgFrom","bgTo"],
+      defaults: {headline:"Systematic Income Planning Suite", subtext:"A comprehensive approach to generating reliable income in any market environment", ctaText:"Explore Strategies", ctaUrl:"#", bgFrom:"#002855", bgTo:"#001a3a"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:linear-gradient(135deg,${d.bgFrom},${d.bgTo})"><tr><td style="padding:60px 40px;text-align:center"><h1 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:36px;font-weight:700;color:#C8A951;margin:0 0 16px;letter-spacing:1px">${d.headline}</h1><p style="font-family:Arial,sans-serif;font-size:16px;color:rgba(255,255,255,.85);margin:0 0 28px;max-width:600px;display:inline-block;line-height:1.6">${d.subtext}</p><br><a href="${d.ctaUrl}" style="display:inline-block;padding:14px 36px;background:#C8A951;color:#002855;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:700;border-radius:6px;letter-spacing:.5px">${d.ctaText}</a></td></tr></table>`
+    },
+    {
+      id: "hero-wave",
+      name: "Wave Hero Section",
+      desc: "Hero with decorative wave bottom edge",
+      icon: "&#127754;",
+      iconBg: "#0e2a50",
+      editable: ["headline","subtext","tagline"],
+      defaults: {headline:"Income. Amplified.", subtext:"Institutional-grade strategies designed for high-net-worth portfolios", tagline:"SIP Suite by Eagle Strategies"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:linear-gradient(180deg,#002855 0%,#001530 100%)"><tr><td style="padding:50px 40px 70px;text-align:center"><p style="font-family:Arial,sans-serif;font-size:12px;color:#C8A951;letter-spacing:3px;margin:0 0 16px;font-weight:600">${d.tagline}</p><h1 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:42px;font-weight:700;color:#ffffff;margin:0 0 16px">${d.headline}</h1><p style="font-family:Arial,sans-serif;font-size:17px;color:rgba(255,255,255,.8);margin:0;max-width:550px;display:inline-block;line-height:1.6">${d.subtext}</p></td></tr><tr><td style="height:30px;background:linear-gradient(180deg,transparent,#f8f9fa)" colspan="100%"></td></tr></table>`
+    },
+    {
+      id: "hero-split",
+      name: "Split Hero (Text + Image)",
+      desc: "Two-column hero with text left and image placeholder right",
+      icon: "&#9635;",
+      iconBg: "#1a365d",
+      editable: ["headline","subtext","ctaText","imgAlt"],
+      defaults: {headline:"Systematic Income Planning", subtext:"Discover strategies that deliver consistent, tax-efficient income for your clients' portfolios.", ctaText:"Learn More", imgAlt:"SIP Strategy Visual"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#002855"><tr><td width="55%" style="padding:50px 30px 50px 40px;vertical-align:middle"><h1 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:32px;color:#fff;margin:0 0 14px;font-weight:700">${d.headline}</h1><p style="font-family:Arial,sans-serif;font-size:15px;color:rgba(255,255,255,.8);line-height:1.6;margin:0 0 24px">${d.subtext}</p><a href="#" style="display:inline-block;padding:12px 30px;background:#C8A951;color:#002855;text-decoration:none;font-weight:700;border-radius:5px;font-size:14px">${d.ctaText}</a></td><td width="45%" style="padding:30px;vertical-align:middle;text-align:center"><div style="background:rgba(255,255,255,.1);border-radius:12px;padding:60px 30px;color:rgba(255,255,255,.4);font-size:14px">[${d.imgAlt}]</div></td></tr></table>`
+    }
+  ],
+  "Proof & Credibility": [
+    {
+      id: "stats-bar",
+      name: "Stats Proof Bar",
+      desc: "Key statistics in a horizontal bar (AUM, years, clients)",
+      icon: "&#128200;",
+      iconBg: "#1e3a5f",
+      editable: ["stat1Label","stat1Value","stat2Label","stat2Value","stat3Label","stat3Value","bgColor"],
+      defaults: {stat1Label:"Assets Under Management",stat1Value:"$2.8B+",stat2Label:"Years of Performance",stat2Value:"15+",stat3Label:"Advisor Partners",stat3Value:"500+",bgColor:"#f0ebe1"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${d.bgColor}"><tr><td style="padding:28px 20px"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="33%" style="text-align:center;padding:10px;border-right:1px solid rgba(0,40,85,.15)"><div style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:28px;font-weight:700;color:#002855">${d.stat1Value}</div><div style="font-family:Arial,sans-serif;font-size:11px;color:#666;margin-top:4px;text-transform:uppercase;letter-spacing:1px">${d.stat1Label}</div></td><td width="33%" style="text-align:center;padding:10px;border-right:1px solid rgba(0,40,85,.15)"><div style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:28px;font-weight:700;color:#002855">${d.stat2Value}</div><div style="font-family:Arial,sans-serif;font-size:11px;color:#666;margin-top:4px;text-transform:uppercase;letter-spacing:1px">${d.stat2Label}</div></td><td width="33%" style="text-align:center;padding:10px"><div style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:28px;font-weight:700;color:#002855">${d.stat3Value}</div><div style="font-family:Arial,sans-serif;font-size:11px;color:#666;margin-top:4px;text-transform:uppercase;letter-spacing:1px">${d.stat3Label}</div></td></tr></table></td></tr></table>`
+    },
+    {
+      id: "credibility-bar",
+      name: "Credibility Strip",
+      desc: "New York Life / Eagle Strategies trust indicators",
+      icon: "&#9989;",
+      iconBg: "#0d4f3c",
+      editable: ["text","bgColor"],
+      defaults: {text:"Backed by New York Life — A Fortune 100 Company with over 175 years of financial strength", bgColor:"#002855"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${d.bgColor}"><tr><td style="padding:14px 30px;text-align:center;font-family:Arial,sans-serif;font-size:13px;color:rgba(255,255,255,.8);letter-spacing:.3px"><span style="color:#C8A951;font-weight:700">&#10004;</span> ${d.text}</td></tr></table>`
+    },
+    {
+      id: "gold-bar",
+      name: "Gold Accent Bar",
+      desc: "Thin gold divider bar for visual separation",
+      icon: "&#9644;",
+      iconBg: "#8B7532",
+      editable: ["height","color"],
+      defaults: {height:"3", color:"#C8A951"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="height:${d.height}px;background:${d.color};font-size:0;line-height:0">&nbsp;</td></tr></table>`
+    }
+  ],
+  "Strategy Cards": [
+    {
+      id: "cards-2x2",
+      name: "Strategy Cards Grid (2x2)",
+      desc: "Four strategy cards in a 2x2 layout with icons",
+      icon: "&#9641;",
+      iconBg: "#2d3748",
+      editable: ["card1Title","card1Desc","card2Title","card2Desc","card3Title","card3Desc","card4Title","card4Desc"],
+      defaults: {card1Title:"Income Amplifier",card1Desc:"Enhanced yield strategies using covered call overlays and option premium capture",card2Title:"Retirement Bridge",card2Desc:"Gap-funding solutions for early retirees before Social Security and RMDs",card3Title:"Tax-Smart Income",card3Desc:"Tax-loss harvesting paired with municipal bond ladders for after-tax optimization",card4Title:"Estate Shield",card4Desc:"Wealth transfer strategies combining insurance solutions with trust structures"},
+      html: (d) => {
+        const icons = ["&#9650;","&#9654;","&#9660;","&#9664;"];
+        const colors = ["#C8A951","#5BA4E6","#4ECDC4","#9B6BCC"];
+        let rows = "";
+        for(let i=0;i<4;i+=2){
+          rows += `<tr>`;
+          for(let j=i;j<i+2;j++){
+            const k=j+1;
+            rows+=`<td width="50%" style="padding:8px;vertical-align:top"><table width="100%" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:8px;border:1px solid #e5e7eb"><tr><td style="padding:24px"><div style="width:40px;height:40px;background:${colors[j]};border-radius:8px;text-align:center;line-height:40px;font-size:18px;color:#fff;margin-bottom:14px">${icons[j]}</div><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:16px;color:#002855;margin:0 0 8px;font-weight:700">${d['card'+k+'Title']}</h3><p style="font-family:Arial,sans-serif;font-size:13px;color:#555;line-height:1.5;margin:0">${d['card'+k+'Desc']}</p></td></tr></table></td>`;
+          }
+          rows += `</tr>`;
+        }
+        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f8f9fa"><tr><td style="padding:30px"><h2 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:24px;color:#002855;text-align:center;margin:0 0 24px">Core Strategies</h2><table width="100%" cellpadding="0" cellspacing="0">${rows}</table></td></tr></table>`;
+      }
+    },
+    {
+      id: "card-single",
+      name: "Single Strategy Card",
+      desc: "Individual strategy spotlight card with detail",
+      icon: "&#9632;",
+      iconBg: "#2563eb",
+      editable: ["title","description","features","accentColor"],
+      defaults: {title:"Income Amplifier Strategy",description:"Enhanced yield generation through systematic covered call writing and option premium capture across diversified equity portfolios.",features:"Covered call overlays,Monthly income distribution,Risk-managed approach,Tax-efficient structure",accentColor:"#C8A951"},
+      html: (d) => {
+        const feats = d.features.split(",").map(f=>`<tr><td style="padding:4px 0;font-family:Arial,sans-serif;font-size:13px;color:#555"><span style="color:${d.accentColor};margin-right:8px">&#10003;</span>${f.trim()}</td></tr>`).join("");
+        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff"><tr><td style="padding:30px 40px"><table width="100%" cellpadding="0" cellspacing="0" style="border-left:4px solid ${d.accentColor}"><tr><td style="padding:20px 24px"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:20px;color:#002855;margin:0 0 10px;font-weight:700">${d.title}</h3><p style="font-family:Arial,sans-serif;font-size:14px;color:#555;line-height:1.6;margin:0 0 16px">${d.description}</p><table cellpadding="0" cellspacing="0">${feats}</table></td></tr></table></td></tr></table>`;
+      }
+    },
+    {
+      id: "cards-playbook",
+      name: "Playbook Strategy Cards",
+      desc: "Premium playbook-style cards with strategy details",
+      icon: "&#128218;",
+      iconBg: "#7c3aed",
+      editable: ["card1Title","card1Type","card1Desc","card2Title","card2Type","card2Desc"],
+      defaults: {card1Title:"The Income Amplifier",card1Type:"YIELD ENHANCEMENT",card1Desc:"Systematic covered call writing across diversified equity positions for enhanced monthly income generation",card2Title:"The Retirement Bridge",card2Type:"GAP FUNDING",card2Desc:"Custom withdrawal sequencing strategy for early retirees bridging to Social Security and pension income"},
+      html: (d) => {
+        let cards="";
+        for(let i=1;i<=2;i++){
+          cards+=`<td width="50%" style="padding:8px;vertical-align:top"><table width="100%" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg,#002855,#001530);border-radius:10px;overflow:hidden"><tr><td style="padding:3px 20px 0;font-family:Arial,sans-serif;font-size:10px;color:#C8A951;letter-spacing:2px;font-weight:700;padding-top:20px">${d['card'+i+'Type']}</td></tr><tr><td style="padding:8px 20px;font-family:'Roboto Condensed',Arial,sans-serif;font-size:18px;color:#fff;font-weight:700">${d['card'+i+'Title']}</td></tr><tr><td style="padding:4px 20px 24px;font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.7);line-height:1.5">${d['card'+i+'Desc']}</td></tr></table></td>`;
+        }
+        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f0ebe1"><tr><td style="padding:30px"><h2 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:22px;color:#002855;text-align:center;margin:0 0 6px">Strategy Playbooks</h2><p style="text-align:center;font-family:Arial,sans-serif;font-size:13px;color:#666;margin:0 0 20px">Detailed implementation guides for each SIP strategy</p><table width="100%" cellpadding="0" cellspacing="0"><tr>${cards}</tr></table></td></tr></table>`;
+      }
+    }
+  ],
+  "Content Blocks": [
+    {
+      id: "text-block",
+      name: "Text Content Block",
+      desc: "Simple heading + paragraph text block",
+      icon: "&#9998;",
+      iconBg: "#475569",
+      editable: ["heading","body","bgColor","textColor"],
+      defaults: {heading:"About the SIP Suite",body:"The Systematic Income Planning Suite represents Eagle Strategies' comprehensive approach to income generation. Combining institutional-grade strategies with personalized implementation, the SIP Suite delivers consistent, tax-efficient income streams for high-net-worth clients.",bgColor:"#ffffff",textColor:"#333333"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${d.bgColor}"><tr><td style="padding:36px 40px"><h2 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:24px;color:#002855;margin:0 0 14px;font-weight:700">${d.heading}</h2><p style="font-family:Arial,sans-serif;font-size:15px;color:${d.textColor};line-height:1.7;margin:0">${d.body}</p></td></tr></table>`
+    },
+    {
+      id: "two-col-text",
+      name: "Two-Column Content",
+      desc: "Side-by-side content blocks",
+      icon: "&#9639;",
+      iconBg: "#4a5568",
+      editable: ["leftHeading","leftBody","rightHeading","rightBody"],
+      defaults: {leftHeading:"Our Approach",leftBody:"Every SIP Suite strategy begins with a thorough analysis of the client's income needs, tax situation, and risk tolerance.",rightHeading:"Your Advantage",rightBody:"Access to institutional strategies typically reserved for pension funds and endowments, now available for individual portfolios."},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff"><tr><td style="padding:36px 40px"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="48%" style="vertical-align:top"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:18px;color:#002855;margin:0 0 10px">${d.leftHeading}</h3><p style="font-family:Arial,sans-serif;font-size:14px;color:#555;line-height:1.6;margin:0">${d.leftBody}</p></td><td width="4%"></td><td width="48%" style="vertical-align:top"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:18px;color:#002855;margin:0 0 10px">${d.rightHeading}</h3><p style="font-family:Arial,sans-serif;font-size:14px;color:#555;line-height:1.6;margin:0">${d.rightBody}</p></td></tr></table></td></tr></table>`
+    },
+    {
+      id: "video-section",
+      name: "Video + Copy Section",
+      desc: "Video embed with supporting text",
+      icon: "&#9654;",
+      iconBg: "#dc2626",
+      editable: ["heading","body","videoLabel"],
+      defaults: {heading:"See the SIP Suite in Action",body:"Watch our overview presentation to learn how systematic income strategies can transform your clients' retirement income picture.",videoLabel:"SIP Suite Overview — 8 min"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f8f9fa"><tr><td style="padding:36px 40px"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="55%" style="vertical-align:middle;padding-right:24px"><div style="background:#001a3a;border-radius:10px;padding:60px 30px;text-align:center"><div style="font-size:36px;color:#C8A951;margin-bottom:10px">&#9654;</div><p style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.6);margin:0">${d.videoLabel}</p></div></td><td width="45%" style="vertical-align:middle"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:22px;color:#002855;margin:0 0 12px">${d.heading}</h3><p style="font-family:Arial,sans-serif;font-size:14px;color:#555;line-height:1.6;margin:0">${d.body}</p></td></tr></table></td></tr></table>`
+    },
+    {
+      id: "cta-banner",
+      name: "CTA Banner",
+      desc: "Full-width call-to-action with button",
+      icon: "&#128073;",
+      iconBg: "#b45309",
+      editable: ["heading","subtext","ctaText","ctaUrl","bgColor"],
+      defaults: {heading:"Ready to Amplify Your Clients' Income?",subtext:"Schedule a consultation to discuss how the SIP Suite can work for your practice.",ctaText:"Schedule Consultation",ctaUrl:"#",bgColor:"#002855"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${d.bgColor}"><tr><td style="padding:40px;text-align:center"><h2 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:26px;color:#fff;margin:0 0 10px">${d.heading}</h2><p style="font-family:Arial,sans-serif;font-size:14px;color:rgba(255,255,255,.75);margin:0 0 24px">${d.subtext}</p><a href="${d.ctaUrl}" style="display:inline-block;padding:14px 40px;background:#C8A951;color:#002855;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:700;border-radius:6px">${d.ctaText}</a></td></tr></table>`
+    }
+  ],
+  "Performance & Data": [
+    {
+      id: "performance-table",
+      name: "Performance Returns Table",
+      desc: "Strategy performance data in table format",
+      icon: "&#128202;",
+      iconBg: "#166534",
+      editable: ["title","row1Name","row1Val","row2Name","row2Val","row3Name","row3Val","row4Name","row4Val"],
+      defaults: {title:"Strategy Performance Overview",row1Name:"Income Amplifier",row1Val:"8.2%",row2Name:"Retirement Bridge",row2Val:"6.8%",row3Name:"Tax-Smart Income",row3Val:"5.4%",row4Name:"Estate Shield",row4Val:"7.1%"},
+      html: (d) => {
+        let rows="";
+        for(let i=1;i<=4;i++){
+          const bg = i%2===0?"#f8f9fa":"#fff";
+          rows+=`<tr><td style="padding:12px 16px;font-family:Arial,sans-serif;font-size:14px;color:#333;background:${bg};border-bottom:1px solid #eee">${d['row'+i+'Name']}</td><td style="padding:12px 16px;font-family:'Roboto Condensed',Arial,sans-serif;font-size:16px;color:#002855;font-weight:700;text-align:right;background:${bg};border-bottom:1px solid #eee">${d['row'+i+'Val']}</td></tr>`;
+        }
+        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff"><tr><td style="padding:30px 40px"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:20px;color:#002855;margin:0 0 18px">${d.title}</h3><table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e5e7eb;border-radius:8px;overflow:hidden"><tr><td style="padding:10px 16px;background:#002855;font-family:Arial,sans-serif;font-size:12px;color:#C8A951;font-weight:700;text-transform:uppercase;letter-spacing:1px">Strategy</td><td style="padding:10px 16px;background:#002855;font-family:Arial,sans-serif;font-size:12px;color:#C8A951;font-weight:700;text-transform:uppercase;text-align:right;letter-spacing:1px">Yield</td></tr>${rows}</table><p style="font-family:Arial,sans-serif;font-size:10px;color:#999;margin:10px 0 0;font-style:italic">Past performance does not guarantee future results. Returns shown are hypothetical.</p></td></tr></table>`;
+      }
+    },
+    {
+      id: "data-proof",
+      name: "Data Proof Points",
+      desc: "Large numbers with supporting context",
+      icon: "&#128201;",
+      iconBg: "#0369a1",
+      editable: ["metric1","label1","metric2","label2","metric3","label3"],
+      defaults: {metric1:"$2.8B+",label1:"Assets Under SIP Management",metric2:"97%",label2:"Client Retention Rate",metric3:"12.4%",label3:"Avg. Annual Income Yield"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:linear-gradient(135deg,#002855,#001530)"><tr><td style="padding:40px"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="33%" style="text-align:center;padding:16px"><div style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:36px;font-weight:700;color:#C8A951">${d.metric1}</div><div style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.65);margin-top:6px">${d.label1}</div></td><td width="33%" style="text-align:center;padding:16px;border-left:1px solid rgba(200,169,81,.2);border-right:1px solid rgba(200,169,81,.2)"><div style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:36px;font-weight:700;color:#C8A951">${d.metric2}</div><div style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.65);margin-top:6px">${d.label2}</div></td><td width="33%" style="text-align:center;padding:16px"><div style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:36px;font-weight:700;color:#C8A951">${d.metric3}</div><div style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.65);margin-top:6px">${d.label3}</div></td></tr></table></td></tr></table>`
+    }
+  ],
+  "Forms & Capture": [
+    {
+      id: "form-contact",
+      name: "Contact / Lead Form",
+      desc: "Two-column form with heading for lead capture",
+      icon: "&#128221;",
+      iconBg: "#7c3aed",
+      editable: ["heading","subtext","btnText","fields"],
+      defaults: {heading:"Request a Consultation",subtext:"Complete the form below and an Eagle Strategies advisor will contact you within 24 hours.",btnText:"Submit Request",fields:"First Name,Last Name,Email,Phone,Firm Name,Message"},
+      html: (d) => {
+        const fields = d.fields.split(",").map((f,i)=>{
+          const w = f.trim()==="Message"?"100%":"48%";
+          const tag = f.trim()==="Message"?`<textarea style="width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-family:Arial,sans-serif;font-size:13px;min-height:70px;resize:vertical" placeholder="${f.trim()}"></textarea>`:`<input type="text" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-family:Arial,sans-serif;font-size:13px" placeholder="${f.trim()}">`;
+          return `<div style="width:${w};display:inline-block;padding:4px;vertical-align:top;box-sizing:border-box">${tag}</div>`;
+        }).join("");
+        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f8f9fa"><tr><td style="padding:40px"><table width="600" align="center" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:10px;border:1px solid #e5e7eb;overflow:hidden"><tr><td style="padding:30px"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:22px;color:#002855;margin:0 0 8px">${d.heading}</h3><p style="font-family:Arial,sans-serif;font-size:13px;color:#666;margin:0 0 20px;line-height:1.5">${d.subtext}</p><div>${fields}</div><div style="padding:4px;margin-top:12px"><button style="width:100%;padding:14px;background:#C8A951;color:#002855;border:none;border-radius:6px;font-family:Arial,sans-serif;font-size:14px;font-weight:700;cursor:pointer">${d.btnText}</button></div></td></tr></table></td></tr></table>`;
+      }
+    },
+    {
+      id: "form-sfmc-smartcapture",
+      name: "SFMC Smart Capture Form",
+      desc: "Form with AMPscript and Smart Capture markup",
+      icon: "&#9889;",
+      iconBg: "#ea580c",
+      editable: ["heading","deKey","fields"],
+      defaults: {heading:"Stay Informed",deKey:"SIP_Suite_Leads",fields:"FirstName,LastName,EmailAddress"},
+      html: (d) => {
+        const fields = d.fields.split(",").map(f=>`<div style="margin-bottom:10px"><label style="display:block;font-family:Arial,sans-serif;font-size:12px;color:#555;margin-bottom:3px">${f.replace(/([A-Z])/g,' $1').trim()}</label><input type="text" name="${f.trim()}" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-family:Arial,sans-serif;font-size:13px"></div>`).join("");
+        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff"><tr><td style="padding:30px 40px"><!-- SFMC Smart Capture - DE: ${d.deKey} --><div style="max-width:400px;margin:0 auto"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:20px;color:#002855;margin:0 0 16px">${d.heading}</h3><form><div style="background:#fffbeb;border:1px solid #f59e0b;border-radius:4px;padding:8px 12px;margin-bottom:16px;font-family:monospace;font-size:10px;color:#92400e">SFMC Data Extension: ${d.deKey}</div>${fields}<button type="submit" style="width:100%;padding:12px;background:#002855;color:#C8A951;border:none;border-radius:4px;font-family:Arial,sans-serif;font-size:14px;font-weight:700;cursor:pointer">Submit</button></form></div></td></tr></table>`;
+      }
+    }
+  ],
+  "Downloads & Resources": [
+    {
+      id: "factsheet-grid",
+      name: "Factsheet Download Grid",
+      desc: "Grid of downloadable factsheets/PDFs",
+      icon: "&#128196;",
+      iconBg: "#0891b2",
+      editable: ["title","doc1","doc2","doc3","doc4"],
+      defaults: {title:"Strategy Factsheets",doc1:"Income Amplifier Factsheet",doc2:"Retirement Bridge Overview",doc3:"Tax-Smart Income Guide",doc4:"Estate Shield Whitepaper"},
+      html: (d) => {
+        let docs="";
+        for(let i=1;i<=4;i++){
+          docs+=`<td width="25%" style="padding:6px;vertical-align:top"><table width="100%" cellpadding="0" cellspacing="0" style="background:#fff;border:1px solid #e5e7eb;border-radius:8px"><tr><td style="padding:20px;text-align:center"><div style="font-size:28px;color:#002855;margin-bottom:10px">&#128196;</div><p style="font-family:Arial,sans-serif;font-size:12px;color:#333;font-weight:600;margin:0 0 10px;min-height:32px">${d['doc'+i]}</p><a href="#" style="display:inline-block;padding:6px 16px;background:#002855;color:#C8A951;text-decoration:none;font-size:11px;font-weight:700;border-radius:4px">Download PDF</a></td></tr></table></td>`;
+        }
+        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f8f9fa"><tr><td style="padding:30px 40px"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:20px;color:#002855;margin:0 0 18px;text-align:center">${d.title}</h3><table width="100%" cellpadding="0" cellspacing="0"><tr>${docs}</tr></table></td></tr></table>`;
+      }
+    },
+    {
+      id: "resource-links",
+      name: "Resource Links Section",
+      desc: "List of resources with descriptions and links",
+      icon: "&#128279;",
+      iconBg: "#6366f1",
+      editable: ["title","res1Name","res1Desc","res2Name","res2Desc","res3Name","res3Desc"],
+      defaults: {title:"Additional Resources",res1Name:"SIP Suite Brochure",res1Desc:"Comprehensive overview of all strategies and implementation approaches",res2Name:"Advisor Toolkit",res2Desc:"Sales materials, client presentations, and conversation starters",res3Name:"Webinar Replays",res3Desc:"On-demand educational sessions covering each SIP strategy in detail"},
+      html: (d) => {
+        let items="";
+        for(let i=1;i<=3;i++){
+          items+=`<tr><td style="padding:14px 0;border-bottom:1px solid #eee"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="40" style="vertical-align:top;color:#C8A951;font-size:20px">&#9654;</td><td><h4 style="font-family:Arial,sans-serif;font-size:14px;color:#002855;margin:0 0 4px;font-weight:700">${d['res'+i+'Name']}</h4><p style="font-family:Arial,sans-serif;font-size:12px;color:#666;margin:0;line-height:1.4">${d['res'+i+'Desc']}</p></td><td width="80" style="vertical-align:middle;text-align:right"><a href="#" style="font-family:Arial,sans-serif;font-size:12px;color:#C8A951;font-weight:700;text-decoration:none">View &rarr;</a></td></tr></table></td></tr>`;
+        }
+        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff"><tr><td style="padding:30px 40px"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:20px;color:#002855;margin:0 0 14px">${d.title}</h3><table width="100%" cellpadding="0" cellspacing="0">${items}</table></td></tr></table>`;
+      }
+    }
+  ],
+  "Footers & Disclosures": [
+    {
+      id: "footer-full",
+      name: "Full Footer",
+      desc: "Complete footer with links, contact, and legal",
+      icon: "&#9604;",
+      iconBg: "#1e293b",
+      editable: ["companyName","address","phone","email","disclosure"],
+      defaults: {companyName:"Eagle Strategies LLC",address:"51 Madison Avenue, New York, NY 10010",phone:"(212) 576-7000",email:"info@eaglestrategies.com",disclosure:"Securities offered through NYLIFE Securities LLC, member FINRA/SIPC. Eagle Strategies LLC is a Registered Investment Adviser and an indirect wholly owned subsidiary of New York Life Insurance Company."},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#001530;border-top:3px solid #C8A951"><tr><td style="padding:30px 40px"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="40%" style="vertical-align:top"><h4 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:16px;color:#C8A951;margin:0 0 12px">${d.companyName}</h4><p style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.6);line-height:1.6;margin:0">${d.address}<br>${d.phone}<br><a href="mailto:${d.email}" style="color:#C8A951;text-decoration:none">${d.email}</a></p></td><td width="30%" style="vertical-align:top;text-align:center"><p style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.5)"><a href="#" style="color:rgba(255,255,255,.6);text-decoration:none">Privacy Policy</a><br><a href="#" style="color:rgba(255,255,255,.6);text-decoration:none">Terms of Use</a><br><a href="#" style="color:rgba(255,255,255,.6);text-decoration:none">Disclosures</a></p></td><td width="30%" style="vertical-align:top;text-align:right"><p style="font-family:Arial,sans-serif;font-size:11px;color:rgba(255,255,255,.4);line-height:1.5">&copy; ${new Date().getFullYear()} ${d.companyName}. All rights reserved.</p></td></tr></table></td></tr><tr><td style="padding:16px 40px;border-top:1px solid rgba(255,255,255,.1)"><p style="font-family:Arial,sans-serif;font-size:10px;color:rgba(255,255,255,.35);line-height:1.5;margin:0">${d.disclosure}</p></td></tr></table>`
+    },
+    {
+      id: "disclosure-block",
+      name: "Disclosure Block",
+      desc: "Legal disclosure / compliance text block",
+      icon: "&#9888;",
+      iconBg: "#854d0e",
+      editable: ["text"],
+      defaults: {text:"Important: The information provided herein is for educational and informational purposes only and does not constitute investment advice. Past performance is not indicative of future results. All investments involve risk, including possible loss of principal. Securities offered through NYLIFE Securities LLC (member FINRA/SIPC), a Licensed Insurance Agency. Eagle Strategies LLC is a Registered Investment Adviser and an indirect wholly owned subsidiary of New York Life Insurance Company. Eagle Strategies LLC and NYLIFE Securities LLC are New York Life Companies."},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f5f5f0"><tr><td style="padding:24px 40px"><p style="font-family:Arial,sans-serif;font-size:10px;color:#888;line-height:1.6;margin:0"><strong style="color:#666">Important Disclosures:</strong> ${d.text}</p></td></tr></table>`
+    },
+    {
+      id: "footer-simple",
+      name: "Simple Footer",
+      desc: "Minimal footer with copyright and unsubscribe",
+      icon: "&#9472;",
+      iconBg: "#374151",
+      editable: ["text"],
+      defaults: {text:"Eagle Strategies LLC | 51 Madison Avenue, New York, NY 10010"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#002855"><tr><td style="padding:20px 40px;text-align:center"><p style="font-family:Arial,sans-serif;font-size:11px;color:rgba(255,255,255,.5);margin:0">${d.text}</p><p style="font-family:Arial,sans-serif;font-size:11px;margin:6px 0 0"><a href="#" style="color:#C8A951;text-decoration:none">Unsubscribe</a> | <a href="#" style="color:rgba(255,255,255,.4);text-decoration:none">Privacy Policy</a></p></td></tr></table>`
+    }
+  ],
+  "Thank You / Confirmation": [
+    {
+      id: "thankyou-hero",
+      name: "Thank You Hero",
+      desc: "Confirmation hero for post-submission pages",
+      icon: "&#10004;",
+      iconBg: "#059669",
+      editable: ["headline","subtext"],
+      defaults: {headline:"Thank You for Your Interest!",subtext:"Your request has been received. An Eagle Strategies advisor will reach out within 24 business hours to discuss how the SIP Suite can benefit your practice."},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:linear-gradient(135deg,#002855,#001530)"><tr><td style="padding:60px 40px;text-align:center"><div style="font-size:48px;color:#22c55e;margin-bottom:16px">&#10003;</div><h1 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:32px;color:#fff;margin:0 0 14px">${d.headline}</h1><p style="font-family:Arial,sans-serif;font-size:15px;color:rgba(255,255,255,.8);max-width:550px;display:inline-block;line-height:1.6;margin:0">${d.subtext}</p></td></tr></table>`
+    },
+    {
+      id: "next-steps",
+      name: "Next Steps Block",
+      desc: "Numbered next-steps after form submission",
+      icon: "&#10145;",
+      iconBg: "#2563eb",
+      editable: ["step1","step2","step3"],
+      defaults: {step1:"Review — Our team will review your information and prepare a personalized strategy overview",step2:"Connect — An Eagle Strategies advisor will reach out to schedule a consultation call",step3:"Customize — Together, we'll build a SIP Suite implementation plan tailored to your practice"},
+      html: (d) => {
+        let steps="";
+        for(let i=1;i<=3;i++){
+          const parts = d['step'+i].split("—");
+          steps+=`<tr><td style="padding:12px 0;border-bottom:${i<3?'1px solid #eee':'none'}"><table cellpadding="0" cellspacing="0"><tr><td style="width:36px;vertical-align:top"><div style="width:28px;height:28px;background:#002855;border-radius:50%;text-align:center;line-height:28px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#C8A951">${i}</div></td><td style="vertical-align:top"><strong style="font-family:Arial,sans-serif;font-size:14px;color:#002855">${(parts[0]||'').trim()}</strong>${parts[1]?`<p style="font-family:Arial,sans-serif;font-size:13px;color:#555;margin:4px 0 0;line-height:1.4">${parts[1].trim()}</p>`:''}</td></tr></table></td></tr>`;
+        }
+        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff"><tr><td style="padding:30px 40px"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:20px;color:#002855;margin:0 0 18px">What Happens Next</h3><table width="100%" cellpadding="0" cellspacing="0">${steps}</table></td></tr></table>`;
+      }
+    }
+  ],
+  "Optimized Components": [
+    {
+      id: "opt-responsive-hero",
+      name: "Responsive Hero (Optimized)",
+      desc: "Mobile-friendly hero with fluid layout and accessibility",
+      icon: "&#9889;",
+      iconBg: "#059669",
+      editable: ["headline","subtext","ctaText","ctaUrl"],
+      defaults: {headline:"Systematic Income Planning Suite",subtext:"Institutional-grade income strategies tailored for high-net-worth portfolios",ctaText:"Explore Strategies",ctaUrl:"#"},
+      html: (d) => `<!--[if mso]><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="background:#002855"><![endif]--><div style="background:linear-gradient(135deg,#002855 0%,#001530 100%);padding:50px 20px;text-align:center" role="banner"><h1 style="font-family:'Roboto Condensed',Arial,Helvetica,sans-serif;font-size:32px;font-weight:700;color:#C8A951;margin:0 0 14px;line-height:1.2">${d.headline}</h1><p style="font-family:Arial,Helvetica,sans-serif;font-size:16px;color:rgba(255,255,255,.85);margin:0 auto 24px;max-width:560px;line-height:1.6">${d.subtext}</p><a href="${d.ctaUrl}" style="display:inline-block;padding:14px 36px;background:#C8A951;color:#002855;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:700;border-radius:6px;mso-padding-alt:14px 36px" role="button">${d.ctaText}</a></div><!--[if mso]></td></tr></table><![endif]-->`
+    },
+    {
+      id: "opt-accessible-cards",
+      name: "Accessible Card Grid (Optimized)",
+      desc: "WCAG-compliant strategy cards with ARIA labels",
+      icon: "&#9889;",
+      iconBg: "#059669",
+      editable: ["card1Title","card1Desc","card2Title","card2Desc"],
+      defaults: {card1Title:"Income Amplifier",card1Desc:"Enhanced yield strategies using covered call overlays for consistent monthly income",card2Title:"Retirement Bridge",card2Desc:"Gap-funding solutions for early retirees before Social Security activation"},
+      html: (d) => `<!--[if mso]><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td><![endif]--><div style="background:#f8f9fa;padding:30px 20px" role="region" aria-label="Strategy cards"><div style="max-width:640px;margin:0 auto"><!--[if mso]><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td width="49%" valign="top"><![endif]--><div style="display:inline-block;width:48%;vertical-align:top;padding:8px;box-sizing:border-box;min-width:240px"><div style="background:#fff;border-radius:8px;border:1px solid #e5e7eb;padding:24px" role="article" aria-label="${d.card1Title}"><div style="width:36px;height:36px;background:#C8A951;border-radius:6px;text-align:center;line-height:36px;color:#002855;font-weight:700;font-size:16px;margin-bottom:12px" aria-hidden="true">&#9650;</div><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:16px;color:#002855;margin:0 0 8px">${d.card1Title}</h3><p style="font-family:Arial,sans-serif;font-size:13px;color:#555;line-height:1.5;margin:0">${d.card1Desc}</p></div></div><!--[if mso]></td><td width="2%"></td><td width="49%" valign="top"><![endif]--><div style="display:inline-block;width:48%;vertical-align:top;padding:8px;box-sizing:border-box;min-width:240px"><div style="background:#fff;border-radius:8px;border:1px solid #e5e7eb;padding:24px" role="article" aria-label="${d.card2Title}"><div style="width:36px;height:36px;background:#5BA4E6;border-radius:6px;text-align:center;line-height:36px;color:#fff;font-weight:700;font-size:16px;margin-bottom:12px" aria-hidden="true">&#9654;</div><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:16px;color:#002855;margin:0 0 8px">${d.card2Title}</h3><p style="font-family:Arial,sans-serif;font-size:13px;color:#555;line-height:1.5;margin:0">${d.card2Desc}</p></div></div><!--[if mso]></td></tr></table><![endif]--></div></div><!--[if mso]></td></tr></table><![endif]-->`
+    },
+    {
+      id: "opt-dark-mode",
+      name: "Dark Mode Ready Block (Optimized)",
+      desc: "Content block with dark mode media query support",
+      icon: "&#127769;",
+      iconBg: "#1e1b4b",
+      editable: ["heading","body"],
+      defaults: {heading:"Why the SIP Suite?",body:"Most income strategies fail because they optimize for a single variable. The SIP Suite takes a holistic approach — balancing yield, tax efficiency, risk management, and liquidity across your entire portfolio."},
+      html: (d) => `<div style="background:#ffffff;padding:36px 40px"><h2 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:24px;color:#002855;margin:0 0 14px;font-weight:700" data-ogsb="color:#002855">${d.heading}</h2><p style="font-family:Arial,sans-serif;font-size:15px;color:#333;line-height:1.7;margin:0" data-ogsb="color:#333333">${d.body}</p></div><!--Dark mode styles would be in head: @media(prefers-color-scheme:dark){[data-ogsb]{color:#e0e0e0!important} div{background:#1a1a2e!important}}-->`
+    },
+    {
+      id: "opt-personalized",
+      name: "AMPscript Personalized Block",
+      desc: "SFMC personalization with AMPscript variables",
+      icon: "&#128100;",
+      iconBg: "#ea580c",
+      editable: ["greeting","body","fallbackName"],
+      defaults: {greeting:"Hello, %%FirstName%%",body:"Based on your interest in income strategies, we've prepared a customized overview of the SIP Suite strategies most relevant to your practice.",fallbackName:"Advisor"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff"><tr><td style="padding:30px 40px"><div style="background:#fffbeb;border:1px dashed #f59e0b;border-radius:6px;padding:12px 16px;margin-bottom:16px;font-family:monospace;font-size:10px;color:#92400e">%%[ VAR @firstName SET @firstName = AttributeValue("FirstName") IF Empty(@firstName) THEN SET @firstName = "${d.fallbackName}" ENDIF ]%%</div><h2 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:24px;color:#002855;margin:0 0 10px">${d.greeting}</h2><p style="font-family:Arial,sans-serif;font-size:14px;color:#555;line-height:1.6;margin:0">${d.body}</p></td></tr></table>`
+    }
+  ],
+  "Spacers & Dividers": [
+    {
+      id: "spacer",
+      name: "Spacer",
+      desc: "Blank spacing between sections",
+      icon: "&#8597;",
+      iconBg: "#6b7280",
+      editable: ["height","bgColor"],
+      defaults: {height:"20",bgColor:"#ffffff"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="height:${d.height}px;background:${d.bgColor};font-size:0;line-height:0">&nbsp;</td></tr></table>`
+    },
+    {
+      id: "divider-line",
+      name: "Divider Line",
+      desc: "Horizontal rule divider",
+      icon: "&#8212;",
+      iconBg: "#6b7280",
+      editable: ["color","width"],
+      defaults: {color:"#e5e7eb",width:"90"},
+      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding:10px 0;text-align:center"><div style="width:${d.width}%;height:1px;background:${d.color};margin:0 auto"></div></td></tr></table>`
+    }
+  ]
+};
+
+// ========== STATE ==========
+let canvasBlocks = [];
+let selectedBlockId = null;
+let undoStack = [];
+let redoStack = [];
+let dragSource = null;
+let exportType = "cloudpage";
+
+// ========== INIT ==========
+function init() {
+  renderSidebar();
+  updatePreview();
+}
+
+// ========== SIDEBAR ==========
+function renderSidebar() {
+  const el = document.getElementById("sidebarScroll");
+  let html = "";
+  for (const [cat, comps] of Object.entries(COMPONENTS)) {
+    html += `<div class="cat-header open" onclick="toggleCat(this)"><span>${cat}</span><span class="arrow">&#9654;</span></div>`;
+    html += `<div class="cat-items open">`;
+    for (const c of comps) {
+      html += `<div class="comp-item" draggable="true" data-id="${c.id}" ondragstart="onCompDragStart(event,'${c.id}')" ondblclick="addComponent('${c.id}')"><div class="comp-icon" style="background:${c.iconBg};color:#fff">${c.icon}</div><div class="comp-info"><div class="comp-name">${c.name}</div><div class="comp-desc">${c.desc}</div></div></div>`;
+    }
+    html += `</div>`;
+  }
+  el.innerHTML = html;
+}
+
+function toggleCat(el) {
+  el.classList.toggle("open");
+  const items = el.nextElementSibling;
+  items.classList.toggle("open");
+}
+
+function filterComponents() {
+  const q = document.getElementById("compSearch").value.toLowerCase();
+  document.querySelectorAll(".comp-item").forEach(item => {
+    const name = item.querySelector(".comp-name").textContent.toLowerCase();
+    const desc = item.querySelector(".comp-desc").textContent.toLowerCase();
+    item.style.display = (name.includes(q) || desc.includes(q)) ? "flex" : "none";
+  });
+}
+
+// ========== FIND COMPONENT DEF ==========
+function findCompDef(id) {
+  for (const comps of Object.values(COMPONENTS)) {
+    const found = comps.find(c => c.id === id);
+    if (found) return found;
+  }
+  return null;
+}
+
+// ========== CANVAS ==========
+function saveState() {
+  undoStack.push(JSON.stringify(canvasBlocks));
+  if (undoStack.length > 50) undoStack.shift();
+  redoStack = [];
+}
+
+function undoAction() {
+  if (!undoStack.length) return;
+  redoStack.push(JSON.stringify(canvasBlocks));
+  canvasBlocks = JSON.parse(undoStack.pop());
+  renderCanvas();
+  updatePreview();
+}
+
+function redoAction() {
+  if (!redoStack.length) return;
+  undoStack.push(JSON.stringify(canvasBlocks));
+  canvasBlocks = JSON.parse(redoStack.pop());
+  renderCanvas();
+  updatePreview();
+}
+
+function addComponent(compId, atIndex) {
+  const def = findCompDef(compId);
+  if (!def) return;
+  saveState();
+  const block = {
+    uid: "b_" + Date.now() + "_" + Math.random().toString(36).slice(2,6),
+    compId: compId,
+    data: { ...def.defaults }
+  };
+  if (atIndex !== undefined) {
+    canvasBlocks.splice(atIndex, 0, block);
+  } else {
+    canvasBlocks.push(block);
+  }
+  renderCanvas();
+  updatePreview();
+  selectBlock(block.uid);
+  showToast(`Added: ${def.name}`);
+}
+
+function removeBlock(uid) {
+  saveState();
+  canvasBlocks = canvasBlocks.filter(b => b.uid !== uid);
+  if (selectedBlockId === uid) {
+    selectedBlockId = null;
+    renderEditor();
+  }
+  renderCanvas();
+  updatePreview();
+}
+
+function duplicateBlock(uid) {
+  const idx = canvasBlocks.findIndex(b => b.uid === uid);
+  if (idx === -1) return;
+  saveState();
+  const orig = canvasBlocks[idx];
+  const dup = {
+    uid: "b_" + Date.now() + "_" + Math.random().toString(36).slice(2,6),
+    compId: orig.compId,
+    data: { ...orig.data }
+  };
+  canvasBlocks.splice(idx + 1, 0, dup);
+  renderCanvas();
+  updatePreview();
+  selectBlock(dup.uid);
+  showToast("Duplicated");
+}
+
+function moveBlock(uid, dir) {
+  const idx = canvasBlocks.findIndex(b => b.uid === uid);
+  if (idx === -1) return;
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= canvasBlocks.length) return;
+  saveState();
+  [canvasBlocks[idx], canvasBlocks[newIdx]] = [canvasBlocks[newIdx], canvasBlocks[idx]];
+  renderCanvas();
+  updatePreview();
+}
+
+function selectBlock(uid) {
+  selectedBlockId = uid;
+  document.querySelectorAll(".canvas-block").forEach(el => el.classList.remove("selected"));
+  const el = document.querySelector(`[data-uid="${uid}"]`);
+  if (el) el.classList.add("selected");
+  renderEditor();
+}
+
+function renderCanvas() {
+  const canvas = document.getElementById("canvas");
+  const empty = document.getElementById("canvasEmpty");
+  document.getElementById("blockCount").textContent = canvasBlocks.length;
+
+  if (!canvasBlocks.length) {
+    canvas.innerHTML = "";
+    canvas.appendChild(empty);
+    empty.style.display = "flex";
+    // add main drop zone
+    const dz = document.createElement("div");
+    dz.className = "drop-zone";
+    dz.innerHTML = "Drop components here";
+    dz.ondragover = e => { e.preventDefault(); dz.classList.add("over"); };
+    dz.ondragleave = () => dz.classList.remove("over");
+    dz.ondrop = e => { e.preventDefault(); dz.classList.remove("over"); handleDrop(0); };
+    canvas.appendChild(dz);
+    return;
+  }
+
+  empty.style.display = "none";
+  let html = "";
+  canvasBlocks.forEach((block, idx) => {
+    const def = findCompDef(block.compId);
+    if (!def) return;
+    const rendered = def.html(block.data);
+    const sel = block.uid === selectedBlockId ? " selected" : "";
+    html += `<div class="drop-zone" data-idx="${idx}" ondragover="dzOver(event)" ondragleave="dzLeave(event)" ondrop="dzDrop(event,${idx})"></div>`;
+    html += `<div class="canvas-block${sel}" data-uid="${block.uid}" onclick="selectBlock('${block.uid}')">`;
+    html += `<div class="block-label">${def.name}</div>`;
+    html += `<div class="block-actions">`;
+    html += `<button onclick="event.stopPropagation();moveBlock('${block.uid}',-1)" title="Move up">&#9650;</button>`;
+    html += `<button onclick="event.stopPropagation();moveBlock('${block.uid}',1)" title="Move down">&#9660;</button>`;
+    html += `<button onclick="event.stopPropagation();duplicateBlock('${block.uid}')" title="Duplicate">&#128203;</button>`;
+    html += `<button onclick="event.stopPropagation();removeBlock('${block.uid}')" title="Remove" style="color:var(--danger)">&#10005;</button>`;
+    html += `</div>`;
+    html += `<div class="block-content">${rendered}</div>`;
+    html += `</div>`;
+  });
+  html += `<div class="drop-zone" data-idx="${canvasBlocks.length}" ondragover="dzOver(event)" ondragleave="dzLeave(event)" ondrop="dzDrop(event,${canvasBlocks.length})">Drop here to add</div>`;
+  canvas.innerHTML = html;
+}
+
+// ========== DRAG AND DROP ==========
+function onCompDragStart(e, compId) {
+  dragSource = { type: "new", compId };
+  e.dataTransfer.setData("text/plain", compId);
+  e.dataTransfer.effectAllowed = "copy";
+}
+
+function dzOver(e) { e.preventDefault(); e.currentTarget.classList.add("over"); }
+function dzLeave(e) { e.currentTarget.classList.remove("over"); }
+function dzDrop(e, idx) {
+  e.preventDefault();
+  e.currentTarget.classList.remove("over");
+  handleDrop(idx);
+}
+
+function handleDrop(idx) {
+  if (!dragSource) return;
+  if (dragSource.type === "new") {
+    addComponent(dragSource.compId, idx);
+  }
+  dragSource = null;
+}
+
+// ========== EDITOR ==========
+function renderEditor() {
+  const pane = document.getElementById("editorPane");
+  if (!selectedBlockId) {
+    pane.innerHTML = '<div style="color:var(--text-dim);font-size:13px;text-align:center;padding:40px">Select a component on the canvas to edit its properties</div>';
+    return;
+  }
+  const block = canvasBlocks.find(b => b.uid === selectedBlockId);
+  if (!block) return;
+  const def = findCompDef(block.compId);
+  if (!def) return;
+
+  let html = `<div class="editor-section"><h3>${def.name}</h3><p style="font-size:11px;color:var(--text-dim);margin-bottom:12px">${def.desc}</p></div>`;
+  html += `<div class="editor-section"><h3>Properties</h3>`;
+
+  for (const key of def.editable) {
+    const val = block.data[key] || "";
+    const label = key.replace(/([A-Z])/g, " $1").replace(/^./, s => s.toUpperCase());
+
+    if (key.toLowerCase().includes("color") || key.toLowerCase().includes("bg")) {
+      html += `<div class="editor-field"><label>${label}</label><div class="color-row"><input type="color" value="${val}" onchange="updateField('${block.uid}','${key}',this.value)"><input type="text" value="${val}" oninput="updateField('${block.uid}','${key}',this.value)"></div></div>`;
+    } else if (val.length > 80) {
+      html += `<div class="editor-field"><label>${label}</label><textarea oninput="updateField('${block.uid}','${key}',this.value)">${val}</textarea></div>`;
+    } else {
+      html += `<div class="editor-field"><label>${label}</label><input type="text" value="${escHtml(val)}" oninput="updateField('${block.uid}','${key}',this.value)"></div>`;
+    }
+  }
+  html += `</div>`;
+  html += `<div class="editor-section"><h3>Actions</h3>`;
+  html += `<button class="btn-secondary" style="width:100%;margin-bottom:6px" onclick="duplicateBlock('${block.uid}')">&#128203; Duplicate Component</button>`;
+  html += `<button class="btn-danger" style="width:100%" onclick="removeBlock('${block.uid}')">&#10005; Remove Component</button>`;
+  html += `</div>`;
+  pane.innerHTML = html;
+}
+
+function updateField(uid, key, val) {
+  const block = canvasBlocks.find(b => b.uid === uid);
+  if (!block) return;
+  block.data[key] = val;
+  // Re-render just this block in canvas
+  const el = document.querySelector(`[data-uid="${uid}"] .block-content`);
+  if (el) {
+    const def = findCompDef(block.compId);
+    if (def) el.innerHTML = def.html(block.data);
+  }
+  updatePreview();
+  updateCodeView();
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+// ========== PREVIEW ==========
+function generateFullHtml() {
+  let body = "";
+  for (const block of canvasBlocks) {
+    const def = findCompDef(block.compId);
+    if (def) body += def.html(block.data) + "\n";
+  }
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>SIP Suite — Eagle Strategies</title>
+<style>
+body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+table{border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0}
+img{border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic}
+a{color:#C8A951}
+@media only screen and (max-width:600px){
+  table[class="responsive"]{width:100%!important}
+  td[class="stack"]{display:block!important;width:100%!important}
+  td[class="hide"]{display:none!important}
+}
+</style>
+</head>
+<body style="margin:0;padding:0;background:#f4f4f4">
+<center>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f4f4">
+<tr><td align="center" style="padding:0">
+<table role="presentation" width="680" class="responsive" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;background:#ffffff">
+<tr><td>
+${body}
+</td></tr>
+</table>
+</td></tr>
+</table>
+</center>
+</body>
+</html>`;
+}
+
+function updatePreview() {
+  const iframe = document.getElementById("previewFrame");
+  const html = generateFullHtml();
+  const blob = new Blob([html], { type: "text/html" });
+  iframe.src = URL.createObjectURL(blob);
+  updateCodeView();
+}
+
+function updateCodeView() {
+  const code = document.getElementById("codeArea");
+  if (code) code.value = generateFullHtml();
+}
+
+// ========== TABS ==========
+function switchTab(tab) {
+  document.querySelectorAll(".right-tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
+  document.querySelectorAll(".tab-pane").forEach(p => p.classList.toggle("active", p.id === "tab-" + tab));
+  if (tab === "code") updateCodeView();
+  if (tab === "preview") updatePreview();
+}
+
+// ========== EXPORT ==========
+function showExportModal() {
+  generateExport();
+  document.getElementById("exportModal").classList.add("show");
+}
+function closeExportModal() {
+  document.getElementById("exportModal").classList.remove("show");
+}
+function selectExportType(type) {
+  exportType = type;
+  document.querySelectorAll(".export-opt").forEach(e => e.classList.toggle("selected", e.dataset.type === type));
+  generateExport();
+}
+
+function generateExport() {
+  const code = document.getElementById("exportCode");
+  if (exportType === "cloudpage") {
+    code.value = generateCloudPageExport();
+  } else if (exportType === "contentblock") {
+    code.value = generateContentBlockExport();
+  } else {
+    code.value = generateEmailExport();
+  }
+}
+
+function generateCloudPageExport() {
+  let body = "";
+  for (const block of canvasBlocks) {
+    const def = findCompDef(block.compId);
+    if (def) body += def.html(block.data) + "\n";
+  }
+  return `%%[ /* SIP Suite CloudPage — Generated ${new Date().toISOString().split("T")[0]} */ ]%%
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIP Suite — Eagle Strategies</title>
+<style>
+body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
+table{border-collapse:collapse}
+a{color:#C8A951}
+@media only screen and (max-width:600px){
+  .responsive{width:100%!important}
+  .stack{display:block!important;width:100%!important}
+}
+</style>
+</head>
+<body style="margin:0;padding:0;background:#f4f4f4">
+<center>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td align="center">
+<table role="presentation" width="680" class="responsive" cellpadding="0" cellspacing="0" border="0" style="background:#fff">
+<tr><td>
+${body}
+</td></tr>
+</table>
+</td></tr>
+</table>
+</center>
+%%[ /* Tracking */ Output(RequestParameter("utm_source")) ]%%
+</body>
+</html>`;
+}
+
+function generateContentBlockExport() {
+  let body = "";
+  for (const block of canvasBlocks) {
+    const def = findCompDef(block.compId);
+    if (def) body += `<!-- Block: ${def.name} -->\n` + def.html(block.data) + "\n\n";
+  }
+  return `<!-- SIP Suite Content Block — Generated ${new Date().toISOString().split("T")[0]} -->
+<!-- Paste into SFMC Content Builder as HTML Content Block -->
+${body}`;
+}
+
+function generateEmailExport() {
+  let body = "";
+  for (const block of canvasBlocks) {
+    const def = findCompDef(block.compId);
+    if (def) body += def.html(block.data) + "\n";
+  }
+  return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>SIP Suite — Eagle Strategies</title>
+<!--[if mso]>
+<style type="text/css">
+body,table,td{font-family:Arial,Helvetica,sans-serif!important}
+</style>
+<![endif]-->
+<style type="text/css">
+body{margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+table{border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt}
+img{border:0;outline:none;-ms-interpolation-mode:bicubic}
+@media only screen and (max-width:600px){
+  .responsive{width:100%!important}
+  .stack{display:block!important;width:100%!important;max-width:100%!important}
+  .hide-mobile{display:none!important}
+  .p-mobile{padding:16px!important}
+}
+</style>
+</head>
+<body style="margin:0;padding:0;background-color:#f4f4f4">
+<center>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f4f4f4">
+<tr><td align="center" valign="top">
+<!--[if (gte mso 9)|(IE)]><table role="presentation" width="680" align="center" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
+<table role="presentation" width="680" class="responsive" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;background-color:#ffffff">
+<tr><td>
+${body}
+</td></tr>
+</table>
+<!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+</center>
+<custom name="opencounter" type="tracking">
+</body>
+</html>`;
+}
+
+function copyExport() {
+  const code = document.getElementById("exportCode");
+  navigator.clipboard.writeText(code.value).then(() => showToast("Copied to clipboard!"));
+}
+
+function downloadExport() {
+  const code = document.getElementById("exportCode");
+  const ext = {cloudpage:"_cloudpage",contentblock:"_contentblock",email:"_email"}[exportType]||"";
+  const filename = `sip-suite${ext}_${new Date().toISOString().split("T")[0]}.html`;
+  const blob = new Blob([code.value], { type: "text/html" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  showToast("Downloaded: " + filename);
+}
+
+// ========== SAVE / LOAD ==========
+function saveProject() {
+  const data = JSON.stringify(canvasBlocks, null, 2);
+  localStorage.setItem("sipBuilderProject", data);
+  showToast("Project saved!");
+}
+
+function loadProject() {
+  const data = localStorage.getItem("sipBuilderProject");
+  if (!data) { showToast("No saved project found"); return; }
+  try {
+    canvasBlocks = JSON.parse(data);
+    renderCanvas();
+    updatePreview();
+    showToast("Project loaded!");
+  } catch(e) {
+    showToast("Error loading project");
+  }
+}
+
+function clearCanvas() {
+  if (!canvasBlocks.length) return;
+  if (!confirm("Clear all components from the canvas?")) return;
+  saveState();
+  canvasBlocks = [];
+  selectedBlockId = null;
+  renderCanvas();
+  updatePreview();
+  renderEditor();
+}
+
+// ========== TOAST ==========
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2500);
+}
+
+// ========== KEYBOARD SHORTCUTS ==========
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === "z") { e.preventDefault(); undoAction(); }
+  if ((e.ctrlKey || e.metaKey) && e.key === "y") { e.preventDefault(); redoAction(); }
+  if (e.key === "Delete" && selectedBlockId) { removeBlock(selectedBlockId); }
+});
+
+// ========== BOOT ==========
+init();
+</script>
+</body>
+</html>
