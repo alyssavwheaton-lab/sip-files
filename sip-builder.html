@@ -3,1168 +3,629 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SIP Suite Email Builder — Eagle Strategies</title>
+<title>SIP Suite Email Builder — Eagle Asset Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
---navy:#002855;--navy-dark:#001a3a;--gold:#C8A951;--gold-light:#d4ba6a;
---bg:#0f1117;--panel:#1a1d27;--panel-border:#2a2d3a;--text:#e0e0e0;
---text-dim:#8a8d9a;--accent:#3b82f6;--success:#22c55e;--danger:#ef4444;
+--bg:#0d1017;--panel:#161b24;--panel2:#1c222e;--border:#2a3040;
+--text:#d4d8e0;--dim:#6b7385;--gold:#C5A55A;--gold-light:#d4c07a;
+--navy:#0A2240;--accent:#3b82f6;--success:#22c55e;--danger:#ef4444;
 }
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+
 /* TOP BAR */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:var(--navy-dark);border-bottom:2px solid var(--gold);height:48px;flex-shrink:0}
-.topbar h1{font-size:16px;color:var(--gold);font-weight:700;letter-spacing:1px}
-.topbar-actions{display:flex;gap:8px}
-.topbar-actions button{padding:6px 14px;border:none;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
-.btn-secondary{background:var(--panel);color:var(--text);border:1px solid var(--panel-border)!important}
-.btn-secondary:hover{background:var(--panel-border)}
-.btn-primary{background:var(--gold);color:var(--navy-dark)}
-.btn-primary:hover{background:var(--gold-light)}
-.btn-danger{background:var(--danger);color:#fff}
-.btn-export{background:var(--success);color:#fff}
-.btn-export:hover{opacity:.9}
-/* MAIN LAYOUT */
+.topbar{display:flex;align-items:center;gap:16px;padding:0 20px;background:var(--navy);border-bottom:2px solid var(--gold);height:48px;flex-shrink:0}
+.topbar-brand{font-size:13px;font-weight:300;color:#fff;letter-spacing:4px;margin-right:4px}
+.topbar-brand b{font-weight:700;color:var(--gold)}
+.topbar-divider{width:1px;height:20px;background:rgba(255,255,255,.15)}
+.topbar-title{font-size:11px;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:1.5px;text-transform:uppercase}
+.topbar-spacer{flex:1}
+.topbar button{padding:6px 14px;border:none;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit}
+.btn-ghost{background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.1)!important}
+.btn-ghost:hover{background:rgba(255,255,255,.1);color:#fff}
+.btn-gold{background:var(--gold);color:var(--navy);font-weight:700;letter-spacing:.5px}
+.btn-gold:hover{background:var(--gold-light)}
+.btn-green{background:var(--success);color:#fff}
+
+/* MAIN 3-COL */
 .main{display:flex;flex:1;overflow:hidden}
+
 /* LEFT SIDEBAR */
-.sidebar{width:260px;background:var(--panel);border-right:1px solid var(--panel-border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
-.sidebar-header{padding:12px;border-bottom:1px solid var(--panel-border);font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px}
+.sidebar{width:280px;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.sidebar-head{padding:14px 16px 10px;border-bottom:1px solid var(--border)}
+.sidebar-head h2{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
 .sidebar-search{padding:8px 12px}
-.sidebar-search input{width:100%;padding:6px 10px;background:var(--bg);border:1px solid var(--panel-border);border-radius:4px;color:var(--text);font-size:12px;outline:none}
+.sidebar-search input{width:100%;padding:7px 10px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:12px;outline:none;font-family:inherit}
 .sidebar-search input:focus{border-color:var(--gold)}
 .sidebar-scroll{flex:1;overflow-y:auto;padding:4px 0}
 .sidebar-scroll::-webkit-scrollbar{width:4px}
-.sidebar-scroll::-webkit-scrollbar-thumb{background:var(--panel-border);border-radius:2px}
-.cat-header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;cursor:pointer;font-size:12px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;user-select:none}
-.cat-header:hover{color:var(--text)}
-.cat-header .arrow{transition:transform .2s;font-size:10px}
-.cat-header.open .arrow{transform:rotate(90deg)}
+.sidebar-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.cat-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dim);user-select:none}
+.cat-head:hover{color:var(--text)}
+.cat-head .arr{font-size:9px;transition:transform .2s}
+.cat-head.open .arr{transform:rotate(90deg)}
 .cat-items{display:none;padding:0 8px 8px}
 .cat-items.open{display:block}
-.comp-item{display:flex;align-items:center;gap:8px;padding:8px 10px;margin:2px 0;border-radius:6px;cursor:grab;font-size:12px;border:1px solid transparent;transition:all .15s;user-select:none}
-.comp-item:hover{background:rgba(200,169,81,.1);border-color:var(--gold)}
+.comp-item{display:flex;align-items:center;gap:10px;padding:8px 10px;margin:2px 0;border-radius:6px;cursor:grab;font-size:12px;border:1px solid transparent;transition:all .15s;user-select:none}
+.comp-item:hover{background:rgba(197,165,90,.08);border-color:rgba(197,165,90,.25)}
 .comp-item:active{cursor:grabbing;opacity:.7}
-.comp-icon{width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.comp-badge{min-width:36px;height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:.5px;flex-shrink:0}
 .comp-info{flex:1;min-width:0}
-.comp-name{font-weight:600;color:var(--text)}
-.comp-desc{font-size:10px;color:var(--text-dim);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-/* CENTER CANVAS */
+.comp-name{font-weight:600;color:var(--text);font-size:12px}
+.comp-src{font-size:9px;color:var(--dim);margin-top:1px;letter-spacing:.3px}
+
+/* CANVAS */
 .canvas-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.canvas-toolbar{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--panel-border);background:var(--panel);font-size:12px}
-.canvas-toolbar span{color:var(--text-dim)}
-.canvas-toolbar .count{color:var(--gold);font-weight:700}
-.canvas{flex:1;overflow-y:auto;padding:16px;background:var(--bg)}
-.canvas::-webkit-scrollbar{width:6px}
-.canvas::-webkit-scrollbar-thumb{background:var(--panel-border);border-radius:3px}
-.canvas-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--text-dim);gap:12px}
-.canvas-empty .icon{font-size:48px;opacity:.3}
-.canvas-empty p{font-size:14px}
-.drop-zone{min-height:60px;border:2px dashed var(--panel-border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:12px;margin:4px 0;transition:all .2s}
-.drop-zone.over{border-color:var(--gold);background:rgba(200,169,81,.05);color:var(--gold)}
-.canvas-block{position:relative;border:1px solid transparent;border-radius:6px;margin:4px 0;transition:all .15s;group:block}
-.canvas-block:hover{border-color:var(--panel-border)}
-.canvas-block.selected{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
-.block-actions{position:absolute;top:4px;right:4px;display:none;gap:2px;z-index:10}
-.canvas-block:hover .block-actions,.canvas-block.selected .block-actions{display:flex}
-.block-actions button{width:24px;height:24px;border:none;border-radius:4px;background:var(--panel);color:var(--text-dim);cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center}
-.block-actions button:hover{background:var(--gold);color:var(--navy-dark)}
-.block-label{position:absolute;top:4px;left:4px;padding:2px 8px;background:var(--navy);color:var(--gold);font-size:10px;font-weight:700;border-radius:3px;z-index:10;display:none;text-transform:uppercase;letter-spacing:.5px}
-.canvas-block:hover .block-label,.canvas-block.selected .block-label{display:block}
-.block-content{padding:2px;pointer-events:none}
-.block-content *{max-width:100%}
-/* RIGHT PANEL - PREVIEW + EDITOR */
-.right-panel{width:420px;display:flex;flex-direction:column;border-left:1px solid var(--panel-border);flex-shrink:0;overflow:hidden}
-.right-tabs{display:flex;border-bottom:1px solid var(--panel-border);background:var(--panel)}
-.right-tab{flex:1;padding:10px;text-align:center;font-size:12px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;color:var(--text-dim);transition:all .15s}
+.canvas-bar{display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid var(--border);background:var(--panel);font-size:11px;color:var(--dim)}
+.canvas-bar .ct{color:var(--gold);font-weight:700}
+.canvas{flex:1;overflow-y:auto;padding:12px;background:var(--bg)}
+.canvas::-webkit-scrollbar{width:5px}
+.canvas::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.canvas-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--dim);gap:10px}
+.canvas-empty .ico{font-size:40px;opacity:.2}
+.drop-zone{min-height:40px;border:2px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:11px;margin:3px 0;transition:all .2s}
+.drop-zone.over{border-color:var(--gold);background:rgba(197,165,90,.04);color:var(--gold)}
+.canvas-block{position:relative;border:2px solid transparent;border-radius:6px;margin:3px 0;transition:border-color .15s;overflow:hidden}
+.canvas-block:hover{border-color:var(--border)}
+.canvas-block.selected{border-color:var(--gold)}
+.block-bar{position:absolute;top:0;left:0;right:0;display:none;align-items:center;justify-content:space-between;padding:4px 8px;background:rgba(10,34,64,.85);backdrop-filter:blur(4px);z-index:10;font-size:10px;color:rgba(255,255,255,.7)}
+.canvas-block:hover .block-bar,.canvas-block.selected .block-bar{display:flex}
+.block-bar .lbl{font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--gold)}
+.block-bar .acts{display:flex;gap:2px}
+.block-bar button{width:22px;height:22px;border:none;border-radius:3px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center}
+.block-bar button:hover{background:var(--gold);color:var(--navy)}
+.block-html{pointer-events:none}
+
+/* RIGHT PANEL */
+.right-panel{width:440px;display:flex;flex-direction:column;border-left:1px solid var(--border);flex-shrink:0}
+.right-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--panel)}
+.right-tab{flex:1;padding:10px;text-align:center;font-size:11px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;color:var(--dim);transition:all .15s;letter-spacing:.3px}
 .right-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
 .right-tab:hover{color:var(--text)}
 .right-content{flex:1;overflow:hidden;position:relative}
 .tab-pane{display:none;height:100%;flex-direction:column}
 .tab-pane.active{display:flex}
-/* PREVIEW */
-.preview-frame-wrap{flex:1;background:#fff;overflow:auto;padding:0}
-.preview-frame-wrap iframe{width:100%;height:100%;border:none}
-/* EDITOR */
-.editor-pane{padding:12px;overflow-y:auto;flex:1}
+.preview-wrap{flex:1;background:#fff;overflow:auto}
+.preview-wrap iframe{width:100%;height:100%;border:none}
+.editor-pane{padding:14px;overflow-y:auto;flex:1}
 .editor-pane::-webkit-scrollbar{width:4px}
-.editor-pane::-webkit-scrollbar-thumb{background:var(--panel-border);border-radius:2px}
-.editor-section{margin-bottom:16px}
-.editor-section h3{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:8px;font-weight:700}
-.editor-field{margin-bottom:10px}
-.editor-field label{display:block;font-size:11px;color:var(--text-dim);margin-bottom:3px}
-.editor-field input,.editor-field textarea,.editor-field select{width:100%;padding:6px 8px;background:var(--bg);border:1px solid var(--panel-border);border-radius:4px;color:var(--text);font-size:12px;font-family:inherit;outline:none}
-.editor-field input:focus,.editor-field textarea:focus{border-color:var(--gold)}
-.editor-field textarea{min-height:60px;resize:vertical}
-.color-row{display:flex;gap:8px;align-items:center}
-.color-row input[type=color]{width:32px;height:32px;border:1px solid var(--panel-border);border-radius:4px;padding:2px;cursor:pointer;background:var(--bg)}
-.color-row input[type=text]{flex:1}
-/* CODE VIEW */
+.editor-pane::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.ed-section{margin-bottom:16px}
+.ed-section h3{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.ed-field{margin-bottom:10px}
+.ed-field label{display:block;font-size:11px;color:var(--dim);margin-bottom:3px}
+.ed-field input,.ed-field textarea,.ed-field select{width:100%;padding:7px 9px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:12px;font-family:inherit;outline:none}
+.ed-field input:focus,.ed-field textarea:focus{border-color:var(--gold)}
+.ed-field textarea{min-height:60px;resize:vertical}
 .code-view{flex:1;position:relative}
-.code-view textarea{width:100%;height:100%;background:var(--bg);color:#a6e3a1;border:none;padding:12px;font-family:'Cascadia Code','Fira Code',monospace;font-size:12px;line-height:1.6;resize:none;outline:none}
-/* EXPORT MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center}
-.modal-overlay.show{display:flex}
-.modal{background:var(--panel);border:1px solid var(--panel-border);border-radius:12px;width:700px;max-height:80vh;display:flex;flex-direction:column;overflow:hidden}
-.modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--panel-border)}
-.modal-header h2{font-size:16px;color:var(--gold)}
-.modal-header button{background:none;border:none;color:var(--text-dim);font-size:18px;cursor:pointer}
+.code-view textarea{width:100%;height:100%;background:var(--bg);color:#a6e3a1;border:none;padding:12px;font-family:'Cascadia Code','Fira Code',monospace;font-size:11px;line-height:1.5;resize:none;outline:none}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:var(--panel);border:1px solid var(--border);border-radius:10px;width:720px;max-height:80vh;display:flex;flex-direction:column}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
+.modal-head h2{font-size:15px;color:var(--gold);font-weight:700}
+.modal-head button{background:none;border:none;color:var(--dim);font-size:18px;cursor:pointer}
 .modal-body{padding:20px;overflow-y:auto;flex:1}
-.modal-body textarea{width:100%;height:300px;background:var(--bg);color:#a6e3a1;border:1px solid var(--panel-border);border-radius:6px;padding:12px;font-family:'Cascadia Code','Fira Code',monospace;font-size:11px;line-height:1.5;resize:vertical;outline:none}
-.modal-footer{display:flex;gap:8px;justify-content:flex-end;padding:12px 20px;border-top:1px solid var(--panel-border)}
-.export-options{display:flex;gap:12px;margin-bottom:16px}
-.export-opt{flex:1;padding:12px;border:1px solid var(--panel-border);border-radius:8px;cursor:pointer;text-align:center;transition:all .15s}
+.modal-body textarea{width:100%;height:320px;background:var(--bg);color:#a6e3a1;border:1px solid var(--border);border-radius:6px;padding:12px;font-family:'Cascadia Code','Fira Code',monospace;font-size:11px;line-height:1.5;resize:vertical;outline:none}
+.modal-foot{display:flex;gap:8px;justify-content:flex-end;padding:12px 20px;border-top:1px solid var(--border)}
+.export-opts{display:flex;gap:10px;margin-bottom:16px}
+.export-opt{flex:1;padding:12px;border:1px solid var(--border);border-radius:6px;cursor:pointer;text-align:center;transition:all .15s}
 .export-opt:hover{border-color:var(--gold)}
-.export-opt.selected{border-color:var(--gold);background:rgba(200,169,81,.1)}
-.export-opt h4{font-size:13px;color:var(--text);margin-bottom:4px}
-.export-opt p{font-size:10px;color:var(--text-dim)}
-/* DRAG GHOST */
-.drag-ghost{position:fixed;pointer-events:none;z-index:9999;padding:6px 12px;background:var(--gold);color:var(--navy-dark);font-size:12px;font-weight:700;border-radius:4px;opacity:.9;white-space:nowrap}
-/* TOAST */
-.toast{position:fixed;bottom:20px;right:20px;padding:10px 20px;background:var(--success);color:#fff;border-radius:6px;font-size:13px;font-weight:600;z-index:9999;transform:translateY(100px);opacity:0;transition:all .3s}
+.export-opt.sel{border-color:var(--gold);background:rgba(197,165,90,.08)}
+.export-opt h4{font-size:12px;color:var(--text);margin-bottom:3px}
+.export-opt p{font-size:10px;color:var(--dim)}
+
+.toast{position:fixed;bottom:20px;right:20px;padding:10px 20px;background:var(--success);color:#fff;border-radius:6px;font-size:12px;font-weight:600;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s}
 .toast.show{transform:translateY(0);opacity:1}
 </style>
 </head>
 <body>
-<!-- TOP BAR -->
 <div class="topbar">
-  <h1>&#9670; SIP SUITE EMAIL BUILDER</h1>
-  <div class="topbar-actions">
-    <button class="btn-secondary" onclick="clearCanvas()">Clear All</button>
-    <button class="btn-secondary" onclick="saveProject()">&#128190; Save</button>
-    <button class="btn-secondary" onclick="loadProject()">&#128194; Load</button>
-    <button class="btn-primary" onclick="showExportModal()">&#9889; Export for SFMC</button>
-  </div>
+  <span class="topbar-brand">EAGLE <b>|</b></span>
+  <span class="topbar-divider"></span>
+  <span class="topbar-title">SIP Suite Builder</span>
+  <span class="topbar-spacer"></span>
+  <button class="btn-ghost" onclick="clearCanvas()">Clear</button>
+  <button class="btn-ghost" onclick="saveProject()">Save</button>
+  <button class="btn-ghost" onclick="loadProject()">Load</button>
+  <button class="btn-ghost" onclick="undoAction()">Undo</button>
+  <button class="btn-gold" onclick="showExportModal()">Export for SFMC</button>
 </div>
-
-<!-- MAIN 3-PANEL LAYOUT -->
 <div class="main">
-
-<!-- LEFT SIDEBAR: Component Library -->
 <div class="sidebar">
-  <div class="sidebar-header">Components</div>
-  <div class="sidebar-search"><input type="text" id="compSearch" placeholder="Search components..." oninput="filterComponents()"></div>
+  <div class="sidebar-head"><h2>Components</h2></div>
+  <div class="sidebar-search"><input type="text" id="compSearch" placeholder="Search components..." oninput="filterComps()"></div>
   <div class="sidebar-scroll" id="sidebarScroll"></div>
 </div>
-
-<!-- CENTER: Build Canvas -->
 <div class="canvas-wrap">
-  <div class="canvas-toolbar">
-    <span>Build Canvas</span> &mdash; <span class="count" id="blockCount">0</span> <span>components</span>
-    <div style="flex:1"></div>
-    <button class="btn-secondary" onclick="undoAction()" title="Undo">&#8617; Undo</button>
-    <button class="btn-secondary" onclick="redoAction()" title="Redo">&#8618; Redo</button>
-  </div>
+  <div class="canvas-bar"><span>Build Canvas</span> — <span class="ct" id="blockCount">0</span> <span>components</span></div>
   <div class="canvas" id="canvas">
     <div class="canvas-empty" id="canvasEmpty">
-      <div class="icon">&#128233;</div>
+      <div class="ico">&#128233;</div>
       <p>Drag components here to start building</p>
-      <p style="font-size:11px">Or double-click a component in the sidebar</p>
+      <p style="font-size:10px">Or double-click a component in the sidebar</p>
     </div>
   </div>
 </div>
-
-<!-- RIGHT: Preview / Editor / Code -->
 <div class="right-panel">
   <div class="right-tabs">
     <div class="right-tab active" data-tab="preview" onclick="switchTab('preview')">Preview</div>
     <div class="right-tab" data-tab="editor" onclick="switchTab('editor')">Editor</div>
-    <div class="right-tab" data-tab="code" onclick="switchTab('code')">HTML Code</div>
+    <div class="right-tab" data-tab="code" onclick="switchTab('code')">HTML</div>
   </div>
   <div class="right-content">
-    <div class="tab-pane active" id="tab-preview">
-      <div class="preview-frame-wrap">
-        <iframe id="previewFrame" title="Email Preview"></iframe>
-      </div>
-    </div>
-    <div class="tab-pane" id="tab-editor">
-      <div class="editor-pane" id="editorPane">
-        <div style="color:var(--text-dim);font-size:13px;text-align:center;padding:40px">
-          Select a component on the canvas to edit its properties
-        </div>
-      </div>
-    </div>
-    <div class="tab-pane" id="tab-code">
-      <div class="code-view">
-        <textarea id="codeArea" spellcheck="false" readonly></textarea>
-      </div>
-    </div>
+    <div class="tab-pane active" id="tab-preview"><div class="preview-wrap"><iframe id="previewFrame" title="Preview"></iframe></div></div>
+    <div class="tab-pane" id="tab-editor"><div class="editor-pane" id="editorPane"><div style="color:var(--dim);font-size:12px;text-align:center;padding:40px">Select a component on the canvas to edit</div></div></div>
+    <div class="tab-pane" id="tab-code"><div class="code-view"><textarea id="codeArea" spellcheck="false" readonly></textarea></div></div>
   </div>
 </div>
-
-</div><!-- /main -->
-
-<!-- EXPORT MODAL -->
-<div class="modal-overlay" id="exportModal">
+</div>
+<div class="modal-bg" id="exportModal">
   <div class="modal">
-    <div class="modal-header">
-      <h2>&#9889; Export for SFMC</h2>
-      <button onclick="closeExportModal()">&times;</button>
-    </div>
+    <div class="modal-head"><h2>Export for SFMC</h2><button onclick="closeExport()">&times;</button></div>
     <div class="modal-body">
-      <div class="export-options">
-        <div class="export-opt selected" data-type="cloudpage" onclick="selectExportType('cloudpage')">
-          <h4>CloudPage</h4>
-          <p>Full HTML landing page for SFMC CloudPages</p>
-        </div>
-        <div class="export-opt" data-type="contentblock" onclick="selectExportType('contentblock')">
-          <h4>Content Block</h4>
-          <p>HTML block for Content Builder</p>
-        </div>
-        <div class="export-opt" data-type="email" onclick="selectExportType('email')">
-          <h4>Email Template</h4>
-          <p>Table-based email with inline styles</p>
-        </div>
+      <div class="export-opts">
+        <div class="export-opt sel" data-t="cloudpage" onclick="selExport('cloudpage')"><h4>CloudPage</h4><p>Full HTML landing page</p></div>
+        <div class="export-opt" data-t="contentblock" onclick="selExport('contentblock')"><h4>Content Block</h4><p>For Content Builder</p></div>
+        <div class="export-opt" data-t="email" onclick="selExport('email')"><h4>Email Template</h4><p>Table-based with inline styles</p></div>
       </div>
       <textarea id="exportCode" spellcheck="false"></textarea>
     </div>
-    <div class="modal-footer">
-      <button class="btn-secondary" onclick="copyExport()">&#128203; Copy to Clipboard</button>
-      <button class="btn-primary" onclick="downloadExport()">&#11015; Download HTML</button>
-      <button class="btn-secondary" onclick="closeExportModal()">Close</button>
+    <div class="modal-foot">
+      <button class="btn-ghost" onclick="copyExport()">Copy to Clipboard</button>
+      <button class="btn-gold" onclick="downloadExport()">Download HTML</button>
+      <button class="btn-ghost" onclick="closeExport()">Close</button>
     </div>
   </div>
 </div>
-
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 <script>
-// ========== COMPONENT LIBRARY ==========
-const COMPONENTS = {
-  "Headers & Navigation": [
-    {
-      id: "header-eagle",
-      name: "Eagle Header Bar",
-      desc: "Navy header with Eagle Strategies logo and gold accent",
-      icon: "&#9670;",
-      iconBg: "#002855",
-      editable: ["logoText","bgColor","accentColor"],
-      defaults: {logoText:"EAGLE STRATEGIES", bgColor:"#002855", accentColor:"#C8A951"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${d.bgColor}"><tr><td style="padding:16px 30px;border-bottom:3px solid ${d.accentColor}"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:22px;font-weight:700;color:${d.accentColor};letter-spacing:3px">${d.logoText}</td><td style="text-align:right;font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.6)">Financial Advisors</td></tr></table></td></tr></table>`
-    },
-    {
-      id: "header-sip",
-      name: "SIP Suite Header",
-      desc: "Full header with SIP Suite branding and navigation links",
-      icon: "&#9776;",
-      iconBg: "#0A2240",
-      editable: ["navLinks","bgColor"],
-      defaults: {navLinks:"Overview,Strategies,Resources,Contact", bgColor:"#0A2240"},
-      html: (d) => {
-        const links = d.navLinks.split(",").map(l=>`<td style="padding:0 14px"><a href="#" style="color:rgba(255,255,255,.85);text-decoration:none;font-family:Arial,sans-serif;font-size:13px;font-weight:600">${l.trim()}</a></td>`).join("");
-        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${d.bgColor}"><tr><td style="padding:14px 30px;border-bottom:2px solid #C8A951"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:18px;font-weight:700;color:#C8A951;letter-spacing:2px">&#9670; SIP SUITE</td><td style="text-align:right"><table cellpadding="0" cellspacing="0"><tr>${links}</tr></table></td></tr></table></td></tr></table>`;
-      }
-    },
-    {
-      id: "nav-tabbed",
-      name: "Tab Navigation",
-      desc: "Horizontal tab navigation for multi-section pages",
-      icon: "&#9644;",
-      iconBg: "#1a365d",
-      editable: ["tabs","activeBg","activeText"],
-      defaults: {tabs:"Income Amplifier,Retirement Bridge,Tax-Smart,Estate Shield", activeBg:"#C8A951", activeText:"#002855"},
-      html: (d) => {
-        const tabs = d.tabs.split(",");
-        const tabHtml = tabs.map((t,i)=>`<td style="padding:10px 20px;background:${i===0?d.activeBg:'transparent'};color:${i===0?d.activeText:'rgba(255,255,255,.7)'};font-family:Arial,sans-serif;font-size:13px;font-weight:${i===0?'700':'400'};text-align:center;border-radius:4px 4px 0 0;cursor:pointer">${t.trim()}</td>`).join("");
-        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#002855"><tr><td style="padding:0 30px"><table cellpadding="0" cellspacing="4"><tr>${tabHtml}</tr></table></td></tr></table>`;
-      }
-    }
-  ],
-  "Hero Sections": [
-    {
-      id: "hero-gradient",
-      name: "Gradient Hero Banner",
-      desc: "Navy-to-dark gradient with headline and subtext",
-      icon: "&#9733;",
-      iconBg: "#002855",
-      editable: ["headline","subtext","ctaText","ctaUrl","bgFrom","bgTo"],
-      defaults: {headline:"Systematic Income Planning Suite", subtext:"A comprehensive approach to generating reliable income in any market environment", ctaText:"Explore Strategies", ctaUrl:"#", bgFrom:"#002855", bgTo:"#001a3a"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:linear-gradient(135deg,${d.bgFrom},${d.bgTo})"><tr><td style="padding:60px 40px;text-align:center"><h1 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:36px;font-weight:700;color:#C8A951;margin:0 0 16px;letter-spacing:1px">${d.headline}</h1><p style="font-family:Arial,sans-serif;font-size:16px;color:rgba(255,255,255,.85);margin:0 0 28px;max-width:600px;display:inline-block;line-height:1.6">${d.subtext}</p><br><a href="${d.ctaUrl}" style="display:inline-block;padding:14px 36px;background:#C8A951;color:#002855;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:700;border-radius:6px;letter-spacing:.5px">${d.ctaText}</a></td></tr></table>`
-    },
-    {
-      id: "hero-wave",
-      name: "Wave Hero Section",
-      desc: "Hero with decorative wave bottom edge",
-      icon: "&#127754;",
-      iconBg: "#0e2a50",
-      editable: ["headline","subtext","tagline"],
-      defaults: {headline:"Income. Amplified.", subtext:"Institutional-grade strategies designed for high-net-worth portfolios", tagline:"SIP Suite by Eagle Strategies"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:linear-gradient(180deg,#002855 0%,#001530 100%)"><tr><td style="padding:50px 40px 70px;text-align:center"><p style="font-family:Arial,sans-serif;font-size:12px;color:#C8A951;letter-spacing:3px;margin:0 0 16px;font-weight:600">${d.tagline}</p><h1 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:42px;font-weight:700;color:#ffffff;margin:0 0 16px">${d.headline}</h1><p style="font-family:Arial,sans-serif;font-size:17px;color:rgba(255,255,255,.8);margin:0;max-width:550px;display:inline-block;line-height:1.6">${d.subtext}</p></td></tr><tr><td style="height:30px;background:linear-gradient(180deg,transparent,#f8f9fa)" colspan="100%"></td></tr></table>`
-    },
-    {
-      id: "hero-split",
-      name: "Split Hero (Text + Image)",
-      desc: "Two-column hero with text left and image placeholder right",
-      icon: "&#9635;",
-      iconBg: "#1a365d",
-      editable: ["headline","subtext","ctaText","imgAlt"],
-      defaults: {headline:"Systematic Income Planning", subtext:"Discover strategies that deliver consistent, tax-efficient income for your clients' portfolios.", ctaText:"Learn More", imgAlt:"SIP Strategy Visual"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#002855"><tr><td width="55%" style="padding:50px 30px 50px 40px;vertical-align:middle"><h1 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:32px;color:#fff;margin:0 0 14px;font-weight:700">${d.headline}</h1><p style="font-family:Arial,sans-serif;font-size:15px;color:rgba(255,255,255,.8);line-height:1.6;margin:0 0 24px">${d.subtext}</p><a href="#" style="display:inline-block;padding:12px 30px;background:#C8A951;color:#002855;text-decoration:none;font-weight:700;border-radius:5px;font-size:14px">${d.ctaText}</a></td><td width="45%" style="padding:30px;vertical-align:middle;text-align:center"><div style="background:rgba(255,255,255,.1);border-radius:12px;padding:60px 30px;color:rgba(255,255,255,.4);font-size:14px">[${d.imgAlt}]</div></td></tr></table>`
-    }
-  ],
-  "Proof & Credibility": [
-    {
-      id: "stats-bar",
-      name: "Stats Proof Bar",
-      desc: "Key statistics in a horizontal bar (AUM, years, clients)",
-      icon: "&#128200;",
-      iconBg: "#1e3a5f",
-      editable: ["stat1Label","stat1Value","stat2Label","stat2Value","stat3Label","stat3Value","bgColor"],
-      defaults: {stat1Label:"Assets Under Management",stat1Value:"$2.8B+",stat2Label:"Years of Performance",stat2Value:"15+",stat3Label:"Advisor Partners",stat3Value:"500+",bgColor:"#f0ebe1"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${d.bgColor}"><tr><td style="padding:28px 20px"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="33%" style="text-align:center;padding:10px;border-right:1px solid rgba(0,40,85,.15)"><div style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:28px;font-weight:700;color:#002855">${d.stat1Value}</div><div style="font-family:Arial,sans-serif;font-size:11px;color:#666;margin-top:4px;text-transform:uppercase;letter-spacing:1px">${d.stat1Label}</div></td><td width="33%" style="text-align:center;padding:10px;border-right:1px solid rgba(0,40,85,.15)"><div style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:28px;font-weight:700;color:#002855">${d.stat2Value}</div><div style="font-family:Arial,sans-serif;font-size:11px;color:#666;margin-top:4px;text-transform:uppercase;letter-spacing:1px">${d.stat2Label}</div></td><td width="33%" style="text-align:center;padding:10px"><div style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:28px;font-weight:700;color:#002855">${d.stat3Value}</div><div style="font-family:Arial,sans-serif;font-size:11px;color:#666;margin-top:4px;text-transform:uppercase;letter-spacing:1px">${d.stat3Label}</div></td></tr></table></td></tr></table>`
-    },
-    {
-      id: "credibility-bar",
-      name: "Credibility Strip",
-      desc: "New York Life / Eagle Strategies trust indicators",
-      icon: "&#9989;",
-      iconBg: "#0d4f3c",
-      editable: ["text","bgColor"],
-      defaults: {text:"Backed by New York Life — A Fortune 100 Company with over 175 years of financial strength", bgColor:"#002855"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${d.bgColor}"><tr><td style="padding:14px 30px;text-align:center;font-family:Arial,sans-serif;font-size:13px;color:rgba(255,255,255,.8);letter-spacing:.3px"><span style="color:#C8A951;font-weight:700">&#10004;</span> ${d.text}</td></tr></table>`
-    },
-    {
-      id: "gold-bar",
-      name: "Gold Accent Bar",
-      desc: "Thin gold divider bar for visual separation",
-      icon: "&#9644;",
-      iconBg: "#8B7532",
-      editable: ["height","color"],
-      defaults: {height:"3", color:"#C8A951"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="height:${d.height}px;background:${d.color};font-size:0;line-height:0">&nbsp;</td></tr></table>`
-    }
-  ],
-  "Strategy Cards": [
-    {
-      id: "cards-2x2",
-      name: "Strategy Cards Grid (2x2)",
-      desc: "Four strategy cards in a 2x2 layout with icons",
-      icon: "&#9641;",
-      iconBg: "#2d3748",
-      editable: ["card1Title","card1Desc","card2Title","card2Desc","card3Title","card3Desc","card4Title","card4Desc"],
-      defaults: {card1Title:"Income Amplifier",card1Desc:"Enhanced yield strategies using covered call overlays and option premium capture",card2Title:"Retirement Bridge",card2Desc:"Gap-funding solutions for early retirees before Social Security and RMDs",card3Title:"Tax-Smart Income",card3Desc:"Tax-loss harvesting paired with municipal bond ladders for after-tax optimization",card4Title:"Estate Shield",card4Desc:"Wealth transfer strategies combining insurance solutions with trust structures"},
-      html: (d) => {
-        const icons = ["&#9650;","&#9654;","&#9660;","&#9664;"];
-        const colors = ["#C8A951","#5BA4E6","#4ECDC4","#9B6BCC"];
-        let rows = "";
-        for(let i=0;i<4;i+=2){
-          rows += `<tr>`;
-          for(let j=i;j<i+2;j++){
-            const k=j+1;
-            rows+=`<td width="50%" style="padding:8px;vertical-align:top"><table width="100%" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:8px;border:1px solid #e5e7eb"><tr><td style="padding:24px"><div style="width:40px;height:40px;background:${colors[j]};border-radius:8px;text-align:center;line-height:40px;font-size:18px;color:#fff;margin-bottom:14px">${icons[j]}</div><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:16px;color:#002855;margin:0 0 8px;font-weight:700">${d['card'+k+'Title']}</h3><p style="font-family:Arial,sans-serif;font-size:13px;color:#555;line-height:1.5;margin:0">${d['card'+k+'Desc']}</p></td></tr></table></td>`;
-          }
-          rows += `</tr>`;
-        }
-        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f8f9fa"><tr><td style="padding:30px"><h2 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:24px;color:#002855;text-align:center;margin:0 0 24px">Core Strategies</h2><table width="100%" cellpadding="0" cellspacing="0">${rows}</table></td></tr></table>`;
-      }
-    },
-    {
-      id: "card-single",
-      name: "Single Strategy Card",
-      desc: "Individual strategy spotlight card with detail",
-      icon: "&#9632;",
-      iconBg: "#2563eb",
-      editable: ["title","description","features","accentColor"],
-      defaults: {title:"Income Amplifier Strategy",description:"Enhanced yield generation through systematic covered call writing and option premium capture across diversified equity portfolios.",features:"Covered call overlays,Monthly income distribution,Risk-managed approach,Tax-efficient structure",accentColor:"#C8A951"},
-      html: (d) => {
-        const feats = d.features.split(",").map(f=>`<tr><td style="padding:4px 0;font-family:Arial,sans-serif;font-size:13px;color:#555"><span style="color:${d.accentColor};margin-right:8px">&#10003;</span>${f.trim()}</td></tr>`).join("");
-        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff"><tr><td style="padding:30px 40px"><table width="100%" cellpadding="0" cellspacing="0" style="border-left:4px solid ${d.accentColor}"><tr><td style="padding:20px 24px"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:20px;color:#002855;margin:0 0 10px;font-weight:700">${d.title}</h3><p style="font-family:Arial,sans-serif;font-size:14px;color:#555;line-height:1.6;margin:0 0 16px">${d.description}</p><table cellpadding="0" cellspacing="0">${feats}</table></td></tr></table></td></tr></table>`;
-      }
-    },
-    {
-      id: "cards-playbook",
-      name: "Playbook Strategy Cards",
-      desc: "Premium playbook-style cards with strategy details",
-      icon: "&#128218;",
-      iconBg: "#7c3aed",
-      editable: ["card1Title","card1Type","card1Desc","card2Title","card2Type","card2Desc"],
-      defaults: {card1Title:"The Income Amplifier",card1Type:"YIELD ENHANCEMENT",card1Desc:"Systematic covered call writing across diversified equity positions for enhanced monthly income generation",card2Title:"The Retirement Bridge",card2Type:"GAP FUNDING",card2Desc:"Custom withdrawal sequencing strategy for early retirees bridging to Social Security and pension income"},
-      html: (d) => {
-        let cards="";
-        for(let i=1;i<=2;i++){
-          cards+=`<td width="50%" style="padding:8px;vertical-align:top"><table width="100%" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg,#002855,#001530);border-radius:10px;overflow:hidden"><tr><td style="padding:3px 20px 0;font-family:Arial,sans-serif;font-size:10px;color:#C8A951;letter-spacing:2px;font-weight:700;padding-top:20px">${d['card'+i+'Type']}</td></tr><tr><td style="padding:8px 20px;font-family:'Roboto Condensed',Arial,sans-serif;font-size:18px;color:#fff;font-weight:700">${d['card'+i+'Title']}</td></tr><tr><td style="padding:4px 20px 24px;font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.7);line-height:1.5">${d['card'+i+'Desc']}</td></tr></table></td>`;
-        }
-        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f0ebe1"><tr><td style="padding:30px"><h2 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:22px;color:#002855;text-align:center;margin:0 0 6px">Strategy Playbooks</h2><p style="text-align:center;font-family:Arial,sans-serif;font-size:13px;color:#666;margin:0 0 20px">Detailed implementation guides for each SIP strategy</p><table width="100%" cellpadding="0" cellspacing="0"><tr>${cards}</tr></table></td></tr></table>`;
-      }
-    }
-  ],
-  "Content Blocks": [
-    {
-      id: "text-block",
-      name: "Text Content Block",
-      desc: "Simple heading + paragraph text block",
-      icon: "&#9998;",
-      iconBg: "#475569",
-      editable: ["heading","body","bgColor","textColor"],
-      defaults: {heading:"About the SIP Suite",body:"The Systematic Income Planning Suite represents Eagle Strategies' comprehensive approach to income generation. Combining institutional-grade strategies with personalized implementation, the SIP Suite delivers consistent, tax-efficient income streams for high-net-worth clients.",bgColor:"#ffffff",textColor:"#333333"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${d.bgColor}"><tr><td style="padding:36px 40px"><h2 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:24px;color:#002855;margin:0 0 14px;font-weight:700">${d.heading}</h2><p style="font-family:Arial,sans-serif;font-size:15px;color:${d.textColor};line-height:1.7;margin:0">${d.body}</p></td></tr></table>`
-    },
-    {
-      id: "two-col-text",
-      name: "Two-Column Content",
-      desc: "Side-by-side content blocks",
-      icon: "&#9639;",
-      iconBg: "#4a5568",
-      editable: ["leftHeading","leftBody","rightHeading","rightBody"],
-      defaults: {leftHeading:"Our Approach",leftBody:"Every SIP Suite strategy begins with a thorough analysis of the client's income needs, tax situation, and risk tolerance.",rightHeading:"Your Advantage",rightBody:"Access to institutional strategies typically reserved for pension funds and endowments, now available for individual portfolios."},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff"><tr><td style="padding:36px 40px"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="48%" style="vertical-align:top"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:18px;color:#002855;margin:0 0 10px">${d.leftHeading}</h3><p style="font-family:Arial,sans-serif;font-size:14px;color:#555;line-height:1.6;margin:0">${d.leftBody}</p></td><td width="4%"></td><td width="48%" style="vertical-align:top"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:18px;color:#002855;margin:0 0 10px">${d.rightHeading}</h3><p style="font-family:Arial,sans-serif;font-size:14px;color:#555;line-height:1.6;margin:0">${d.rightBody}</p></td></tr></table></td></tr></table>`
-    },
-    {
-      id: "video-section",
-      name: "Video + Copy Section",
-      desc: "Video embed with supporting text",
-      icon: "&#9654;",
-      iconBg: "#dc2626",
-      editable: ["heading","body","videoLabel"],
-      defaults: {heading:"See the SIP Suite in Action",body:"Watch our overview presentation to learn how systematic income strategies can transform your clients' retirement income picture.",videoLabel:"SIP Suite Overview — 8 min"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f8f9fa"><tr><td style="padding:36px 40px"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="55%" style="vertical-align:middle;padding-right:24px"><div style="background:#001a3a;border-radius:10px;padding:60px 30px;text-align:center"><div style="font-size:36px;color:#C8A951;margin-bottom:10px">&#9654;</div><p style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.6);margin:0">${d.videoLabel}</p></div></td><td width="45%" style="vertical-align:middle"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:22px;color:#002855;margin:0 0 12px">${d.heading}</h3><p style="font-family:Arial,sans-serif;font-size:14px;color:#555;line-height:1.6;margin:0">${d.body}</p></td></tr></table></td></tr></table>`
-    },
-    {
-      id: "cta-banner",
-      name: "CTA Banner",
-      desc: "Full-width call-to-action with button",
-      icon: "&#128073;",
-      iconBg: "#b45309",
-      editable: ["heading","subtext","ctaText","ctaUrl","bgColor"],
-      defaults: {heading:"Ready to Amplify Your Clients' Income?",subtext:"Schedule a consultation to discuss how the SIP Suite can work for your practice.",ctaText:"Schedule Consultation",ctaUrl:"#",bgColor:"#002855"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:${d.bgColor}"><tr><td style="padding:40px;text-align:center"><h2 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:26px;color:#fff;margin:0 0 10px">${d.heading}</h2><p style="font-family:Arial,sans-serif;font-size:14px;color:rgba(255,255,255,.75);margin:0 0 24px">${d.subtext}</p><a href="${d.ctaUrl}" style="display:inline-block;padding:14px 40px;background:#C8A951;color:#002855;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:700;border-radius:6px">${d.ctaText}</a></td></tr></table>`
-    }
-  ],
-  "Performance & Data": [
-    {
-      id: "performance-table",
-      name: "Performance Returns Table",
-      desc: "Strategy performance data in table format",
-      icon: "&#128202;",
-      iconBg: "#166534",
-      editable: ["title","row1Name","row1Val","row2Name","row2Val","row3Name","row3Val","row4Name","row4Val"],
-      defaults: {title:"Strategy Performance Overview",row1Name:"Income Amplifier",row1Val:"8.2%",row2Name:"Retirement Bridge",row2Val:"6.8%",row3Name:"Tax-Smart Income",row3Val:"5.4%",row4Name:"Estate Shield",row4Val:"7.1%"},
-      html: (d) => {
-        let rows="";
-        for(let i=1;i<=4;i++){
-          const bg = i%2===0?"#f8f9fa":"#fff";
-          rows+=`<tr><td style="padding:12px 16px;font-family:Arial,sans-serif;font-size:14px;color:#333;background:${bg};border-bottom:1px solid #eee">${d['row'+i+'Name']}</td><td style="padding:12px 16px;font-family:'Roboto Condensed',Arial,sans-serif;font-size:16px;color:#002855;font-weight:700;text-align:right;background:${bg};border-bottom:1px solid #eee">${d['row'+i+'Val']}</td></tr>`;
-        }
-        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff"><tr><td style="padding:30px 40px"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:20px;color:#002855;margin:0 0 18px">${d.title}</h3><table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e5e7eb;border-radius:8px;overflow:hidden"><tr><td style="padding:10px 16px;background:#002855;font-family:Arial,sans-serif;font-size:12px;color:#C8A951;font-weight:700;text-transform:uppercase;letter-spacing:1px">Strategy</td><td style="padding:10px 16px;background:#002855;font-family:Arial,sans-serif;font-size:12px;color:#C8A951;font-weight:700;text-transform:uppercase;text-align:right;letter-spacing:1px">Yield</td></tr>${rows}</table><p style="font-family:Arial,sans-serif;font-size:10px;color:#999;margin:10px 0 0;font-style:italic">Past performance does not guarantee future results. Returns shown are hypothetical.</p></td></tr></table>`;
-      }
-    },
-    {
-      id: "data-proof",
-      name: "Data Proof Points",
-      desc: "Large numbers with supporting context",
-      icon: "&#128201;",
-      iconBg: "#0369a1",
-      editable: ["metric1","label1","metric2","label2","metric3","label3"],
-      defaults: {metric1:"$2.8B+",label1:"Assets Under SIP Management",metric2:"97%",label2:"Client Retention Rate",metric3:"12.4%",label3:"Avg. Annual Income Yield"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:linear-gradient(135deg,#002855,#001530)"><tr><td style="padding:40px"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="33%" style="text-align:center;padding:16px"><div style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:36px;font-weight:700;color:#C8A951">${d.metric1}</div><div style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.65);margin-top:6px">${d.label1}</div></td><td width="33%" style="text-align:center;padding:16px;border-left:1px solid rgba(200,169,81,.2);border-right:1px solid rgba(200,169,81,.2)"><div style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:36px;font-weight:700;color:#C8A951">${d.metric2}</div><div style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.65);margin-top:6px">${d.label2}</div></td><td width="33%" style="text-align:center;padding:16px"><div style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:36px;font-weight:700;color:#C8A951">${d.metric3}</div><div style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.65);margin-top:6px">${d.label3}</div></td></tr></table></td></tr></table>`
-    }
-  ],
-  "Forms & Capture": [
-    {
-      id: "form-contact",
-      name: "Contact / Lead Form",
-      desc: "Two-column form with heading for lead capture",
-      icon: "&#128221;",
-      iconBg: "#7c3aed",
-      editable: ["heading","subtext","btnText","fields"],
-      defaults: {heading:"Request a Consultation",subtext:"Complete the form below and an Eagle Strategies advisor will contact you within 24 hours.",btnText:"Submit Request",fields:"First Name,Last Name,Email,Phone,Firm Name,Message"},
-      html: (d) => {
-        const fields = d.fields.split(",").map((f,i)=>{
-          const w = f.trim()==="Message"?"100%":"48%";
-          const tag = f.trim()==="Message"?`<textarea style="width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-family:Arial,sans-serif;font-size:13px;min-height:70px;resize:vertical" placeholder="${f.trim()}"></textarea>`:`<input type="text" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-family:Arial,sans-serif;font-size:13px" placeholder="${f.trim()}">`;
-          return `<div style="width:${w};display:inline-block;padding:4px;vertical-align:top;box-sizing:border-box">${tag}</div>`;
-        }).join("");
-        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f8f9fa"><tr><td style="padding:40px"><table width="600" align="center" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:10px;border:1px solid #e5e7eb;overflow:hidden"><tr><td style="padding:30px"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:22px;color:#002855;margin:0 0 8px">${d.heading}</h3><p style="font-family:Arial,sans-serif;font-size:13px;color:#666;margin:0 0 20px;line-height:1.5">${d.subtext}</p><div>${fields}</div><div style="padding:4px;margin-top:12px"><button style="width:100%;padding:14px;background:#C8A951;color:#002855;border:none;border-radius:6px;font-family:Arial,sans-serif;font-size:14px;font-weight:700;cursor:pointer">${d.btnText}</button></div></td></tr></table></td></tr></table>`;
-      }
-    },
-    {
-      id: "form-sfmc-smartcapture",
-      name: "SFMC Smart Capture Form",
-      desc: "Form with AMPscript and Smart Capture markup",
-      icon: "&#9889;",
-      iconBg: "#ea580c",
-      editable: ["heading","deKey","fields"],
-      defaults: {heading:"Stay Informed",deKey:"SIP_Suite_Leads",fields:"FirstName,LastName,EmailAddress"},
-      html: (d) => {
-        const fields = d.fields.split(",").map(f=>`<div style="margin-bottom:10px"><label style="display:block;font-family:Arial,sans-serif;font-size:12px;color:#555;margin-bottom:3px">${f.replace(/([A-Z])/g,' $1').trim()}</label><input type="text" name="${f.trim()}" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-family:Arial,sans-serif;font-size:13px"></div>`).join("");
-        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff"><tr><td style="padding:30px 40px"><!-- SFMC Smart Capture - DE: ${d.deKey} --><div style="max-width:400px;margin:0 auto"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:20px;color:#002855;margin:0 0 16px">${d.heading}</h3><form><div style="background:#fffbeb;border:1px solid #f59e0b;border-radius:4px;padding:8px 12px;margin-bottom:16px;font-family:monospace;font-size:10px;color:#92400e">SFMC Data Extension: ${d.deKey}</div>${fields}<button type="submit" style="width:100%;padding:12px;background:#002855;color:#C8A951;border:none;border-radius:4px;font-family:Arial,sans-serif;font-size:14px;font-weight:700;cursor:pointer">Submit</button></form></div></td></tr></table>`;
-      }
-    }
-  ],
-  "Downloads & Resources": [
-    {
-      id: "factsheet-grid",
-      name: "Factsheet Download Grid",
-      desc: "Grid of downloadable factsheets/PDFs",
-      icon: "&#128196;",
-      iconBg: "#0891b2",
-      editable: ["title","doc1","doc2","doc3","doc4"],
-      defaults: {title:"Strategy Factsheets",doc1:"Income Amplifier Factsheet",doc2:"Retirement Bridge Overview",doc3:"Tax-Smart Income Guide",doc4:"Estate Shield Whitepaper"},
-      html: (d) => {
-        let docs="";
-        for(let i=1;i<=4;i++){
-          docs+=`<td width="25%" style="padding:6px;vertical-align:top"><table width="100%" cellpadding="0" cellspacing="0" style="background:#fff;border:1px solid #e5e7eb;border-radius:8px"><tr><td style="padding:20px;text-align:center"><div style="font-size:28px;color:#002855;margin-bottom:10px">&#128196;</div><p style="font-family:Arial,sans-serif;font-size:12px;color:#333;font-weight:600;margin:0 0 10px;min-height:32px">${d['doc'+i]}</p><a href="#" style="display:inline-block;padding:6px 16px;background:#002855;color:#C8A951;text-decoration:none;font-size:11px;font-weight:700;border-radius:4px">Download PDF</a></td></tr></table></td>`;
-        }
-        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f8f9fa"><tr><td style="padding:30px 40px"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:20px;color:#002855;margin:0 0 18px;text-align:center">${d.title}</h3><table width="100%" cellpadding="0" cellspacing="0"><tr>${docs}</tr></table></td></tr></table>`;
-      }
-    },
-    {
-      id: "resource-links",
-      name: "Resource Links Section",
-      desc: "List of resources with descriptions and links",
-      icon: "&#128279;",
-      iconBg: "#6366f1",
-      editable: ["title","res1Name","res1Desc","res2Name","res2Desc","res3Name","res3Desc"],
-      defaults: {title:"Additional Resources",res1Name:"SIP Suite Brochure",res1Desc:"Comprehensive overview of all strategies and implementation approaches",res2Name:"Advisor Toolkit",res2Desc:"Sales materials, client presentations, and conversation starters",res3Name:"Webinar Replays",res3Desc:"On-demand educational sessions covering each SIP strategy in detail"},
-      html: (d) => {
-        let items="";
-        for(let i=1;i<=3;i++){
-          items+=`<tr><td style="padding:14px 0;border-bottom:1px solid #eee"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="40" style="vertical-align:top;color:#C8A951;font-size:20px">&#9654;</td><td><h4 style="font-family:Arial,sans-serif;font-size:14px;color:#002855;margin:0 0 4px;font-weight:700">${d['res'+i+'Name']}</h4><p style="font-family:Arial,sans-serif;font-size:12px;color:#666;margin:0;line-height:1.4">${d['res'+i+'Desc']}</p></td><td width="80" style="vertical-align:middle;text-align:right"><a href="#" style="font-family:Arial,sans-serif;font-size:12px;color:#C8A951;font-weight:700;text-decoration:none">View &rarr;</a></td></tr></table></td></tr>`;
-        }
-        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff"><tr><td style="padding:30px 40px"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:20px;color:#002855;margin:0 0 14px">${d.title}</h3><table width="100%" cellpadding="0" cellspacing="0">${items}</table></td></tr></table>`;
-      }
-    }
-  ],
-  "Footers & Disclosures": [
-    {
-      id: "footer-full",
-      name: "Full Footer",
-      desc: "Complete footer with links, contact, and legal",
-      icon: "&#9604;",
-      iconBg: "#1e293b",
-      editable: ["companyName","address","phone","email","disclosure"],
-      defaults: {companyName:"Eagle Strategies LLC",address:"51 Madison Avenue, New York, NY 10010",phone:"(212) 576-7000",email:"info@eaglestrategies.com",disclosure:"Securities offered through NYLIFE Securities LLC, member FINRA/SIPC. Eagle Strategies LLC is a Registered Investment Adviser and an indirect wholly owned subsidiary of New York Life Insurance Company."},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#001530;border-top:3px solid #C8A951"><tr><td style="padding:30px 40px"><table width="100%" cellpadding="0" cellspacing="0"><tr><td width="40%" style="vertical-align:top"><h4 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:16px;color:#C8A951;margin:0 0 12px">${d.companyName}</h4><p style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.6);line-height:1.6;margin:0">${d.address}<br>${d.phone}<br><a href="mailto:${d.email}" style="color:#C8A951;text-decoration:none">${d.email}</a></p></td><td width="30%" style="vertical-align:top;text-align:center"><p style="font-family:Arial,sans-serif;font-size:12px;color:rgba(255,255,255,.5)"><a href="#" style="color:rgba(255,255,255,.6);text-decoration:none">Privacy Policy</a><br><a href="#" style="color:rgba(255,255,255,.6);text-decoration:none">Terms of Use</a><br><a href="#" style="color:rgba(255,255,255,.6);text-decoration:none">Disclosures</a></p></td><td width="30%" style="vertical-align:top;text-align:right"><p style="font-family:Arial,sans-serif;font-size:11px;color:rgba(255,255,255,.4);line-height:1.5">&copy; ${new Date().getFullYear()} ${d.companyName}. All rights reserved.</p></td></tr></table></td></tr><tr><td style="padding:16px 40px;border-top:1px solid rgba(255,255,255,.1)"><p style="font-family:Arial,sans-serif;font-size:10px;color:rgba(255,255,255,.35);line-height:1.5;margin:0">${d.disclosure}</p></td></tr></table>`
-    },
-    {
-      id: "disclosure-block",
-      name: "Disclosure Block",
-      desc: "Legal disclosure / compliance text block",
-      icon: "&#9888;",
-      iconBg: "#854d0e",
-      editable: ["text"],
-      defaults: {text:"Important: The information provided herein is for educational and informational purposes only and does not constitute investment advice. Past performance is not indicative of future results. All investments involve risk, including possible loss of principal. Securities offered through NYLIFE Securities LLC (member FINRA/SIPC), a Licensed Insurance Agency. Eagle Strategies LLC is a Registered Investment Adviser and an indirect wholly owned subsidiary of New York Life Insurance Company. Eagle Strategies LLC and NYLIFE Securities LLC are New York Life Companies."},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f5f5f0"><tr><td style="padding:24px 40px"><p style="font-family:Arial,sans-serif;font-size:10px;color:#888;line-height:1.6;margin:0"><strong style="color:#666">Important Disclosures:</strong> ${d.text}</p></td></tr></table>`
-    },
-    {
-      id: "footer-simple",
-      name: "Simple Footer",
-      desc: "Minimal footer with copyright and unsubscribe",
-      icon: "&#9472;",
-      iconBg: "#374151",
-      editable: ["text"],
-      defaults: {text:"Eagle Strategies LLC | 51 Madison Avenue, New York, NY 10010"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#002855"><tr><td style="padding:20px 40px;text-align:center"><p style="font-family:Arial,sans-serif;font-size:11px;color:rgba(255,255,255,.5);margin:0">${d.text}</p><p style="font-family:Arial,sans-serif;font-size:11px;margin:6px 0 0"><a href="#" style="color:#C8A951;text-decoration:none">Unsubscribe</a> | <a href="#" style="color:rgba(255,255,255,.4);text-decoration:none">Privacy Policy</a></p></td></tr></table>`
-    }
-  ],
-  "Thank You / Confirmation": [
-    {
-      id: "thankyou-hero",
-      name: "Thank You Hero",
-      desc: "Confirmation hero for post-submission pages",
-      icon: "&#10004;",
-      iconBg: "#059669",
-      editable: ["headline","subtext"],
-      defaults: {headline:"Thank You for Your Interest!",subtext:"Your request has been received. An Eagle Strategies advisor will reach out within 24 business hours to discuss how the SIP Suite can benefit your practice."},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:linear-gradient(135deg,#002855,#001530)"><tr><td style="padding:60px 40px;text-align:center"><div style="font-size:48px;color:#22c55e;margin-bottom:16px">&#10003;</div><h1 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:32px;color:#fff;margin:0 0 14px">${d.headline}</h1><p style="font-family:Arial,sans-serif;font-size:15px;color:rgba(255,255,255,.8);max-width:550px;display:inline-block;line-height:1.6;margin:0">${d.subtext}</p></td></tr></table>`
-    },
-    {
-      id: "next-steps",
-      name: "Next Steps Block",
-      desc: "Numbered next-steps after form submission",
-      icon: "&#10145;",
-      iconBg: "#2563eb",
-      editable: ["step1","step2","step3"],
-      defaults: {step1:"Review — Our team will review your information and prepare a personalized strategy overview",step2:"Connect — An Eagle Strategies advisor will reach out to schedule a consultation call",step3:"Customize — Together, we'll build a SIP Suite implementation plan tailored to your practice"},
-      html: (d) => {
-        let steps="";
-        for(let i=1;i<=3;i++){
-          const parts = d['step'+i].split("—");
-          steps+=`<tr><td style="padding:12px 0;border-bottom:${i<3?'1px solid #eee':'none'}"><table cellpadding="0" cellspacing="0"><tr><td style="width:36px;vertical-align:top"><div style="width:28px;height:28px;background:#002855;border-radius:50%;text-align:center;line-height:28px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#C8A951">${i}</div></td><td style="vertical-align:top"><strong style="font-family:Arial,sans-serif;font-size:14px;color:#002855">${(parts[0]||'').trim()}</strong>${parts[1]?`<p style="font-family:Arial,sans-serif;font-size:13px;color:#555;margin:4px 0 0;line-height:1.4">${parts[1].trim()}</p>`:''}</td></tr></table></td></tr>`;
-        }
-        return `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff"><tr><td style="padding:30px 40px"><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:20px;color:#002855;margin:0 0 18px">What Happens Next</h3><table width="100%" cellpadding="0" cellspacing="0">${steps}</table></td></tr></table>`;
-      }
-    }
-  ],
-  "Optimized Components": [
-    {
-      id: "opt-responsive-hero",
-      name: "Responsive Hero (Optimized)",
-      desc: "Mobile-friendly hero with fluid layout and accessibility",
-      icon: "&#9889;",
-      iconBg: "#059669",
-      editable: ["headline","subtext","ctaText","ctaUrl"],
-      defaults: {headline:"Systematic Income Planning Suite",subtext:"Institutional-grade income strategies tailored for high-net-worth portfolios",ctaText:"Explore Strategies",ctaUrl:"#"},
-      html: (d) => `<!--[if mso]><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="background:#002855"><![endif]--><div style="background:linear-gradient(135deg,#002855 0%,#001530 100%);padding:50px 20px;text-align:center" role="banner"><h1 style="font-family:'Roboto Condensed',Arial,Helvetica,sans-serif;font-size:32px;font-weight:700;color:#C8A951;margin:0 0 14px;line-height:1.2">${d.headline}</h1><p style="font-family:Arial,Helvetica,sans-serif;font-size:16px;color:rgba(255,255,255,.85);margin:0 auto 24px;max-width:560px;line-height:1.6">${d.subtext}</p><a href="${d.ctaUrl}" style="display:inline-block;padding:14px 36px;background:#C8A951;color:#002855;text-decoration:none;font-family:Arial,sans-serif;font-size:14px;font-weight:700;border-radius:6px;mso-padding-alt:14px 36px" role="button">${d.ctaText}</a></div><!--[if mso]></td></tr></table><![endif]-->`
-    },
-    {
-      id: "opt-accessible-cards",
-      name: "Accessible Card Grid (Optimized)",
-      desc: "WCAG-compliant strategy cards with ARIA labels",
-      icon: "&#9889;",
-      iconBg: "#059669",
-      editable: ["card1Title","card1Desc","card2Title","card2Desc"],
-      defaults: {card1Title:"Income Amplifier",card1Desc:"Enhanced yield strategies using covered call overlays for consistent monthly income",card2Title:"Retirement Bridge",card2Desc:"Gap-funding solutions for early retirees before Social Security activation"},
-      html: (d) => `<!--[if mso]><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td><![endif]--><div style="background:#f8f9fa;padding:30px 20px" role="region" aria-label="Strategy cards"><div style="max-width:640px;margin:0 auto"><!--[if mso]><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td width="49%" valign="top"><![endif]--><div style="display:inline-block;width:48%;vertical-align:top;padding:8px;box-sizing:border-box;min-width:240px"><div style="background:#fff;border-radius:8px;border:1px solid #e5e7eb;padding:24px" role="article" aria-label="${d.card1Title}"><div style="width:36px;height:36px;background:#C8A951;border-radius:6px;text-align:center;line-height:36px;color:#002855;font-weight:700;font-size:16px;margin-bottom:12px" aria-hidden="true">&#9650;</div><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:16px;color:#002855;margin:0 0 8px">${d.card1Title}</h3><p style="font-family:Arial,sans-serif;font-size:13px;color:#555;line-height:1.5;margin:0">${d.card1Desc}</p></div></div><!--[if mso]></td><td width="2%"></td><td width="49%" valign="top"><![endif]--><div style="display:inline-block;width:48%;vertical-align:top;padding:8px;box-sizing:border-box;min-width:240px"><div style="background:#fff;border-radius:8px;border:1px solid #e5e7eb;padding:24px" role="article" aria-label="${d.card2Title}"><div style="width:36px;height:36px;background:#5BA4E6;border-radius:6px;text-align:center;line-height:36px;color:#fff;font-weight:700;font-size:16px;margin-bottom:12px" aria-hidden="true">&#9654;</div><h3 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:16px;color:#002855;margin:0 0 8px">${d.card2Title}</h3><p style="font-family:Arial,sans-serif;font-size:13px;color:#555;line-height:1.5;margin:0">${d.card2Desc}</p></div></div><!--[if mso]></td></tr></table><![endif]--></div></div><!--[if mso]></td></tr></table><![endif]-->`
-    },
-    {
-      id: "opt-dark-mode",
-      name: "Dark Mode Ready Block (Optimized)",
-      desc: "Content block with dark mode media query support",
-      icon: "&#127769;",
-      iconBg: "#1e1b4b",
-      editable: ["heading","body"],
-      defaults: {heading:"Why the SIP Suite?",body:"Most income strategies fail because they optimize for a single variable. The SIP Suite takes a holistic approach — balancing yield, tax efficiency, risk management, and liquidity across your entire portfolio."},
-      html: (d) => `<div style="background:#ffffff;padding:36px 40px"><h2 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:24px;color:#002855;margin:0 0 14px;font-weight:700" data-ogsb="color:#002855">${d.heading}</h2><p style="font-family:Arial,sans-serif;font-size:15px;color:#333;line-height:1.7;margin:0" data-ogsb="color:#333333">${d.body}</p></div><!--Dark mode styles would be in head: @media(prefers-color-scheme:dark){[data-ogsb]{color:#e0e0e0!important} div{background:#1a1a2e!important}}-->`
-    },
-    {
-      id: "opt-personalized",
-      name: "AMPscript Personalized Block",
-      desc: "SFMC personalization with AMPscript variables",
-      icon: "&#128100;",
-      iconBg: "#ea580c",
-      editable: ["greeting","body","fallbackName"],
-      defaults: {greeting:"Hello, %%FirstName%%",body:"Based on your interest in income strategies, we've prepared a customized overview of the SIP Suite strategies most relevant to your practice.",fallbackName:"Advisor"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#fff"><tr><td style="padding:30px 40px"><div style="background:#fffbeb;border:1px dashed #f59e0b;border-radius:6px;padding:12px 16px;margin-bottom:16px;font-family:monospace;font-size:10px;color:#92400e">%%[ VAR @firstName SET @firstName = AttributeValue("FirstName") IF Empty(@firstName) THEN SET @firstName = "${d.fallbackName}" ENDIF ]%%</div><h2 style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:24px;color:#002855;margin:0 0 10px">${d.greeting}</h2><p style="font-family:Arial,sans-serif;font-size:14px;color:#555;line-height:1.6;margin:0">${d.body}</p></td></tr></table>`
-    }
-  ],
-  "Spacers & Dividers": [
-    {
-      id: "spacer",
-      name: "Spacer",
-      desc: "Blank spacing between sections",
-      icon: "&#8597;",
-      iconBg: "#6b7280",
-      editable: ["height","bgColor"],
-      defaults: {height:"20",bgColor:"#ffffff"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="height:${d.height}px;background:${d.bgColor};font-size:0;line-height:0">&nbsp;</td></tr></table>`
-    },
-    {
-      id: "divider-line",
-      name: "Divider Line",
-      desc: "Horizontal rule divider",
-      icon: "&#8212;",
-      iconBg: "#6b7280",
-      editable: ["color","width"],
-      defaults: {color:"#e5e7eb",width:"90"},
-      html: (d) => `<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding:10px 0;text-align:center"><div style="width:${d.width}%;height:1px;background:${d.color};margin:0 auto"></div></td></tr></table>`
-    }
-  ]
+// =====================================================
+// COMPONENT LIBRARY — Actual HTML from SIP Files
+// =====================================================
+const C = {
+"Headers": [
+{id:"mc-brand-bar",name:"MC Brand Bar",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+editable:["brandName"],
+defaults:{brandName:"EAGLE"},
+html:d=>`<div style="background:#0A2240;padding:18px 48px;border-bottom:1px solid rgba(255,255,255,0.06);font-family:'Source Sans 3',sans-serif;">
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>
+<td style="font-size:20px;letter-spacing:4px;font-weight:300;color:#ffffff;padding-right:12px;">${d.brandName}</td>
+<td style="border-left:1px solid rgba(255,255,255,0.25);padding-left:12px;"><div style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0.5px;line-height:1.3;">Asset<br>Management</div></td>
+</tr></table></div>`
+},
+{id:"eagle-header",name:"Eagle Header + CTA",src:"sip-suite-landing",badge:"LP",badgeBg:"#002855",badgeColor:"#A09162",
+editable:["ctaText"],
+defaults:{ctaText:"Request Materials"},
+html:d=>`<header style="background:#ffffff;border-bottom:3px solid #A09162;padding:16px 0;position:sticky;top:0;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.08);font-family:'Roboto',sans-serif;">
+<div style="max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;">
+<img src="https://www.eagleasset.com/-/media/RJ/Affiliate-Sites/CTA-Affiliates-Common/eagle-logo-no-affiliate.png" alt="Eagle Asset Management" style="height:48px;width:auto;" />
+<a href="#request-materials" style="font-family:'Roboto Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.5px;text-transform:uppercase;color:#ffffff;background:#A09162;padding:10px 24px;border:none;cursor:pointer;transition:background 0.2s;text-decoration:none;">${d.ctaText}</a>
+</div></header>`
+},
+{id:"hub-header",name:"Hub Header + Badge",src:"sip-suite-hub",badge:"Hub",badgeBg:"#00263A",badgeColor:"#C8A951",
+editable:["logoText","badge"],
+defaults:{logoText:"Eagle Asset Management",badge:"For Financial Professional Use Only"},
+html:d=>`<header style="background:#ffffff;border-bottom:1px solid #E2E6EC;padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;font-family:'Source Sans 3',sans-serif;">
+<div style="font-family:'Source Serif 4',Georgia,serif;font-size:20px;font-weight:700;color:#00263A;letter-spacing:-0.3px;">${d.logoText}</div>
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:#4A5568;background:#F7F8FA;border:1px solid #E2E6EC;padding:6px 14px;border-radius:4px;">${d.badge}</div>
+</header>
+<div style="height:3px;background:linear-gradient(90deg,#C8A951,#D4BC72,#C8A951);"></div>`
+}
+],
+"Hero Sections": [
+{id:"mc-hero",name:"MC Hero (Wave + Stats)",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+editable:["headline1","headline2","tagline","subtitle","stat1Val","stat1Label","stat2Val","stat2Label","stat3Val","stat3Label"],
+defaults:{headline1:"Amplify Your",headline2:"Income Potential",tagline:"The Strategic Income Portfolio Suite",subtitle:"One disciplined process. Three dynamic strategies. A multi-asset income framework built for every client conversation.",stat1Val:"7.85%",stat1Label:"Annualized since inception (gross)*",stat2Val:"16+ yrs",stat2Label:"Live composite track record",stat3Val:"~200 yrs",stat3Label:"Combined team experience"},
+html:d=>`<div style="background:#0A2240;position:relative;overflow:hidden;padding:72px 48px 80px;font-family:'Source Sans 3',sans-serif;">
+<div style="position:absolute;top:0;left:0;width:200%;height:100%;pointer-events:none;z-index:0;">
+<svg viewBox="0 0 2400 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+<path d="M-200,340 C200,260 500,440 900,320 C1300,200 1600,380 2000,280 C2200,220 2400,300 2600,240" fill="none" stroke="rgba(46,95,138,0.3)" stroke-width="1.5"/>
+<path d="M-100,420 C300,350 600,500 1000,390 C1400,280 1700,430 2100,340 C2300,280 2500,350 2700,300" fill="none" stroke="rgba(46,95,138,0.18)" stroke-width="1"/>
+</svg></div>
+<div style="position:relative;z-index:2;max-width:880px;">
+<div style="margin-bottom:28px;">
+<div style="font-size:72px;font-weight:800;line-height:1;letter-spacing:-1.5px;color:#ffffff;">${d.headline1}</div>
+<div style="font-size:72px;font-weight:800;line-height:1;letter-spacing:-1.5px;color:#ffffff;">${d.headline2}</div>
+</div>
+<div style="width:48px;height:2px;background:#C5A55A;margin:0 0 24px 0;"></div>
+<p style="font-size:13px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin:0 0 6px 0;">${d.tagline}</p>
+<p style="font-size:16px;font-weight:400;color:rgba(255,255,255,0.45);line-height:1.65;max-width:520px;margin:0;">${d.subtitle}</p>
+<table cellpadding="0" cellspacing="0" border="0" style="margin-top:44px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.06);border-collapse:collapse;">
+<tr>
+<td style="padding:0 48px 0 0;vertical-align:top;"><div style="font-size:30px;font-weight:700;color:#ffffff;line-height:1;">${d.stat1Val}</div><div style="font-size:11px;font-weight:500;color:rgba(255,255,255,0.3);margin-top:4px;">${d.stat1Label}</div></td>
+<td style="padding:0 48px 0 0;vertical-align:top;"><div style="font-size:30px;font-weight:700;color:#ffffff;line-height:1;">${d.stat2Val}</div><div style="font-size:11px;font-weight:500;color:rgba(255,255,255,0.3);margin-top:4px;">${d.stat2Label}</div></td>
+<td style="vertical-align:top;"><div style="font-size:30px;font-weight:700;color:#ffffff;line-height:1;">${d.stat3Val}</div><div style="font-size:11px;font-weight:500;color:rgba(255,255,255,0.3);margin-top:4px;">${d.stat3Label}</div></td>
+</tr></table></div></div>`
+},
+{id:"lp-hero",name:"LP Hero (Gradient + CTAs)",src:"sip-suite-landing",badge:"LP",badgeBg:"#002855",badgeColor:"#A09162",
+editable:["eyebrow","headline","subhead","cta1","cta2"],
+defaults:{eyebrow:"Sources of Income Suite",headline:"Amplify Your Income",subhead:"In a market defined by uncertainty, income requires a deliberate strategy. Eagle's Sources of Income Suite brings together a family of complementary strategies — each independently managed, each purpose-built to seek consistent, sustainable income for your clients.",cta1:"Explore the Suite",cta2:"Request Materials"},
+html:d=>`<section style="background:linear-gradient(135deg,#002855 0%,#003d7a 60%,#00437C 100%);padding:72px 0 60px;position:relative;overflow:hidden;font-family:'Roboto',sans-serif;">
+<div style="position:absolute;top:0;right:0;bottom:0;left:0;background:url('https://www.eagleasset.com/-/media/RJ/Affiliate-Sites/Eagle/Homepage/Source_of_Income_banner_1440x370.png') center/cover no-repeat;opacity:0.15;"></div>
+<div style="position:relative;z-index:2;max-width:700px;padding:0 20px;margin:0 auto 0 calc((100% - 1200px)/2 + 20px);">
+<div style="font-family:'Roboto Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A09162;margin-bottom:16px;display:flex;align-items:center;gap:10px;"><span style="display:inline-block;width:32px;height:2px;background:#A09162;"></span>${d.eyebrow}</div>
+<h1 style="font-family:'Roboto Condensed',sans-serif;font-size:54px;font-weight:700;color:#ffffff;line-height:1.1;margin:0 0 20px;text-transform:uppercase;">${d.headline.replace(/\n/g,'<br>')}</h1>
+<p style="font-size:18px;font-weight:300;color:rgba(255,255,255,0.85);line-height:1.6;margin-bottom:32px;max-width:580px;">${d.subhead}</p>
+<div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+<a href="#suite-overview" style="font-family:'Roboto Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.5px;text-transform:uppercase;color:#ffffff;background:#A09162;padding:14px 36px;border:2px solid #A09162;cursor:pointer;text-decoration:none;display:inline-block;">${d.cta1}</a>
+<a href="#request-materials" style="font-family:'Roboto Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.5px;text-transform:uppercase;color:#ffffff;background:transparent;padding:14px 36px;border:2px solid rgba(255,255,255,0.4);cursor:pointer;text-decoration:none;display:inline-block;">${d.cta2}</a>
+</div></div></section>`
+},
+{id:"hub-positioning",name:"Hub Positioning Strip",src:"sip-suite-hub",badge:"Hub",badgeBg:"#00263A",badgeColor:"#C8A951",
+editable:["headline","subtext"],
+defaults:{headline:"SIP Suite Resources",subtext:"One process. Three income strategies. Everything your team needs in one place."},
+html:d=>`<section style="background:#00263A;padding:36px 40px;text-align:center;font-family:'Source Sans 3',sans-serif;">
+<h1 style="font-family:'Source Serif 4',Georgia,serif;font-size:26px;font-weight:600;color:#ffffff;letter-spacing:-0.3px;margin-bottom:8px;">${d.headline}</h1>
+<p style="font-size:15px;color:#D4BC72;font-weight:400;letter-spacing:0.2px;margin:0;">${d.subtext}</p></section>`
+}
+],
+"Proof & Credibility": [
+{id:"mc-credibility-bar",name:"MC Gold Credibility Bar",src:"mc-content-block",badge:"MC",badgeBg:"#C5A55A",badgeColor:"#0A2240",
+editable:["item1","item2","item3","item4"],
+defaults:{item1:"GIPS® Verified · 1982–2024",item2:"8 CFA Charterholders",item3:"Inception January 2009",item4:"Eagle · Raymond James Family"},
+html:d=>`<div style="background:#C5A55A;padding:0;font-family:'Source Sans 3',sans-serif;">
+<table cellpadding="0" cellspacing="0" border="0" style="max-width:1080px;margin:0 auto;width:100%;border-collapse:collapse;">
+<tr>
+<td style="padding:14px 24px;text-align:center;border-right:1px solid rgba(10,34,64,0.1);width:25%;"><div style="font-size:11px;font-weight:700;color:#0A2240;letter-spacing:0.5px;">${d.item1}</div></td>
+<td style="padding:14px 24px;text-align:center;border-right:1px solid rgba(10,34,64,0.1);width:25%;"><div style="font-size:11px;font-weight:700;color:#0A2240;letter-spacing:0.5px;">${d.item2}</div></td>
+<td style="padding:14px 24px;text-align:center;border-right:1px solid rgba(10,34,64,0.1);width:25%;"><div style="font-size:11px;font-weight:700;color:#0A2240;letter-spacing:0.5px;">${d.item3}</div></td>
+<td style="padding:14px 24px;text-align:center;width:25%;"><div style="font-size:11px;font-weight:700;color:#0A2240;letter-spacing:0.5px;">${d.item4}</div></td>
+</tr></table></div>`
+},
+{id:"lp-proof-bar",name:"LP Proof Points Bar",src:"sip-suite-landing",badge:"LP",badgeBg:"#002855",badgeColor:"#A09162",
+editable:["stat1Num","stat1Label","stat2Num","stat2Label","stat3Num","stat3Label","stat4Num","stat4Label"],
+defaults:{stat1Num:"40+",stat1Label:"Years of Investment Experience",stat2Num:"4",stat2Label:"Income-Focused Strategies",stat3Num:"$XB",stat3Label:"Assets Under Management",stat4Num:"100%",stat4Label:"Independent Research-Driven"},
+html:d=>`<div style="background:#002855;padding:28px 0;border-top:3px solid #A09162;font-family:'Roboto',sans-serif;">
+<div style="max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:24px;">
+<div style="text-align:center;padding:0 16px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:36px;font-weight:700;color:#A09162;line-height:1;">${d.stat1Num}</span><span style="font-size:12px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.65);display:block;margin-top:6px;">${d.stat1Label}</span></div>
+<div style="width:1px;height:48px;background:rgba(160,145,98,0.3);"></div>
+<div style="text-align:center;padding:0 16px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:36px;font-weight:700;color:#A09162;line-height:1;">${d.stat2Num}</span><span style="font-size:12px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.65);display:block;margin-top:6px;">${d.stat2Label}</span></div>
+<div style="width:1px;height:48px;background:rgba(160,145,98,0.3);"></div>
+<div style="text-align:center;padding:0 16px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:36px;font-weight:700;color:#A09162;line-height:1;">${d.stat3Num}</span><span style="font-size:12px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.65);display:block;margin-top:6px;">${d.stat3Label}</span></div>
+<div style="width:1px;height:48px;background:rgba(160,145,98,0.3);"></div>
+<div style="text-align:center;padding:0 16px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:36px;font-weight:700;color:#A09162;line-height:1;">${d.stat4Num}</span><span style="font-size:12px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.65);display:block;margin-top:6px;">${d.stat4Label}</span></div>
+</div></div>`
+},
+{id:"gold-divider",name:"Gold Accent Line",src:"shared",badge:"—",badgeBg:"#C5A55A",badgeColor:"#0A2240",
+editable:["height"],defaults:{height:"3"},
+html:d=>`<div style="height:${d.height}px;background:linear-gradient(90deg,#C8A951,#D4BC72,#C8A951);"></div>`
+}
+],
+"Video Sections": [
+{id:"mc-video",name:"MC Video + Sidebar",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+editable:["videoUrl","sidebar1","sidebar2","sidebar3","sidebar4","teamNames"],
+defaults:{videoUrl:"https://raymondjames.mediaspace.kaltura.com/embed/secure/iframe/entryId/1_a5fz5af5/uiConfId/42313661/st/0",sidebar1:"How to position all three strategies in a single client conversation",sidebar2:"Which client profiles fit SIP, SIP+, and Global SIP",sidebar3:"The allocation framework and how the team adjusts tactically",sidebar4:"Talk track language for your next meeting",teamNames:"James Camp, CFA · Brad Erwin, CFA · Joe Jackson, CFA · Jeffrey Bilsky, CFA · Michael Rich, CFA"},
+html:d=>`<div style="background:#0A2240;padding:72px 48px 80px;font-family:'Source Sans 3',sans-serif;">
+<table cellpadding="0" cellspacing="0" border="0" style="max-width:1080px;margin:0 auto;border-collapse:collapse;width:100%;"><tr>
+<td style="vertical-align:top;padding-right:32px;">
+<div style="border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);">
+<div style="position:relative;width:100%;padding-bottom:56.25%;background:#06152C;">
+<iframe src="${d.videoUrl}" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" title="SIP Suite Overview"></iframe>
+</div></div></td>
+<td style="vertical-align:top;width:340px;">
+<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:28px;">
+<div style="font-size:15px;font-weight:700;color:#ffffff;margin:0 0 20px 0;">What you'll walk away with</div>
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;">
+<tr><td style="vertical-align:top;padding:0 10px 14px 0;width:20px;"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.55;padding-bottom:14px;">${d.sidebar1}</td></tr>
+<tr><td style="vertical-align:top;padding:0 10px 14px 0;"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.55;padding-bottom:14px;">${d.sidebar2}</td></tr>
+<tr><td style="vertical-align:top;padding:0 10px 14px 0;"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.55;padding-bottom:14px;">${d.sidebar3}</td></tr>
+<tr><td style="vertical-align:top;padding:0 10px 0 0;"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.55;">${d.sidebar4}</td></tr>
+</table>
+<div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.06);"><div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.3);line-height:1.7;">${d.teamNames}</div></div>
+</div></td></tr></table></div>`
+},
+{id:"lp-video",name:"LP Video + Copy Section",src:"sip-suite-landing",badge:"LP",badgeBg:"#002855",badgeColor:"#A09162",
+editable:["eyebrow","headline","body1","body2","videoMeta"],
+defaults:{eyebrow:"Suite Overview",headline:"A Purposeful Approach to Generating Income",body1:"Hear directly from Eagle's portfolio managers on the philosophy underpinning the Sources of Income Suite — and why a diversified, multi-strategy approach is increasingly critical in today's rate environment.",body2:"Each strategy within the suite operates with full research independence, allowing your clients to access differentiated sources of return without redundant exposures.",videoMeta:"[X] min overview | Portfolio Manager Commentary"},
+html:d=>`<section style="background:#ffffff;padding:64px 0;font-family:'Roboto',sans-serif;">
+<div style="max-width:1200px;margin:0 auto;padding:0 20px;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+<div style="position:relative;background:#002855;border:3px solid #A09162;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+<div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#002855,#003d7a);color:rgba(255,255,255,0.5);text-align:center;padding:24px;">
+<div style="width:64px;height:64px;border:3px solid #A09162;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:16px;"><i class="fa fa-play" style="color:#A09162;font-size:24px;margin-left:4px;"></i></div>
+<p style="font-size:13px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin:0;">Kaltura Video Intro</p>
+</div></div>
+<div>
+<span style="font-family:'Roboto Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A09162;display:block;margin-bottom:12px;">${d.eyebrow}</span>
+<h2 style="font-family:'Roboto Condensed',sans-serif;font-size:32px;font-weight:700;color:#002855;text-transform:uppercase;margin:0 0 20px;line-height:1.15;">${d.headline}</h2>
+<p style="font-size:15px;line-height:1.75;color:#808084;margin-bottom:16px;">${d.body1}</p>
+<p style="font-size:15px;line-height:1.75;color:#808084;margin-bottom:24px;">${d.body2}</p>
+<div style="display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#A09162;font-family:'Roboto Condensed',sans-serif;font-weight:700;"><i class="fa fa-clock-o" style="font-size:14px;"></i> ${d.videoMeta}</div>
+</div></div></div></section>`
+}
+],
+"Strategy Cards": [
+{id:"mc-strategy-strip",name:"MC Strategy Overview Strip",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+editable:["s1Handle","s1Name","s1Desc","s2Handle","s2Name","s2Desc","s3Handle","s3Name","s3Desc"],
+defaults:{s1Handle:"The Anchor",s1Name:"SIP",s1Desc:"Steady income & consistent growth",s2Handle:"The Step-Up",s2Name:"SIP Plus",s2Desc:"Higher income potential",s3Handle:"The Diversifier",s3Name:"Global SIP",s3Desc:"Diversified international income"},
+html:d=>`<div style="background:#ffffff;padding:80px 48px 20px;font-family:'Source Sans 3',sans-serif;">
+<div style="max-width:1080px;margin:0 auto;">
+<div style="margin-bottom:12px;"><div style="font-size:28px;font-weight:800;color:#0A2240;line-height:1.15;">One disciplined process. Three dynamic strategies.</div><div style="width:36px;height:2px;background:#C5A55A;margin:12px 0 0 0;"></div></div>
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%;margin:40px 0;background:#0A2240;border-radius:6px;overflow:hidden;border-collapse:collapse;"><tr>
+<td style="padding:24px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);width:33.33%;"><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin:0 0 4px 0;">${d.s1Handle}</div><div style="font-size:15px;font-weight:800;color:#ffffff;letter-spacing:1.5px;text-transform:uppercase;">${d.s1Name}</div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">${d.s1Desc}</div></td>
+<td style="padding:24px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);width:33.33%;"><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C5A55A;margin:0 0 4px 0;">${d.s2Handle}</div><div style="font-size:15px;font-weight:800;color:#ffffff;letter-spacing:1.5px;text-transform:uppercase;">${d.s2Name}</div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">${d.s2Desc}</div></td>
+<td style="padding:24px;text-align:center;width:33.33%;"><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#5A98C0;margin:0 0 4px 0;">${d.s3Handle}</div><div style="font-size:15px;font-weight:800;color:#ffffff;letter-spacing:1.5px;text-transform:uppercase;">${d.s3Name}</div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">${d.s3Desc}</div></td>
+</tr></table></div></div>`
+},
+{id:"mc-sip-card",name:"MC SIP Strategy Card",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+editable:["name","description","stat1Val","stat1Label","stat2Val","stat2Label","stat3Val","stat3Label","talkTrack","accentColor"],
+defaults:{name:"Strategic Income Portfolio",description:"Blends dividend equities with investment-grade fixed income for steady, reliable income.",stat1Val:"7.85%",stat1Label:"Since inception*",stat2Val:"50/50",stat2Label:"Target alloc",stat3Val:"$250K",stat3Label:"Minimum",talkTrack:"I've been working with Eagle's income team on a strategy that combines dividend-paying equities with investment-grade bonds in one managed account. It's designed for clients who want steady income without taking on unnecessary risk — and the team has been running this approach for over 16 years.",accentColor:"#0A2240"},
+html:d=>`<div style="background:#F8F6F1;border-radius:6px;border:1px solid #E8E5DE;overflow:hidden;position:relative;font-family:'Source Sans 3',sans-serif;max-width:360px;">
+<div style="position:absolute;top:0;left:0;right:0;height:3px;background:${d.accentColor};"></div>
+<div style="padding:24px 20px;">
+<div style="font-size:15px;font-weight:800;color:#0A2240;margin:0 0 6px 0;">${d.name}</div>
+<div style="font-size:13px;color:#5A6270;line-height:1.6;margin:0 0 14px 0;">${d.description}</div>
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;border-top:1px solid #E8E5DE;"><tr>
+<td style="padding:12px 8px 0 0;"><div style="font-size:14px;font-weight:800;color:#0A2240;">${d.stat1Val}</div><div style="font-size:9px;color:#8B929D;text-transform:uppercase;letter-spacing:0.5px;">${d.stat1Label}</div></td>
+<td style="padding:12px 8px 0 0;"><div style="font-size:14px;font-weight:800;color:#0A2240;">${d.stat2Val}</div><div style="font-size:9px;color:#8B929D;text-transform:uppercase;letter-spacing:0.5px;">${d.stat2Label}</div></td>
+<td style="padding:12px 0 0 0;"><div style="font-size:14px;font-weight:800;color:#0A2240;">${d.stat3Val}</div><div style="font-size:9px;color:#8B929D;text-transform:uppercase;letter-spacing:0.5px;">${d.stat3Label}</div></td>
+</tr></table></div>
+<div style="border-top:1px solid #E8E5DE;padding:20px;">
+<div style="background:#ffffff;border:1px solid #E8E5DE;border-radius:4px;padding:14px;margin-bottom:14px;">
+<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#C5A55A;margin:0 0 6px 0;">Client Talk Track</div>
+<div style="font-size:12px;color:#3A3F47;line-height:1.65;font-style:italic;">"${d.talkTrack}"</div></div>
+<a href="#" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#0A2240;text-decoration:none;"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2240" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Factsheet</a>
+</div></div>`
+},
+{id:"lp-strategy-grid",name:"LP 4-Card Strategy Grid",src:"sip-suite-landing",badge:"LP",badgeBg:"#002855",badgeColor:"#A09162",
+editable:["introTitle","introBody"],
+defaults:{introTitle:"Four Strategies. One Income Mandate.",introBody:"Each strategy in Eagle's Sources of Income Suite is independently managed with a dedicated research team — providing genuine diversification across income sources."},
+html:d=>`<section style="background:#F0F0F0;padding:64px 0;font-family:'Roboto',sans-serif;">
+<div style="max-width:1200px;margin:0 auto;padding:0 20px;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-bottom:56px;">
+<div><span style="font-family:'Roboto Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A09162;display:block;margin-bottom:12px;">The Suite</span><h2 style="font-family:'Roboto Condensed',sans-serif;font-size:36px;font-weight:700;color:#002855;text-transform:uppercase;margin:0 0 16px;position:relative;padding-bottom:20px;">${d.introTitle}<span style="position:absolute;bottom:0;left:0;width:48px;height:3px;background:#A09162;display:block;"></span></h2></div>
+<div><p style="font-size:16px;color:#808084;line-height:1.7;max-width:640px;margin:0;padding-top:16px;">${d.introBody}</p></div></div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
+<div style="background:#ffffff;border-top:4px solid #002855;padding:32px 28px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;background:#A09162;padding:4px 10px;display:inline-block;margin-bottom:16px;">Fixed Income</span><h3 style="font-family:'Roboto Condensed',sans-serif;font-size:20px;font-weight:700;color:#002855;text-transform:uppercase;margin:0 0 8px;line-height:1.2;">[Strategy 1] Fixed Income</h3><div style="font-size:13px;color:#A09162;font-weight:500;margin-bottom:16px;font-family:'Roboto Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.5px;">Core | Broad Market Income</div><p style="font-size:14px;line-height:1.65;color:#808084;margin-bottom:20px;">Diversified, actively managed fixed income strategy seeking consistent income across the full credit spectrum.</p><div style="background:#f8f8fa;border-left:3px solid #A09162;padding:14px 16px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A09162;display:block;margin-bottom:6px;">Client Fit</span><p style="font-size:13px;color:#002855;margin:0;line-height:1.5;">Conservative to moderate investors seeking predictable income streams.</p></div></div>
+<div style="background:#ffffff;border-top:4px solid #A09162;padding:32px 28px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;background:#002855;padding:4px 10px;display:inline-block;margin-bottom:16px;">Equity Income</span><h3 style="font-family:'Roboto Condensed',sans-serif;font-size:20px;font-weight:700;color:#002855;text-transform:uppercase;margin:0 0 8px;line-height:1.2;">[Strategy 2] Equity Income</h3><div style="font-size:13px;color:#A09162;font-weight:500;margin-bottom:16px;font-family:'Roboto Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.5px;">Dividend Growth | Capital Appreciation</div><p style="font-size:14px;line-height:1.65;color:#808084;margin-bottom:20px;">High-conviction equity strategy built around companies with durable dividend profiles.</p><div style="background:#f8f8fa;border-left:3px solid #A09162;padding:14px 16px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A09162;display:block;margin-bottom:6px;">Client Fit</span><p style="font-size:13px;color:#002855;margin:0;line-height:1.5;">Moderate risk clients seeking equity participation with income.</p></div></div>
+<div style="background:#ffffff;border-top:4px solid #002855;padding:32px 28px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;background:#808084;padding:4px 10px;display:inline-block;margin-bottom:16px;">Multi-Asset</span><h3 style="font-family:'Roboto Condensed',sans-serif;font-size:20px;font-weight:700;color:#002855;text-transform:uppercase;margin:0 0 8px;line-height:1.2;">[Strategy 3] Multi-Asset Income</h3><div style="font-size:13px;color:#A09162;font-weight:500;margin-bottom:16px;font-family:'Roboto Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.5px;">Blended | Flexible Allocation</div><p style="font-size:14px;line-height:1.65;color:#808084;margin-bottom:20px;">Flexible, multi-asset approach dynamically allocating across asset classes.</p><div style="background:#f8f8fa;border-left:3px solid #A09162;padding:14px 16px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A09162;display:block;margin-bottom:6px;">Client Fit</span><p style="font-size:13px;color:#002855;margin:0;line-height:1.5;">Moderate to aggressive clients seeking a higher income target.</p></div></div>
+<div style="background:#ffffff;border-top:4px solid #002855;padding:32px 28px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#ffffff;background:#A09162;padding:4px 10px;display:inline-block;margin-bottom:16px;">Short Duration</span><h3 style="font-family:'Roboto Condensed',sans-serif;font-size:20px;font-weight:700;color:#002855;text-transform:uppercase;margin:0 0 8px;line-height:1.2;">[Strategy 4] Short Duration</h3><div style="font-size:13px;color:#A09162;font-weight:500;margin-bottom:16px;font-family:'Roboto Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.5px;">Capital Preservation | Liquidity-Aware</div><p style="font-size:14px;line-height:1.65;color:#808084;margin-bottom:20px;">Capital preservation-oriented strategy focused on the short end of the yield curve.</p><div style="background:#f8f8fa;border-left:3px solid #A09162;padding:14px 16px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A09162;display:block;margin-bottom:6px;">Client Fit</span><p style="font-size:13px;color:#002855;margin:0;line-height:1.5;">Conservative clients or near-term liquidity needs.</p></div></div>
+</div></div></section>`
+}
+],
+"Performance & Data": [
+{id:"mc-performance-table",name:"MC Performance Table",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+editable:["sectionTitle","asOfDate"],
+defaults:{sectionTitle:"Built through every market cycle",asOfDate:"SIP Composite · As of June 30, 2025 · Gross of fees"},
+html:d=>`<div style="background:#F8F6F1;padding:72px 48px 80px;font-family:'Source Sans 3',sans-serif;">
+<div style="max-width:1080px;margin:0 auto;">
+<div style="margin-bottom:40px;"><div style="font-size:28px;font-weight:800;color:#0A2240;line-height:1.15;">${d.sectionTitle}</div><div style="width:36px;height:2px;background:#C5A55A;margin:12px 0 0 0;"></div><p style="font-size:13px;color:#8B929D;margin:12px 0 0 0;">${d.asOfDate}</p></div>
+<div style="background:#ffffff;border:1px solid #E8E5DE;border-radius:6px;overflow:hidden;">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
+<tr style="background:#0A2240;"><td style="padding:12px 16px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.5);"></td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">Q2</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">YTD</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">1 Yr</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">3 Yr</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">5 Yr</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">10 Yr</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">Inception</td></tr>
+<tr><td style="padding:13px 16px;font-size:13px;font-weight:700;color:#0A2240;border-bottom:1px solid #F0EDE6;">SIP Gross</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#0A2240;text-align:right;border-bottom:1px solid #F0EDE6;">4.42</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#0A2240;text-align:right;border-bottom:1px solid #F0EDE6;">5.09</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#0A2240;text-align:right;border-bottom:1px solid #F0EDE6;">11.21</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#0A2240;text-align:right;border-bottom:1px solid #F0EDE6;">8.22</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#0A2240;text-align:right;border-bottom:1px solid #F0EDE6;">8.31</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#0A2240;text-align:right;border-bottom:1px solid #F0EDE6;">7.04</td><td style="padding:13px 14px;font-size:14px;font-weight:800;color:#0A2240;text-align:right;border-bottom:1px solid #F0EDE6;">7.85</td></tr>
+<tr><td style="padding:13px 16px;font-size:13px;font-weight:500;color:#8B929D;border-bottom:1px solid #F0EDE6;">SIP Net</td><td style="padding:13px 14px;font-size:13px;color:#8B929D;text-align:right;border-bottom:1px solid #F0EDE6;">3.65</td><td style="padding:13px 14px;font-size:13px;color:#8B929D;text-align:right;border-bottom:1px solid #F0EDE6;">3.53</td><td style="padding:13px 14px;font-size:13px;color:#8B929D;text-align:right;border-bottom:1px solid #F0EDE6;">7.96</td><td style="padding:13px 14px;font-size:13px;color:#8B929D;text-align:right;border-bottom:1px solid #F0EDE6;">5.08</td><td style="padding:13px 14px;font-size:13px;color:#8B929D;text-align:right;border-bottom:1px solid #F0EDE6;">5.15</td><td style="padding:13px 14px;font-size:13px;color:#8B929D;text-align:right;border-bottom:1px solid #F0EDE6;">3.91</td><td style="padding:13px 14px;font-size:13px;color:#8B929D;text-align:right;border-bottom:1px solid #F0EDE6;">4.69</td></tr>
+<tr><td style="padding:13px 16px;font-size:12px;font-weight:500;color:#A8ADB5;">50% S&amp;P 500 / 50% BBg Int Govt/Cr</td><td style="padding:13px 14px;font-size:12px;color:#A8ADB5;text-align:right;">6.28</td><td style="padding:13px 14px;font-size:12px;color:#A8ADB5;text-align:right;">5.31</td><td style="padding:13px 14px;font-size:12px;color:#A8ADB5;text-align:right;">11.07</td><td style="padding:13px 14px;font-size:12px;color:#A8ADB5;text-align:right;">11.62</td><td style="padding:13px 14px;font-size:12px;color:#A8ADB5;text-align:right;">8.65</td><td style="padding:13px 14px;font-size:12px;color:#A8ADB5;text-align:right;">7.99</td><td style="padding:13px 14px;font-size:12px;color:#A8ADB5;text-align:right;">8.76</td></tr>
+</table></div>
+<p style="font-size:10px;color:#A8ADB5;margin:10px 0 0 0;">Past performance does not guarantee future results. See full disclosure below.</p>
+</div></div>`
+},
+{id:"lp-proof-cards",name:"LP Data Proof Points",src:"sip-suite-landing",badge:"LP",badgeBg:"#002855",badgeColor:"#A09162",
+editable:["eyebrow","title","subtitle","card1Num","card1Title","card1Body","card2Num","card2Title","card2Body","card3Num","card3Title","card3Body"],
+defaults:{eyebrow:"The Case for Income",title:"Why Income, Why Now",subtitle:"The interest rate environment has fundamentally reset the opportunity set for income investors.",card1Num:"[X]%",card1Title:"Current Yield Opportunity",card1Body:"Yields across investment grade fixed income remain near decade highs.",card2Num:"[X] yrs",card2Title:"Average Strategy Tenure",card2Body:"Eagle's teams bring decades of through-cycle experience.",card3Num:"[X]%",card3Title:"Dividend Growth Differential",card3Body:"Companies with growing dividends show greater resilience."},
+html:d=>`<section style="background:#002855;padding:64px 0;position:relative;overflow:hidden;font-family:'Roboto',sans-serif;">
+<div style="max-width:1200px;margin:0 auto;padding:0 20px;">
+<div style="margin-bottom:48px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A09162;display:block;margin-bottom:12px;">${d.eyebrow}</span><h2 style="font-family:'Roboto Condensed',sans-serif;font-size:36px;font-weight:700;color:#ffffff;text-transform:uppercase;margin:0 0 16px;position:relative;padding-bottom:20px;">${d.title}<span style="position:absolute;bottom:0;left:0;width:48px;height:3px;background:#A09162;display:block;"></span></h2><p style="font-size:16px;color:rgba(255,255,255,0.65);line-height:1.7;max-width:640px;margin:0;">${d.subtitle}</p></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+<div style="background:rgba(255,255,255,0.05);border:1px solid rgba(160,145,98,0.2);border-top:3px solid #A09162;padding:32px 24px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:48px;font-weight:700;color:#A09162;line-height:1;display:block;margin-bottom:8px;">${d.card1Num}</span><h4 style="font-family:'Roboto Condensed',sans-serif;font-size:16px;font-weight:700;color:#ffffff;text-transform:uppercase;letter-spacing:0.5px;margin:0 0 12px;">${d.card1Title}</h4><p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.65;margin:0;">${d.card1Body}</p></div>
+<div style="background:rgba(255,255,255,0.05);border:1px solid rgba(160,145,98,0.2);border-top:3px solid #A09162;padding:32px 24px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:48px;font-weight:700;color:#A09162;line-height:1;display:block;margin-bottom:8px;">${d.card2Num}</span><h4 style="font-family:'Roboto Condensed',sans-serif;font-size:16px;font-weight:700;color:#ffffff;text-transform:uppercase;letter-spacing:0.5px;margin:0 0 12px;">${d.card2Title}</h4><p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.65;margin:0;">${d.card2Body}</p></div>
+<div style="background:rgba(255,255,255,0.05);border:1px solid rgba(160,145,98,0.2);border-top:3px solid #A09162;padding:32px 24px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:48px;font-weight:700;color:#A09162;line-height:1;display:block;margin-bottom:8px;">${d.card3Num}</span><h4 style="font-family:'Roboto Condensed',sans-serif;font-size:16px;font-weight:700;color:#ffffff;text-transform:uppercase;letter-spacing:0.5px;margin:0 0 12px;">${d.card3Title}</h4><p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.65;margin:0;">${d.card3Body}</p></div>
+</div></div></section>`
+}
+],
+"Team & Resources": [
+{id:"mc-team-strip",name:"MC Team Strip",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+editable:["headline","description"],
+defaults:{headline:"Your Investment Team",description:"Every CFA charterholder. One shared philosophy. The team collaborates daily across equity income and fixed income."},
+html:d=>`<div style="background:#0A2240;padding:48px 48px;font-family:'Source Sans 3',sans-serif;">
+<div style="max-width:1080px;margin:0 auto;"><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;"><tr>
+<td style="vertical-align:middle;padding-right:48px;width:45%;"><div style="font-size:22px;font-weight:800;color:#ffffff;line-height:1.2;">${d.headline}</div><div style="width:36px;height:2px;background:#C5A55A;margin:10px 0;"></div><p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.65;margin:0;">${d.description}</p></td>
+<td style="vertical-align:middle;"><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;"><tr>
+<td style="padding:6px 16px 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">James Camp, <span style="color:#C5A55A;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Managing Director, Fixed Income</div></td>
+<td style="padding:6px 16px 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">Brad Erwin, <span style="color:#C5A55A;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Portfolio Co-Manager</div></td>
+<td style="padding:6px 0 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">Joe Jackson, <span style="color:#C5A55A;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Portfolio Co-Manager</div></td>
+</tr><tr>
+<td style="padding:6px 16px 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">Jeffrey Bilsky, <span style="color:#C5A55A;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Portfolio Co-Manager</div></td>
+<td style="padding:6px 16px 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">Michael Rich, <span style="color:#C5A55A;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Portfolio Co-Manager</div></td>
+<td style="padding:6px 0 6px 0;"><div style="font-size:11px;color:rgba(255,255,255,0.25);">+ David Vaughn, CFA · Gashi Zengeni, CFA · Alex Turner, CFA</div></td>
+</tr></table></td></tr></table></div></div>`
+},
+{id:"mc-resources",name:"MC Resources Grid",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+editable:["headline"],
+defaults:{headline:"Resources & Tools"},
+html:d=>`<div style="background:#F8F6F1;padding:64px 48px;font-family:'Source Sans 3',sans-serif;">
+<div style="max-width:1080px;margin:0 auto;"><div style="font-size:22px;font-weight:800;color:#0A2240;margin:0 0 4px 0;">${d.headline}</div><div style="width:36px;height:2px;background:#C5A55A;margin:10px 0 32px 0;"></div>
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:separate;border-spacing:12px 0;"><tr>
+<td style="width:25%;vertical-align:top;"><div style="background:#ffffff;border:1px solid #E8E5DE;border-radius:6px;padding:24px;min-height:160px;"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2240" stroke-width="1.5" style="width:24px;height:24px;margin-bottom:14px;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><div style="font-size:14px;font-weight:700;color:#0A2240;margin:0 0 4px 0;">2Q25 Factsheets</div><p style="font-size:12px;color:#8B929D;line-height:1.5;margin:0 0 12px 0;">Performance, holdings and allocation data for all three strategies.</p><a href="#" style="font-size:11px;font-weight:700;color:#C5A55A;text-decoration:none;">Download all three ›</a></div></td>
+<td style="width:25%;vertical-align:top;"><div style="background:#ffffff;border:1px solid #E8E5DE;border-radius:6px;padding:24px;min-height:160px;"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2240" stroke-width="1.5" style="width:24px;height:24px;margin-bottom:14px;"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><div style="font-size:14px;font-weight:700;color:#0A2240;margin:0 0 4px 0;">Monthly Allocation Updates</div><p style="font-size:12px;color:#8B929D;line-height:1.5;margin:0 0 12px 0;">Quick-hit video series on positioning changes across the suite.</p><a href="#" style="font-size:11px;font-weight:700;color:#C5A55A;text-decoration:none;">Watch latest ›</a></div></td>
+<td style="width:25%;vertical-align:top;"><div style="background:#ffffff;border:1px solid #E8E5DE;border-radius:6px;padding:24px;min-height:160px;"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2240" stroke-width="1.5" style="width:24px;height:24px;margin-bottom:14px;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><div style="font-size:14px;font-weight:700;color:#0A2240;margin:0 0 4px 0;">Quarterly Income Webinar</div><p style="font-size:12px;color:#8B929D;line-height:1.5;margin:0 0 12px 0;">Live market outlook, allocation updates and Q&A with the team.</p><a href="#" style="font-size:11px;font-weight:700;color:#C5A55A;text-decoration:none;">Register ›</a></div></td>
+<td style="width:25%;vertical-align:top;"><div style="background:#ffffff;border:1px solid #E8E5DE;border-radius:6px;padding:24px;min-height:160px;"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2240" stroke-width="1.5" style="width:24px;height:24px;margin-bottom:14px;"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><div style="font-size:14px;font-weight:700;color:#0A2240;margin:0 0 4px 0;">Client Presentation Kit</div><p style="font-size:12px;color:#8B929D;line-height:1.5;margin:0 0 12px 0;">Branded deck, one-pager and client-facing comparison.</p><a href="#" style="font-size:11px;font-weight:700;color:#C5A55A;text-decoration:none;">Request kit ›</a></div></td>
+</tr></table></div></div>`
+}
+],
+"Forms & CTA": [
+{id:"mc-form",name:"MC Form + CTA Section",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+editable:["headline","description","formTitle","formSubtext","btnText"],
+defaults:{headline:"Ready to amplify?",description:"Your Market Leader and Internal Consultant Team can walk through the suite, discuss client fit, and help determine which strategy aligns with each client's income needs.",formTitle:"Get your custom SIP Suite kit",formSubtext:"Delivered within 48 hours by your dedicated team",btnText:"Get My Custom Kit ›"},
+html:d=>`<div style="background:#0A2240;padding:80px 48px;position:relative;overflow:hidden;font-family:'Source Sans 3',sans-serif;">
+<table cellpadding="0" cellspacing="0" border="0" style="max-width:1080px;margin:0 auto;width:100%;border-collapse:collapse;position:relative;z-index:2;"><tr>
+<td style="vertical-align:top;padding-right:56px;"><div style="font-size:32px;font-weight:800;line-height:1.1;color:#ffffff;margin:0 0 16px 0;">${d.headline}</div><div style="width:36px;height:2px;background:#C5A55A;margin:0 0 16px 0;"></div><p style="font-size:14px;color:rgba(255,255,255,0.4);line-height:1.7;max-width:420px;margin:0 0 28px 0;">${d.description}</p>
+<div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:1px;text-transform:uppercase;margin:0 0 14px 0;">When you connect, you'll receive:</div>
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td style="padding:0 8px 8px 0;vertical-align:top;"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5" style="width:14px;height:14px;margin-top:1px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:12px;color:rgba(255,255,255,0.45);padding-bottom:8px;">Custom client-ready SIP Suite presentation</td></tr><tr><td style="padding:0 8px 8px 0;vertical-align:top;"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5" style="width:14px;height:14px;margin-top:1px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:12px;color:rgba(255,255,255,0.45);padding-bottom:8px;">Side-by-side strategy comparison with client-fit recommendations</td></tr><tr><td style="padding:0 8px 8px 0;vertical-align:top;"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5" style="width:14px;height:14px;margin-top:1px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:12px;color:rgba(255,255,255,0.45);padding-bottom:8px;">Portfolio review to see how SIP Suite fits alongside your existing models</td></tr></table></td>
+<td style="vertical-align:top;width:400px;"><div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:28px;"><p style="font-size:15px;font-weight:700;color:#ffffff;margin:0 0 4px 0;">${d.formTitle}</p><p style="font-size:11px;color:rgba(255,255,255,0.3);margin:0 0 20px 0;">${d.formSubtext}</p>
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr><td style="padding:0 5px 10px 0;width:50%;"><input type="text" placeholder="First name" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:11px 12px;font-size:13px;color:#fff;outline:none;font-family:inherit;box-sizing:border-box;"></td><td style="padding:0 0 10px 5px;width:50%;"><input type="text" placeholder="Last name" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:11px 12px;font-size:13px;color:#fff;outline:none;font-family:inherit;box-sizing:border-box;"></td></tr><tr><td colspan="2" style="padding:0 0 10px 0;"><input type="email" placeholder="Email address" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:11px 12px;font-size:13px;color:#fff;outline:none;font-family:inherit;box-sizing:border-box;"></td></tr><tr><td colspan="2" style="padding:0 0 10px 0;"><input type="text" placeholder="Firm name" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:11px 12px;font-size:13px;color:#fff;outline:none;font-family:inherit;box-sizing:border-box;"></td></tr><tr><td colspan="2" style="padding:6px 0 0 0;"><button style="width:100%;background:#C5A55A;color:#0A2240;border:none;border-radius:4px;padding:12px 24px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-family:inherit;">${d.btnText}</button></td></tr></table></div></td>
+</tr></table></div>`
+},
+{id:"lp-form",name:"LP Form Section",src:"sip-suite-landing",badge:"LP",badgeBg:"#002855",badgeColor:"#A09162",
+editable:["headline","body"],
+defaults:{headline:"Ready to Build an Income Strategy for Your Clients?",body:"Speak with an Eagle representative to discuss which strategies within the Sources of Income Suite are best positioned for your client base."},
+html:d=>`<section style="background:linear-gradient(180deg,#F0F0F0 0%,#e8eaed 100%);padding:72px 0;font-family:'Roboto',sans-serif;">
+<div style="max-width:1200px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;">
+<div><span style="font-family:'Roboto Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A09162;display:block;margin-bottom:12px;">Connect With Eagle</span><h2 style="font-family:'Roboto Condensed',sans-serif;font-size:36px;font-weight:700;color:#002855;text-transform:uppercase;margin:0 0 20px;">${d.headline}</h2><p style="font-size:15px;line-height:1.75;color:#808084;margin-bottom:24px;">${d.body}</p>
+<ul style="list-style:none;padding:0;margin:0;"><li style="font-size:14px;color:#002855;padding:10px 0;border-bottom:1px solid #ddd;display:flex;align-items:center;gap:12px;font-weight:500;"><i class="fa fa-check-circle" style="color:#A09162;font-size:16px;"></i> Full suite factsheet package</li><li style="font-size:14px;color:#002855;padding:10px 0;border-bottom:1px solid #ddd;display:flex;align-items:center;gap:12px;font-weight:500;"><i class="fa fa-check-circle" style="color:#A09162;font-size:16px;"></i> Client-ready presentation materials</li><li style="font-size:14px;color:#002855;padding:10px 0;border-bottom:1px solid #ddd;display:flex;align-items:center;gap:12px;font-weight:500;"><i class="fa fa-check-circle" style="color:#A09162;font-size:16px;"></i> Portfolio construction guidance</li><li style="font-size:14px;color:#002855;padding:10px 0;display:flex;align-items:center;gap:12px;font-weight:500;"><i class="fa fa-check-circle" style="color:#A09162;font-size:16px;"></i> Direct access to Eagle's investment team</li></ul></div>
+<div style="background:#ffffff;border-top:4px solid #A09162;padding:40px 36px;box-shadow:0 8px 32px rgba(0,40,85,0.08);"><h3 style="font-family:'Roboto Condensed',sans-serif;font-size:22px;font-weight:700;color:#002855;text-transform:uppercase;margin:0 0 8px;">Request Information</h3><p style="font-size:13px;color:#808084;margin-bottom:28px;">Complete the form below and an Eagle representative will be in touch within one business day.</p><div style="background:#f8f8fa;border:2px dashed #ddd;padding:48px 24px;text-align:center;color:#808084;"><i class="fa fa-wpforms" style="font-size:32px;color:#ddd;display:block;margin-bottom:12px;"></i><p style="font-family:'Roboto Condensed',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;margin:0;">Marketing Cloud Smart Capture Form</p></div></div>
+</div></section>`
+}
+],
+"Footers & Disclosures": [
+{id:"mc-disclosure",name:"MC Disclosure Block",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+editable:["disclosureText","complianceCode"],
+defaults:{disclosureText:"*SIP Composite gross-of-fee annualized return since inception (January 1, 2009) through June 30, 2025. Past performance does not guarantee future results. Investing involves risk, including the possible loss of principal.",complianceCode:"For Financial Professional Use Only. Not for Distribution to the Public. M-847233 | Exp. 12/15/26 | BR-EA-SIP"},
+html:d=>`<div style="background:#0A2240;padding:20px 48px 28px;border-top:1px solid rgba(255,255,255,0.04);font-family:'Source Sans 3',sans-serif;">
+<div style="max-width:1080px;margin:0 auto;"><p style="font-size:10px;color:rgba(255,255,255,0.15);line-height:1.8;margin:0;">${d.disclosureText}</p><p style="font-size:10px;color:rgba(255,255,255,0.15);line-height:1.8;margin:6px 0 0 0;">${d.complianceCode}</p></div></div>`
+},
+{id:"lp-footer",name:"LP Eagle Footer",src:"sip-suite-landing",badge:"LP",badgeBg:"#002855",badgeColor:"#A09162",
+editable:["legalText"],
+defaults:{legalText:"©2026 Eagle Asset Management, Inc. All rights reserved. Eagle Asset Management is the trade name for Eagle Asset Management, Inc., an investment adviser registered with the U.S. Securities and Exchange Commission (SEC)."},
+html:d=>`<footer style="background:#ffffff;border-top:3px solid #A09162;padding:32px 0 0;font-family:'Roboto',sans-serif;">
+<div style="display:flex;gap:32px;justify-content:center;flex-wrap:wrap;padding-bottom:24px;border-bottom:1px solid #eee;"><a href="#" style="font-family:'Roboto Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:#002855;text-decoration:none;">About Us</a><a href="#" style="font-family:'Roboto Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:#002855;text-decoration:none;">Privacy Policy</a><a href="#" style="font-family:'Roboto Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:#002855;text-decoration:none;">ADV</a><a href="#" style="font-family:'Roboto Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:#002855;text-decoration:none;">Contact</a></div>
+<div style="text-align:center;padding:24px 20px;"><a href="http://www.rjinvestmentmanagement.com" target="_blank" style="font-family:'Roboto Condensed',sans-serif;font-size:16px;font-weight:300;color:#002855;display:block;margin-bottom:16px;text-decoration:none;">A Boutique of Raymond James Investment Management</a><p style="font-size:12px;color:#808084;line-height:1.6;max-width:900px;margin:0 auto 8px;">${d.legalText}</p><p style="margin-top:12px;font-size:11px;color:#bbb;">For Financial Professional Use Only. Not for Distribution to the Public.</p></div></footer>`
+},
+{id:"hub-footer",name:"Hub Footer",src:"sip-suite-hub",badge:"Hub",badgeBg:"#00263A",badgeColor:"#C8A951",
+editable:["legalText"],
+defaults:{legalText:"©2026 Eagle Asset Management, Inc. All rights reserved."},
+html:d=>`<footer style="background:#00263A;color:rgba(255,255,255,0.5);padding:36px 40px;font-family:'Source Sans 3',sans-serif;">
+<div style="max-width:1060px;margin:0 auto;"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px;"><div style="font-family:'Source Serif 4',Georgia,serif;font-size:16px;font-weight:600;color:rgba(255,255,255,0.8);">Eagle Asset Management</div><div style="display:flex;gap:24px;"><a href="#" style="color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px;">About Eagle</a><a href="#" style="color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px;">Privacy Policy</a><a href="#" style="color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px;">Contact</a></div></div>
+<div style="font-size:12px;margin-bottom:12px;"><a href="http://www.rjinvestmentmanagement.com" target="_blank" style="color:#D4BC72;text-decoration:none;">A Boutique of Raymond James Investment Management</a></div>
+<div style="font-size:11px;line-height:1.6;">${d.legalText}</div>
+<div style="font-size:11px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.35);">For Financial Professional Use Only. Not for Distribution to the Public.</div></div></footer>`
+}
+]
 };
 
-// ========== STATE ==========
-let canvasBlocks = [];
-let selectedBlockId = null;
-let undoStack = [];
-let redoStack = [];
-let dragSource = null;
-let exportType = "cloudpage";
+// =====================================================
+// ENGINE
+// =====================================================
+let blocks=[],selId=null,undoStack=[],redoStack=[],dragSrc=null,expType="cloudpage";
 
-// ========== INIT ==========
-function init() {
-  renderSidebar();
-  updatePreview();
-}
+function init(){renderSidebar();updatePreview()}
 
-// ========== SIDEBAR ==========
-function renderSidebar() {
-  const el = document.getElementById("sidebarScroll");
-  let html = "";
-  for (const [cat, comps] of Object.entries(COMPONENTS)) {
-    html += `<div class="cat-header open" onclick="toggleCat(this)"><span>${cat}</span><span class="arrow">&#9654;</span></div>`;
-    html += `<div class="cat-items open">`;
-    for (const c of comps) {
-      html += `<div class="comp-item" draggable="true" data-id="${c.id}" ondragstart="onCompDragStart(event,'${c.id}')" ondblclick="addComponent('${c.id}')"><div class="comp-icon" style="background:${c.iconBg};color:#fff">${c.icon}</div><div class="comp-info"><div class="comp-name">${c.name}</div><div class="comp-desc">${c.desc}</div></div></div>`;
-    }
-    html += `</div>`;
-  }
-  el.innerHTML = html;
-}
+function findDef(id){for(const cs of Object.values(C)){const f=cs.find(c=>c.id===id);if(f)return f}return null}
 
-function toggleCat(el) {
-  el.classList.toggle("open");
-  const items = el.nextElementSibling;
-  items.classList.toggle("open");
-}
+// SIDEBAR
+function renderSidebar(){
+const el=document.getElementById("sidebarScroll");let h="";
+for(const[cat,cs]of Object.entries(C)){
+h+=`<div class="cat-head open" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span>${cat}</span><span class="arr">▶</span></div><div class="cat-items open">`;
+for(const c of cs){
+h+=`<div class="comp-item" draggable="true" data-id="${c.id}" ondragstart="onDragStart(event,'${c.id}')" ondblclick="addComp('${c.id}')"><div class="comp-badge" style="background:${c.badgeBg};color:${c.badgeColor}">${c.badge}</div><div class="comp-info"><div class="comp-name">${c.name}</div><div class="comp-src">${c.src}</div></div></div>`;
+}h+=`</div>`}el.innerHTML=h}
 
-function filterComponents() {
-  const q = document.getElementById("compSearch").value.toLowerCase();
-  document.querySelectorAll(".comp-item").forEach(item => {
-    const name = item.querySelector(".comp-name").textContent.toLowerCase();
-    const desc = item.querySelector(".comp-desc").textContent.toLowerCase();
-    item.style.display = (name.includes(q) || desc.includes(q)) ? "flex" : "none";
-  });
-}
+function filterComps(){
+const q=document.getElementById("compSearch").value.toLowerCase();
+document.querySelectorAll(".comp-item").forEach(i=>{
+const n=i.querySelector(".comp-name").textContent.toLowerCase();
+const s=i.querySelector(".comp-src").textContent.toLowerCase();
+i.style.display=(n.includes(q)||s.includes(q))?"flex":"none"})}
 
-// ========== FIND COMPONENT DEF ==========
-function findCompDef(id) {
-  for (const comps of Object.values(COMPONENTS)) {
-    const found = comps.find(c => c.id === id);
-    if (found) return found;
-  }
-  return null;
-}
+// STATE
+function saveState(){undoStack.push(JSON.stringify(blocks));if(undoStack.length>40)undoStack.shift();redoStack=[]}
+function undoAction(){if(!undoStack.length)return;redoStack.push(JSON.stringify(blocks));blocks=JSON.parse(undoStack.pop());renderCanvas();updatePreview()}
+function redoAction(){if(!redoStack.length)return;undoStack.push(JSON.stringify(blocks));blocks=JSON.parse(redoStack.pop());renderCanvas();updatePreview()}
 
-// ========== CANVAS ==========
-function saveState() {
-  undoStack.push(JSON.stringify(canvasBlocks));
-  if (undoStack.length > 50) undoStack.shift();
-  redoStack = [];
-}
+// CANVAS
+function addComp(id,at){
+const def=findDef(id);if(!def)return;saveState();
+const b={uid:"b_"+Date.now()+"_"+Math.random().toString(36).slice(2,5),compId:id,data:{...def.defaults}};
+at!==undefined?blocks.splice(at,0,b):blocks.push(b);
+renderCanvas();updatePreview();selectBlock(b.uid);showToast("Added: "+def.name)}
 
-function undoAction() {
-  if (!undoStack.length) return;
-  redoStack.push(JSON.stringify(canvasBlocks));
-  canvasBlocks = JSON.parse(undoStack.pop());
-  renderCanvas();
-  updatePreview();
-}
+function removeBlock(uid){saveState();blocks=blocks.filter(b=>b.uid!==uid);if(selId===uid){selId=null;renderEditor()}renderCanvas();updatePreview()}
+function dupBlock(uid){const i=blocks.findIndex(b=>b.uid===uid);if(i===-1)return;saveState();const d={uid:"b_"+Date.now()+"_"+Math.random().toString(36).slice(2,5),compId:blocks[i].compId,data:{...blocks[i].data}};blocks.splice(i+1,0,d);renderCanvas();updatePreview();selectBlock(d.uid)}
+function moveBlock(uid,dir){const i=blocks.findIndex(b=>b.uid===uid);const j=i+dir;if(i===-1||j<0||j>=blocks.length)return;saveState();[blocks[i],blocks[j]]=[blocks[j],blocks[i]];renderCanvas();updatePreview()}
+function selectBlock(uid){selId=uid;document.querySelectorAll(".canvas-block").forEach(e=>e.classList.remove("selected"));const e=document.querySelector(`[data-uid="${uid}"]`);if(e)e.classList.add("selected");renderEditor()}
 
-function redoAction() {
-  if (!redoStack.length) return;
-  undoStack.push(JSON.stringify(canvasBlocks));
-  canvasBlocks = JSON.parse(redoStack.pop());
-  renderCanvas();
-  updatePreview();
-}
+function renderCanvas(){
+const cv=document.getElementById("canvas"),em=document.getElementById("canvasEmpty");
+document.getElementById("blockCount").textContent=blocks.length;
+if(!blocks.length){cv.innerHTML="";cv.appendChild(em);em.style.display="flex";
+const dz=document.createElement("div");dz.className="drop-zone";dz.innerHTML="Drop components here";
+dz.ondragover=e=>{e.preventDefault();dz.classList.add("over")};dz.ondragleave=()=>dz.classList.remove("over");
+dz.ondrop=e=>{e.preventDefault();dz.classList.remove("over");handleDrop(0)};cv.appendChild(dz);return}
+em.style.display="none";let h="";
+blocks.forEach((b,i)=>{const def=findDef(b.compId);if(!def)return;
+const sel=b.uid===selId?" selected":"";
+h+=`<div class="drop-zone" data-idx="${i}" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,${i})"></div>`;
+h+=`<div class="canvas-block${sel}" data-uid="${b.uid}" onclick="selectBlock('${b.uid}')">`;
+h+=`<div class="block-bar"><span class="lbl">${def.name}</span><div class="acts">`;
+h+=`<button onclick="event.stopPropagation();moveBlock('${b.uid}',-1)" title="Up">▲</button>`;
+h+=`<button onclick="event.stopPropagation();moveBlock('${b.uid}',1)" title="Down">▼</button>`;
+h+=`<button onclick="event.stopPropagation();dupBlock('${b.uid}')" title="Duplicate">⧉</button>`;
+h+=`<button onclick="event.stopPropagation();removeBlock('${b.uid}')" title="Remove" style="color:#ef4444">✕</button>`;
+h+=`</div></div><div class="block-html">${def.html(b.data)}</div></div>`});
+h+=`<div class="drop-zone" data-idx="${blocks.length}" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,${blocks.length})">Drop here</div>`;
+cv.innerHTML=h}
 
-function addComponent(compId, atIndex) {
-  const def = findCompDef(compId);
-  if (!def) return;
-  saveState();
-  const block = {
-    uid: "b_" + Date.now() + "_" + Math.random().toString(36).slice(2,6),
-    compId: compId,
-    data: { ...def.defaults }
-  };
-  if (atIndex !== undefined) {
-    canvasBlocks.splice(atIndex, 0, block);
-  } else {
-    canvasBlocks.push(block);
-  }
-  renderCanvas();
-  updatePreview();
-  selectBlock(block.uid);
-  showToast(`Added: ${def.name}`);
-}
+// DRAG
+function onDragStart(e,id){dragSrc={type:"new",compId:id};e.dataTransfer.setData("text/plain",id);e.dataTransfer.effectAllowed="copy"}
+function dzO(e){e.preventDefault();e.currentTarget.classList.add("over")}
+function dzL(e){e.currentTarget.classList.remove("over")}
+function dzD(e,i){e.preventDefault();e.currentTarget.classList.remove("over");handleDrop(i)}
+function handleDrop(i){if(!dragSrc)return;if(dragSrc.type==="new")addComp(dragSrc.compId,i);dragSrc=null}
 
-function removeBlock(uid) {
-  saveState();
-  canvasBlocks = canvasBlocks.filter(b => b.uid !== uid);
-  if (selectedBlockId === uid) {
-    selectedBlockId = null;
-    renderEditor();
-  }
-  renderCanvas();
-  updatePreview();
-}
+// EDITOR
+function renderEditor(){
+const p=document.getElementById("editorPane");
+if(!selId){p.innerHTML='<div style="color:var(--dim);font-size:12px;text-align:center;padding:40px">Select a component on the canvas to edit</div>';return}
+const b=blocks.find(x=>x.uid===selId);if(!b)return;const def=findDef(b.compId);if(!def)return;
+let h=`<div class="ed-section"><h3>${def.name}</h3><p style="font-size:10px;color:var(--dim);margin-bottom:8px">Source: ${def.src}</p></div><div class="ed-section"><h3>Properties</h3>`;
+for(const k of def.editable){
+const v=b.data[k]||"";const lbl=k.replace(/([A-Z])/g," $1").replace(/^\w/,s=>s.toUpperCase());
+if(v.length>80)h+=`<div class="ed-field"><label>${lbl}</label><textarea oninput="upd('${b.uid}','${k}',this.value)">${v}</textarea></div>`;
+else h+=`<div class="ed-field"><label>${lbl}</label><input type="text" value="${esc(v)}" oninput="upd('${b.uid}','${k}',this.value)"></div>`}
+h+=`</div><div class="ed-section"><h3>Actions</h3><button class="btn-ghost" style="width:100%;margin-bottom:6px" onclick="dupBlock('${b.uid}')">Duplicate</button><button style="width:100%;padding:8px;background:#ef4444;color:#fff;border:none;border-radius:4px;cursor:pointer;font-family:inherit;font-size:12px" onclick="removeBlock('${b.uid}')">Remove</button></div>`;
+p.innerHTML=h}
 
-function duplicateBlock(uid) {
-  const idx = canvasBlocks.findIndex(b => b.uid === uid);
-  if (idx === -1) return;
-  saveState();
-  const orig = canvasBlocks[idx];
-  const dup = {
-    uid: "b_" + Date.now() + "_" + Math.random().toString(36).slice(2,6),
-    compId: orig.compId,
-    data: { ...orig.data }
-  };
-  canvasBlocks.splice(idx + 1, 0, dup);
-  renderCanvas();
-  updatePreview();
-  selectBlock(dup.uid);
-  showToast("Duplicated");
-}
+function upd(uid,k,v){const b=blocks.find(x=>x.uid===uid);if(!b)return;b.data[k]=v;
+const el=document.querySelector(`[data-uid="${uid}"] .block-html`);if(el){const def=findDef(b.compId);if(def)el.innerHTML=def.html(b.data)}
+updatePreview();updateCode()}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
 
-function moveBlock(uid, dir) {
-  const idx = canvasBlocks.findIndex(b => b.uid === uid);
-  if (idx === -1) return;
-  const newIdx = idx + dir;
-  if (newIdx < 0 || newIdx >= canvasBlocks.length) return;
-  saveState();
-  [canvasBlocks[idx], canvasBlocks[newIdx]] = [canvasBlocks[newIdx], canvasBlocks[idx]];
-  renderCanvas();
-  updatePreview();
-}
+// PREVIEW
+function genHtml(){
+let body="";for(const b of blocks){const def=findDef(b.compId);if(def)body+=def.html(b.data)+"\n"}
+return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>SIP Suite — Eagle Asset Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Source Sans 3',sans-serif;margin:0;padding:0}</style></head><body>${body}</body></html>`}
 
-function selectBlock(uid) {
-  selectedBlockId = uid;
-  document.querySelectorAll(".canvas-block").forEach(el => el.classList.remove("selected"));
-  const el = document.querySelector(`[data-uid="${uid}"]`);
-  if (el) el.classList.add("selected");
-  renderEditor();
-}
+function updatePreview(){const f=document.getElementById("previewFrame");const h=genHtml();const blob=new Blob([h],{type:"text/html"});f.src=URL.createObjectURL(blob);updateCode()}
+function updateCode(){const c=document.getElementById("codeArea");if(c)c.value=genHtml()}
 
-function renderCanvas() {
-  const canvas = document.getElementById("canvas");
-  const empty = document.getElementById("canvasEmpty");
-  document.getElementById("blockCount").textContent = canvasBlocks.length;
+// TABS
+function switchTab(t){document.querySelectorAll(".right-tab").forEach(e=>e.classList.toggle("active",e.dataset.tab===t));document.querySelectorAll(".tab-pane").forEach(p=>p.classList.toggle("active",p.id==="tab-"+t));if(t==="code")updateCode();if(t==="preview")updatePreview()}
 
-  if (!canvasBlocks.length) {
-    canvas.innerHTML = "";
-    canvas.appendChild(empty);
-    empty.style.display = "flex";
-    // add main drop zone
-    const dz = document.createElement("div");
-    dz.className = "drop-zone";
-    dz.innerHTML = "Drop components here";
-    dz.ondragover = e => { e.preventDefault(); dz.classList.add("over"); };
-    dz.ondragleave = () => dz.classList.remove("over");
-    dz.ondrop = e => { e.preventDefault(); dz.classList.remove("over"); handleDrop(0); };
-    canvas.appendChild(dz);
-    return;
-  }
+// EXPORT
+function showExportModal(){genExport();document.getElementById("exportModal").classList.add("show")}
+function closeExport(){document.getElementById("exportModal").classList.remove("show")}
+function selExport(t){expType=t;document.querySelectorAll(".export-opt").forEach(e=>e.classList.toggle("sel",e.dataset.t===t));genExport()}
+function genExport(){
+const c=document.getElementById("exportCode");let body="";
+for(const b of blocks){const def=findDef(b.compId);if(def)body+=def.html(b.data)+"\n"}
+if(expType==="cloudpage")c.value=`%%[ /* SIP Suite CloudPage */ ]%%\n`+genHtml()+`\n%%[ Output(RequestParameter("utm_source")) ]%%`;
+else if(expType==="contentblock")c.value=`<!-- SIP Suite Content Block -->\n`+body;
+else c.value=genHtml()}
+function copyExport(){navigator.clipboard.writeText(document.getElementById("exportCode").value).then(()=>showToast("Copied!"))}
+function downloadExport(){const c=document.getElementById("exportCode");const fn=`sip-suite_${expType}_${new Date().toISOString().split("T")[0]}.html`;const b=new Blob([c.value],{type:"text/html"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=fn;a.click();showToast("Downloaded: "+fn)}
 
-  empty.style.display = "none";
-  let html = "";
-  canvasBlocks.forEach((block, idx) => {
-    const def = findCompDef(block.compId);
-    if (!def) return;
-    const rendered = def.html(block.data);
-    const sel = block.uid === selectedBlockId ? " selected" : "";
-    html += `<div class="drop-zone" data-idx="${idx}" ondragover="dzOver(event)" ondragleave="dzLeave(event)" ondrop="dzDrop(event,${idx})"></div>`;
-    html += `<div class="canvas-block${sel}" data-uid="${block.uid}" onclick="selectBlock('${block.uid}')">`;
-    html += `<div class="block-label">${def.name}</div>`;
-    html += `<div class="block-actions">`;
-    html += `<button onclick="event.stopPropagation();moveBlock('${block.uid}',-1)" title="Move up">&#9650;</button>`;
-    html += `<button onclick="event.stopPropagation();moveBlock('${block.uid}',1)" title="Move down">&#9660;</button>`;
-    html += `<button onclick="event.stopPropagation();duplicateBlock('${block.uid}')" title="Duplicate">&#128203;</button>`;
-    html += `<button onclick="event.stopPropagation();removeBlock('${block.uid}')" title="Remove" style="color:var(--danger)">&#10005;</button>`;
-    html += `</div>`;
-    html += `<div class="block-content">${rendered}</div>`;
-    html += `</div>`;
-  });
-  html += `<div class="drop-zone" data-idx="${canvasBlocks.length}" ondragover="dzOver(event)" ondragleave="dzLeave(event)" ondrop="dzDrop(event,${canvasBlocks.length})">Drop here to add</div>`;
-  canvas.innerHTML = html;
-}
+// SAVE/LOAD
+function saveProject(){localStorage.setItem("sipBuilder",JSON.stringify(blocks));showToast("Saved!")}
+function loadProject(){const d=localStorage.getItem("sipBuilder");if(!d){showToast("No saved project");return}try{blocks=JSON.parse(d);renderCanvas();updatePreview();showToast("Loaded!")}catch(e){showToast("Error loading")}}
+function clearCanvas(){if(!blocks.length)return;if(!confirm("Clear all?"))return;saveState();blocks=[];selId=null;renderCanvas();updatePreview();renderEditor()}
 
-// ========== DRAG AND DROP ==========
-function onCompDragStart(e, compId) {
-  dragSource = { type: "new", compId };
-  e.dataTransfer.setData("text/plain", compId);
-  e.dataTransfer.effectAllowed = "copy";
-}
+function showToast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500)}
 
-function dzOver(e) { e.preventDefault(); e.currentTarget.classList.add("over"); }
-function dzLeave(e) { e.currentTarget.classList.remove("over"); }
-function dzDrop(e, idx) {
-  e.preventDefault();
-  e.currentTarget.classList.remove("over");
-  handleDrop(idx);
-}
+document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="z"){e.preventDefault();undoAction()}if((e.ctrlKey||e.metaKey)&&e.key==="y"){e.preventDefault();redoAction()}if(e.key==="Delete"&&selId)removeBlock(selId)});
 
-function handleDrop(idx) {
-  if (!dragSource) return;
-  if (dragSource.type === "new") {
-    addComponent(dragSource.compId, idx);
-  }
-  dragSource = null;
-}
-
-// ========== EDITOR ==========
-function renderEditor() {
-  const pane = document.getElementById("editorPane");
-  if (!selectedBlockId) {
-    pane.innerHTML = '<div style="color:var(--text-dim);font-size:13px;text-align:center;padding:40px">Select a component on the canvas to edit its properties</div>';
-    return;
-  }
-  const block = canvasBlocks.find(b => b.uid === selectedBlockId);
-  if (!block) return;
-  const def = findCompDef(block.compId);
-  if (!def) return;
-
-  let html = `<div class="editor-section"><h3>${def.name}</h3><p style="font-size:11px;color:var(--text-dim);margin-bottom:12px">${def.desc}</p></div>`;
-  html += `<div class="editor-section"><h3>Properties</h3>`;
-
-  for (const key of def.editable) {
-    const val = block.data[key] || "";
-    const label = key.replace(/([A-Z])/g, " $1").replace(/^./, s => s.toUpperCase());
-
-    if (key.toLowerCase().includes("color") || key.toLowerCase().includes("bg")) {
-      html += `<div class="editor-field"><label>${label}</label><div class="color-row"><input type="color" value="${val}" onchange="updateField('${block.uid}','${key}',this.value)"><input type="text" value="${val}" oninput="updateField('${block.uid}','${key}',this.value)"></div></div>`;
-    } else if (val.length > 80) {
-      html += `<div class="editor-field"><label>${label}</label><textarea oninput="updateField('${block.uid}','${key}',this.value)">${val}</textarea></div>`;
-    } else {
-      html += `<div class="editor-field"><label>${label}</label><input type="text" value="${escHtml(val)}" oninput="updateField('${block.uid}','${key}',this.value)"></div>`;
-    }
-  }
-  html += `</div>`;
-  html += `<div class="editor-section"><h3>Actions</h3>`;
-  html += `<button class="btn-secondary" style="width:100%;margin-bottom:6px" onclick="duplicateBlock('${block.uid}')">&#128203; Duplicate Component</button>`;
-  html += `<button class="btn-danger" style="width:100%" onclick="removeBlock('${block.uid}')">&#10005; Remove Component</button>`;
-  html += `</div>`;
-  pane.innerHTML = html;
-}
-
-function updateField(uid, key, val) {
-  const block = canvasBlocks.find(b => b.uid === uid);
-  if (!block) return;
-  block.data[key] = val;
-  // Re-render just this block in canvas
-  const el = document.querySelector(`[data-uid="${uid}"] .block-content`);
-  if (el) {
-    const def = findCompDef(block.compId);
-    if (def) el.innerHTML = def.html(block.data);
-  }
-  updatePreview();
-  updateCodeView();
-}
-
-function escHtml(s) {
-  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-}
-
-// ========== PREVIEW ==========
-function generateFullHtml() {
-  let body = "";
-  for (const block of canvasBlocks) {
-    const def = findCompDef(block.compId);
-    if (def) body += def.html(block.data) + "\n";
-  }
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>SIP Suite — Eagle Strategies</title>
-<style>
-body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
-table{border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0}
-img{border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic}
-a{color:#C8A951}
-@media only screen and (max-width:600px){
-  table[class="responsive"]{width:100%!important}
-  td[class="stack"]{display:block!important;width:100%!important}
-  td[class="hide"]{display:none!important}
-}
-</style>
-</head>
-<body style="margin:0;padding:0;background:#f4f4f4">
-<center>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f4f4">
-<tr><td align="center" style="padding:0">
-<table role="presentation" width="680" class="responsive" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;background:#ffffff">
-<tr><td>
-${body}
-</td></tr>
-</table>
-</td></tr>
-</table>
-</center>
-</body>
-</html>`;
-}
-
-function updatePreview() {
-  const iframe = document.getElementById("previewFrame");
-  const html = generateFullHtml();
-  const blob = new Blob([html], { type: "text/html" });
-  iframe.src = URL.createObjectURL(blob);
-  updateCodeView();
-}
-
-function updateCodeView() {
-  const code = document.getElementById("codeArea");
-  if (code) code.value = generateFullHtml();
-}
-
-// ========== TABS ==========
-function switchTab(tab) {
-  document.querySelectorAll(".right-tab").forEach(t => t.classList.toggle("active", t.dataset.tab === tab));
-  document.querySelectorAll(".tab-pane").forEach(p => p.classList.toggle("active", p.id === "tab-" + tab));
-  if (tab === "code") updateCodeView();
-  if (tab === "preview") updatePreview();
-}
-
-// ========== EXPORT ==========
-function showExportModal() {
-  generateExport();
-  document.getElementById("exportModal").classList.add("show");
-}
-function closeExportModal() {
-  document.getElementById("exportModal").classList.remove("show");
-}
-function selectExportType(type) {
-  exportType = type;
-  document.querySelectorAll(".export-opt").forEach(e => e.classList.toggle("selected", e.dataset.type === type));
-  generateExport();
-}
-
-function generateExport() {
-  const code = document.getElementById("exportCode");
-  if (exportType === "cloudpage") {
-    code.value = generateCloudPageExport();
-  } else if (exportType === "contentblock") {
-    code.value = generateContentBlockExport();
-  } else {
-    code.value = generateEmailExport();
-  }
-}
-
-function generateCloudPageExport() {
-  let body = "";
-  for (const block of canvasBlocks) {
-    const def = findCompDef(block.compId);
-    if (def) body += def.html(block.data) + "\n";
-  }
-  return `%%[ /* SIP Suite CloudPage — Generated ${new Date().toISOString().split("T")[0]} */ ]%%
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SIP Suite — Eagle Strategies</title>
-<style>
-body{margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
-table{border-collapse:collapse}
-a{color:#C8A951}
-@media only screen and (max-width:600px){
-  .responsive{width:100%!important}
-  .stack{display:block!important;width:100%!important}
-}
-</style>
-</head>
-<body style="margin:0;padding:0;background:#f4f4f4">
-<center>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-<tr><td align="center">
-<table role="presentation" width="680" class="responsive" cellpadding="0" cellspacing="0" border="0" style="background:#fff">
-<tr><td>
-${body}
-</td></tr>
-</table>
-</td></tr>
-</table>
-</center>
-%%[ /* Tracking */ Output(RequestParameter("utm_source")) ]%%
-</body>
-</html>`;
-}
-
-function generateContentBlockExport() {
-  let body = "";
-  for (const block of canvasBlocks) {
-    const def = findCompDef(block.compId);
-    if (def) body += `<!-- Block: ${def.name} -->\n` + def.html(block.data) + "\n\n";
-  }
-  return `<!-- SIP Suite Content Block — Generated ${new Date().toISOString().split("T")[0]} -->
-<!-- Paste into SFMC Content Builder as HTML Content Block -->
-${body}`;
-}
-
-function generateEmailExport() {
-  let body = "";
-  for (const block of canvasBlocks) {
-    const def = findCompDef(block.compId);
-    if (def) body += def.html(block.data) + "\n";
-  }
-  return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>SIP Suite — Eagle Strategies</title>
-<!--[if mso]>
-<style type="text/css">
-body,table,td{font-family:Arial,Helvetica,sans-serif!important}
-</style>
-<![endif]-->
-<style type="text/css">
-body{margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
-table{border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt}
-img{border:0;outline:none;-ms-interpolation-mode:bicubic}
-@media only screen and (max-width:600px){
-  .responsive{width:100%!important}
-  .stack{display:block!important;width:100%!important;max-width:100%!important}
-  .hide-mobile{display:none!important}
-  .p-mobile{padding:16px!important}
-}
-</style>
-</head>
-<body style="margin:0;padding:0;background-color:#f4f4f4">
-<center>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f4f4f4">
-<tr><td align="center" valign="top">
-<!--[if (gte mso 9)|(IE)]><table role="presentation" width="680" align="center" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
-<table role="presentation" width="680" class="responsive" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;background-color:#ffffff">
-<tr><td>
-${body}
-</td></tr>
-</table>
-<!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
-</td></tr>
-</table>
-</center>
-<custom name="opencounter" type="tracking">
-</body>
-</html>`;
-}
-
-function copyExport() {
-  const code = document.getElementById("exportCode");
-  navigator.clipboard.writeText(code.value).then(() => showToast("Copied to clipboard!"));
-}
-
-function downloadExport() {
-  const code = document.getElementById("exportCode");
-  const ext = {cloudpage:"_cloudpage",contentblock:"_contentblock",email:"_email"}[exportType]||"";
-  const filename = `sip-suite${ext}_${new Date().toISOString().split("T")[0]}.html`;
-  const blob = new Blob([code.value], { type: "text/html" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = filename;
-  a.click();
-  showToast("Downloaded: " + filename);
-}
-
-// ========== SAVE / LOAD ==========
-function saveProject() {
-  const data = JSON.stringify(canvasBlocks, null, 2);
-  localStorage.setItem("sipBuilderProject", data);
-  showToast("Project saved!");
-}
-
-function loadProject() {
-  const data = localStorage.getItem("sipBuilderProject");
-  if (!data) { showToast("No saved project found"); return; }
-  try {
-    canvasBlocks = JSON.parse(data);
-    renderCanvas();
-    updatePreview();
-    showToast("Project loaded!");
-  } catch(e) {
-    showToast("Error loading project");
-  }
-}
-
-function clearCanvas() {
-  if (!canvasBlocks.length) return;
-  if (!confirm("Clear all components from the canvas?")) return;
-  saveState();
-  canvasBlocks = [];
-  selectedBlockId = null;
-  renderCanvas();
-  updatePreview();
-  renderEditor();
-}
-
-// ========== TOAST ==========
-function showToast(msg) {
-  const t = document.getElementById("toast");
-  t.textContent = msg;
-  t.classList.add("show");
-  setTimeout(() => t.classList.remove("show"), 2500);
-}
-
-// ========== KEYBOARD SHORTCUTS ==========
-document.addEventListener("keydown", e => {
-  if ((e.ctrlKey || e.metaKey) && e.key === "z") { e.preventDefault(); undoAction(); }
-  if ((e.ctrlKey || e.metaKey) && e.key === "y") { e.preventDefault(); redoAction(); }
-  if (e.key === "Delete" && selectedBlockId) { removeBlock(selectedBlockId); }
-});
-
-// ========== BOOT ==========
 init();
 </script>
 </body>
