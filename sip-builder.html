@@ -30,6 +30,17 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 .btn-gold{background:var(--gold);color:var(--navy);font-weight:700;letter-spacing:.5px}
 .btn-gold:hover{background:var(--gold-light)}
 .btn-green{background:var(--success);color:#fff}
+.btn-upload{background:#7c3aed;color:#fff;font-weight:700;letter-spacing:.5px}
+.btn-upload:hover{background:#6d28d9}
+/* UPLOAD MODAL */
+.upload-preview{max-height:300px;overflow-y:auto;margin:12px 0;border:1px solid var(--border);border-radius:6px;background:var(--bg)}
+.upload-section{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);font-size:12px;cursor:pointer;transition:background .1s}
+.upload-section:hover{background:rgba(197,165,90,.06)}
+.upload-section.selected{background:rgba(197,165,90,.12)}
+.upload-section input[type=checkbox]{accent-color:var(--gold)}
+.upload-section .us-name{font-weight:600;color:var(--text);flex:1}
+.upload-section .us-size{color:var(--dim);font-size:10px}
+.upload-file-tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.5px;background:#7c3aed;color:#fff;margin-right:8px}
 
 /* MAIN 3-COL */
 .main{display:flex;flex:1;overflow:hidden}
@@ -135,6 +146,8 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
   <button class="btn-ghost" onclick="saveProject()">Save</button>
   <button class="btn-ghost" onclick="loadProject()">Load</button>
   <button class="btn-ghost" onclick="undoAction()">Undo</button>
+  <button class="btn-upload" onclick="document.getElementById('fileUpload').click()">&#11014; Upload HTML</button>
+  <input type="file" id="fileUpload" accept=".html,.htm" multiple style="display:none" onchange="handleUpload(event)">
   <button class="btn-gold" onclick="showExportModal()">Export for SFMC</button>
 </div>
 <div class="main">
@@ -175,6 +188,21 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
       <button class="btn-ghost" onclick="copyExport()">Copy to Clipboard</button>
       <button class="btn-gold" onclick="downloadExport()">Download HTML</button>
       <button class="btn-ghost" onclick="closeExport()">Close</button>
+    </div>
+  </div>
+</div>
+<div class="modal-bg" id="uploadModal">
+  <div class="modal">
+    <div class="modal-head"><h2>&#11014; Import HTML Sections</h2><button onclick="closeUploadModal()">&times;</button></div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--dim);margin-bottom:12px" id="uploadStatus">Parsing file...</p>
+      <div id="uploadPreview" class="upload-preview"></div>
+      <p style="font-size:11px;color:var(--dim);margin-top:8px">Check the sections you want to add as components. They'll appear in the sidebar under a new category.</p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-ghost" onclick="toggleAllSections()">Toggle All</button>
+      <button class="btn-gold" onclick="importSelectedSections()">Import Selected</button>
+      <button class="btn-ghost" onclick="closeUploadModal()">Cancel</button>
     </div>
   </div>
 </div>
@@ -579,7 +607,8 @@ const b=blocks.find(x=>x.uid===selId);if(!b)return;const def=findDef(b.compId);i
 let h=`<div class="ed-section"><h3>${def.name}</h3><p style="font-size:10px;color:var(--dim);margin-bottom:8px">Source: ${def.src}</p></div><div class="ed-section"><h3>Properties</h3>`;
 for(const k of def.editable){
 const v=b.data[k]||"";const lbl=k.replace(/([A-Z])/g," $1").replace(/^\w/,s=>s.toUpperCase());
-if(v.length>80)h+=`<div class="ed-field"><label>${lbl}</label><textarea oninput="upd('${b.uid}','${k}',this.value)">${v}</textarea></div>`;
+if(k==='rawHtml')h+=`<div class="ed-field"><label>${lbl} (HTML)</label><textarea style="min-height:200px;font-family:'Cascadia Code','Fira Code',monospace;font-size:11px;line-height:1.4;color:#a6e3a1" oninput="upd('${b.uid}','${k}',this.value)">${esc(v)}</textarea></div>`;
+else if(v.length>80)h+=`<div class="ed-field"><label>${lbl}</label><textarea oninput="upd('${b.uid}','${k}',this.value)">${v}</textarea></div>`;
 else h+=`<div class="ed-field"><label>${lbl}</label><input type="text" value="${esc(v)}" oninput="upd('${b.uid}','${k}',this.value)"></div>`}
 h+=`</div><div class="ed-section"><h3>Actions</h3><button class="btn-ghost" style="width:100%;margin-bottom:6px" onclick="dupBlock('${b.uid}')">Duplicate</button><button style="width:100%;padding:8px;background:#ef4444;color:#fff;border:none;border-radius:4px;cursor:pointer;font-family:inherit;font-size:12px" onclick="removeBlock('${b.uid}')">Remove</button></div>`;
 p.innerHTML=h}
@@ -626,6 +655,251 @@ function clearCanvas(){if(!blocks.length)return;if(!confirm("Clear all?"))return
 function showToast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500)}
 
 document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="z"){e.preventDefault();undoAction()}if((e.ctrlKey||e.metaKey)&&e.key==="y"){e.preventDefault();redoAction()}if(e.key==="Delete"&&selId)removeBlock(selId)});
+
+// =====================================================
+// FILE UPLOAD & HTML PARSING
+// =====================================================
+let parsedSections = [];
+let uploadFileCount = 0;
+
+function handleUpload(e) {
+  const files = Array.from(e.target.files);
+  if (!files.length) return;
+  parsedSections = [];
+  uploadFileCount = 0;
+
+  const promises = files.map(file => {
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = ev => {
+        const html = ev.target.result;
+        const fname = file.name.replace(/\.html?$/i, '');
+        const sections = parseHtmlIntoSections(html, fname);
+        parsedSections.push(...sections);
+        uploadFileCount++;
+        resolve();
+      };
+      reader.readAsText(file);
+    });
+  });
+
+  Promise.all(promises).then(() => {
+    if (!parsedSections.length) {
+      showToast("No sections found in uploaded file(s)");
+      return;
+    }
+    showUploadModal();
+  });
+
+  // Reset input so same file can be re-uploaded
+  e.target.value = "";
+}
+
+function parseHtmlIntoSections(html, filename) {
+  const sections = [];
+  const parser = new DOMParser();
+
+  // Extract body content (or full content if no body tag)
+  let bodyHtml = html;
+  const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+  if (bodyMatch) bodyHtml = bodyMatch[1];
+
+  // Strategy 1: Split on HTML comments that look like section markers
+  // Matches patterns like <!-- ══ HERO ══ --> or <!-- ===== HERO SECTION ===== -->
+  const commentPattern = /<!--[\s═=─\-]*([A-Z][A-Z &/\-]+[A-Z])[\s═=─\-]*-->/g;
+  const commentMatches = [...bodyHtml.matchAll(commentPattern)];
+
+  if (commentMatches.length >= 2) {
+    // Use comment markers as section boundaries
+    for (let i = 0; i < commentMatches.length; i++) {
+      const start = commentMatches[i].index;
+      const end = i + 1 < commentMatches.length ? commentMatches[i + 1].index : bodyHtml.length;
+      const sectionHtml = bodyHtml.slice(start, end).trim();
+      const name = commentMatches[i][1].trim().replace(/\s+/g, ' ');
+
+      if (sectionHtml.length > 50) { // Skip tiny fragments
+        sections.push({
+          name: titleCase(name),
+          filename: filename,
+          html: sectionHtml,
+          size: sectionHtml.length,
+          checked: true
+        });
+      }
+    }
+    return sections;
+  }
+
+  // Strategy 2: Parse DOM and extract top-level block elements
+  const doc = parser.parseFromString(`<div id="_root_">${bodyHtml}</div>`, 'text/html');
+  const root = doc.getElementById('_root_');
+  if (!root) return sections;
+
+  const children = Array.from(root.children);
+  let sectionIndex = 0;
+
+  for (const child of children) {
+    const tag = child.tagName.toLowerCase();
+    const outerHtml = child.outerHTML;
+
+    // Skip tiny elements (spacers, line breaks, scripts, style tags)
+    if (outerHtml.length < 80) continue;
+    if (['script', 'style', 'link', 'meta'].includes(tag)) continue;
+
+    sectionIndex++;
+
+    // Try to determine a name from the element
+    let name = guessName(child, tag, sectionIndex);
+
+    sections.push({
+      name: name,
+      filename: filename,
+      html: outerHtml,
+      size: outerHtml.length,
+      checked: true
+    });
+  }
+
+  // Strategy 3: If nothing parsed, add the whole file as one block
+  if (!sections.length && bodyHtml.trim().length > 100) {
+    sections.push({
+      name: filename,
+      filename: filename,
+      html: bodyHtml.trim(),
+      size: bodyHtml.trim().length,
+      checked: true
+    });
+  }
+
+  return sections;
+}
+
+function guessName(el, tag, idx) {
+  // Check for common section identifiers
+  const id = el.id || '';
+  const cls = el.className || '';
+  const style = el.getAttribute('style') || '';
+
+  // Look for heading text inside
+  const heading = el.querySelector('h1,h2,h3');
+  const headingText = heading ? heading.textContent.trim().slice(0, 40) : '';
+
+  // Identify by tag
+  if (tag === 'header' || tag === 'nav') return 'Header';
+  if (tag === 'footer') return 'Footer';
+
+  // Identify by class/id keywords
+  const combined = (id + ' ' + cls).toLowerCase();
+  if (combined.includes('hero')) return 'Hero Section';
+  if (combined.includes('header') || combined.includes('brand')) return 'Header';
+  if (combined.includes('footer')) return 'Footer';
+  if (combined.includes('nav')) return 'Navigation';
+  if (combined.includes('proof')) return 'Proof Points';
+  if (combined.includes('video')) return 'Video Section';
+  if (combined.includes('form') || combined.includes('contact')) return 'Form Section';
+  if (combined.includes('card') || combined.includes('strat')) return 'Strategy Cards';
+  if (combined.includes('team')) return 'Team Section';
+  if (combined.includes('resource') || combined.includes('download')) return 'Resources';
+  if (combined.includes('disclos')) return 'Disclosure';
+  if (combined.includes('performance') || combined.includes('data')) return 'Performance Data';
+  if (combined.includes('cta')) return 'Call to Action';
+
+  // Identify by inline style patterns (for MC content blocks)
+  if (style.includes('#0A2240') || style.includes('#002855')) {
+    if (style.includes('padding:18px') || style.includes('padding: 18px')) return 'Brand Bar';
+    if (style.includes('72px') || style.includes('80px')) {
+      if (headingText) return headingText;
+      return 'Major Section';
+    }
+  }
+  if (style.includes('#C5A55A') || style.includes('#A09162')) {
+    if (el.children.length <= 2) return 'Credibility Bar';
+  }
+  if (style.includes('#F8F6F1') || style.includes('#F0F0F0')) return headingText || 'Content Section';
+
+  // Fall back to heading text or generic name
+  if (headingText) return headingText;
+  return `Section ${idx}`;
+}
+
+function titleCase(s) {
+  return s.toLowerCase().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+}
+
+function showUploadModal() {
+  const status = document.getElementById('uploadStatus');
+  status.textContent = `Found ${parsedSections.length} section${parsedSections.length !== 1 ? 's' : ''} from ${uploadFileCount} file${uploadFileCount !== 1 ? 's' : ''}`;
+
+  const preview = document.getElementById('uploadPreview');
+  let h = '';
+  parsedSections.forEach((s, i) => {
+    const kb = (s.size / 1024).toFixed(1);
+    h += `<label class="upload-section selected">
+      <input type="checkbox" checked data-idx="${i}" onchange="this.parentElement.classList.toggle('selected',this.checked)">
+      <span class="upload-file-tag">${s.filename}</span>
+      <span class="us-name">${s.name}</span>
+      <span class="us-size">${kb} KB</span>
+    </label>`;
+  });
+  preview.innerHTML = h;
+  document.getElementById('uploadModal').classList.add('show');
+}
+
+function closeUploadModal() {
+  document.getElementById('uploadModal').classList.remove('show');
+}
+
+function toggleAllSections() {
+  const boxes = document.querySelectorAll('#uploadPreview input[type=checkbox]');
+  const allChecked = [...boxes].every(b => b.checked);
+  boxes.forEach(b => { b.checked = !allChecked; b.parentElement.classList.toggle('selected', !allChecked); });
+}
+
+function importSelectedSections() {
+  const boxes = document.querySelectorAll('#uploadPreview input[type=checkbox]:checked');
+  const indices = [...boxes].map(b => parseInt(b.dataset.idx));
+
+  if (!indices.length) { showToast("No sections selected"); return; }
+
+  let imported = 0;
+  const groupedByFile = {};
+
+  indices.forEach(i => {
+    const s = parsedSections[i];
+    if (!groupedByFile[s.filename]) groupedByFile[s.filename] = [];
+    groupedByFile[s.filename].push(s);
+  });
+
+  for (const [filename, sections] of Object.entries(groupedByFile)) {
+    // Create category name
+    const catName = `Uploaded: ${filename}`;
+    if (!C[catName]) C[catName] = [];
+
+    sections.forEach((s, j) => {
+      const compId = `upload_${filename.replace(/[^a-z0-9]/gi,'_')}_${Date.now()}_${j}`;
+
+      // Store the raw HTML as a static component (editable via raw HTML)
+      const rawHtml = s.html;
+
+      C[catName].push({
+        id: compId,
+        name: s.name,
+        src: filename,
+        badge: "UP",
+        badgeBg: "#7c3aed",
+        badgeColor: "#fff",
+        editable: ["rawHtml"],
+        defaults: { rawHtml: rawHtml },
+        html: d => d.rawHtml
+      });
+      imported++;
+    });
+  }
+
+  renderSidebar();
+  closeUploadModal();
+  showToast(`Imported ${imported} section${imported !== 1 ? 's' : ''}`);
+}
 
 init();
 </script>
