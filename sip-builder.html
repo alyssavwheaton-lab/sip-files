@@ -786,7 +786,11 @@ sptActive=id;
 document.getElementById("sptName").textContent=def.name;
 const frame=document.getElementById("sptFrame");
 const html=def.html(def.defaults);
-const doc=`<!DOCTYPE html><html><head><link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/><style>body{margin:0;padding:0;}</style></head><body>${html}</body></html>`;
+// Include uploaded styles if available
+const s=def._srcFile?uploadedStyles[def._srcFile]:null;
+const extraLinks=s?s.links:'';
+const extraStyles=s?s.styles:'';
+const doc=`<!DOCTYPE html><html><head><link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>${extraLinks}<style>body{margin:0;padding:0;}</style>${extraStyles}</head><body>${html}</body></html>`;
 frame.srcdoc=doc;
 // Position tooltip to the right of the clicked button
 const rect=e.target.closest(".comp-item").getBoundingClientRect();
@@ -876,8 +880,38 @@ function renderBlockHtml(def, data) {
   return def.html(data);
 }
 
-// Track Blob URLs for uploaded block iframes to prevent memory leaks
-const _blockBlobUrls={};
+// Build the full HTML document for an uploaded component (used by canvas isolation and inline edits)
+function buildUploadedBlockHtml(def, data) {
+  const s = uploadedStyles[def._srcFile];
+  if (!s) return def.html(data);
+  const content = def.html(data);
+  // Use postMessage to report height back to parent for auto-resize
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+${s.links}
+<style>*{margin:0;padding:0;box-sizing:border-box}body{margin:0;padding:0;overflow:hidden}</style>
+${s.styles}
+</head><body>${content}
+<script>
+function reportHeight(){window.parent.postMessage({type:'iframeHeight',height:document.body.scrollHeight},'*')}
+window.addEventListener('load',()=>{reportHeight();new MutationObserver(reportHeight).observe(document.body,{childList:true,subtree:true})});
+setTimeout(reportHeight,500);setTimeout(reportHeight,1500);
+<\/script></body></html>`;
+}
+
+// Listen for iframe height messages
+window.addEventListener('message',e=>{
+  if(e.data&&e.data.type==='iframeHeight'){
+    // Find the iframe that sent this message
+    document.querySelectorAll('.block-html iframe, .spt-body iframe').forEach(f=>{
+      try{if(f.contentWindow===e.source)f.style.height=Math.max(60,e.data.height)+'px'}catch(ex){}
+    });
+  }
+});
+
 // After renderCanvas(), isolate uploaded component blocks in iframes to prevent style leakage
 function isolateUploadedBlocks() {
   document.querySelectorAll('.canvas-block').forEach(block => {
@@ -890,28 +924,13 @@ function isolateUploadedBlocks() {
     if (!s) return;
     const blockEl = block.querySelector('.block-html');
     if (!blockEl) return;
-    const content = def.html(b.data);
-    const fullHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-${s.links}
-<style>*{margin:0;padding:0;box-sizing:border-box}body{margin:0;padding:0;overflow:hidden}</style>
-${s.styles}
-</head><body>${content}</body></html>`;
+    const fullHtml = buildUploadedBlockHtml(def, b.data);
     const iframe = document.createElement('iframe');
-    iframe.style.cssText = 'width:100%;border:none;min-height:60px;pointer-events:none;';
+    iframe.style.cssText = 'width:100%;border:none;min-height:60px;pointer-events:none;display:block;';
     iframe.scrolling = 'no';
     blockEl.innerHTML = '';
     blockEl.appendChild(iframe);
-    if(_blockBlobUrls[uid])URL.revokeObjectURL(_blockBlobUrls[uid]);
-    const blob = new Blob([fullHtml], {type: 'text/html'});
-    _blockBlobUrls[uid]=URL.createObjectURL(blob);
-    iframe.src = _blockBlobUrls[uid];
-    iframe.onload = function() {
-      try { this.style.height = this.contentDocument.body.scrollHeight + 'px'; } catch(e) {}
-    };
+    iframe.srcdoc = fullHtml;
   });
 }
 
@@ -942,24 +961,12 @@ p.innerHTML=h}
 function upd(uid,k,v){const b=blocks.find(x=>x.uid===uid);if(!b)return;b.data[k]=v;
 const el=document.querySelector(`[data-uid="${uid}"] .block-html`);if(el){const def=findDef(b.compId);if(def){
   if(def._srcFile){
-    // Re-isolate this single block in an iframe
-    const block=el.closest('.canvas-block');
-    if(block){const s=uploadedStyles[def._srcFile];if(s){
-      const content=def.html(b.data);
-      const fullHtml=`<!DOCTYPE html><html><head><meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-${s.links}<style>*{margin:0;padding:0;box-sizing:border-box}body{margin:0;padding:0;overflow:hidden}</style>
-${s.styles}</head><body>${content}</body></html>`;
-      const iframe=document.createElement('iframe');
-      iframe.style.cssText='width:100%;border:none;min-height:60px;pointer-events:none;';
-      iframe.scrolling='no';el.innerHTML='';el.appendChild(iframe);
-      if(_blockBlobUrls[uid])URL.revokeObjectURL(_blockBlobUrls[uid]);
-      const blob=new Blob([fullHtml],{type:'text/html'});_blockBlobUrls[uid]=URL.createObjectURL(blob);iframe.src=_blockBlobUrls[uid];
-      iframe.onload=function(){try{this.style.height=this.contentDocument.body.scrollHeight+'px'}catch(e){}};
-    }}
+    // Re-isolate this single block in an iframe using shared helper
+    const fullHtml=buildUploadedBlockHtml(def,b.data);
+    const iframe=document.createElement('iframe');
+    iframe.style.cssText='width:100%;border:none;min-height:60px;pointer-events:none;display:block;';
+    iframe.scrolling='no';el.innerHTML='';el.appendChild(iframe);
+    iframe.srcdoc=fullHtml;
   } else {
     el.innerHTML=renderBlockHtml(def,b.data);
   }
@@ -1265,6 +1272,8 @@ function handleUpload(e) {
   parsedSections = [];
   uploadFileCount = 0;
 
+  showToast(`Parsing ${files.length} file${files.length>1?'s':''}...`);
+
   const promises = files.map(file => {
     return new Promise(resolve => {
       const reader = new FileReader();
@@ -1276,13 +1285,14 @@ function handleUpload(e) {
         uploadFileCount++;
         resolve();
       };
+      reader.onerror = () => { showToast("Error reading " + file.name); resolve(); };
       reader.readAsText(file);
     });
   });
 
   Promise.all(promises).then(() => {
     if (!parsedSections.length) {
-      showToast("No sections found in uploaded file(s)");
+      showToast("No sections found — check that the file contains HTML block elements");
       return;
     }
     showUploadModal();
@@ -1367,34 +1377,58 @@ function parseHtmlIntoSections(html, filename) {
     return sections;
   }
 
-  // Strategy 2: Parse DOM and extract top-level block elements
+  // Strategy 2: Split on top-level block tags using regex to preserve original HTML
+  // DOMParser's outerHTML can mangle inline styles, so we use raw string extraction
+  const topBlockRe = /<(div|section|header|footer|nav|main|article|aside|table|form)(\s[^>]*)?>[\s\S]*?<\/\1>/gi;
+  const rawMatches = [...bodyHtml.matchAll(topBlockRe)];
+
+  // Also parse DOM for naming purposes only
   const doc = parser.parseFromString(`<div id="_root_">${bodyHtml}</div>`, 'text/html');
   const root = doc.getElementById('_root_');
-  if (!root) return sections;
-
-  const children = Array.from(root.children);
+  const domChildren = root ? Array.from(root.children) : [];
   let sectionIndex = 0;
 
-  for (const child of children) {
-    const tag = child.tagName.toLowerCase();
-    const outerHtml = child.outerHTML;
+  // Use raw regex matches but DOM children for naming
+  const matchesToUse = rawMatches.length > 0 ? rawMatches : [];
+  for (let mi = 0; mi < matchesToUse.length; mi++) {
+    const rawHtml = matchesToUse[mi][0];
+    const tag = matchesToUse[mi][1].toLowerCase();
 
-    // Skip tiny elements (spacers, line breaks, scripts, style tags)
-    if (outerHtml.length < 80) continue;
+    // Skip tiny elements
+    if (rawHtml.length < 80) continue;
     if (['script', 'style', 'link', 'meta'].includes(tag)) continue;
 
     sectionIndex++;
 
-    // Try to determine a name from the element
-    let name = guessName(child, tag, sectionIndex);
+    // Use corresponding DOM child for naming if available
+    const domChild = domChildren[mi] || null;
+    let name = domChild ? guessName(domChild, tag, sectionIndex) : `Section ${sectionIndex}`;
 
     sections.push({
       name: name,
       filename: filename,
-      html: outerHtml,
-      size: outerHtml.length,
+      html: rawHtml,
+      size: rawHtml.length,
       checked: true
     });
+  }
+
+  // Fallback: if regex found nothing, try DOMParser children with outerHTML
+  if (!matchesToUse.length && domChildren.length) {
+    for (const child of domChildren) {
+      const tag = child.tagName.toLowerCase();
+      const outerHtml = child.outerHTML;
+      if (outerHtml.length < 80) continue;
+      if (['script', 'style', 'link', 'meta'].includes(tag)) continue;
+      sectionIndex++;
+      sections.push({
+        name: guessName(child, tag, sectionIndex),
+        filename: filename,
+        html: outerHtml,
+        size: outerHtml.length,
+        checked: true
+      });
+    }
   }
 
   // Strategy 3: If nothing parsed, add the whole file as one block
