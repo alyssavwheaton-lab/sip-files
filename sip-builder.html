@@ -654,6 +654,8 @@ html:d=>`<footer style="background:#00263A;color:rgba(255,255,255,0.5);padding:3
 let blocks=[],selId=null,undoStack=[],redoStack=[],dragSrc=null,expType="cloudpage";
 
 function init(){
+  // Auto-restore saved project (uploaded components + blocks) before first render
+  restoreSavedProject();
   renderSidebar();
   renderCanvas();
   updatePreview();
@@ -662,6 +664,28 @@ function init(){
   const cv=document.getElementById("canvas");
   cv.addEventListener("dragover",e=>{e.preventDefault()});
   cv.addEventListener("drop",e=>{e.preventDefault();if(!canvasDragUid)handleDrop(blocks.length)});
+}
+
+// Restore saved state from localStorage (silent — no toast on startup)
+function restoreSavedProject(){
+  const d=localStorage.getItem("sipBuilder");if(!d)return;
+  try{
+    const save=JSON.parse(d);
+    if(Array.isArray(save)){blocks=save}
+    else{
+      blocks=save.blocks||[];
+      if(save.uploadedStyles)Object.assign(uploadedStyles,save.uploadedStyles);
+      if(save.uploadedComps){
+        for(const[cat,comps]of Object.entries(save.uploadedComps)){
+          if(!C[cat])C[cat]=[];
+          for(const c of comps){
+            if(C[cat].find(x=>x.id===c.id))continue;
+            C[cat].push({...c,editable:["rawHtml"],html:d=>d.rawHtml});
+          }
+        }
+      }
+    }
+  }catch(e){/* silently fail on corrupt data */}
 }
 
 function findDef(id){for(const cs of Object.values(C)){const f=cs.find(c=>c.id===id);if(f)return f}return null}
@@ -933,27 +957,7 @@ function saveProject(){
   const save={blocks,uploadedComps,uploadedStyles};
   localStorage.setItem("sipBuilder",JSON.stringify(save));showToast("Saved!")}
 function loadProject(){const d=localStorage.getItem("sipBuilder");if(!d){showToast("No saved project");return}
-  try{
-    const save=JSON.parse(d);
-    // Handle legacy format (just blocks array)
-    if(Array.isArray(save)){blocks=save}
-    else{
-      blocks=save.blocks||[];
-      // Restore uploaded styles
-      if(save.uploadedStyles)Object.assign(uploadedStyles,save.uploadedStyles);
-      // Restore uploaded component definitions
-      if(save.uploadedComps){
-        for(const[cat,comps]of Object.entries(save.uploadedComps)){
-          if(!C[cat])C[cat]=[];
-          for(const c of comps){
-            // Skip if already exists
-            if(C[cat].find(x=>x.id===c.id))continue;
-            C[cat].push({...c,editable:["rawHtml"],html:d=>d.rawHtml});
-          }
-        }
-      }
-    }
-    renderSidebar();renderCanvas();updatePreview();showToast("Loaded!")}catch(e){showToast("Error loading")}}
+  try{restoreSavedProject();renderSidebar();renderCanvas();updatePreview();showToast("Loaded!")}catch(e){showToast("Error loading")}}
 function clearCanvas(){if(!blocks.length)return;if(!confirm(`Clear all ${blocks.length} component${blocks.length>1?'s':''}? This can be undone with Ctrl+Z.`))return;saveState();blocks=[];selId=null;renderCanvas();updatePreview();renderEditor()}
 
 function showToast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500)}
