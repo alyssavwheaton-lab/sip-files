@@ -233,11 +233,15 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
   <button class="btn-ghost" onclick="clearCanvas()">Clear</button>
   <button class="btn-ghost" onclick="saveProject()">Save</button>
   <button class="btn-ghost" onclick="loadProject()">Load</button>
+  <button class="btn-ghost" onclick="downloadProjectJSON()" title="Download portable project file">&#8615; Project</button>
+  <button class="btn-ghost" onclick="document.getElementById('projectImport').click()" title="Import project file from another machine">&#8613; Project</button>
+  <input type="file" id="projectImport" accept=".json" style="display:none" onchange="importProjectJSON(event)">
   <button class="btn-ghost" onclick="undoAction()" title="Ctrl+Z">Undo</button>
   <button class="btn-ghost" onclick="redoAction()" title="Ctrl+Y">Redo</button>
   <button class="btn-upload" onclick="document.getElementById('fileUpload').click()">&#11014; Upload HTML</button>
   <input type="file" id="fileUpload" accept=".html,.htm" multiple style="display:none" onchange="handleUpload(event)">
   <button class="btn-gold" onclick="showExportModal()">Export for SFMC</button>
+  <button class="btn-ghost" onclick="bakeUploadsIntoFile()" title="Download this builder with your uploads embedded">&#128190; Save Builder</button>
   <button class="btn-ghost" onclick="showShortcuts()" title="Keyboard Shortcuts" style="padding:6px 8px;font-size:13px">?</button>
 </div>
 <div class="main">
@@ -666,8 +670,23 @@ function init(){
   cv.addEventListener("drop",e=>{e.preventDefault();if(!canvasDragUid)handleDrop(blocks.length)});
 }
 
-// Restore saved state from localStorage (silent — no toast on startup)
+// Restore saved state from localStorage + embedded data (silent — no toast on startup)
 function restoreSavedProject(){
+  // First: check for uploads baked into the HTML file (portable across machines)
+  const embedded=getEmbeddedData();
+  if(embedded){
+    if(embedded.uploadedStyles)Object.assign(uploadedStyles,embedded.uploadedStyles);
+    if(embedded.uploadedComps){
+      for(const[cat,comps]of Object.entries(embedded.uploadedComps)){
+        if(!C[cat])C[cat]=[];
+        for(const c of comps){
+          if(C[cat].find(x=>x.id===c.id))continue;
+          C[cat].push({...c,editable:["rawHtml"],html:d=>d.rawHtml});
+        }
+      }
+    }
+  }
+  // Then: layer on localStorage data (may have newer state)
   const d=localStorage.getItem("sipBuilder");if(!d)return;
   try{
     const save=JSON.parse(d);
@@ -1439,6 +1458,96 @@ function importSelectedSections() {
   renderSidebar();
   closeUploadModal();
   showToast(`Imported ${imported} section${imported !== 1 ? 's' : ''}`);
+}
+
+// =====================================================
+// PORTABLE PROJECT JSON — works across machines
+// =====================================================
+function downloadProjectJSON(){
+  // Collect uploaded component defs
+  const uploadedComps={};
+  for(const[cat,cs]of Object.entries(C)){
+    if(!cat.startsWith("Uploaded:"))continue;
+    uploadedComps[cat]=cs.map(c=>({id:c.id,name:c.name,src:c.src,badge:c.badge,badgeBg:c.badgeBg,badgeColor:c.badgeColor,_srcFile:c._srcFile,defaults:c.defaults}));
+  }
+  const proj={version:1,exportedAt:new Date().toISOString(),blocks,uploadedComps,uploadedStyles};
+  const blob=new Blob([JSON.stringify(proj,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`sip-project_${new Date().toISOString().split("T")[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast("Project file downloaded");
+}
+
+function importProjectJSON(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const proj=JSON.parse(ev.target.result);
+      // Restore uploaded styles
+      if(proj.uploadedStyles)Object.assign(uploadedStyles,proj.uploadedStyles);
+      // Restore uploaded component definitions
+      if(proj.uploadedComps){
+        for(const[cat,comps]of Object.entries(proj.uploadedComps)){
+          if(!C[cat])C[cat]=[];
+          for(const c of comps){
+            if(C[cat].find(x=>x.id===c.id))continue;
+            C[cat].push({...c,editable:["rawHtml"],html:d=>d.rawHtml});
+          }
+        }
+      }
+      // Restore blocks
+      if(proj.blocks){blocks=proj.blocks}
+      renderSidebar();renderCanvas();updatePreview();
+      // Also persist to localStorage so it sticks
+      saveProject();
+      showToast("Project imported — "+blocks.length+" components");
+    }catch(err){showToast("Invalid project file")}
+  };
+  reader.readAsText(file);
+  e.target.value="";
+}
+
+// =====================================================
+// BAKE UPLOADS INTO HTML — embed data so file is portable via Git
+// =====================================================
+function getEmbeddedData(){
+  // Check for embedded upload data baked into the HTML file itself
+  const el=document.getElementById("_embeddedUploads");
+  if(!el)return null;
+  try{return JSON.parse(el.textContent)}catch(e){return null}
+}
+
+function bakeUploadsIntoFile(){
+  // Collect uploaded component defs + styles
+  const uploadedComps={};
+  let hasUploads=false;
+  for(const[cat,cs]of Object.entries(C)){
+    if(!cat.startsWith("Uploaded:"))continue;
+    hasUploads=true;
+    uploadedComps[cat]=cs.map(c=>({id:c.id,name:c.name,src:c.src,badge:c.badge,badgeBg:c.badgeBg,badgeColor:c.badgeColor,_srcFile:c._srcFile,defaults:c.defaults}));
+  }
+  if(!hasUploads){showToast("No uploaded components to embed");return}
+  const data={uploadedComps,uploadedStyles,bakedAt:new Date().toISOString()};
+  // Generate the full HTML of this page with embedded data
+  const docHtml=document.documentElement.outerHTML;
+  // Find or create the embedded script tag
+  const tag=`<script id="_embeddedUploads" type="application/json">${JSON.stringify(data)}<\/script>`;
+  let newHtml;
+  if(docHtml.includes('id="_embeddedUploads"')){
+    newHtml=docHtml.replace(/<script id="_embeddedUploads"[^>]*>[\s\S]*?<\/script>/,tag);
+  }else{
+    newHtml=docHtml.replace('</head>',tag+'\n</head>');
+  }
+  const blob=new Blob(["<!DOCTYPE html>\n"+newHtml],{type:"text/html"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="sip-builder.html";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast("Builder downloaded with embedded uploads");
 }
 
 init();
