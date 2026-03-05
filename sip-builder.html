@@ -46,7 +46,7 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 .main{display:flex;flex:1;overflow:hidden}
 
 /* LEFT SIDEBAR */
-.sidebar{width:280px;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.sidebar{width:280px;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;transition:width .2s ease}
 .sidebar-head{padding:14px 16px 10px;border-bottom:1px solid var(--border)}
 .sidebar-head h2{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
 .sidebar-search{padding:8px 12px}
@@ -68,6 +68,7 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 .comp-info{flex:1;min-width:0}
 .comp-name{font-weight:600;color:var(--text);font-size:12px}
 .comp-src{font-size:9px;color:var(--dim);margin-top:1px;letter-spacing:.3px}
+.comp-fields{font-size:8px;color:var(--dim);margin-top:2px;opacity:.6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
 
 /* CANVAS */
 .canvas-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
@@ -92,7 +93,7 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 .block-html{pointer-events:none}
 
 /* RIGHT PANEL */
-.right-panel{width:440px;display:flex;flex-direction:column;border-left:1px solid var(--border);flex-shrink:0}
+.right-panel{width:600px;display:flex;flex-direction:column;border-left:1px solid var(--border);flex-shrink:0;transition:width .2s ease}
 .right-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--panel)}
 .right-tab{flex:1;padding:10px;text-align:center;font-size:11px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;color:var(--dim);transition:all .15s;letter-spacing:.3px}
 .right-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
@@ -174,9 +175,20 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 .cat-count{background:rgba(197,165,90,.15);color:var(--gold);font-size:9px;font-weight:700;padding:1px 6px;border-radius:8px;margin-left:6px}
 
 /* SIDEBAR QUICK-ADD */
-.comp-add-btn{width:22px;height:22px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;opacity:0;transition:all .15s;flex-shrink:0}
-.comp-item:hover .comp-add-btn{opacity:1}
-.comp-add-btn:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.comp-add-btn,.comp-preview-btn{width:22px;height:22px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;opacity:0;transition:all .15s;flex-shrink:0}
+.comp-item:hover .comp-add-btn,.comp-item:hover .comp-preview-btn{opacity:1}
+.comp-add-btn:hover,.comp-preview-btn:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.comp-preview-btn{font-size:11px}
+
+/* SIDEBAR HOVER PREVIEW TOOLTIP */
+.sidebar-preview-tooltip{position:fixed;z-index:9000;background:var(--panel2);border:1px solid var(--gold);border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.5);overflow:hidden;pointer-events:none;width:480px;max-height:420px;opacity:0;transition:opacity .15s}
+.sidebar-preview-tooltip.visible{opacity:1;pointer-events:auto}
+.sidebar-preview-tooltip .spt-header{padding:8px 12px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid var(--border)}
+.sidebar-preview-tooltip .spt-name{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.5px;text-transform:uppercase}
+.sidebar-preview-tooltip .spt-add{font-size:10px;font-weight:700;color:var(--navy);background:var(--gold);border:none;border-radius:3px;padding:3px 10px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase}
+.sidebar-preview-tooltip .spt-add:hover{background:var(--gold-light)}
+.sidebar-preview-tooltip .spt-body{background:#fff;overflow:hidden;height:370px}
+.sidebar-preview-tooltip .spt-body iframe{width:740px;height:900px;border:none;transform:scale(.648);transform-origin:top left;pointer-events:none}
 
 /* CANVAS DRAG-REORDER FEEDBACK */
 .canvas-block[draggable=true]{cursor:grab}
@@ -197,6 +209,17 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 .right-toggle{width:20px;background:var(--panel);border:none;border-left:1px solid var(--border);cursor:pointer;color:var(--dim);font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;writing-mode:vertical-rl}
 .right-toggle:hover{background:var(--panel2);color:var(--text)}
 .right-panel.collapsed{width:0;overflow:hidden;border:none}
+
+/* RESPONSIVE — auto-collapse on small screens */
+@media(max-width:1200px){
+.sidebar{width:0;overflow:hidden;border:none}
+.right-panel{width:360px}
+}
+@media(max-width:900px){
+.right-panel{width:0;overflow:hidden;border:none}
+.topbar{flex-wrap:wrap;height:auto;padding:8px 12px;gap:6px}
+.topbar button{padding:4px 10px;font-size:10px}
+}
 </style>
 </head>
 <body>
@@ -225,7 +248,7 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 </div>
 <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" title="Toggle sidebar">&#9664; Components</button>
 <div class="canvas-wrap">
-  <div class="canvas-bar"><span>Build Canvas</span> — <span class="ct" id="blockCount">0</span> <span>components</span></div>
+  <div class="canvas-bar"><span>Build Canvas</span> — <span class="ct" id="blockCount">0</span> <span>components</span><span id="srcBadges" style="margin-left:auto;display:flex;gap:6px"></span></div>
   <div class="canvas" id="canvas"></div>
 </div>
 <button class="right-toggle" id="rightToggle" onclick="toggleRightPanel()" title="Toggle preview">Preview &#9654;</button>
@@ -242,6 +265,11 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
         <button class="device-btn" data-device="tablet" onclick="setDevice('tablet')" title="Tablet">&#128195;</button>
         <button class="device-btn" data-device="mobile" onclick="setDevice('mobile')" title="Mobile">&#128241;</button>
         <span class="device-label" id="deviceLabel">Desktop — 100%</span>
+        <span style="flex:1"></span>
+        <button class="device-btn" onclick="zoomPreview(-25)" title="Zoom out" style="font-size:14px;font-weight:700">−</button>
+        <span class="device-label" id="zoomLabel" style="min-width:32px;text-align:center">100%</span>
+        <button class="device-btn" onclick="zoomPreview(25)" title="Zoom in" style="font-size:14px;font-weight:700">+</button>
+        <button class="device-btn" onclick="resetZoom()" title="Reset zoom" style="font-size:9px;letter-spacing:.5px">FIT</button>
       </div>
       <div class="preview-wrap"><iframe id="previewFrame" title="Preview"></iframe></div>
     </div>
@@ -250,6 +278,7 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
   </div>
 </div>
 </div>
+<div class="sidebar-preview-tooltip" id="sidebarPreviewTooltip"><div class="spt-header"><span class="spt-name" id="sptName"></span><button class="spt-add" id="sptAddBtn" onclick="addFromPreview()">+ Add to Canvas</button></div><div class="spt-body"><iframe id="sptFrame" title="Component Preview"></iframe></div></div>
 <div class="modal-bg" id="exportModal">
   <div class="modal">
     <div class="modal-head"><h2>Export for SFMC</h2><button onclick="closeExport()">&times;</button></div>
@@ -290,18 +319,20 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
       <div class="kbd-grid">
         <div class="kbd-row"><span class="kbd-label">Undo</span><kbd>Ctrl</kbd> + <kbd>Z</kbd></div>
         <div class="kbd-row"><span class="kbd-label">Redo</span><kbd>Ctrl</kbd> + <kbd>Y</kbd></div>
-        <div class="kbd-row"><span class="kbd-label">Delete block</span><kbd>Delete</kbd></div>
         <div class="kbd-row"><span class="kbd-label">Save project</span><kbd>Ctrl</kbd> + <kbd>S</kbd></div>
+        <div class="kbd-row"><span class="kbd-label">Duplicate block</span><kbd>Ctrl</kbd> + <kbd>D</kbd></div>
+        <div class="kbd-row"><span class="kbd-label">Delete block</span><kbd>Delete</kbd></div>
+        <div class="kbd-row"><span class="kbd-label">Navigate blocks</span><kbd>↑</kbd> / <kbd>↓</kbd></div>
         <div class="kbd-row"><span class="kbd-label">Toggle sidebar</span><kbd>[</kbd></div>
         <div class="kbd-row"><span class="kbd-label">Toggle preview</span><kbd>]</kbd></div>
         <div class="kbd-row"><span class="kbd-label">Show shortcuts</span><kbd>?</kbd></div>
-        <div class="kbd-row"><span class="kbd-label">Deselect</span><kbd>Esc</kbd></div>
+        <div class="kbd-row"><span class="kbd-label">Deselect / Close</span><kbd>Esc</kbd></div>
       </div>
     </div>
     <div class="modal-foot"><button class="btn-ghost" onclick="closeShortcuts()">Close</button></div>
   </div>
 </div>
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="alert" aria-live="polite"></div>
 <script>
 // =====================================================
 // COMPONENT LIBRARY — Actual HTML from SIP Files
@@ -623,6 +654,8 @@ html:d=>`<footer style="background:#00263A;color:rgba(255,255,255,0.5);padding:3
 let blocks=[],selId=null,undoStack=[],redoStack=[],dragSrc=null,expType="cloudpage";
 
 function init(){
+  // Auto-restore saved project (uploaded components + blocks) before first render
+  restoreSavedProject();
   renderSidebar();
   renderCanvas();
   updatePreview();
@@ -633,16 +666,68 @@ function init(){
   cv.addEventListener("drop",e=>{e.preventDefault();if(!canvasDragUid)handleDrop(blocks.length)});
 }
 
+// Restore saved state from localStorage (silent — no toast on startup)
+function restoreSavedProject(){
+  const d=localStorage.getItem("sipBuilder");if(!d)return;
+  try{
+    const save=JSON.parse(d);
+    if(Array.isArray(save)){blocks=save}
+    else{
+      blocks=save.blocks||[];
+      if(save.uploadedStyles)Object.assign(uploadedStyles,save.uploadedStyles);
+      if(save.uploadedComps){
+        for(const[cat,comps]of Object.entries(save.uploadedComps)){
+          if(!C[cat])C[cat]=[];
+          for(const c of comps){
+            if(C[cat].find(x=>x.id===c.id))continue;
+            C[cat].push({...c,editable:["rawHtml"],html:d=>d.rawHtml});
+          }
+        }
+      }
+    }
+  }catch(e){/* silently fail on corrupt data */}
+}
+
 function findDef(id){for(const cs of Object.values(C)){const f=cs.find(c=>c.id===id);if(f)return f}return null}
 
 // SIDEBAR
 function renderSidebar(){
 const el=document.getElementById("sidebarScroll");let h="";
 for(const[cat,cs]of Object.entries(C)){
-h+=`<div class="cat-head open" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span>${cat}</span><span class="cat-count">${cs.length}</span><span class="arr">▶</span></div><div class="cat-items open">`;
+h+=`<div class="cat-head open" role="button" tabindex="0" aria-expanded="true" onclick="toggleCat(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCat(this)}"><span>${cat}</span><span class="cat-count">${cs.length}</span><span class="arr">▶</span></div><div class="cat-items open">`;
 for(const c of cs){
-h+=`<div class="comp-item" draggable="true" data-id="${c.id}" ondragstart="onDragStart(event,'${c.id}')" ondblclick="addComp('${c.id}')"><div class="comp-badge" style="background:${c.badgeBg};color:${c.badgeColor}">${c.badge}</div><div class="comp-info"><div class="comp-name">${c.name}</div><div class="comp-src">${c.src}</div></div><button class="comp-add-btn" onclick="event.stopPropagation();addComp('${c.id}')" title="Add to canvas">+</button></div>`;
+h+=`<div class="comp-item" draggable="true" data-id="${c.id}" ondragstart="onDragStart(event,'${c.id}')" ondblclick="addComp('${c.id}')" title="${c.editable.length} editable field${c.editable.length!==1?'s':''}: ${c.editable.slice(0,4).join(', ')}${c.editable.length>4?' ...':''}"><div class="comp-badge" style="background:${c.badgeBg};color:${c.badgeColor}">${c.badge}</div><div class="comp-info"><div class="comp-name">${c.name}</div><div class="comp-src">${c.src}</div><div class="comp-fields">${c.editable.length} field${c.editable.length!==1?'s':''}</div></div><button class="comp-preview-btn" onclick="event.stopPropagation();toggleSidebarPreview(event,'${c.id}')" title="Preview component">&#128065;</button><button class="comp-add-btn" onclick="event.stopPropagation();addComp('${c.id}')" title="Add to canvas">+</button></div>`;
 }h+=`</div>`}el.innerHTML=h}
+
+function toggleCat(el){el.classList.toggle('open');el.nextElementSibling.classList.toggle('open');el.setAttribute('aria-expanded',el.classList.contains('open'))}
+
+// SIDEBAR PREVIEW TOOLTIP
+let sptActive=null;
+function toggleSidebarPreview(e,id){
+const tooltip=document.getElementById("sidebarPreviewTooltip");
+if(sptActive===id){tooltip.classList.remove("visible");sptActive=null;return}
+const def=findDef(id);if(!def)return;
+sptActive=id;
+document.getElementById("sptName").textContent=def.name;
+const frame=document.getElementById("sptFrame");
+const html=def.html(def.defaults);
+const doc=`<!DOCTYPE html><html><head><link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/><style>body{margin:0;padding:0;}</style></head><body>${html}</body></html>`;
+frame.srcdoc=doc;
+// Position tooltip to the right of the clicked button
+const rect=e.target.closest(".comp-item").getBoundingClientRect();
+let top=rect.top-10;
+let left=rect.right+12;
+// Clamp to viewport
+const tw=430,th=360;
+if(left+tw>window.innerWidth){left=rect.left-tw-12}
+if(top+th>window.innerHeight){top=window.innerHeight-th-10}
+if(top<10)top=10;
+tooltip.style.top=top+"px";tooltip.style.left=left+"px";
+tooltip.classList.add("visible");
+}
+function addFromPreview(){if(!sptActive)return;addComp(sptActive);closeSidebarPreview()}
+function closeSidebarPreview(){const t=document.getElementById("sidebarPreviewTooltip");t.classList.remove("visible");sptActive=null}
+document.addEventListener("click",e=>{if(sptActive&&!e.target.closest(".sidebar-preview-tooltip")&&!e.target.closest(".comp-preview-btn")){closeSidebarPreview()}});
 
 function filterComps(){
 const q=document.getElementById("compSearch").value.toLowerCase();
@@ -677,6 +762,10 @@ function selectBlock(uid){selId=uid;document.querySelectorAll(".canvas-block").f
 function renderCanvas(){
 const cv=document.getElementById("canvas");
 document.getElementById("blockCount").textContent=blocks.length;
+// Source type badges
+const srcCounts={};blocks.forEach(b=>{const d=findDef(b.compId);if(d){const s=d.src||'other';srcCounts[s]=(srcCounts[s]||0)+1}});
+const badges=document.getElementById("srcBadges");
+badges.innerHTML=Object.entries(srcCounts).map(([s,n])=>`<span style="font-size:9px;font-weight:700;letter-spacing:.5px;padding:2px 7px;border-radius:3px;background:rgba(197,165,90,.12);color:var(--gold)">${s} ×${n}</span>`).join("");
 if(!blocks.length){
 cv.innerHTML=`<div class="canvas-empty-new">
 <div class="welcome-title">Build Your SIP Suite Page</div>
@@ -711,6 +800,8 @@ function renderBlockHtml(def, data) {
   return def.html(data);
 }
 
+// Track Blob URLs for uploaded block iframes to prevent memory leaks
+const _blockBlobUrls={};
 // After renderCanvas(), isolate uploaded component blocks in iframes to prevent style leakage
 function isolateUploadedBlocks() {
   document.querySelectorAll('.canvas-block').forEach(block => {
@@ -738,8 +829,10 @@ ${s.styles}
     iframe.scrolling = 'no';
     blockEl.innerHTML = '';
     blockEl.appendChild(iframe);
+    if(_blockBlobUrls[uid])URL.revokeObjectURL(_blockBlobUrls[uid]);
     const blob = new Blob([fullHtml], {type: 'text/html'});
-    iframe.src = URL.createObjectURL(blob);
+    _blockBlobUrls[uid]=URL.createObjectURL(blob);
+    iframe.src = _blockBlobUrls[uid];
     iframe.onload = function() {
       try { this.style.height = this.contentDocument.body.scrollHeight + 'px'; } catch(e) {}
     };
@@ -784,7 +877,8 @@ ${s.styles}</head><body>${content}</body></html>`;
       const iframe=document.createElement('iframe');
       iframe.style.cssText='width:100%;border:none;min-height:60px;pointer-events:none;';
       iframe.scrolling='no';el.innerHTML='';el.appendChild(iframe);
-      const blob=new Blob([fullHtml],{type:'text/html'});iframe.src=URL.createObjectURL(blob);
+      if(_blockBlobUrls[uid])URL.revokeObjectURL(_blockBlobUrls[uid]);
+      const blob=new Blob([fullHtml],{type:'text/html'});_blockBlobUrls[uid]=URL.createObjectURL(blob);iframe.src=_blockBlobUrls[uid];
       iframe.onload=function(){try{this.style.height=this.contentDocument.body.scrollHeight+'px'}catch(e){}};
     }}
   } else {
@@ -836,7 +930,7 @@ function debouncedPreview(){clearTimeout(_debounceTimer);_debounceTimer=setTimeo
 function switchTab(t){document.querySelectorAll(".right-tab").forEach(e=>e.classList.toggle("active",e.dataset.tab===t));document.querySelectorAll(".tab-pane").forEach(p=>p.classList.toggle("active",p.id==="tab-"+t));if(t==="code")updateCode();if(t==="preview")updatePreview()}
 
 // EXPORT
-function showExportModal(){genExport();document.getElementById("exportModal").classList.add("show")}
+function showExportModal(){if(!blocks.length){showToast("Add components before exporting");return}genExport();document.getElementById("exportModal").classList.add("show")}
 function closeExport(){document.getElementById("exportModal").classList.remove("show")}
 function selExport(t){expType=t;document.querySelectorAll(".export-opt").forEach(e=>e.classList.toggle("sel",e.dataset.t===t));genExport()}
 function genExport(){
@@ -863,28 +957,8 @@ function saveProject(){
   const save={blocks,uploadedComps,uploadedStyles};
   localStorage.setItem("sipBuilder",JSON.stringify(save));showToast("Saved!")}
 function loadProject(){const d=localStorage.getItem("sipBuilder");if(!d){showToast("No saved project");return}
-  try{
-    const save=JSON.parse(d);
-    // Handle legacy format (just blocks array)
-    if(Array.isArray(save)){blocks=save}
-    else{
-      blocks=save.blocks||[];
-      // Restore uploaded styles
-      if(save.uploadedStyles)Object.assign(uploadedStyles,save.uploadedStyles);
-      // Restore uploaded component definitions
-      if(save.uploadedComps){
-        for(const[cat,comps]of Object.entries(save.uploadedComps)){
-          if(!C[cat])C[cat]=[];
-          for(const c of comps){
-            // Skip if already exists
-            if(C[cat].find(x=>x.id===c.id))continue;
-            C[cat].push({...c,editable:["rawHtml"],html:d=>d.rawHtml});
-          }
-        }
-      }
-    }
-    renderSidebar();renderCanvas();updatePreview();showToast("Loaded!")}catch(e){showToast("Error loading")}}
-function clearCanvas(){if(!blocks.length)return;if(!confirm("Clear all?"))return;saveState();blocks=[];selId=null;renderCanvas();updatePreview();renderEditor()}
+  try{restoreSavedProject();renderSidebar();renderCanvas();updatePreview();showToast("Loaded!")}catch(e){showToast("Error loading")}}
+function clearCanvas(){if(!blocks.length)return;if(!confirm(`Clear all ${blocks.length} component${blocks.length>1?'s':''}? This can be undone with Ctrl+Z.`))return;saveState();blocks=[];selId=null;renderCanvas();updatePreview();renderEditor()}
 
 function showToast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500)}
 
@@ -897,8 +971,11 @@ document.addEventListener("keydown",e=>{
   if((e.ctrlKey||e.metaKey)&&e.key==="z"){e.preventDefault();undoAction()}
   if((e.ctrlKey||e.metaKey)&&e.key==="y"){e.preventDefault();redoAction()}
   if((e.ctrlKey||e.metaKey)&&e.key==="s"){e.preventDefault();saveProject()}
+  if((e.ctrlKey||e.metaKey)&&e.key==="d"){e.preventDefault();if(selId)dupBlock(selId)}
   if(e.key==="Delete"&&selId)removeBlock(selId);
-  if(e.key==="Escape"){selId=null;document.querySelectorAll(".canvas-block").forEach(e=>e.classList.remove("selected"));renderEditor();switchTab('preview')}
+  if(e.key==="Escape"){selId=null;document.querySelectorAll(".canvas-block").forEach(e=>e.classList.remove("selected"));renderEditor();switchTab('preview');closeSidebarPreview()}
+  if(e.key==="ArrowUp"&&selId&&!e.ctrlKey){e.preventDefault();navBlock(-1)}
+  if(e.key==="ArrowDown"&&selId&&!e.ctrlKey){e.preventDefault();navBlock(1)}
   if(e.key==="[")toggleSidebar();
   if(e.key==="]")toggleRightPanel();
   if(e.key==="?"){e.preventDefault();showShortcuts()}
@@ -933,6 +1010,27 @@ function setDevice(d){
   else if(d==='tablet'){iframe.style.width='768px';iframe.style.margin='0 auto';label.textContent='Tablet — 768px'}
   else{iframe.style.width='375px';iframe.style.margin='0 auto';label.textContent='Mobile — 375px'}
 }
+
+// NAVIGATE BLOCKS with arrow keys
+function navBlock(dir){
+  if(!selId||!blocks.length)return;
+  const i=blocks.findIndex(b=>b.uid===selId);
+  const j=i+dir;
+  if(j<0||j>=blocks.length)return;
+  selectBlock(blocks[j].uid);
+}
+
+// PREVIEW ZOOM
+let previewZoom=100;
+function zoomPreview(delta){
+  previewZoom=Math.max(25,Math.min(200,previewZoom+delta));
+  const iframe=document.getElementById('previewFrame');
+  iframe.style.transform=previewZoom===100?'none':`scale(${previewZoom/100})`;
+  iframe.style.transformOrigin='top left';
+  iframe.style.width=previewZoom===100?'100%':`${10000/previewZoom}%`;
+  document.getElementById('zoomLabel').textContent=previewZoom+'%';
+}
+function resetZoom(){previewZoom=100;zoomPreview(0)}
 
 // RESET TO DEFAULTS
 function resetDefaults(uid){
@@ -987,6 +1085,7 @@ function onCanvasBlockDrop(e,targetUid){
 
 // QUICK-START TEMPLATES
 function applyTemplate(type){
+  if(blocks.length&&!confirm(`Replace ${blocks.length} existing component${blocks.length>1?'s':''}? (Undo with Ctrl+Z)`))return;
   saveState();blocks=[];
   const templateDefs={
     mc:["mc-brand-bar","mc-hero","mc-credibility-bar","mc-strategy-strip","mc-sip-card","mc-video","mc-performance-table","mc-team-strip","mc-resources","mc-form","mc-disclosure"],
