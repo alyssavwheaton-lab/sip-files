@@ -79,8 +79,9 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 .canvas::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 .canvas-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--dim);gap:10px}
 .canvas-empty .ico{font-size:40px;opacity:.2}
-.drop-zone{min-height:40px;border:2px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:11px;margin:3px 0;transition:all .2s}
-.drop-zone.over{border-color:var(--gold);background:rgba(197,165,90,.04);color:var(--gold)}
+.drop-zone{min-height:40px;border:2px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:11px;margin:3px 0;transition:all .2s;opacity:.5}
+.drop-zone:hover,.canvas.drag-active .drop-zone{opacity:1;min-height:48px;border-color:rgba(197,165,90,.4)}
+.drop-zone.over{border-color:var(--gold);background:rgba(197,165,90,.08);color:var(--gold);min-height:56px;box-shadow:0 0 12px rgba(197,165,90,.15)}
 .canvas-block{position:relative;border:2px solid transparent;border-radius:6px;margin:3px 0;transition:border-color .15s;overflow:hidden}
 .canvas-block:hover{border-color:var(--border)}
 .canvas-block.selected{border-color:var(--gold)}
@@ -210,6 +211,16 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 .right-toggle:hover{background:var(--panel2);color:var(--text)}
 .right-panel.collapsed{width:0;overflow:hidden;border:none}
 
+/* TOPBAR FILE DROPDOWN */
+.tb-dropdown{position:relative;display:inline-block}
+.tb-dropdown-menu{display:none;position:absolute;top:100%;left:0;margin-top:6px;background:var(--panel);border:1px solid var(--border);border-radius:6px;min-width:220px;z-index:2000;box-shadow:0 8px 24px rgba(0,0,0,.5);padding:4px 0;overflow:hidden}
+.tb-dropdown-menu.open{display:block}
+.tb-dropdown-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:9px 16px;background:none;border:none;color:var(--text);font-size:12px;font-family:inherit;cursor:pointer;text-align:left;transition:background .1s}
+.tb-dropdown-menu button:hover{background:rgba(197,165,90,.1);color:#fff}
+.tb-dropdown-menu button .dd-icon{width:18px;text-align:center;font-size:13px;opacity:.5;flex-shrink:0}
+.tb-dropdown-menu button .dd-key{margin-left:auto;font-size:9px;color:var(--dim);letter-spacing:.5px;opacity:.6}
+.tb-dropdown-sep{height:1px;background:var(--border);margin:4px 0}
+
 /* RESPONSIVE — auto-collapse on small screens */
 @media(max-width:1200px){
 .sidebar{width:0;overflow:hidden;border:none}
@@ -230,18 +241,26 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
   <span class="topbar-spacer"></span>
   <div class="autosave-dot" id="autosaveDot" title="Auto-save active"></div>
   <span class="autosave-label" id="autosaveLabel">Auto-saved</span>
-  <button class="btn-ghost" onclick="clearCanvas()">Clear</button>
-  <button class="btn-ghost" onclick="saveProject()">Save</button>
-  <button class="btn-ghost" onclick="loadProject()">Load</button>
-  <button class="btn-ghost" onclick="downloadProjectJSON()" title="Download portable project file">&#8615; Project</button>
-  <button class="btn-ghost" onclick="document.getElementById('projectImport').click()" title="Import project file from another machine">&#8613; Project</button>
+  <div class="tb-dropdown">
+    <button class="btn-ghost" onclick="toggleDropdown('fileMenu')">File &#9662;</button>
+    <div class="tb-dropdown-menu" id="fileMenu">
+      <button onclick="saveProject();closeDropdowns()"><span class="dd-icon">&#128190;</span> Save to Browser <span class="dd-key">Ctrl+S</span></button>
+      <button onclick="loadProject();closeDropdowns()"><span class="dd-icon">&#128194;</span> Load from Browser</button>
+      <div class="tb-dropdown-sep"></div>
+      <button onclick="downloadProjectJSON();closeDropdowns()"><span class="dd-icon">&#8615;</span> Download Project (.json)</button>
+      <button onclick="document.getElementById('projectImport').click();closeDropdowns()"><span class="dd-icon">&#8613;</span> Import Project (.json)</button>
+      <div class="tb-dropdown-sep"></div>
+      <button onclick="bakeUploadsIntoFile();closeDropdowns()"><span class="dd-icon">&#128230;</span> Save Builder + Uploads (.html)</button>
+      <div class="tb-dropdown-sep"></div>
+      <button onclick="clearCanvas();closeDropdowns()" style="color:var(--danger)"><span class="dd-icon">&#128465;</span> Clear Canvas</button>
+    </div>
+  </div>
   <input type="file" id="projectImport" accept=".json" style="display:none" onchange="importProjectJSON(event)">
   <button class="btn-ghost" onclick="undoAction()" title="Ctrl+Z">Undo</button>
   <button class="btn-ghost" onclick="redoAction()" title="Ctrl+Y">Redo</button>
   <button class="btn-upload" onclick="document.getElementById('fileUpload').click()">&#11014; Upload HTML</button>
   <input type="file" id="fileUpload" accept=".html,.htm" multiple style="display:none" onchange="handleUpload(event)">
   <button class="btn-gold" onclick="showExportModal()">Export for SFMC</button>
-  <button class="btn-ghost" onclick="bakeUploadsIntoFile()" title="Download this builder with your uploads embedded">&#128190; Save Builder</button>
   <button class="btn-ghost" onclick="showShortcuts()" title="Keyboard Shortcuts" style="padding:6px 8px;font-size:13px">?</button>
 </div>
 <div class="main">
@@ -859,7 +878,8 @@ ${s.styles}
 }
 
 // DRAG
-function onDragStart(e,id){dragSrc={type:"new",compId:id};e.dataTransfer.setData("text/plain",id);e.dataTransfer.effectAllowed="copy"}
+function onDragStart(e,id){dragSrc={type:"new",compId:id};e.dataTransfer.setData("text/plain",id);e.dataTransfer.effectAllowed="copy";document.getElementById("canvas").classList.add("drag-active")}
+document.addEventListener("dragend",()=>{document.getElementById("canvas").classList.remove("drag-active")})
 function dzO(e){e.preventDefault();e.currentTarget.classList.add("over")}
 function dzL(e){e.currentTarget.classList.remove("over")}
 function dzD(e,i){e.preventDefault();e.currentTarget.classList.remove("over");handleDrop(i)}
@@ -870,10 +890,12 @@ function renderEditor(){
 const p=document.getElementById("editorPane");
 if(!selId){p.innerHTML='<div style="color:var(--dim);font-size:12px;text-align:center;padding:40px">Select a component on the canvas to edit</div>';return}
 const b=blocks.find(x=>x.uid===selId);if(!b)return;const def=findDef(b.compId);if(!def)return;
-let h=`<div class="ed-section"><h3>${def.name}</h3><p style="font-size:10px;color:var(--dim);margin-bottom:8px">Source: ${def.src}</p></div><div class="ed-section"><h3>Properties</h3>`;
+const blockIdx=blocks.findIndex(x=>x.uid===selId);
+let h=`<div class="ed-section"><h3>${def.name}</h3><p style="font-size:10px;color:var(--dim);margin-bottom:4px">Source: ${def.src}</p><p style="font-size:10px;color:var(--gold);font-weight:600;margin-bottom:8px">Block ${blockIdx+1} of ${blocks.length}</p></div><div class="ed-section"><h3>Properties</h3>`;
 for(const k of def.editable){
-const v=b.data[k]||"";const lbl=k.replace(/([A-Z])/g," $1").replace(/^\w/,s=>s.toUpperCase());
+const v=b.data[k]||"";const lbl=formatFieldLabel(k);
 if(k==='rawHtml')h+=`<div class="ed-field"><label>${lbl} (HTML)</label><textarea style="min-height:200px;font-family:'Cascadia Code','Fira Code',monospace;font-size:11px;line-height:1.4;color:#a6e3a1" oninput="upd('${b.uid}','${k}',this.value)">${esc(v)}</textarea></div>`;
+else if(/^#[0-9a-f]{3,8}$/i.test(v))h+=`<div class="ed-field"><label>${lbl}</label><div style="display:flex;gap:8px;align-items:center"><input type="color" value="${v}" oninput="upd('${b.uid}','${k}',this.value);this.nextElementSibling.value=this.value" style="width:36px;height:32px;padding:0;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:transparent"><input type="text" value="${esc(v)}" oninput="upd('${b.uid}','${k}',this.value);this.previousElementSibling.value=this.value" style="flex:1"></div></div>`;
 else if(v.length>80)h+=`<div class="ed-field"><label>${lbl}</label><textarea oninput="upd('${b.uid}','${k}',this.value)">${v}</textarea></div>`;
 else h+=`<div class="ed-field"><label>${lbl}</label><input type="text" value="${esc(v)}" oninput="upd('${b.uid}','${k}',this.value)"></div>`}
 h+=`</div><div class="ed-section"><h3>Actions</h3><button class="btn-ghost" style="width:100%;margin-bottom:6px" onclick="dupBlock('${b.uid}')">Duplicate</button><button class="btn-ghost" style="width:100%;margin-bottom:6px" onclick="resetDefaults('${b.uid}')">Reset to Defaults</button><button style="width:100%;padding:8px;background:#ef4444;color:#fff;border:none;border-radius:4px;cursor:pointer;font-family:inherit;font-size:12px" onclick="removeBlock('${b.uid}')">Remove</button></div>`;
@@ -906,6 +928,17 @@ ${s.styles}</head><body>${content}</body></html>`;
 }}
 debouncedPreview()}
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function formatFieldLabel(k){
+  // "stat1Val" -> "Stat 1 Value", "ctaText" -> "CTA Text", "btnText" -> "Button Text"
+  const abbrevs={cta:"CTA",btn:"Button",bg:"Background",val:"Value",num:"Number",desc:"Description",url:"URL",img:"Image",src:"Source"};
+  return k
+    .replace(/([a-z])([A-Z])/g,"$1 $2")
+    .replace(/(\d+)/g," $1 ")
+    .split(/\s+/)
+    .map(w=>{const low=w.toLowerCase();return abbrevs[low]||w.charAt(0).toUpperCase()+w.slice(1)})
+    .join(" ")
+    .trim();
+}
 
 // PREVIEW
 function genHtml(){
@@ -974,7 +1007,7 @@ function saveProject(){
     uploadedComps[cat]=cs.map(c=>({id:c.id,name:c.name,src:c.src,badge:c.badge,badgeBg:c.badgeBg,badgeColor:c.badgeColor,_srcFile:c._srcFile,defaults:c.defaults}));
   }
   const save={blocks,uploadedComps,uploadedStyles};
-  localStorage.setItem("sipBuilder",JSON.stringify(save));showToast("Saved!")}
+  localStorage.setItem("sipBuilder",JSON.stringify(save));_hasUnsavedChanges=false;showToast("Saved!")}
 function loadProject(){const d=localStorage.getItem("sipBuilder");if(!d){showToast("No saved project");return}
   try{restoreSavedProject();renderSidebar();renderCanvas();updatePreview();showToast("Loaded!")}catch(e){showToast("Error loading")}}
 function clearCanvas(){if(!blocks.length)return;if(!confirm(`Clear all ${blocks.length} component${blocks.length>1?'s':''}? This can be undone with Ctrl+Z.`))return;saveState();blocks=[];selId=null;renderCanvas();updatePreview();renderEditor()}
@@ -1139,13 +1172,13 @@ function startAutoSave(){
       uploadedComps[cat]=cs.map(c=>({id:c.id,name:c.name,src:c.src,badge:c.badge,badgeBg:c.badgeBg,badgeColor:c.badgeColor,_srcFile:c._srcFile,defaults:c.defaults}));
     }
     localStorage.setItem("sipBuilder",JSON.stringify({blocks,uploadedComps,uploadedStyles}));
-    _lastSaveHash=current;
+    _lastSaveHash=current;_hasUnsavedChanges=false;
     setTimeout(()=>{
       dot.classList.remove("saving");
       const now=new Date();
       label.textContent=`Saved ${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
     },600);
-  },60000);
+  },15000);
 }
 
 // ENHANCED REMOVE with undo toast
@@ -1459,6 +1492,40 @@ function importSelectedSections() {
   closeUploadModal();
   showToast(`Imported ${imported} section${imported !== 1 ? 's' : ''}`);
 }
+
+// =====================================================
+// DROPDOWN MENUS
+// =====================================================
+function toggleDropdown(id){
+  const menu=document.getElementById(id);
+  const wasOpen=menu.classList.contains("open");
+  closeDropdowns();
+  if(!wasOpen)menu.classList.add("open");
+}
+function closeDropdowns(){document.querySelectorAll(".tb-dropdown-menu").forEach(m=>m.classList.remove("open"))}
+document.addEventListener("click",e=>{if(!e.target.closest(".tb-dropdown"))closeDropdowns()});
+
+// =====================================================
+// UNSAVED CHANGES GUARD
+// =====================================================
+let _hasUnsavedChanges=false;
+const _origSaveState=saveState;
+saveState=function(){_origSaveState();_hasUnsavedChanges=true};
+window.addEventListener("beforeunload",e=>{
+  if(_hasUnsavedChanges&&blocks.length){e.preventDefault();e.returnValue=""}
+});
+
+// =====================================================
+// TOAST WITH SEVERITY
+// =====================================================
+const _origShowToast=showToast;
+showToast=function(msg,type){
+  const t=document.getElementById("toast");
+  t.textContent=msg;
+  t.style.background=type==="error"?"var(--danger)":type==="warn"?"#d97706":"var(--success)";
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2500);
+};
 
 // =====================================================
 // PORTABLE PROJECT JSON — works across machines
