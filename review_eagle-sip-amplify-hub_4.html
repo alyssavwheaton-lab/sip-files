@@ -11,21 +11,21 @@
    DESIGN TOKENS
    ══════════════════════════════════════ */
 :root {
-  --navy: #0A2240;
+  --navy: #002855;
   --navy-deep: #06152C;
   --navy-mid: #0E2A4F;
   --navy-surface: #112E55;
-  --gold: #C5A55A;
+  --gold: #A09162;
   --gold-light: #D4BB7C;
   --gold-pale: #E8DCC0;
   --gold-glow: rgba(197,165,90,0.12);
   --wave-blue: #2E5F8A;
   --wave-light: #4A7FAA;
-  --cream: #F8F6F1;
+  --cream: #F7F5F0;
   --cream-dark: #EDE9E0;
   --text-primary: #1A1D21;
-  --text-secondary: #5A6270;
-  --text-dim: #8B929D;
+  --text-secondary: #5A6B7C;
+  --text-dim: #808084;
   --glass-border: rgba(255,255,255,0.08);
   --glass-fill: rgba(255,255,255,0.04);
 }
@@ -36,7 +36,7 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Source Sans 3', -apple-system, sans-serif;
+  font-family: 'Roboto', sans-serif;
   background: var(--navy-deep);
   color: #fff;
   -webkit-font-smoothing: antialiased;
@@ -78,7 +78,7 @@ body {
   background: var(--gold); color: var(--navy-deep);
   border: none; border-radius: 4px;
   padding: 11px 28px;
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 12px; font-weight: 700;
   letter-spacing: 1.2px; text-transform: uppercase;
   cursor: pointer; text-decoration: none;
@@ -564,7 +564,7 @@ body {
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 6px;
   padding: 12px 14px;
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px; color: #fff;
   outline: none; transition: all 0.2s;
   width: 100%;
@@ -935,8 +935,8 @@ body {
         <line x1="60" y1="250" x2="380" y2="250" stroke="#E2E0DC" stroke-width="1.5"/>
         <line x1="60" y1="250" x2="60" y2="30" stroke="#E2E0DC" stroke-width="1.5"/>
         <!-- Axis labels -->
-        <text x="220" y="280" text-anchor="middle" font-family="Source Sans 3" font-size="11" font-weight="700" fill="#0A2240" letter-spacing="2">INCOME POTENTIAL</text>
-        <text transform="rotate(-90 25 140)" x="25" y="144" text-anchor="middle" font-family="Source Sans 3" font-size="11" font-weight="700" fill="#0A2240" letter-spacing="2">RISK</text>
+        <text x="220" y="280" text-anchor="middle" font-family="Roboto" font-size="11" font-weight="700" fill="#002855" letter-spacing="2">INCOME POTENTIAL</text>
+        <text transform="rotate(-90 25 140)" x="25" y="144" text-anchor="middle" font-family="Roboto" font-size="11" font-weight="700" fill="#002855" letter-spacing="2">RISK</text>
         <!-- Grid lines -->
         <line x1="60" y1="170" x2="380" y2="170" stroke="#E2E0DC" stroke-width="0.5" stroke-dasharray="4"/>
         <line x1="60" y1="90" x2="380" y2="90" stroke="#E2E0DC" stroke-width="0.5" stroke-dasharray="4"/>
@@ -945,23 +945,23 @@ body {
         <!-- Trend line -->
         <line x1="90" y1="220" x2="340" y2="60" stroke="#E2E0DC" stroke-width="1" stroke-dasharray="6"/>
         <!-- SIP dot -->
-        <circle cx="140" cy="200" r="28" fill="#0A2240" opacity="0.1"/>
-        <circle cx="140" cy="200" r="18" fill="#0A2240"/>
-        <text x="140" y="204" text-anchor="middle" font-family="Source Sans 3" font-size="11" font-weight="800" fill="#fff">SIP</text>
-        <text x="140" y="236" text-anchor="middle" font-family="Source Sans 3" font-size="10" fill="#5A6270">Steady</text>
-        <text x="140" y="247" text-anchor="middle" font-family="Source Sans 3" font-size="10" fill="#5A6270">Income</text>
+        <circle cx="140" cy="200" r="28" fill="#002855" opacity="0.1"/>
+        <circle cx="140" cy="200" r="18" fill="#002855"/>
+        <text x="140" y="204" text-anchor="middle" font-family="Roboto" font-size="11" font-weight="800" fill="#fff">SIP</text>
+        <text x="140" y="236" text-anchor="middle" font-family="Roboto" font-size="10" fill="#5A6B7C">Steady</text>
+        <text x="140" y="247" text-anchor="middle" font-family="Roboto" font-size="10" fill="#5A6B7C">Income</text>
         <!-- GSIP dot -->
         <circle cx="240" cy="140" r="28" fill="#2E5F8A" opacity="0.1"/>
         <circle cx="240" cy="140" r="18" fill="#2E5F8A"/>
-        <text x="240" y="144" text-anchor="middle" font-family="Source Sans 3" font-size="10" font-weight="800" fill="#fff">GSIP</text>
-        <text x="240" y="176" text-anchor="middle" font-family="Source Sans 3" font-size="10" fill="#5A6270">Global</text>
-        <text x="240" y="187" text-anchor="middle" font-family="Source Sans 3" font-size="10" fill="#5A6270">Income</text>
+        <text x="240" y="144" text-anchor="middle" font-family="Roboto" font-size="10" font-weight="800" fill="#fff">GSIP</text>
+        <text x="240" y="176" text-anchor="middle" font-family="Roboto" font-size="10" fill="#5A6B7C">Global</text>
+        <text x="240" y="187" text-anchor="middle" font-family="Roboto" font-size="10" fill="#5A6B7C">Income</text>
         <!-- SIP+ dot -->
-        <circle cx="320" cy="80" r="28" fill="#C5A55A" opacity="0.15"/>
-        <circle cx="320" cy="80" r="18" fill="#C5A55A"/>
-        <text x="320" y="84" text-anchor="middle" font-family="Source Sans 3" font-size="10" font-weight="800" fill="#0A2240">SIP+</text>
-        <text x="320" y="116" text-anchor="middle" font-family="Source Sans 3" font-size="10" fill="#5A6270">Increased</text>
-        <text x="320" y="127" text-anchor="middle" font-family="Source Sans 3" font-size="10" fill="#5A6270">Income</text>
+        <circle cx="320" cy="80" r="28" fill="#A09162" opacity="0.15"/>
+        <circle cx="320" cy="80" r="18" fill="#A09162"/>
+        <text x="320" y="84" text-anchor="middle" font-family="Roboto" font-size="10" font-weight="800" fill="#002855">SIP+</text>
+        <text x="320" y="116" text-anchor="middle" font-family="Roboto" font-size="10" fill="#5A6B7C">Increased</text>
+        <text x="320" y="127" text-anchor="middle" font-family="Roboto" font-size="10" fill="#5A6B7C">Income</text>
       </svg>
     </div>
   </div>
