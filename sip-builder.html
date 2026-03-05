@@ -1052,7 +1052,9 @@ function saveProject(){
     uploadedComps[cat]=cs.map(c=>({id:c.id,name:c.name,src:c.src,badge:c.badge,badgeBg:c.badgeBg,badgeColor:c.badgeColor,_srcFile:c._srcFile,defaults:c.defaults}));
   }
   const save={blocks,uploadedComps,uploadedStyles};
-  localStorage.setItem("sipBuilder",JSON.stringify(save));_hasUnsavedChanges=false;showToast("Saved!")}
+  const json=JSON.stringify(save);
+  try{localStorage.setItem("sipBuilder",json);_hasUnsavedChanges=false;showToast("Saved!")}
+  catch(e){if(e.name==='QuotaExceededError'){showToast("Storage full — download project JSON instead")}else{showToast("Save failed: "+e.message)}}}
 function loadProject(){const d=localStorage.getItem("sipBuilder");if(!d){showToast("No saved project");return}
   try{restoreSavedProject();renderSidebar();renderCanvas();updatePreview();showToast("Loaded!")}catch(e){showToast("Error loading")}}
 function clearCanvas(){if(!blocks.length)return;if(!confirm(`Clear all ${blocks.length} component${blocks.length>1?'s':''}? This can be undone with Ctrl+Z.`))return;saveState();blocks=[];selId=null;renderCanvas();updatePreview();renderEditor()}
@@ -1272,6 +1274,14 @@ function handleUpload(e) {
   parsedSections = [];
   uploadFileCount = 0;
 
+  // Validate file sizes (5MB max per file)
+  const maxSize = 5 * 1024 * 1024;
+  const oversized = files.filter(f => f.size > maxSize);
+  if (oversized.length) {
+    showToast(`File too large: ${oversized[0].name} (${(oversized[0].size/1024/1024).toFixed(1)}MB max 5MB)`);
+    return;
+  }
+
   showToast(`Parsing ${files.length} file${files.length>1?'s':''}...`);
 
   const promises = files.map(file => {
@@ -1294,6 +1304,11 @@ function handleUpload(e) {
     if (!parsedSections.length) {
       showToast("No sections found — check that the file contains HTML block elements");
       return;
+    }
+    // Warn about relative image/asset paths
+    const hasRelPaths = parsedSections.some(s => /(?:src|href)=["'](?!https?:\/\/|data:|#|mailto:)[.\/]/i.test(s.html));
+    if (hasRelPaths) {
+      setTimeout(() => showToast("Note: relative image paths may not render — use absolute URLs"), 100);
     }
     showUploadModal();
   });
@@ -1345,15 +1360,19 @@ function parseHtmlIntoSections(html, filename) {
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
   if (bodyMatch) bodyHtml = bodyMatch[1];
 
-  // Also check for content inside a wrapper div (MC content blocks have no body tag)
-  // Remove any <style> blocks from the body content so they don't duplicate
+  // Remove <style> blocks from body (already captured above)
   bodyHtml = bodyHtml.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
   // Remove <script> tags
   bodyHtml = bodyHtml.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
+  // Sanitize: strip inline event handlers (onclick, onerror, onload, etc.) and javascript: URLs
+  bodyHtml = bodyHtml.replace(/\s+on\w+\s*=\s*["'][^"']*["']/gi, '');
+  bodyHtml = bodyHtml.replace(/\s+on\w+\s*=\s*[^\s>]+/gi, '');
+  bodyHtml = bodyHtml.replace(/href\s*=\s*["']javascript:[^"']*["']/gi, 'href="#"');
+  bodyHtml = bodyHtml.replace(/src\s*=\s*["']javascript:[^"']*["']/gi, 'src=""');
 
   // Strategy 1: Split on HTML comments that look like section markers
-  // Matches patterns like <!-- ══ HERO ══ --> or <!-- ===== HERO SECTION ===== -->
-  const commentPattern = /<!--[\s═=─\-]*([A-Z][A-Z &/\-]+[A-Z])[\s═=─\-]*-->/g;
+  // Matches: <!-- HERO -->, <!-- ══ HERO SECTION ══ -->, <!-- === Header === -->, <!-- Section: Hero -->
+  const commentPattern = /<!--[\s═=─\-~#*]*(?:Section:\s*)?([A-Za-z][A-Za-z0-9 &/\-_]{1,40}[A-Za-z0-9])[\s═=─\-~#*]*-->/g;
   const commentMatches = [...bodyHtml.matchAll(commentPattern)];
 
   if (commentMatches.length >= 2) {
@@ -1505,10 +1524,12 @@ function showUploadModal() {
   let h = '';
   parsedSections.forEach((s, i) => {
     const kb = (s.size / 1024).toFixed(1);
+    const safeFname = esc(s.filename);
+    const safeName = esc(s.name);
     h += `<label class="upload-section selected">
       <input type="checkbox" checked data-idx="${i}" onchange="this.parentElement.classList.toggle('selected',this.checked)">
-      <span class="upload-file-tag">${s.filename}</span>
-      <span class="us-name">${s.name}</span>
+      <span class="upload-file-tag">${safeFname}</span>
+      <span class="us-name">${safeName}</span>
       <span class="us-size">${kb} KB</span>
     </label>`;
   });
