@@ -16,6 +16,17 @@
 --navy:#0A2240;--accent:#3b82f6;--success:#22c55e;--danger:#ef4444;
 }
 body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+body.light-mode{
+--bg:#f5f6f8;--panel:#ffffff;--panel2:#f0f1f3;--border:#d8dce3;
+--text:#1a1d24;--dim:#6b7385;--gold:#8B7530;--gold-light:#a08940;
+--navy:#0A2240;--accent:#2563eb;--success:#16a34a;--danger:#dc2626;
+}
+body.light-mode .code-view textarea{color:#166534}
+body.light-mode .topbar{background:#0A2240}
+body.light-mode .block-bar{background:rgba(10,34,64,.9)}
+body.light-mode .tb-dropdown-menu{background:#fff;border-color:#d8dce3;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+body.light-mode .tb-dropdown-menu button{color:#1a1d24}
+body.light-mode .tb-dropdown-menu button:hover{background:rgba(139,117,48,.08)}
 
 /* TOP BAR */
 .topbar{display:flex;align-items:center;gap:16px;padding:0 20px;background:var(--navy);border-bottom:2px solid var(--gold);height:48px;flex-shrink:0}
@@ -79,18 +90,39 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 .canvas::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 .canvas-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--dim);gap:10px}
 .canvas-empty .ico{font-size:40px;opacity:.2}
-.drop-zone{min-height:40px;border:2px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:11px;margin:3px 0;transition:all .2s}
-.drop-zone.over{border-color:var(--gold);background:rgba(197,165,90,.04);color:var(--gold)}
+.drop-zone{min-height:40px;border:2px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:11px;margin:3px 0;transition:all .2s;opacity:.5}
+.drop-zone:hover,.canvas.drag-active .drop-zone{opacity:1;min-height:48px;border-color:rgba(197,165,90,.4)}
+.drop-zone.over{border-color:var(--gold);background:rgba(197,165,90,.08);color:var(--gold);min-height:56px;box-shadow:0 0 12px rgba(197,165,90,.15)}
 .canvas-block{position:relative;border:2px solid transparent;border-radius:6px;margin:3px 0;transition:border-color .15s;overflow:hidden}
 .canvas-block:hover{border-color:var(--border)}
 .canvas-block.selected{border-color:var(--gold)}
+.canvas-block.multi-selected{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
 .block-bar{position:absolute;top:0;left:0;right:0;display:none;align-items:center;justify-content:space-between;padding:4px 8px;background:rgba(10,34,64,.85);backdrop-filter:blur(4px);z-index:10;font-size:10px;color:rgba(255,255,255,.7)}
-.canvas-block:hover .block-bar,.canvas-block.selected .block-bar{display:flex}
+.canvas-block:hover .block-bar,.canvas-block.selected .block-bar,.canvas-block.multi-selected .block-bar{display:flex}
+.block-bar .drag-handle{cursor:grab;padding:0 4px;font-size:12px;opacity:.4;letter-spacing:1px;user-select:none}
+.block-bar .drag-handle:hover{opacity:1;color:var(--gold)}
 .block-bar .lbl{font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--gold)}
 .block-bar .acts{display:flex;gap:2px}
 .block-bar button{width:22px;height:22px;border:none;border-radius:3px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.6);cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center}
 .block-bar button:hover{background:var(--gold);color:var(--navy)}
 .block-html{pointer-events:none}
+/* MULTI-SELECT BULK BAR */
+.bulk-bar{display:none;align-items:center;gap:12px;padding:8px 14px;border-bottom:1px solid var(--border);background:var(--accent);font-size:11px;font-weight:600;color:#fff}
+.bulk-bar.show{display:flex}
+.bulk-bar button{padding:4px 12px;border:1px solid rgba(255,255,255,.3);border-radius:4px;background:rgba(255,255,255,.1);color:#fff;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit}
+.bulk-bar button:hover{background:rgba(255,255,255,.25)}
+.bulk-bar button.bulk-danger{border-color:rgba(239,68,68,.5);color:#fca5a5}
+.bulk-bar button.bulk-danger:hover{background:rgba(239,68,68,.3)}
+/* CANVAS SEARCH BAR */
+.canvas-search{display:none;padding:6px 14px;border-bottom:1px solid var(--border);background:var(--panel2)}
+.canvas-search.show{display:flex}
+.canvas-search input{flex:1;padding:6px 10px;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:12px;outline:none;font-family:inherit}
+.canvas-search input:focus{border-color:var(--gold)}
+.canvas-search .cs-count{font-size:10px;color:var(--dim);margin-left:8px;white-space:nowrap}
+.canvas-search button{background:none;border:none;color:var(--dim);cursor:pointer;font-size:14px;margin-left:4px;padding:2px 6px}
+.canvas-search button:hover{color:var(--text)}
+.canvas-block.search-highlight{outline:2px solid var(--gold);outline-offset:2px}
+.canvas-block.search-dim{opacity:.3}
 
 /* RIGHT PANEL */
 .right-panel{width:600px;display:flex;flex-direction:column;border-left:1px solid var(--border);flex-shrink:0;transition:width .2s ease}
@@ -191,7 +223,7 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 .sidebar-preview-tooltip .spt-body iframe{width:740px;height:900px;border:none;transform:scale(.648);transform-origin:top left;pointer-events:none}
 
 /* CANVAS DRAG-REORDER FEEDBACK */
-.canvas-block[draggable=true]{cursor:grab}
+.drag-handle{cursor:grab}
 .canvas-block.dragging{opacity:.4;border-style:dashed}
 .canvas-block.drag-above{border-top:3px solid var(--gold)!important}
 .canvas-block.drag-below{border-bottom:3px solid var(--gold)!important}
@@ -209,6 +241,16 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 .right-toggle{width:20px;background:var(--panel);border:none;border-left:1px solid var(--border);cursor:pointer;color:var(--dim);font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;writing-mode:vertical-rl}
 .right-toggle:hover{background:var(--panel2);color:var(--text)}
 .right-panel.collapsed{width:0;overflow:hidden;border:none}
+
+/* TOPBAR FILE DROPDOWN */
+.tb-dropdown{position:relative;display:inline-block}
+.tb-dropdown-menu{display:none;position:absolute;top:100%;left:0;margin-top:6px;background:var(--panel);border:1px solid var(--border);border-radius:6px;min-width:220px;z-index:2000;box-shadow:0 8px 24px rgba(0,0,0,.5);padding:4px 0;overflow:hidden}
+.tb-dropdown-menu.open{display:block}
+.tb-dropdown-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:9px 16px;background:none;border:none;color:var(--text);font-size:12px;font-family:inherit;cursor:pointer;text-align:left;transition:background .1s}
+.tb-dropdown-menu button:hover{background:rgba(197,165,90,.1);color:#fff}
+.tb-dropdown-menu button .dd-icon{width:18px;text-align:center;font-size:13px;opacity:.5;flex-shrink:0}
+.tb-dropdown-menu button .dd-key{margin-left:auto;font-size:9px;color:var(--dim);letter-spacing:.5px;opacity:.6}
+.tb-dropdown-sep{height:1px;background:var(--border);margin:4px 0}
 
 /* RESPONSIVE — auto-collapse on small screens */
 @media(max-width:1200px){
@@ -230,14 +272,27 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
   <span class="topbar-spacer"></span>
   <div class="autosave-dot" id="autosaveDot" title="Auto-save active"></div>
   <span class="autosave-label" id="autosaveLabel">Auto-saved</span>
-  <button class="btn-ghost" onclick="clearCanvas()">Clear</button>
-  <button class="btn-ghost" onclick="saveProject()">Save</button>
-  <button class="btn-ghost" onclick="loadProject()">Load</button>
+  <div class="tb-dropdown">
+    <button class="btn-ghost" onclick="toggleDropdown('fileMenu')">File &#9662;</button>
+    <div class="tb-dropdown-menu" id="fileMenu">
+      <button onclick="saveProject();closeDropdowns()"><span class="dd-icon">&#128190;</span> Save to Browser <span class="dd-key">Ctrl+S</span></button>
+      <button onclick="loadProject();closeDropdowns()"><span class="dd-icon">&#128194;</span> Load from Browser</button>
+      <div class="tb-dropdown-sep"></div>
+      <button onclick="downloadProjectJSON();closeDropdowns()"><span class="dd-icon">&#8615;</span> Download Project (.json)</button>
+      <button onclick="document.getElementById('projectImport').click();closeDropdowns()"><span class="dd-icon">&#8613;</span> Import Project (.json)</button>
+      <div class="tb-dropdown-sep"></div>
+      <button onclick="bakeUploadsIntoFile();closeDropdowns()"><span class="dd-icon">&#128230;</span> Save Builder + Uploads (.html)</button>
+      <div class="tb-dropdown-sep"></div>
+      <button onclick="clearCanvas();closeDropdowns()" style="color:var(--danger)"><span class="dd-icon">&#128465;</span> Clear Canvas</button>
+    </div>
+  </div>
+  <input type="file" id="projectImport" accept=".json" style="display:none" onchange="importProjectJSON(event)">
   <button class="btn-ghost" onclick="undoAction()" title="Ctrl+Z">Undo</button>
   <button class="btn-ghost" onclick="redoAction()" title="Ctrl+Y">Redo</button>
   <button class="btn-upload" onclick="document.getElementById('fileUpload').click()">&#11014; Upload HTML</button>
   <input type="file" id="fileUpload" accept=".html,.htm" multiple style="display:none" onchange="handleUpload(event)">
   <button class="btn-gold" onclick="showExportModal()">Export for SFMC</button>
+  <button class="btn-ghost" onclick="toggleTheme()" title="Toggle light/dark mode" id="themeBtn" style="padding:6px 8px;font-size:13px">&#9788;</button>
   <button class="btn-ghost" onclick="showShortcuts()" title="Keyboard Shortcuts" style="padding:6px 8px;font-size:13px">?</button>
 </div>
 <div class="main">
@@ -249,6 +304,8 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" title="Toggle sidebar">&#9664; Components</button>
 <div class="canvas-wrap">
   <div class="canvas-bar"><span>Build Canvas</span> — <span class="ct" id="blockCount">0</span> <span>components</span><span id="srcBadges" style="margin-left:auto;display:flex;gap:6px"></span></div>
+  <div class="bulk-bar" id="bulkBar"><span id="bulkCount">0 selected</span><button onclick="bulkDuplicate()">Duplicate</button><button onclick="bulkMoveUp()">Move Up</button><button onclick="bulkMoveDown()">Move Down</button><button class="bulk-danger" onclick="bulkDelete()">Delete</button><button onclick="clearMultiSelect()" style="margin-left:auto">Cancel</button></div>
+  <div class="canvas-search" id="canvasSearch"><input type="text" id="canvasSearchInput" placeholder="Search blocks by name..." oninput="filterCanvasBlocks()"><span class="cs-count" id="csCount"></span><button onclick="closeCanvasSearch()" title="Close">&times;</button></div>
   <div class="canvas" id="canvas"></div>
 </div>
 <button class="right-toggle" id="rightToggle" onclick="toggleRightPanel()" title="Toggle preview">Preview &#9654;</button>
@@ -274,7 +331,7 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
       <div class="preview-wrap"><iframe id="previewFrame" title="Preview"></iframe></div>
     </div>
     <div class="tab-pane" id="tab-editor"><div class="editor-pane" id="editorPane"><div style="color:var(--dim);font-size:12px;text-align:center;padding:40px">Select a component on the canvas to edit</div></div></div>
-    <div class="tab-pane" id="tab-code"><div class="code-view"><textarea id="codeArea" spellcheck="false" readonly></textarea></div></div>
+    <div class="tab-pane" id="tab-code"><div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border-bottom:1px solid var(--border);background:var(--panel)"><span style="font-size:10px;color:var(--dim);letter-spacing:.5px">EDITABLE HTML</span><span style="flex:1"></span><button class="btn-ghost" onclick="applyCodeEdits()" style="font-size:10px;padding:4px 12px">Apply Changes</button><button class="btn-ghost" onclick="updateCode()" style="font-size:10px;padding:4px 12px">Reset</button></div><div class="code-view"><textarea id="codeArea" spellcheck="false"></textarea></div></div>
   </div>
 </div>
 </div>
@@ -323,8 +380,11 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
         <div class="kbd-row"><span class="kbd-label">Duplicate block</span><kbd>Ctrl</kbd> + <kbd>D</kbd></div>
         <div class="kbd-row"><span class="kbd-label">Delete block</span><kbd>Delete</kbd></div>
         <div class="kbd-row"><span class="kbd-label">Navigate blocks</span><kbd>↑</kbd> / <kbd>↓</kbd></div>
+        <div class="kbd-row"><span class="kbd-label">Multi-select</span><kbd>Shift</kbd> + <kbd>Click</kbd></div>
+        <div class="kbd-row"><span class="kbd-label">Search blocks</span><kbd>Ctrl</kbd> + <kbd>F</kbd></div>
         <div class="kbd-row"><span class="kbd-label">Toggle sidebar</span><kbd>[</kbd></div>
         <div class="kbd-row"><span class="kbd-label">Toggle preview</span><kbd>]</kbd></div>
+        <div class="kbd-row"><span class="kbd-label">Toggle theme</span><kbd>T</kbd></div>
         <div class="kbd-row"><span class="kbd-label">Show shortcuts</span><kbd>?</kbd></div>
         <div class="kbd-row"><span class="kbd-label">Deselect / Close</span><kbd>Esc</kbd></div>
       </div>
@@ -666,8 +726,23 @@ function init(){
   cv.addEventListener("drop",e=>{e.preventDefault();if(!canvasDragUid)handleDrop(blocks.length)});
 }
 
-// Restore saved state from localStorage (silent — no toast on startup)
+// Restore saved state from localStorage + embedded data (silent — no toast on startup)
 function restoreSavedProject(){
+  // First: check for uploads baked into the HTML file (portable across machines)
+  const embedded=getEmbeddedData();
+  if(embedded){
+    if(embedded.uploadedStyles)Object.assign(uploadedStyles,embedded.uploadedStyles);
+    if(embedded.uploadedComps){
+      for(const[cat,comps]of Object.entries(embedded.uploadedComps)){
+        if(!C[cat])C[cat]=[];
+        for(const c of comps){
+          if(C[cat].find(x=>x.id===c.id))continue;
+          C[cat].push({...c,editable:["rawHtml"],html:d=>d.rawHtml});
+        }
+      }
+    }
+  }
+  // Then: layer on localStorage data (may have newer state)
   const d=localStorage.getItem("sipBuilder");if(!d)return;
   try{
     const save=JSON.parse(d);
@@ -711,7 +786,11 @@ sptActive=id;
 document.getElementById("sptName").textContent=def.name;
 const frame=document.getElementById("sptFrame");
 const html=def.html(def.defaults);
-const doc=`<!DOCTYPE html><html><head><link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/><style>body{margin:0;padding:0;}</style></head><body>${html}</body></html>`;
+// Include uploaded styles if available
+const s=def._srcFile?uploadedStyles[def._srcFile]:null;
+const extraLinks=s?s.links:'';
+const extraStyles=s?s.styles:'';
+const doc=`<!DOCTYPE html><html><head><link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>${extraLinks}<style>body{margin:0;padding:0;}</style>${extraStyles}</head><body>${html}</body></html>`;
 frame.srcdoc=doc;
 // Position tooltip to the right of the clicked button
 const rect=e.target.closest(".comp-item").getBoundingClientRect();
@@ -783,8 +862,9 @@ let h="";
 blocks.forEach((b,i)=>{const def=findDef(b.compId);if(!def)return;
 const sel=b.uid===selId?" selected":"";
 h+=`<div class="drop-zone" data-idx="${i}" ondragover="dzO(event)" ondragleave="dzL(event)" ondrop="dzD(event,${i})"></div>`;
-h+=`<div class="canvas-block${sel}" data-uid="${b.uid}" draggable="true" onclick="selectBlock('${b.uid}')" ondragstart="onCanvasDragStart(event,'${b.uid}')" ondragend="onCanvasDragEnd(event)" ondragover="onCanvasDragOver(event)" ondrop="onCanvasBlockDrop(event,'${b.uid}')">`;
-h+=`<div class="block-bar"><span class="lbl">${def.name}</span><div class="acts">`;
+const msel=multiSel.has(b.uid)?" multi-selected":"";
+h+=`<div class="canvas-block${sel}${msel}" data-uid="${b.uid}" onclick="handleBlockClick(event,'${b.uid}')" ondragover="onCanvasDragOver(event)" ondrop="onCanvasBlockDrop(event,'${b.uid}')">`;
+h+=`<div class="block-bar"><span class="drag-handle" draggable="true" ondragstart="onCanvasDragStart(event,'${b.uid}')" ondragend="onCanvasDragEnd(event)" title="Drag to reorder">&#9776;</span><span class="lbl">${def.name}</span><div class="acts">`;
 h+=`<button onclick="event.stopPropagation();moveBlock('${b.uid}',-1)" title="Up">▲</button>`;
 h+=`<button onclick="event.stopPropagation();moveBlock('${b.uid}',1)" title="Down">▼</button>`;
 h+=`<button onclick="event.stopPropagation();dupBlock('${b.uid}')" title="Duplicate">⧉</button>`;
@@ -800,8 +880,38 @@ function renderBlockHtml(def, data) {
   return def.html(data);
 }
 
-// Track Blob URLs for uploaded block iframes to prevent memory leaks
-const _blockBlobUrls={};
+// Build the full HTML document for an uploaded component (used by canvas isolation and inline edits)
+function buildUploadedBlockHtml(def, data) {
+  const s = uploadedStyles[def._srcFile];
+  if (!s) return def.html(data);
+  const content = def.html(data);
+  // Use postMessage to report height back to parent for auto-resize
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+${s.links}
+<style>*{margin:0;padding:0;box-sizing:border-box}body{margin:0;padding:0;overflow:hidden}</style>
+${s.styles}
+</head><body>${content}
+<script>
+function reportHeight(){window.parent.postMessage({type:'iframeHeight',height:document.body.scrollHeight},'*')}
+window.addEventListener('load',()=>{reportHeight();new MutationObserver(reportHeight).observe(document.body,{childList:true,subtree:true})});
+setTimeout(reportHeight,500);setTimeout(reportHeight,1500);
+<\/script></body></html>`;
+}
+
+// Listen for iframe height messages
+window.addEventListener('message',e=>{
+  if(e.data&&e.data.type==='iframeHeight'){
+    // Find the iframe that sent this message
+    document.querySelectorAll('.block-html iframe, .spt-body iframe').forEach(f=>{
+      try{if(f.contentWindow===e.source)f.style.height=Math.max(60,e.data.height)+'px'}catch(ex){}
+    });
+  }
+});
+
 // After renderCanvas(), isolate uploaded component blocks in iframes to prevent style leakage
 function isolateUploadedBlocks() {
   document.querySelectorAll('.canvas-block').forEach(block => {
@@ -814,33 +924,19 @@ function isolateUploadedBlocks() {
     if (!s) return;
     const blockEl = block.querySelector('.block-html');
     if (!blockEl) return;
-    const content = def.html(b.data);
-    const fullHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-${s.links}
-<style>*{margin:0;padding:0;box-sizing:border-box}body{margin:0;padding:0;overflow:hidden}</style>
-${s.styles}
-</head><body>${content}</body></html>`;
+    const fullHtml = buildUploadedBlockHtml(def, b.data);
     const iframe = document.createElement('iframe');
-    iframe.style.cssText = 'width:100%;border:none;min-height:60px;pointer-events:none;';
+    iframe.style.cssText = 'width:100%;border:none;min-height:60px;pointer-events:none;display:block;';
     iframe.scrolling = 'no';
     blockEl.innerHTML = '';
     blockEl.appendChild(iframe);
-    if(_blockBlobUrls[uid])URL.revokeObjectURL(_blockBlobUrls[uid]);
-    const blob = new Blob([fullHtml], {type: 'text/html'});
-    _blockBlobUrls[uid]=URL.createObjectURL(blob);
-    iframe.src = _blockBlobUrls[uid];
-    iframe.onload = function() {
-      try { this.style.height = this.contentDocument.body.scrollHeight + 'px'; } catch(e) {}
-    };
+    iframe.srcdoc = fullHtml;
   });
 }
 
 // DRAG
-function onDragStart(e,id){dragSrc={type:"new",compId:id};e.dataTransfer.setData("text/plain",id);e.dataTransfer.effectAllowed="copy"}
+function onDragStart(e,id){dragSrc={type:"new",compId:id};e.dataTransfer.setData("text/plain",id);e.dataTransfer.effectAllowed="copy";document.getElementById("canvas").classList.add("drag-active")}
+document.addEventListener("dragend",()=>{document.getElementById("canvas").classList.remove("drag-active")})
 function dzO(e){e.preventDefault();e.currentTarget.classList.add("over")}
 function dzL(e){e.currentTarget.classList.remove("over")}
 function dzD(e,i){e.preventDefault();e.currentTarget.classList.remove("over");handleDrop(i)}
@@ -851,10 +947,12 @@ function renderEditor(){
 const p=document.getElementById("editorPane");
 if(!selId){p.innerHTML='<div style="color:var(--dim);font-size:12px;text-align:center;padding:40px">Select a component on the canvas to edit</div>';return}
 const b=blocks.find(x=>x.uid===selId);if(!b)return;const def=findDef(b.compId);if(!def)return;
-let h=`<div class="ed-section"><h3>${def.name}</h3><p style="font-size:10px;color:var(--dim);margin-bottom:8px">Source: ${def.src}</p></div><div class="ed-section"><h3>Properties</h3>`;
+const blockIdx=blocks.findIndex(x=>x.uid===selId);
+let h=`<div class="ed-section"><h3>${def.name}</h3><p style="font-size:10px;color:var(--dim);margin-bottom:4px">Source: ${def.src}</p><p style="font-size:10px;color:var(--gold);font-weight:600;margin-bottom:8px">Block ${blockIdx+1} of ${blocks.length}</p></div><div class="ed-section"><h3>Properties</h3>`;
 for(const k of def.editable){
-const v=b.data[k]||"";const lbl=k.replace(/([A-Z])/g," $1").replace(/^\w/,s=>s.toUpperCase());
+const v=b.data[k]||"";const lbl=formatFieldLabel(k);
 if(k==='rawHtml')h+=`<div class="ed-field"><label>${lbl} (HTML)</label><textarea style="min-height:200px;font-family:'Cascadia Code','Fira Code',monospace;font-size:11px;line-height:1.4;color:#a6e3a1" oninput="upd('${b.uid}','${k}',this.value)">${esc(v)}</textarea></div>`;
+else if(/^#[0-9a-f]{3,8}$/i.test(v))h+=`<div class="ed-field"><label>${lbl}</label><div style="display:flex;gap:8px;align-items:center"><input type="color" value="${v}" oninput="upd('${b.uid}','${k}',this.value);this.nextElementSibling.value=this.value" style="width:36px;height:32px;padding:0;border:1px solid var(--border);border-radius:4px;cursor:pointer;background:transparent"><input type="text" value="${esc(v)}" oninput="upd('${b.uid}','${k}',this.value);this.previousElementSibling.value=this.value" style="flex:1"></div></div>`;
 else if(v.length>80)h+=`<div class="ed-field"><label>${lbl}</label><textarea oninput="upd('${b.uid}','${k}',this.value)">${v}</textarea></div>`;
 else h+=`<div class="ed-field"><label>${lbl}</label><input type="text" value="${esc(v)}" oninput="upd('${b.uid}','${k}',this.value)"></div>`}
 h+=`</div><div class="ed-section"><h3>Actions</h3><button class="btn-ghost" style="width:100%;margin-bottom:6px" onclick="dupBlock('${b.uid}')">Duplicate</button><button class="btn-ghost" style="width:100%;margin-bottom:6px" onclick="resetDefaults('${b.uid}')">Reset to Defaults</button><button style="width:100%;padding:8px;background:#ef4444;color:#fff;border:none;border-radius:4px;cursor:pointer;font-family:inherit;font-size:12px" onclick="removeBlock('${b.uid}')">Remove</button></div>`;
@@ -863,30 +961,29 @@ p.innerHTML=h}
 function upd(uid,k,v){const b=blocks.find(x=>x.uid===uid);if(!b)return;b.data[k]=v;
 const el=document.querySelector(`[data-uid="${uid}"] .block-html`);if(el){const def=findDef(b.compId);if(def){
   if(def._srcFile){
-    // Re-isolate this single block in an iframe
-    const block=el.closest('.canvas-block');
-    if(block){const s=uploadedStyles[def._srcFile];if(s){
-      const content=def.html(b.data);
-      const fullHtml=`<!DOCTYPE html><html><head><meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-${s.links}<style>*{margin:0;padding:0;box-sizing:border-box}body{margin:0;padding:0;overflow:hidden}</style>
-${s.styles}</head><body>${content}</body></html>`;
-      const iframe=document.createElement('iframe');
-      iframe.style.cssText='width:100%;border:none;min-height:60px;pointer-events:none;';
-      iframe.scrolling='no';el.innerHTML='';el.appendChild(iframe);
-      if(_blockBlobUrls[uid])URL.revokeObjectURL(_blockBlobUrls[uid]);
-      const blob=new Blob([fullHtml],{type:'text/html'});_blockBlobUrls[uid]=URL.createObjectURL(blob);iframe.src=_blockBlobUrls[uid];
-      iframe.onload=function(){try{this.style.height=this.contentDocument.body.scrollHeight+'px'}catch(e){}};
-    }}
+    // Re-isolate this single block in an iframe using shared helper
+    const fullHtml=buildUploadedBlockHtml(def,b.data);
+    const iframe=document.createElement('iframe');
+    iframe.style.cssText='width:100%;border:none;min-height:60px;pointer-events:none;display:block;';
+    iframe.scrolling='no';el.innerHTML='';el.appendChild(iframe);
+    iframe.srcdoc=fullHtml;
   } else {
     el.innerHTML=renderBlockHtml(def,b.data);
   }
 }}
 debouncedPreview()}
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function formatFieldLabel(k){
+  // "stat1Val" -> "Stat 1 Value", "ctaText" -> "CTA Text", "btnText" -> "Button Text"
+  const abbrevs={cta:"CTA",btn:"Button",bg:"Background",val:"Value",num:"Number",desc:"Description",url:"URL",img:"Image",src:"Source"};
+  return k
+    .replace(/([a-z])([A-Z])/g,"$1 $2")
+    .replace(/(\d+)/g," $1 ")
+    .split(/\s+/)
+    .map(w=>{const low=w.toLowerCase();return abbrevs[low]||w.charAt(0).toUpperCase()+w.slice(1)})
+    .join(" ")
+    .trim();
+}
 
 // PREVIEW
 function genHtml(){
@@ -955,7 +1052,9 @@ function saveProject(){
     uploadedComps[cat]=cs.map(c=>({id:c.id,name:c.name,src:c.src,badge:c.badge,badgeBg:c.badgeBg,badgeColor:c.badgeColor,_srcFile:c._srcFile,defaults:c.defaults}));
   }
   const save={blocks,uploadedComps,uploadedStyles};
-  localStorage.setItem("sipBuilder",JSON.stringify(save));showToast("Saved!")}
+  const json=JSON.stringify(save);
+  try{localStorage.setItem("sipBuilder",json);_hasUnsavedChanges=false;showToast("Saved!")}
+  catch(e){if(e.name==='QuotaExceededError'){showToast("Storage full — download project JSON instead")}else{showToast("Save failed: "+e.message)}}}
 function loadProject(){const d=localStorage.getItem("sipBuilder");if(!d){showToast("No saved project");return}
   try{restoreSavedProject();renderSidebar();renderCanvas();updatePreview();showToast("Loaded!")}catch(e){showToast("Error loading")}}
 function clearCanvas(){if(!blocks.length)return;if(!confirm(`Clear all ${blocks.length} component${blocks.length>1?'s':''}? This can be undone with Ctrl+Z.`))return;saveState();blocks=[];selId=null;renderCanvas();updatePreview();renderEditor()}
@@ -972,12 +1071,18 @@ document.addEventListener("keydown",e=>{
   if((e.ctrlKey||e.metaKey)&&e.key==="y"){e.preventDefault();redoAction()}
   if((e.ctrlKey||e.metaKey)&&e.key==="s"){e.preventDefault();saveProject()}
   if((e.ctrlKey||e.metaKey)&&e.key==="d"){e.preventDefault();if(selId)dupBlock(selId)}
-  if(e.key==="Delete"&&selId)removeBlock(selId);
-  if(e.key==="Escape"){selId=null;document.querySelectorAll(".canvas-block").forEach(e=>e.classList.remove("selected"));renderEditor();switchTab('preview');closeSidebarPreview()}
+  if(e.key==="Delete"&&selId){if(multiSel.size){bulkDelete();return}removeBlock(selId)}
+  if(e.key==="Escape"){
+    if(document.getElementById("canvasSearch").classList.contains("show")){closeCanvasSearch();return}
+    if(multiSel.size){clearMultiSelect();return}
+    selId=null;document.querySelectorAll(".canvas-block").forEach(e=>e.classList.remove("selected"));renderEditor();switchTab('preview');closeSidebarPreview()
+  }
   if(e.key==="ArrowUp"&&selId&&!e.ctrlKey){e.preventDefault();navBlock(-1)}
   if(e.key==="ArrowDown"&&selId&&!e.ctrlKey){e.preventDefault();navBlock(1)}
+  if((e.ctrlKey||e.metaKey)&&e.key==="f"){e.preventDefault();openCanvasSearch()}
   if(e.key==="[")toggleSidebar();
   if(e.key==="]")toggleRightPanel();
+  if(e.key.toLowerCase()==="t"&&!e.ctrlKey&&!e.metaKey)toggleTheme();
   if(e.key==="?"){e.preventDefault();showShortcuts()}
 });
 
@@ -1120,13 +1225,13 @@ function startAutoSave(){
       uploadedComps[cat]=cs.map(c=>({id:c.id,name:c.name,src:c.src,badge:c.badge,badgeBg:c.badgeBg,badgeColor:c.badgeColor,_srcFile:c._srcFile,defaults:c.defaults}));
     }
     localStorage.setItem("sipBuilder",JSON.stringify({blocks,uploadedComps,uploadedStyles}));
-    _lastSaveHash=current;
+    _lastSaveHash=current;_hasUnsavedChanges=false;
     setTimeout(()=>{
       dot.classList.remove("saving");
       const now=new Date();
       label.textContent=`Saved ${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
     },600);
-  },60000);
+  },15000);
 }
 
 // ENHANCED REMOVE with undo toast
@@ -1169,6 +1274,16 @@ function handleUpload(e) {
   parsedSections = [];
   uploadFileCount = 0;
 
+  // Validate file sizes (5MB max per file)
+  const maxSize = 5 * 1024 * 1024;
+  const oversized = files.filter(f => f.size > maxSize);
+  if (oversized.length) {
+    showToast(`File too large: ${oversized[0].name} (${(oversized[0].size/1024/1024).toFixed(1)}MB max 5MB)`);
+    return;
+  }
+
+  showToast(`Parsing ${files.length} file${files.length>1?'s':''}...`);
+
   const promises = files.map(file => {
     return new Promise(resolve => {
       const reader = new FileReader();
@@ -1180,14 +1295,20 @@ function handleUpload(e) {
         uploadFileCount++;
         resolve();
       };
+      reader.onerror = () => { showToast("Error reading " + file.name); resolve(); };
       reader.readAsText(file);
     });
   });
 
   Promise.all(promises).then(() => {
     if (!parsedSections.length) {
-      showToast("No sections found in uploaded file(s)");
+      showToast("No sections found — check that the file contains HTML block elements");
       return;
+    }
+    // Warn about relative image/asset paths
+    const hasRelPaths = parsedSections.some(s => /(?:src|href)=["'](?!https?:\/\/|data:|#|mailto:)[.\/]/i.test(s.html));
+    if (hasRelPaths) {
+      setTimeout(() => showToast("Note: relative image paths may not render — use absolute URLs"), 100);
     }
     showUploadModal();
   });
@@ -1239,15 +1360,19 @@ function parseHtmlIntoSections(html, filename) {
   const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
   if (bodyMatch) bodyHtml = bodyMatch[1];
 
-  // Also check for content inside a wrapper div (MC content blocks have no body tag)
-  // Remove any <style> blocks from the body content so they don't duplicate
+  // Remove <style> blocks from body (already captured above)
   bodyHtml = bodyHtml.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
   // Remove <script> tags
   bodyHtml = bodyHtml.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
+  // Sanitize: strip inline event handlers (onclick, onerror, onload, etc.) and javascript: URLs
+  bodyHtml = bodyHtml.replace(/\s+on\w+\s*=\s*["'][^"']*["']/gi, '');
+  bodyHtml = bodyHtml.replace(/\s+on\w+\s*=\s*[^\s>]+/gi, '');
+  bodyHtml = bodyHtml.replace(/href\s*=\s*["']javascript:[^"']*["']/gi, 'href="#"');
+  bodyHtml = bodyHtml.replace(/src\s*=\s*["']javascript:[^"']*["']/gi, 'src=""');
 
   // Strategy 1: Split on HTML comments that look like section markers
-  // Matches patterns like <!-- ══ HERO ══ --> or <!-- ===== HERO SECTION ===== -->
-  const commentPattern = /<!--[\s═=─\-]*([A-Z][A-Z &/\-]+[A-Z])[\s═=─\-]*-->/g;
+  // Matches: <!-- HERO -->, <!-- ══ HERO SECTION ══ -->, <!-- === Header === -->, <!-- Section: Hero -->
+  const commentPattern = /<!--[\s═=─\-~#*]*(?:Section:\s*)?([A-Za-z][A-Za-z0-9 &/\-_]{1,40}[A-Za-z0-9])[\s═=─\-~#*]*-->/g;
   const commentMatches = [...bodyHtml.matchAll(commentPattern)];
 
   if (commentMatches.length >= 2) {
@@ -1271,34 +1396,58 @@ function parseHtmlIntoSections(html, filename) {
     return sections;
   }
 
-  // Strategy 2: Parse DOM and extract top-level block elements
+  // Strategy 2: Split on top-level block tags using regex to preserve original HTML
+  // DOMParser's outerHTML can mangle inline styles, so we use raw string extraction
+  const topBlockRe = /<(div|section|header|footer|nav|main|article|aside|table|form)(\s[^>]*)?>[\s\S]*?<\/\1>/gi;
+  const rawMatches = [...bodyHtml.matchAll(topBlockRe)];
+
+  // Also parse DOM for naming purposes only
   const doc = parser.parseFromString(`<div id="_root_">${bodyHtml}</div>`, 'text/html');
   const root = doc.getElementById('_root_');
-  if (!root) return sections;
-
-  const children = Array.from(root.children);
+  const domChildren = root ? Array.from(root.children) : [];
   let sectionIndex = 0;
 
-  for (const child of children) {
-    const tag = child.tagName.toLowerCase();
-    const outerHtml = child.outerHTML;
+  // Use raw regex matches but DOM children for naming
+  const matchesToUse = rawMatches.length > 0 ? rawMatches : [];
+  for (let mi = 0; mi < matchesToUse.length; mi++) {
+    const rawHtml = matchesToUse[mi][0];
+    const tag = matchesToUse[mi][1].toLowerCase();
 
-    // Skip tiny elements (spacers, line breaks, scripts, style tags)
-    if (outerHtml.length < 80) continue;
+    // Skip tiny elements
+    if (rawHtml.length < 80) continue;
     if (['script', 'style', 'link', 'meta'].includes(tag)) continue;
 
     sectionIndex++;
 
-    // Try to determine a name from the element
-    let name = guessName(child, tag, sectionIndex);
+    // Use corresponding DOM child for naming if available
+    const domChild = domChildren[mi] || null;
+    let name = domChild ? guessName(domChild, tag, sectionIndex) : `Section ${sectionIndex}`;
 
     sections.push({
       name: name,
       filename: filename,
-      html: outerHtml,
-      size: outerHtml.length,
+      html: rawHtml,
+      size: rawHtml.length,
       checked: true
     });
+  }
+
+  // Fallback: if regex found nothing, try DOMParser children with outerHTML
+  if (!matchesToUse.length && domChildren.length) {
+    for (const child of domChildren) {
+      const tag = child.tagName.toLowerCase();
+      const outerHtml = child.outerHTML;
+      if (outerHtml.length < 80) continue;
+      if (['script', 'style', 'link', 'meta'].includes(tag)) continue;
+      sectionIndex++;
+      sections.push({
+        name: guessName(child, tag, sectionIndex),
+        filename: filename,
+        html: outerHtml,
+        size: outerHtml.length,
+        checked: true
+      });
+    }
   }
 
   // Strategy 3: If nothing parsed, add the whole file as one block
@@ -1375,10 +1524,12 @@ function showUploadModal() {
   let h = '';
   parsedSections.forEach((s, i) => {
     const kb = (s.size / 1024).toFixed(1);
+    const safeFname = esc(s.filename);
+    const safeName = esc(s.name);
     h += `<label class="upload-section selected">
       <input type="checkbox" checked data-idx="${i}" onchange="this.parentElement.classList.toggle('selected',this.checked)">
-      <span class="upload-file-tag">${s.filename}</span>
-      <span class="us-name">${s.name}</span>
+      <span class="upload-file-tag">${safeFname}</span>
+      <span class="us-name">${safeName}</span>
       <span class="us-size">${kb} KB</span>
     </label>`;
   });
@@ -1441,7 +1592,288 @@ function importSelectedSections() {
   showToast(`Imported ${imported} section${imported !== 1 ? 's' : ''}`);
 }
 
+// =====================================================
+// DROPDOWN MENUS
+// =====================================================
+function toggleDropdown(id){
+  const menu=document.getElementById(id);
+  const wasOpen=menu.classList.contains("open");
+  closeDropdowns();
+  if(!wasOpen)menu.classList.add("open");
+}
+function closeDropdowns(){document.querySelectorAll(".tb-dropdown-menu").forEach(m=>m.classList.remove("open"))}
+document.addEventListener("click",e=>{if(!e.target.closest(".tb-dropdown"))closeDropdowns()});
+
+// =====================================================
+// UNSAVED CHANGES GUARD
+// =====================================================
+let _hasUnsavedChanges=false;
+const _origSaveState=saveState;
+saveState=function(){_origSaveState();_hasUnsavedChanges=true};
+window.addEventListener("beforeunload",e=>{
+  if(_hasUnsavedChanges&&blocks.length){e.preventDefault();e.returnValue=""}
+});
+
+// =====================================================
+// TOAST WITH SEVERITY
+// =====================================================
+const _origShowToast=showToast;
+showToast=function(msg,type){
+  const t=document.getElementById("toast");
+  t.textContent=msg;
+  t.style.background=type==="error"?"var(--danger)":type==="warn"?"#d97706":"var(--success)";
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2500);
+};
+
+// =====================================================
+// PORTABLE PROJECT JSON — works across machines
+// =====================================================
+function downloadProjectJSON(){
+  // Collect uploaded component defs
+  const uploadedComps={};
+  for(const[cat,cs]of Object.entries(C)){
+    if(!cat.startsWith("Uploaded:"))continue;
+    uploadedComps[cat]=cs.map(c=>({id:c.id,name:c.name,src:c.src,badge:c.badge,badgeBg:c.badgeBg,badgeColor:c.badgeColor,_srcFile:c._srcFile,defaults:c.defaults}));
+  }
+  const proj={version:1,exportedAt:new Date().toISOString(),blocks,uploadedComps,uploadedStyles};
+  const blob=new Blob([JSON.stringify(proj,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`sip-project_${new Date().toISOString().split("T")[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast("Project file downloaded");
+}
+
+function importProjectJSON(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const proj=JSON.parse(ev.target.result);
+      // Restore uploaded styles
+      if(proj.uploadedStyles)Object.assign(uploadedStyles,proj.uploadedStyles);
+      // Restore uploaded component definitions
+      if(proj.uploadedComps){
+        for(const[cat,comps]of Object.entries(proj.uploadedComps)){
+          if(!C[cat])C[cat]=[];
+          for(const c of comps){
+            if(C[cat].find(x=>x.id===c.id))continue;
+            C[cat].push({...c,editable:["rawHtml"],html:d=>d.rawHtml});
+          }
+        }
+      }
+      // Restore blocks
+      if(proj.blocks){blocks=proj.blocks}
+      renderSidebar();renderCanvas();updatePreview();
+      // Also persist to localStorage so it sticks
+      saveProject();
+      showToast("Project imported — "+blocks.length+" components");
+    }catch(err){showToast("Invalid project file")}
+  };
+  reader.readAsText(file);
+  e.target.value="";
+}
+
+// =====================================================
+// BAKE UPLOADS INTO HTML — embed data so file is portable via Git
+// =====================================================
+function getEmbeddedData(){
+  // Check for embedded upload data baked into the HTML file itself
+  const el=document.getElementById("_embeddedUploads");
+  if(!el)return null;
+  try{return JSON.parse(el.textContent)}catch(e){return null}
+}
+
+function bakeUploadsIntoFile(){
+  // Collect uploaded component defs + styles
+  const uploadedComps={};
+  let hasUploads=false;
+  for(const[cat,cs]of Object.entries(C)){
+    if(!cat.startsWith("Uploaded:"))continue;
+    hasUploads=true;
+    uploadedComps[cat]=cs.map(c=>({id:c.id,name:c.name,src:c.src,badge:c.badge,badgeBg:c.badgeBg,badgeColor:c.badgeColor,_srcFile:c._srcFile,defaults:c.defaults}));
+  }
+  if(!hasUploads){showToast("No uploaded components to embed");return}
+  const data={uploadedComps,uploadedStyles,bakedAt:new Date().toISOString()};
+  // Generate the full HTML of this page with embedded data
+  const docHtml=document.documentElement.outerHTML;
+  // Find or create the embedded script tag
+  const tag=`<script id="_embeddedUploads" type="application/json">${JSON.stringify(data)}<\/script>`;
+  let newHtml;
+  if(docHtml.includes('id="_embeddedUploads"')){
+    newHtml=docHtml.replace(/<script id="_embeddedUploads"[^>]*>[\s\S]*?<\/script>/,tag);
+  }else{
+    newHtml=docHtml.replace('</head>',tag+'\n</head>');
+  }
+  const blob=new Blob(["<!DOCTYPE html>\n"+newHtml],{type:"text/html"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="sip-builder.html";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast("Builder downloaded with embedded uploads");
+}
+
+// =====================================================
+// MULTI-SELECT (Shift+Click)
+// =====================================================
+let multiSel=new Set();
+
+function handleBlockClick(e,uid){
+  if(e.shiftKey){
+    e.stopPropagation();
+    if(multiSel.has(uid)){multiSel.delete(uid)}
+    else{multiSel.add(uid)}
+    renderMultiSelect();
+    return;
+  }
+  // Normal click — clear multi-select and do regular select
+  if(multiSel.size){clearMultiSelect()}
+  selectBlock(uid);
+}
+
+function renderMultiSelect(){
+  document.querySelectorAll(".canvas-block").forEach(el=>{
+    el.classList.toggle("multi-selected",multiSel.has(el.dataset.uid));
+  });
+  const bar=document.getElementById("bulkBar");
+  if(multiSel.size>0){
+    bar.classList.add("show");
+    document.getElementById("bulkCount").textContent=multiSel.size+" selected";
+  }else{
+    bar.classList.remove("show");
+  }
+}
+
+function clearMultiSelect(){multiSel.clear();renderMultiSelect()}
+
+function bulkDelete(){
+  if(!multiSel.size)return;
+  if(!confirm(`Delete ${multiSel.size} selected component${multiSel.size>1?'s':''}?`))return;
+  saveState();
+  blocks=blocks.filter(b=>!multiSel.has(b.uid));
+  if(multiSel.has(selId)){selId=null;renderEditor()}
+  multiSel.clear();
+  renderCanvas();updatePreview();
+  showToast("Deleted selected blocks");
+}
+
+function bulkDuplicate(){
+  if(!multiSel.size)return;
+  saveState();
+  const newBlocks=[];
+  blocks.forEach(b=>{
+    newBlocks.push(b);
+    if(multiSel.has(b.uid)){
+      newBlocks.push({uid:"b_"+Date.now()+"_"+Math.random().toString(36).slice(2,5),compId:b.compId,data:{...b.data}});
+    }
+  });
+  blocks=newBlocks;
+  clearMultiSelect();
+  renderCanvas();updatePreview();
+  showToast("Duplicated selected blocks");
+}
+
+function bulkMoveUp(){
+  if(!multiSel.size)return;
+  saveState();
+  for(let i=1;i<blocks.length;i++){
+    if(multiSel.has(blocks[i].uid)&&!multiSel.has(blocks[i-1].uid)){
+      [blocks[i-1],blocks[i]]=[blocks[i],blocks[i-1]];
+    }
+  }
+  renderCanvas();updatePreview();
+}
+
+function bulkMoveDown(){
+  if(!multiSel.size)return;
+  saveState();
+  for(let i=blocks.length-2;i>=0;i--){
+    if(multiSel.has(blocks[i].uid)&&!multiSel.has(blocks[i+1].uid)){
+      [blocks[i],blocks[i+1]]=[blocks[i+1],blocks[i]];
+    }
+  }
+  renderCanvas();updatePreview();
+}
+
+// =====================================================
+// CANVAS SEARCH (Ctrl+F)
+// =====================================================
+function openCanvasSearch(){
+  const bar=document.getElementById("canvasSearch");
+  bar.classList.add("show");
+  const inp=document.getElementById("canvasSearchInput");
+  inp.value="";inp.focus();
+  clearSearchHighlights();
+}
+
+function closeCanvasSearch(){
+  document.getElementById("canvasSearch").classList.remove("show");
+  document.getElementById("canvasSearchInput").value="";
+  clearSearchHighlights();
+}
+
+function clearSearchHighlights(){
+  document.querySelectorAll(".canvas-block").forEach(el=>{
+    el.classList.remove("search-highlight","search-dim");
+  });
+  document.getElementById("csCount").textContent="";
+}
+
+function filterCanvasBlocks(){
+  const q=document.getElementById("canvasSearchInput").value.toLowerCase().trim();
+  if(!q){clearSearchHighlights();return}
+  let matchCount=0;
+  document.querySelectorAll(".canvas-block").forEach(el=>{
+    const uid=el.dataset.uid;
+    const b=blocks.find(x=>x.uid===uid);
+    if(!b){el.classList.add("search-dim");el.classList.remove("search-highlight");return}
+    const def=findDef(b.compId);
+    const name=(def?def.name:"").toLowerCase();
+    const src=(def?def.src:"").toLowerCase();
+    const match=name.includes(q)||src.includes(q);
+    el.classList.toggle("search-highlight",match);
+    el.classList.toggle("search-dim",!match);
+    if(match)matchCount++;
+  });
+  document.getElementById("csCount").textContent=matchCount+" of "+blocks.length;
+}
+
+// =====================================================
+// LIGHT / DARK THEME TOGGLE
+// =====================================================
+function toggleTheme(){
+  document.body.classList.toggle("light-mode");
+  const isLight=document.body.classList.contains("light-mode");
+  document.getElementById("themeBtn").innerHTML=isLight?"&#9790;":"&#9788;";
+  localStorage.setItem("sipTheme",isLight?"light":"dark");
+}
+
+function restoreTheme(){
+  const t=localStorage.getItem("sipTheme");
+  if(t==="light"){
+    document.body.classList.add("light-mode");
+    document.getElementById("themeBtn").innerHTML="&#9790;";
+  }
+}
+
+// =====================================================
+// EDITABLE CODE TAB — apply HTML back to preview
+// =====================================================
+function applyCodeEdits(){
+  const code=document.getElementById("codeArea").value;
+  const f=document.getElementById("previewFrame");
+  if(_prevBlobUrl)URL.revokeObjectURL(_prevBlobUrl);
+  const blob=new Blob([code],{type:"text/html"});
+  _prevBlobUrl=URL.createObjectURL(blob);
+  f.src=_prevBlobUrl;
+  showToast("Code applied to preview");
+}
+
 init();
+restoreTheme();
 </script>
 </body>
 </html>
