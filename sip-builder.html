@@ -12,17 +12,17 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
 --bg:#0d1017;--panel:#161b24;--panel2:#1c222e;--border:#2a3040;
---text:#d4d8e0;--dim:#6b7385;--gold:#C5A55A;--gold-light:#d4c07a;
---navy:#0A2240;--accent:#3b82f6;--success:#22c55e;--danger:#ef4444;
+--text:#d4d8e0;--dim:#6b7385;--gold:#A09162;--gold-light:#CBB88B;
+--navy:#002855;--accent:#3b82f6;--success:#22c55e;--danger:#ef4444;
 }
 body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column}
 body.light-mode{
 --bg:#f5f6f8;--panel:#ffffff;--panel2:#f0f1f3;--border:#d8dce3;
---text:#1a1d24;--dim:#6b7385;--gold:#8B7530;--gold-light:#a08940;
---navy:#0A2240;--accent:#2563eb;--success:#16a34a;--danger:#dc2626;
+--text:#1a1d24;--dim:#6b7385;--gold:#A09162;--gold-light:#CBB88B;
+--navy:#002855;--accent:#2563eb;--success:#16a34a;--danger:#dc2626;
 }
 body.light-mode .code-view textarea{color:#166534}
-body.light-mode .topbar{background:#0A2240}
+body.light-mode .topbar{background:#002855}
 body.light-mode .block-bar{background:rgba(10,34,64,.9)}
 body.light-mode .tb-dropdown-menu{background:#fff;border-color:#d8dce3;box-shadow:0 8px 24px rgba(0,0,0,.12)}
 body.light-mode .tb-dropdown-menu button{color:#1a1d24}
@@ -399,10 +399,10 @@ body.light-mode .tb-dropdown-menu button:hover{background:rgba(139,117,48,.08)}
 // =====================================================
 const C = {
 "Headers": [
-{id:"mc-brand-bar",name:"MC Brand Bar",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+{id:"mc-brand-bar",name:"MC Brand Bar",src:"mc-content-block",badge:"MC",badgeBg:"#002855",badgeColor:"#fff",
 editable:["brandName"],
 defaults:{brandName:"EAGLE"},
-html:d=>`<div style="background:#0A2240;padding:18px 48px;border-bottom:1px solid rgba(255,255,255,0.06);font-family:'Source Sans 3',sans-serif;">
+html:d=>`<div style="background:#002855;padding:18px 48px;border-bottom:1px solid rgba(255,255,255,0.06);font-family:'Roboto',sans-serif;">
 <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr>
 <td style="font-size:20px;letter-spacing:4px;font-weight:300;color:#ffffff;padding-right:12px;">${d.brandName}</td>
 <td style="border-left:1px solid rgba(255,255,255,0.25);padding-left:12px;"><div style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0.5px;line-height:1.3;">Asset<br>Management</div></td>
@@ -417,21 +417,21 @@ html:d=>`<header style="background:#ffffff;border-bottom:3px solid #A09162;paddi
 <a href="#request-materials" style="font-family:'Roboto Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.5px;text-transform:uppercase;color:#ffffff;background:#A09162;padding:10px 24px;border:none;cursor:pointer;transition:background 0.2s;text-decoration:none;">${d.ctaText}</a>
 </div></header>`
 },
-{id:"hub-header",name:"Hub Header + Badge",src:"sip-suite-hub",badge:"Hub",badgeBg:"#00263A",badgeColor:"#C8A951",
+{id:"hub-header",name:"Hub Header + Badge",src:"sip-suite-hub",badge:"Hub",badgeBg:"#002855",badgeColor:"#A09162",
 editable:["logoText","badge"],
 defaults:{logoText:"Eagle Asset Management",badge:"For Financial Professional Use Only"},
-html:d=>`<header style="background:#ffffff;border-bottom:1px solid #E2E6EC;padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;font-family:'Source Sans 3',sans-serif;">
-<div style="font-family:'Source Serif 4',Georgia,serif;font-size:20px;font-weight:700;color:#00263A;letter-spacing:-0.3px;">${d.logoText}</div>
+html:d=>`<header style="background:#ffffff;border-bottom:1px solid #E2E6EC;padding:0 40px;height:72px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;font-family:'Roboto',sans-serif;">
+<div style="font-family:'Roboto Condensed',sans-serif;font-size:20px;font-weight:700;color:#002855;letter-spacing:-0.3px;">${d.logoText}</div>
 <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:#4A5568;background:#F7F8FA;border:1px solid #E2E6EC;padding:6px 14px;border-radius:4px;">${d.badge}</div>
 </header>
-<div style="height:3px;background:linear-gradient(90deg,#C8A951,#D4BC72,#C8A951);"></div>`
+<div style="height:3px;background:linear-gradient(90deg,#A09162,#CBB88B,#A09162);"></div>`
 }
 ],
 "Hero Sections": [
-{id:"mc-hero",name:"MC Hero (Wave + Stats)",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+{id:"mc-hero",name:"MC Hero (Wave + Stats)",src:"mc-content-block",badge:"MC",badgeBg:"#002855",badgeColor:"#fff",
 editable:["headline1","headline2","tagline","subtitle","stat1Val","stat1Label","stat2Val","stat2Label","stat3Val","stat3Label"],
 defaults:{headline1:"Amplify Your",headline2:"Income Potential",tagline:"The Strategic Income Portfolio Suite",subtitle:"One disciplined process. Three dynamic strategies. A multi-asset income framework built for every client conversation.",stat1Val:"7.85%",stat1Label:"Annualized since inception (gross)*",stat2Val:"16+ yrs",stat2Label:"Live composite track record",stat3Val:"~200 yrs",stat3Label:"Combined team experience"},
-html:d=>`<div style="background:#0A2240;position:relative;overflow:hidden;padding:72px 48px 80px;font-family:'Source Sans 3',sans-serif;">
+html:d=>`<div style="background:#002855;position:relative;overflow:hidden;padding:72px 48px 80px;font-family:'Roboto',sans-serif;">
 <div style="position:absolute;top:0;left:0;width:200%;height:100%;pointer-events:none;z-index:0;">
 <svg viewBox="0 0 2400 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
 <path d="M-200,340 C200,260 500,440 900,320 C1300,200 1600,380 2000,280 C2200,220 2400,300 2600,240" fill="none" stroke="rgba(46,95,138,0.3)" stroke-width="1.5"/>
@@ -442,7 +442,7 @@ html:d=>`<div style="background:#0A2240;position:relative;overflow:hidden;paddin
 <div style="font-size:72px;font-weight:800;line-height:1;letter-spacing:-1.5px;color:#ffffff;">${d.headline1}</div>
 <div style="font-size:72px;font-weight:800;line-height:1;letter-spacing:-1.5px;color:#ffffff;">${d.headline2}</div>
 </div>
-<div style="width:48px;height:2px;background:#C5A55A;margin:0 0 24px 0;"></div>
+<div style="width:48px;height:2px;background:#A09162;margin:0 0 24px 0;"></div>
 <p style="font-size:13px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin:0 0 6px 0;">${d.tagline}</p>
 <p style="font-size:16px;font-weight:400;color:rgba(255,255,255,0.45);line-height:1.65;max-width:520px;margin:0;">${d.subtitle}</p>
 <table cellpadding="0" cellspacing="0" border="0" style="margin-top:44px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.06);border-collapse:collapse;">
@@ -466,25 +466,25 @@ html:d=>`<section style="background:linear-gradient(135deg,#002855 0%,#003d7a 60
 <a href="#request-materials" style="font-family:'Roboto Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.5px;text-transform:uppercase;color:#ffffff;background:transparent;padding:14px 36px;border:2px solid rgba(255,255,255,0.4);cursor:pointer;text-decoration:none;display:inline-block;">${d.cta2}</a>
 </div></div></section>`
 },
-{id:"hub-positioning",name:"Hub Positioning Strip",src:"sip-suite-hub",badge:"Hub",badgeBg:"#00263A",badgeColor:"#C8A951",
+{id:"hub-positioning",name:"Hub Positioning Strip",src:"sip-suite-hub",badge:"Hub",badgeBg:"#002855",badgeColor:"#A09162",
 editable:["headline","subtext"],
 defaults:{headline:"SIP Suite Resources",subtext:"One process. Three income strategies. Everything your team needs in one place."},
-html:d=>`<section style="background:#00263A;padding:36px 40px;text-align:center;font-family:'Source Sans 3',sans-serif;">
-<h1 style="font-family:'Source Serif 4',Georgia,serif;font-size:26px;font-weight:600;color:#ffffff;letter-spacing:-0.3px;margin-bottom:8px;">${d.headline}</h1>
-<p style="font-size:15px;color:#D4BC72;font-weight:400;letter-spacing:0.2px;margin:0;">${d.subtext}</p></section>`
+html:d=>`<section style="background:#002855;padding:36px 40px;text-align:center;font-family:'Roboto',sans-serif;">
+<h1 style="font-family:'Roboto Condensed',sans-serif;font-size:26px;font-weight:600;color:#ffffff;letter-spacing:-0.3px;margin-bottom:8px;">${d.headline}</h1>
+<p style="font-size:15px;color:#CBB88B;font-weight:400;letter-spacing:0.2px;margin:0;">${d.subtext}</p></section>`
 }
 ],
 "Proof & Credibility": [
-{id:"mc-credibility-bar",name:"MC Gold Credibility Bar",src:"mc-content-block",badge:"MC",badgeBg:"#C5A55A",badgeColor:"#0A2240",
+{id:"mc-credibility-bar",name:"MC Gold Credibility Bar",src:"mc-content-block",badge:"MC",badgeBg:"#A09162",badgeColor:"#002855",
 editable:["item1","item2","item3","item4"],
 defaults:{item1:"GIPS® Verified · 1982–2024",item2:"8 CFA Charterholders",item3:"Inception January 2009",item4:"Eagle · Raymond James Family"},
-html:d=>`<div style="background:#C5A55A;padding:0;font-family:'Source Sans 3',sans-serif;">
+html:d=>`<div style="background:#A09162;padding:0;font-family:'Roboto',sans-serif;">
 <table cellpadding="0" cellspacing="0" border="0" style="max-width:1080px;margin:0 auto;width:100%;border-collapse:collapse;">
 <tr>
-<td style="padding:14px 24px;text-align:center;border-right:1px solid rgba(10,34,64,0.1);width:25%;"><div style="font-size:11px;font-weight:700;color:#0A2240;letter-spacing:0.5px;">${d.item1}</div></td>
-<td style="padding:14px 24px;text-align:center;border-right:1px solid rgba(10,34,64,0.1);width:25%;"><div style="font-size:11px;font-weight:700;color:#0A2240;letter-spacing:0.5px;">${d.item2}</div></td>
-<td style="padding:14px 24px;text-align:center;border-right:1px solid rgba(10,34,64,0.1);width:25%;"><div style="font-size:11px;font-weight:700;color:#0A2240;letter-spacing:0.5px;">${d.item3}</div></td>
-<td style="padding:14px 24px;text-align:center;width:25%;"><div style="font-size:11px;font-weight:700;color:#0A2240;letter-spacing:0.5px;">${d.item4}</div></td>
+<td style="padding:14px 24px;text-align:center;border-right:1px solid rgba(10,34,64,0.1);width:25%;"><div style="font-size:11px;font-weight:700;color:#002855;letter-spacing:0.5px;">${d.item1}</div></td>
+<td style="padding:14px 24px;text-align:center;border-right:1px solid rgba(10,34,64,0.1);width:25%;"><div style="font-size:11px;font-weight:700;color:#002855;letter-spacing:0.5px;">${d.item2}</div></td>
+<td style="padding:14px 24px;text-align:center;border-right:1px solid rgba(10,34,64,0.1);width:25%;"><div style="font-size:11px;font-weight:700;color:#002855;letter-spacing:0.5px;">${d.item3}</div></td>
+<td style="padding:14px 24px;text-align:center;width:25%;"><div style="font-size:11px;font-weight:700;color:#002855;letter-spacing:0.5px;">${d.item4}</div></td>
 </tr></table></div>`
 },
 {id:"lp-proof-bar",name:"LP Proof Points Bar",src:"sip-suite-landing",badge:"LP",badgeBg:"#002855",badgeColor:"#A09162",
@@ -501,16 +501,16 @@ html:d=>`<div style="background:#002855;padding:28px 0;border-top:3px solid #A09
 <div style="text-align:center;padding:0 16px;"><span style="font-family:'Roboto Condensed',sans-serif;font-size:36px;font-weight:700;color:#A09162;line-height:1;">${d.stat4Num}</span><span style="font-size:12px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.65);display:block;margin-top:6px;">${d.stat4Label}</span></div>
 </div></div>`
 },
-{id:"gold-divider",name:"Gold Accent Line",src:"shared",badge:"—",badgeBg:"#C5A55A",badgeColor:"#0A2240",
+{id:"gold-divider",name:"Gold Accent Line",src:"shared",badge:"—",badgeBg:"#A09162",badgeColor:"#002855",
 editable:["height"],defaults:{height:"3"},
-html:d=>`<div style="height:${d.height}px;background:linear-gradient(90deg,#C8A951,#D4BC72,#C8A951);"></div>`
+html:d=>`<div style="height:${d.height}px;background:linear-gradient(90deg,#A09162,#CBB88B,#A09162);"></div>`
 }
 ],
 "Video Sections": [
-{id:"mc-video",name:"MC Video + Sidebar",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+{id:"mc-video",name:"MC Video + Sidebar",src:"mc-content-block",badge:"MC",badgeBg:"#002855",badgeColor:"#fff",
 editable:["videoUrl","sidebar1","sidebar2","sidebar3","sidebar4","teamNames"],
 defaults:{videoUrl:"https://raymondjames.mediaspace.kaltura.com/embed/secure/iframe/entryId/1_a5fz5af5/uiConfId/42313661/st/0",sidebar1:"How to position all three strategies in a single client conversation",sidebar2:"Which client profiles fit SIP, SIP+, and Global SIP",sidebar3:"The allocation framework and how the team adjusts tactically",sidebar4:"Talk track language for your next meeting",teamNames:"James Camp, CFA · Brad Erwin, CFA · Joe Jackson, CFA · Jeffrey Bilsky, CFA · Michael Rich, CFA"},
-html:d=>`<div style="background:#0A2240;padding:72px 48px 80px;font-family:'Source Sans 3',sans-serif;">
+html:d=>`<div style="background:#002855;padding:72px 48px 80px;font-family:'Roboto',sans-serif;">
 <table cellpadding="0" cellspacing="0" border="0" style="max-width:1080px;margin:0 auto;border-collapse:collapse;width:100%;"><tr>
 <td style="vertical-align:top;padding-right:32px;">
 <div style="border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);">
@@ -521,10 +521,10 @@ html:d=>`<div style="background:#0A2240;padding:72px 48px 80px;font-family:'Sour
 <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:28px;">
 <div style="font-size:15px;font-weight:700;color:#ffffff;margin:0 0 20px 0;">What you'll walk away with</div>
 <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;">
-<tr><td style="vertical-align:top;padding:0 10px 14px 0;width:20px;"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.55;padding-bottom:14px;">${d.sidebar1}</td></tr>
-<tr><td style="vertical-align:top;padding:0 10px 14px 0;"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.55;padding-bottom:14px;">${d.sidebar2}</td></tr>
-<tr><td style="vertical-align:top;padding:0 10px 14px 0;"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.55;padding-bottom:14px;">${d.sidebar3}</td></tr>
-<tr><td style="vertical-align:top;padding:0 10px 0 0;"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.55;">${d.sidebar4}</td></tr>
+<tr><td style="vertical-align:top;padding:0 10px 14px 0;width:20px;"><svg viewBox="0 0 24 24" fill="none" stroke="#A09162" stroke-width="1.5" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.55;padding-bottom:14px;">${d.sidebar1}</td></tr>
+<tr><td style="vertical-align:top;padding:0 10px 14px 0;"><svg viewBox="0 0 24 24" fill="none" stroke="#A09162" stroke-width="1.5" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.55;padding-bottom:14px;">${d.sidebar2}</td></tr>
+<tr><td style="vertical-align:top;padding:0 10px 14px 0;"><svg viewBox="0 0 24 24" fill="none" stroke="#A09162" stroke-width="1.5" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.55;padding-bottom:14px;">${d.sidebar3}</td></tr>
+<tr><td style="vertical-align:top;padding:0 10px 0 0;"><svg viewBox="0 0 24 24" fill="none" stroke="#A09162" stroke-width="1.5" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.55;">${d.sidebar4}</td></tr>
 </table>
 <div style="margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.06);"><div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.3);line-height:1.7;">${d.teamNames}</div></div>
 </div></td></tr></table></div>`
@@ -550,36 +550,36 @@ html:d=>`<section style="background:#ffffff;padding:64px 0;font-family:'Roboto',
 }
 ],
 "Strategy Cards": [
-{id:"mc-strategy-strip",name:"MC Strategy Overview Strip",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+{id:"mc-strategy-strip",name:"MC Strategy Overview Strip",src:"mc-content-block",badge:"MC",badgeBg:"#002855",badgeColor:"#fff",
 editable:["s1Handle","s1Name","s1Desc","s2Handle","s2Name","s2Desc","s3Handle","s3Name","s3Desc"],
 defaults:{s1Handle:"The Anchor",s1Name:"SIP",s1Desc:"Steady income & consistent growth",s2Handle:"The Step-Up",s2Name:"SIP Plus",s2Desc:"Higher income potential",s3Handle:"The Diversifier",s3Name:"Global SIP",s3Desc:"Diversified international income"},
-html:d=>`<div style="background:#ffffff;padding:80px 48px 20px;font-family:'Source Sans 3',sans-serif;">
+html:d=>`<div style="background:#ffffff;padding:80px 48px 20px;font-family:'Roboto',sans-serif;">
 <div style="max-width:1080px;margin:0 auto;">
-<div style="margin-bottom:12px;"><div style="font-size:28px;font-weight:800;color:#0A2240;line-height:1.15;">One disciplined process. Three dynamic strategies.</div><div style="width:36px;height:2px;background:#C5A55A;margin:12px 0 0 0;"></div></div>
-<table cellpadding="0" cellspacing="0" border="0" style="width:100%;margin:40px 0;background:#0A2240;border-radius:6px;overflow:hidden;border-collapse:collapse;"><tr>
+<div style="margin-bottom:12px;"><div style="font-size:28px;font-weight:800;color:#002855;line-height:1.15;">One disciplined process. Three dynamic strategies.</div><div style="width:36px;height:2px;background:#A09162;margin:12px 0 0 0;"></div></div>
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%;margin:40px 0;background:#002855;border-radius:6px;overflow:hidden;border-collapse:collapse;"><tr>
 <td style="padding:24px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);width:33.33%;"><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin:0 0 4px 0;">${d.s1Handle}</div><div style="font-size:15px;font-weight:800;color:#ffffff;letter-spacing:1.5px;text-transform:uppercase;">${d.s1Name}</div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">${d.s1Desc}</div></td>
-<td style="padding:24px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);width:33.33%;"><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#C5A55A;margin:0 0 4px 0;">${d.s2Handle}</div><div style="font-size:15px;font-weight:800;color:#ffffff;letter-spacing:1.5px;text-transform:uppercase;">${d.s2Name}</div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">${d.s2Desc}</div></td>
+<td style="padding:24px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);width:33.33%;"><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A09162;margin:0 0 4px 0;">${d.s2Handle}</div><div style="font-size:15px;font-weight:800;color:#ffffff;letter-spacing:1.5px;text-transform:uppercase;">${d.s2Name}</div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">${d.s2Desc}</div></td>
 <td style="padding:24px;text-align:center;width:33.33%;"><div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#5A98C0;margin:0 0 4px 0;">${d.s3Handle}</div><div style="font-size:15px;font-weight:800;color:#ffffff;letter-spacing:1.5px;text-transform:uppercase;">${d.s3Name}</div><div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;">${d.s3Desc}</div></td>
 </tr></table></div></div>`
 },
-{id:"mc-sip-card",name:"MC SIP Strategy Card",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+{id:"mc-sip-card",name:"MC SIP Strategy Card",src:"mc-content-block",badge:"MC",badgeBg:"#002855",badgeColor:"#fff",
 editable:["name","description","stat1Val","stat1Label","stat2Val","stat2Label","stat3Val","stat3Label","talkTrack","accentColor"],
-defaults:{name:"Strategic Income Portfolio",description:"Blends dividend equities with investment-grade fixed income for steady, reliable income.",stat1Val:"7.85%",stat1Label:"Since inception*",stat2Val:"50/50",stat2Label:"Target alloc",stat3Val:"$250K",stat3Label:"Minimum",talkTrack:"I've been working with Eagle's income team on a strategy that combines dividend-paying equities with investment-grade bonds in one managed account. It's designed for clients who want steady income without taking on unnecessary risk — and the team has been running this approach for over 16 years.",accentColor:"#0A2240"},
-html:d=>`<div style="background:#F8F6F1;border-radius:6px;border:1px solid #E8E5DE;overflow:hidden;position:relative;font-family:'Source Sans 3',sans-serif;max-width:360px;">
+defaults:{name:"Strategic Income Portfolio",description:"Blends dividend equities with investment-grade fixed income for steady, reliable income.",stat1Val:"7.85%",stat1Label:"Since inception*",stat2Val:"50/50",stat2Label:"Target alloc",stat3Val:"$250K",stat3Label:"Minimum",talkTrack:"I've been working with Eagle's income team on a strategy that combines dividend-paying equities with investment-grade bonds in one managed account. It's designed for clients who want steady income without taking on unnecessary risk — and the team has been running this approach for over 16 years.",accentColor:"#002855"},
+html:d=>`<div style="background:#F7F5F0;border-radius:6px;border:1px solid #E8DEC8;overflow:hidden;position:relative;font-family:'Roboto',sans-serif;max-width:360px;">
 <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${d.accentColor};"></div>
 <div style="padding:24px 20px;">
-<div style="font-size:15px;font-weight:800;color:#0A2240;margin:0 0 6px 0;">${d.name}</div>
-<div style="font-size:13px;color:#5A6270;line-height:1.6;margin:0 0 14px 0;">${d.description}</div>
-<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;border-top:1px solid #E8E5DE;"><tr>
-<td style="padding:12px 8px 0 0;"><div style="font-size:14px;font-weight:800;color:#0A2240;">${d.stat1Val}</div><div style="font-size:9px;color:#8B929D;text-transform:uppercase;letter-spacing:0.5px;">${d.stat1Label}</div></td>
-<td style="padding:12px 8px 0 0;"><div style="font-size:14px;font-weight:800;color:#0A2240;">${d.stat2Val}</div><div style="font-size:9px;color:#8B929D;text-transform:uppercase;letter-spacing:0.5px;">${d.stat2Label}</div></td>
-<td style="padding:12px 0 0 0;"><div style="font-size:14px;font-weight:800;color:#0A2240;">${d.stat3Val}</div><div style="font-size:9px;color:#8B929D;text-transform:uppercase;letter-spacing:0.5px;">${d.stat3Label}</div></td>
+<div style="font-size:15px;font-weight:800;color:#002855;margin:0 0 6px 0;">${d.name}</div>
+<div style="font-size:13px;color:#5A6B7C;line-height:1.6;margin:0 0 14px 0;">${d.description}</div>
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;border-top:1px solid #E8DEC8;"><tr>
+<td style="padding:12px 8px 0 0;"><div style="font-size:14px;font-weight:800;color:#002855;">${d.stat1Val}</div><div style="font-size:9px;color:#808084;text-transform:uppercase;letter-spacing:0.5px;">${d.stat1Label}</div></td>
+<td style="padding:12px 8px 0 0;"><div style="font-size:14px;font-weight:800;color:#002855;">${d.stat2Val}</div><div style="font-size:9px;color:#808084;text-transform:uppercase;letter-spacing:0.5px;">${d.stat2Label}</div></td>
+<td style="padding:12px 0 0 0;"><div style="font-size:14px;font-weight:800;color:#002855;">${d.stat3Val}</div><div style="font-size:9px;color:#808084;text-transform:uppercase;letter-spacing:0.5px;">${d.stat3Label}</div></td>
 </tr></table></div>
-<div style="border-top:1px solid #E8E5DE;padding:20px;">
-<div style="background:#ffffff;border:1px solid #E8E5DE;border-radius:4px;padding:14px;margin-bottom:14px;">
-<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#C5A55A;margin:0 0 6px 0;">Client Talk Track</div>
-<div style="font-size:12px;color:#3A3F47;line-height:1.65;font-style:italic;">"${d.talkTrack}"</div></div>
-<a href="#" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#0A2240;text-decoration:none;"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2240" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Factsheet</a>
+<div style="border-top:1px solid #E8DEC8;padding:20px;">
+<div style="background:#ffffff;border:1px solid #E8DEC8;border-radius:4px;padding:14px;margin-bottom:14px;">
+<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#A09162;margin:0 0 6px 0;">Client Talk Track</div>
+<div style="font-size:12px;color:#1A2B3C;line-height:1.65;font-style:italic;">"${d.talkTrack}"</div></div>
+<a href="#" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#002855;text-decoration:none;"><svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Factsheet</a>
 </div></div>`
 },
 {id:"lp-strategy-grid",name:"LP 4-Card Strategy Grid",src:"sip-suite-landing",badge:"LP",badgeBg:"#002855",badgeColor:"#A09162",
@@ -599,20 +599,20 @@ html:d=>`<section style="background:#F0F0F0;padding:64px 0;font-family:'Roboto',
 }
 ],
 "Performance & Data": [
-{id:"mc-performance-table",name:"MC Performance Table",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+{id:"mc-performance-table",name:"MC Performance Table",src:"mc-content-block",badge:"MC",badgeBg:"#002855",badgeColor:"#fff",
 editable:["sectionTitle","asOfDate"],
 defaults:{sectionTitle:"Built through every market cycle",asOfDate:"SIP Composite · As of June 30, 2025 · Gross of fees"},
-html:d=>`<div style="background:#F8F6F1;padding:72px 48px 80px;font-family:'Source Sans 3',sans-serif;">
+html:d=>`<div style="background:#F7F5F0;padding:72px 48px 80px;font-family:'Roboto',sans-serif;">
 <div style="max-width:1080px;margin:0 auto;">
-<div style="margin-bottom:40px;"><div style="font-size:28px;font-weight:800;color:#0A2240;line-height:1.15;">${d.sectionTitle}</div><div style="width:36px;height:2px;background:#C5A55A;margin:12px 0 0 0;"></div><p style="font-size:13px;color:#8B929D;margin:12px 0 0 0;">${d.asOfDate}</p></div>
-<div style="background:#ffffff;border:1px solid #E8E5DE;border-radius:6px;overflow:hidden;">
+<div style="margin-bottom:40px;"><div style="font-size:28px;font-weight:800;color:#002855;line-height:1.15;">${d.sectionTitle}</div><div style="width:36px;height:2px;background:#A09162;margin:12px 0 0 0;"></div><p style="font-size:13px;color:#808084;margin:12px 0 0 0;">${d.asOfDate}</p></div>
+<div style="background:#ffffff;border:1px solid #E8DEC8;border-radius:6px;overflow:hidden;">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
-<tr style="background:#0A2240;"><td style="padding:12px 16px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.5);"></td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">Q2</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">YTD</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">1 Yr</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">3 Yr</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">5 Yr</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">10 Yr</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">Inception</td></tr>
-<tr><td style="padding:13px 16px;font-size:13px;font-weight:700;color:#0A2240;border-bottom:1px solid #F0EDE6;">SIP Gross</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#0A2240;text-align:right;border-bottom:1px solid #F0EDE6;">4.42</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#0A2240;text-align:right;border-bottom:1px solid #F0EDE6;">5.09</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#0A2240;text-align:right;border-bottom:1px solid #F0EDE6;">11.21</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#0A2240;text-align:right;border-bottom:1px solid #F0EDE6;">8.22</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#0A2240;text-align:right;border-bottom:1px solid #F0EDE6;">8.31</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#0A2240;text-align:right;border-bottom:1px solid #F0EDE6;">7.04</td><td style="padding:13px 14px;font-size:14px;font-weight:800;color:#0A2240;text-align:right;border-bottom:1px solid #F0EDE6;">7.85</td></tr>
-<tr><td style="padding:13px 16px;font-size:13px;font-weight:500;color:#8B929D;border-bottom:1px solid #F0EDE6;">SIP Net</td><td style="padding:13px 14px;font-size:13px;color:#8B929D;text-align:right;border-bottom:1px solid #F0EDE6;">3.65</td><td style="padding:13px 14px;font-size:13px;color:#8B929D;text-align:right;border-bottom:1px solid #F0EDE6;">3.53</td><td style="padding:13px 14px;font-size:13px;color:#8B929D;text-align:right;border-bottom:1px solid #F0EDE6;">7.96</td><td style="padding:13px 14px;font-size:13px;color:#8B929D;text-align:right;border-bottom:1px solid #F0EDE6;">5.08</td><td style="padding:13px 14px;font-size:13px;color:#8B929D;text-align:right;border-bottom:1px solid #F0EDE6;">5.15</td><td style="padding:13px 14px;font-size:13px;color:#8B929D;text-align:right;border-bottom:1px solid #F0EDE6;">3.91</td><td style="padding:13px 14px;font-size:13px;color:#8B929D;text-align:right;border-bottom:1px solid #F0EDE6;">4.69</td></tr>
-<tr><td style="padding:13px 16px;font-size:12px;font-weight:500;color:#A8ADB5;">50% S&amp;P 500 / 50% BBg Int Govt/Cr</td><td style="padding:13px 14px;font-size:12px;color:#A8ADB5;text-align:right;">6.28</td><td style="padding:13px 14px;font-size:12px;color:#A8ADB5;text-align:right;">5.31</td><td style="padding:13px 14px;font-size:12px;color:#A8ADB5;text-align:right;">11.07</td><td style="padding:13px 14px;font-size:12px;color:#A8ADB5;text-align:right;">11.62</td><td style="padding:13px 14px;font-size:12px;color:#A8ADB5;text-align:right;">8.65</td><td style="padding:13px 14px;font-size:12px;color:#A8ADB5;text-align:right;">7.99</td><td style="padding:13px 14px;font-size:12px;color:#A8ADB5;text-align:right;">8.76</td></tr>
+<tr style="background:#002855;"><td style="padding:12px 16px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.5);"></td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">Q2</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">YTD</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">1 Yr</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">3 Yr</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">5 Yr</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">10 Yr</td><td style="padding:12px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.5);text-align:right;">Inception</td></tr>
+<tr><td style="padding:13px 16px;font-size:13px;font-weight:700;color:#002855;border-bottom:1px solid #F0EDE6;">SIP Gross</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#002855;text-align:right;border-bottom:1px solid #F0EDE6;">4.42</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#002855;text-align:right;border-bottom:1px solid #F0EDE6;">5.09</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#002855;text-align:right;border-bottom:1px solid #F0EDE6;">11.21</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#002855;text-align:right;border-bottom:1px solid #F0EDE6;">8.22</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#002855;text-align:right;border-bottom:1px solid #F0EDE6;">8.31</td><td style="padding:13px 14px;font-size:13px;font-weight:600;color:#002855;text-align:right;border-bottom:1px solid #F0EDE6;">7.04</td><td style="padding:13px 14px;font-size:14px;font-weight:800;color:#002855;text-align:right;border-bottom:1px solid #F0EDE6;">7.85</td></tr>
+<tr><td style="padding:13px 16px;font-size:13px;font-weight:500;color:#808084;border-bottom:1px solid #F0EDE6;">SIP Net</td><td style="padding:13px 14px;font-size:13px;color:#808084;text-align:right;border-bottom:1px solid #F0EDE6;">3.65</td><td style="padding:13px 14px;font-size:13px;color:#808084;text-align:right;border-bottom:1px solid #F0EDE6;">3.53</td><td style="padding:13px 14px;font-size:13px;color:#808084;text-align:right;border-bottom:1px solid #F0EDE6;">7.96</td><td style="padding:13px 14px;font-size:13px;color:#808084;text-align:right;border-bottom:1px solid #F0EDE6;">5.08</td><td style="padding:13px 14px;font-size:13px;color:#808084;text-align:right;border-bottom:1px solid #F0EDE6;">5.15</td><td style="padding:13px 14px;font-size:13px;color:#808084;text-align:right;border-bottom:1px solid #F0EDE6;">3.91</td><td style="padding:13px 14px;font-size:13px;color:#808084;text-align:right;border-bottom:1px solid #F0EDE6;">4.69</td></tr>
+<tr><td style="padding:13px 16px;font-size:12px;font-weight:500;color:#808084;">50% S&amp;P 500 / 50% BBg Int Govt/Cr</td><td style="padding:13px 14px;font-size:12px;color:#808084;text-align:right;">6.28</td><td style="padding:13px 14px;font-size:12px;color:#808084;text-align:right;">5.31</td><td style="padding:13px 14px;font-size:12px;color:#808084;text-align:right;">11.07</td><td style="padding:13px 14px;font-size:12px;color:#808084;text-align:right;">11.62</td><td style="padding:13px 14px;font-size:12px;color:#808084;text-align:right;">8.65</td><td style="padding:13px 14px;font-size:12px;color:#808084;text-align:right;">7.99</td><td style="padding:13px 14px;font-size:12px;color:#808084;text-align:right;">8.76</td></tr>
 </table></div>
-<p style="font-size:10px;color:#A8ADB5;margin:10px 0 0 0;">Past performance does not guarantee future results. See full disclosure below.</p>
+<p style="font-size:10px;color:#808084;margin:10px 0 0 0;">Past performance does not guarantee future results. See full disclosure below.</p>
 </div></div>`
 },
 {id:"lp-proof-cards",name:"LP Data Proof Points",src:"sip-suite-landing",badge:"LP",badgeBg:"#002855",badgeColor:"#A09162",
@@ -629,46 +629,46 @@ html:d=>`<section style="background:#002855;padding:64px 0;position:relative;ove
 }
 ],
 "Team & Resources": [
-{id:"mc-team-strip",name:"MC Team Strip",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+{id:"mc-team-strip",name:"MC Team Strip",src:"mc-content-block",badge:"MC",badgeBg:"#002855",badgeColor:"#fff",
 editable:["headline","description"],
 defaults:{headline:"Your Investment Team",description:"Every CFA charterholder. One shared philosophy. The team collaborates daily across equity income and fixed income."},
-html:d=>`<div style="background:#0A2240;padding:48px 48px;font-family:'Source Sans 3',sans-serif;">
+html:d=>`<div style="background:#002855;padding:48px 48px;font-family:'Roboto',sans-serif;">
 <div style="max-width:1080px;margin:0 auto;"><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;"><tr>
-<td style="vertical-align:middle;padding-right:48px;width:45%;"><div style="font-size:22px;font-weight:800;color:#ffffff;line-height:1.2;">${d.headline}</div><div style="width:36px;height:2px;background:#C5A55A;margin:10px 0;"></div><p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.65;margin:0;">${d.description}</p></td>
+<td style="vertical-align:middle;padding-right:48px;width:45%;"><div style="font-size:22px;font-weight:800;color:#ffffff;line-height:1.2;">${d.headline}</div><div style="width:36px;height:2px;background:#A09162;margin:10px 0;"></div><p style="font-size:13px;color:rgba(255,255,255,0.4);line-height:1.65;margin:0;">${d.description}</p></td>
 <td style="vertical-align:middle;"><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;"><tr>
-<td style="padding:6px 16px 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">James Camp, <span style="color:#C5A55A;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Managing Director, Fixed Income</div></td>
-<td style="padding:6px 16px 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">Brad Erwin, <span style="color:#C5A55A;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Portfolio Co-Manager</div></td>
-<td style="padding:6px 0 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">Joe Jackson, <span style="color:#C5A55A;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Portfolio Co-Manager</div></td>
+<td style="padding:6px 16px 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">James Camp, <span style="color:#A09162;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Managing Director, Fixed Income</div></td>
+<td style="padding:6px 16px 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">Brad Erwin, <span style="color:#A09162;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Portfolio Co-Manager</div></td>
+<td style="padding:6px 0 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">Joe Jackson, <span style="color:#A09162;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Portfolio Co-Manager</div></td>
 </tr><tr>
-<td style="padding:6px 16px 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">Jeffrey Bilsky, <span style="color:#C5A55A;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Portfolio Co-Manager</div></td>
-<td style="padding:6px 16px 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">Michael Rich, <span style="color:#C5A55A;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Portfolio Co-Manager</div></td>
+<td style="padding:6px 16px 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">Jeffrey Bilsky, <span style="color:#A09162;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Portfolio Co-Manager</div></td>
+<td style="padding:6px 16px 6px 0;"><div style="font-size:13px;font-weight:600;color:#ffffff;">Michael Rich, <span style="color:#A09162;">CFA</span></div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Portfolio Co-Manager</div></td>
 <td style="padding:6px 0 6px 0;"><div style="font-size:11px;color:rgba(255,255,255,0.25);">+ David Vaughn, CFA · Gashi Zengeni, CFA · Alex Turner, CFA</div></td>
 </tr></table></td></tr></table></div></div>`
 },
-{id:"mc-resources",name:"MC Resources Grid",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+{id:"mc-resources",name:"MC Resources Grid",src:"mc-content-block",badge:"MC",badgeBg:"#002855",badgeColor:"#fff",
 editable:["headline"],
 defaults:{headline:"Resources & Tools"},
-html:d=>`<div style="background:#F8F6F1;padding:64px 48px;font-family:'Source Sans 3',sans-serif;">
-<div style="max-width:1080px;margin:0 auto;"><div style="font-size:22px;font-weight:800;color:#0A2240;margin:0 0 4px 0;">${d.headline}</div><div style="width:36px;height:2px;background:#C5A55A;margin:10px 0 32px 0;"></div>
+html:d=>`<div style="background:#F7F5F0;padding:64px 48px;font-family:'Roboto',sans-serif;">
+<div style="max-width:1080px;margin:0 auto;"><div style="font-size:22px;font-weight:800;color:#002855;margin:0 0 4px 0;">${d.headline}</div><div style="width:36px;height:2px;background:#A09162;margin:10px 0 32px 0;"></div>
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:separate;border-spacing:12px 0;"><tr>
-<td style="width:25%;vertical-align:top;"><div style="background:#ffffff;border:1px solid #E8E5DE;border-radius:6px;padding:24px;min-height:160px;"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2240" stroke-width="1.5" style="width:24px;height:24px;margin-bottom:14px;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><div style="font-size:14px;font-weight:700;color:#0A2240;margin:0 0 4px 0;">2Q25 Factsheets</div><p style="font-size:12px;color:#8B929D;line-height:1.5;margin:0 0 12px 0;">Performance, holdings and allocation data for all three strategies.</p><a href="#" style="font-size:11px;font-weight:700;color:#C5A55A;text-decoration:none;">Download all three ›</a></div></td>
-<td style="width:25%;vertical-align:top;"><div style="background:#ffffff;border:1px solid #E8E5DE;border-radius:6px;padding:24px;min-height:160px;"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2240" stroke-width="1.5" style="width:24px;height:24px;margin-bottom:14px;"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><div style="font-size:14px;font-weight:700;color:#0A2240;margin:0 0 4px 0;">Monthly Allocation Updates</div><p style="font-size:12px;color:#8B929D;line-height:1.5;margin:0 0 12px 0;">Quick-hit video series on positioning changes across the suite.</p><a href="#" style="font-size:11px;font-weight:700;color:#C5A55A;text-decoration:none;">Watch latest ›</a></div></td>
-<td style="width:25%;vertical-align:top;"><div style="background:#ffffff;border:1px solid #E8E5DE;border-radius:6px;padding:24px;min-height:160px;"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2240" stroke-width="1.5" style="width:24px;height:24px;margin-bottom:14px;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><div style="font-size:14px;font-weight:700;color:#0A2240;margin:0 0 4px 0;">Quarterly Income Webinar</div><p style="font-size:12px;color:#8B929D;line-height:1.5;margin:0 0 12px 0;">Live market outlook, allocation updates and Q&A with the team.</p><a href="#" style="font-size:11px;font-weight:700;color:#C5A55A;text-decoration:none;">Register ›</a></div></td>
-<td style="width:25%;vertical-align:top;"><div style="background:#ffffff;border:1px solid #E8E5DE;border-radius:6px;padding:24px;min-height:160px;"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2240" stroke-width="1.5" style="width:24px;height:24px;margin-bottom:14px;"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><div style="font-size:14px;font-weight:700;color:#0A2240;margin:0 0 4px 0;">Client Presentation Kit</div><p style="font-size:12px;color:#8B929D;line-height:1.5;margin:0 0 12px 0;">Branded deck, one-pager and client-facing comparison.</p><a href="#" style="font-size:11px;font-weight:700;color:#C5A55A;text-decoration:none;">Request kit ›</a></div></td>
+<td style="width:25%;vertical-align:top;"><div style="background:#ffffff;border:1px solid #E8DEC8;border-radius:6px;padding:24px;min-height:160px;"><svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5" style="width:24px;height:24px;margin-bottom:14px;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><div style="font-size:14px;font-weight:700;color:#002855;margin:0 0 4px 0;">2Q25 Factsheets</div><p style="font-size:12px;color:#808084;line-height:1.5;margin:0 0 12px 0;">Performance, holdings and allocation data for all three strategies.</p><a href="#" style="font-size:11px;font-weight:700;color:#A09162;text-decoration:none;">Download all three ›</a></div></td>
+<td style="width:25%;vertical-align:top;"><div style="background:#ffffff;border:1px solid #E8DEC8;border-radius:6px;padding:24px;min-height:160px;"><svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5" style="width:24px;height:24px;margin-bottom:14px;"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg><div style="font-size:14px;font-weight:700;color:#002855;margin:0 0 4px 0;">Monthly Allocation Updates</div><p style="font-size:12px;color:#808084;line-height:1.5;margin:0 0 12px 0;">Quick-hit video series on positioning changes across the suite.</p><a href="#" style="font-size:11px;font-weight:700;color:#A09162;text-decoration:none;">Watch latest ›</a></div></td>
+<td style="width:25%;vertical-align:top;"><div style="background:#ffffff;border:1px solid #E8DEC8;border-radius:6px;padding:24px;min-height:160px;"><svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5" style="width:24px;height:24px;margin-bottom:14px;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><div style="font-size:14px;font-weight:700;color:#002855;margin:0 0 4px 0;">Quarterly Income Webinar</div><p style="font-size:12px;color:#808084;line-height:1.5;margin:0 0 12px 0;">Live market outlook, allocation updates and Q&A with the team.</p><a href="#" style="font-size:11px;font-weight:700;color:#A09162;text-decoration:none;">Register ›</a></div></td>
+<td style="width:25%;vertical-align:top;"><div style="background:#ffffff;border:1px solid #E8DEC8;border-radius:6px;padding:24px;min-height:160px;"><svg viewBox="0 0 24 24" fill="none" stroke="#002855" stroke-width="1.5" style="width:24px;height:24px;margin-bottom:14px;"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><div style="font-size:14px;font-weight:700;color:#002855;margin:0 0 4px 0;">Client Presentation Kit</div><p style="font-size:12px;color:#808084;line-height:1.5;margin:0 0 12px 0;">Branded deck, one-pager and client-facing comparison.</p><a href="#" style="font-size:11px;font-weight:700;color:#A09162;text-decoration:none;">Request kit ›</a></div></td>
 </tr></table></div></div>`
 }
 ],
 "Forms & CTA": [
-{id:"mc-form",name:"MC Form + CTA Section",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+{id:"mc-form",name:"MC Form + CTA Section",src:"mc-content-block",badge:"MC",badgeBg:"#002855",badgeColor:"#fff",
 editable:["headline","description","formTitle","formSubtext","btnText"],
 defaults:{headline:"Ready to amplify?",description:"Your Market Leader and Internal Consultant Team can walk through the suite, discuss client fit, and help determine which strategy aligns with each client's income needs.",formTitle:"Get your custom SIP Suite kit",formSubtext:"Delivered within 48 hours by your dedicated team",btnText:"Get My Custom Kit ›"},
-html:d=>`<div style="background:#0A2240;padding:80px 48px;position:relative;overflow:hidden;font-family:'Source Sans 3',sans-serif;">
+html:d=>`<div style="background:#002855;padding:80px 48px;position:relative;overflow:hidden;font-family:'Roboto',sans-serif;">
 <table cellpadding="0" cellspacing="0" border="0" style="max-width:1080px;margin:0 auto;width:100%;border-collapse:collapse;position:relative;z-index:2;"><tr>
-<td style="vertical-align:top;padding-right:56px;"><div style="font-size:32px;font-weight:800;line-height:1.1;color:#ffffff;margin:0 0 16px 0;">${d.headline}</div><div style="width:36px;height:2px;background:#C5A55A;margin:0 0 16px 0;"></div><p style="font-size:14px;color:rgba(255,255,255,0.4);line-height:1.7;max-width:420px;margin:0 0 28px 0;">${d.description}</p>
+<td style="vertical-align:top;padding-right:56px;"><div style="font-size:32px;font-weight:800;line-height:1.1;color:#ffffff;margin:0 0 16px 0;">${d.headline}</div><div style="width:36px;height:2px;background:#A09162;margin:0 0 16px 0;"></div><p style="font-size:14px;color:rgba(255,255,255,0.4);line-height:1.7;max-width:420px;margin:0 0 28px 0;">${d.description}</p>
 <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:1px;text-transform:uppercase;margin:0 0 14px 0;">When you connect, you'll receive:</div>
-<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td style="padding:0 8px 8px 0;vertical-align:top;"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5" style="width:14px;height:14px;margin-top:1px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:12px;color:rgba(255,255,255,0.45);padding-bottom:8px;">Custom client-ready SIP Suite presentation</td></tr><tr><td style="padding:0 8px 8px 0;vertical-align:top;"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5" style="width:14px;height:14px;margin-top:1px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:12px;color:rgba(255,255,255,0.45);padding-bottom:8px;">Side-by-side strategy comparison with client-fit recommendations</td></tr><tr><td style="padding:0 8px 8px 0;vertical-align:top;"><svg viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5" style="width:14px;height:14px;margin-top:1px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:12px;color:rgba(255,255,255,0.45);padding-bottom:8px;">Portfolio review to see how SIP Suite fits alongside your existing models</td></tr></table></td>
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td style="padding:0 8px 8px 0;vertical-align:top;"><svg viewBox="0 0 24 24" fill="none" stroke="#A09162" stroke-width="1.5" style="width:14px;height:14px;margin-top:1px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:12px;color:rgba(255,255,255,0.45);padding-bottom:8px;">Custom client-ready SIP Suite presentation</td></tr><tr><td style="padding:0 8px 8px 0;vertical-align:top;"><svg viewBox="0 0 24 24" fill="none" stroke="#A09162" stroke-width="1.5" style="width:14px;height:14px;margin-top:1px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:12px;color:rgba(255,255,255,0.45);padding-bottom:8px;">Side-by-side strategy comparison with client-fit recommendations</td></tr><tr><td style="padding:0 8px 8px 0;vertical-align:top;"><svg viewBox="0 0 24 24" fill="none" stroke="#A09162" stroke-width="1.5" style="width:14px;height:14px;margin-top:1px;"><polyline points="20 6 9 17 4 12"/></svg></td><td style="font-size:12px;color:rgba(255,255,255,0.45);padding-bottom:8px;">Portfolio review to see how SIP Suite fits alongside your existing models</td></tr></table></td>
 <td style="vertical-align:top;width:400px;"><div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:28px;"><p style="font-size:15px;font-weight:700;color:#ffffff;margin:0 0 4px 0;">${d.formTitle}</p><p style="font-size:11px;color:rgba(255,255,255,0.3);margin:0 0 20px 0;">${d.formSubtext}</p>
-<table cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr><td style="padding:0 5px 10px 0;width:50%;"><input type="text" placeholder="First name" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:11px 12px;font-size:13px;color:#fff;outline:none;font-family:inherit;box-sizing:border-box;"></td><td style="padding:0 0 10px 5px;width:50%;"><input type="text" placeholder="Last name" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:11px 12px;font-size:13px;color:#fff;outline:none;font-family:inherit;box-sizing:border-box;"></td></tr><tr><td colspan="2" style="padding:0 0 10px 0;"><input type="email" placeholder="Email address" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:11px 12px;font-size:13px;color:#fff;outline:none;font-family:inherit;box-sizing:border-box;"></td></tr><tr><td colspan="2" style="padding:0 0 10px 0;"><input type="text" placeholder="Firm name" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:11px 12px;font-size:13px;color:#fff;outline:none;font-family:inherit;box-sizing:border-box;"></td></tr><tr><td colspan="2" style="padding:6px 0 0 0;"><button style="width:100%;background:#C5A55A;color:#0A2240;border:none;border-radius:4px;padding:12px 24px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-family:inherit;">${d.btnText}</button></td></tr></table></div></td>
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr><td style="padding:0 5px 10px 0;width:50%;"><input type="text" placeholder="First name" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:11px 12px;font-size:13px;color:#fff;outline:none;font-family:inherit;box-sizing:border-box;"></td><td style="padding:0 0 10px 5px;width:50%;"><input type="text" placeholder="Last name" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:11px 12px;font-size:13px;color:#fff;outline:none;font-family:inherit;box-sizing:border-box;"></td></tr><tr><td colspan="2" style="padding:0 0 10px 0;"><input type="email" placeholder="Email address" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:11px 12px;font-size:13px;color:#fff;outline:none;font-family:inherit;box-sizing:border-box;"></td></tr><tr><td colspan="2" style="padding:0 0 10px 0;"><input type="text" placeholder="Firm name" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:11px 12px;font-size:13px;color:#fff;outline:none;font-family:inherit;box-sizing:border-box;"></td></tr><tr><td colspan="2" style="padding:6px 0 0 0;"><button style="width:100%;background:#A09162;color:#002855;border:none;border-radius:4px;padding:12px 24px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-family:inherit;">${d.btnText}</button></td></tr></table></div></td>
 </tr></table></div>`
 },
 {id:"lp-form",name:"LP Form Section",src:"sip-suite-landing",badge:"LP",badgeBg:"#002855",badgeColor:"#A09162",
@@ -683,10 +683,10 @@ html:d=>`<section style="background:linear-gradient(180deg,#F0F0F0 0%,#e8eaed 10
 }
 ],
 "Footers & Disclosures": [
-{id:"mc-disclosure",name:"MC Disclosure Block",src:"mc-content-block",badge:"MC",badgeBg:"#0A2240",badgeColor:"#fff",
+{id:"mc-disclosure",name:"MC Disclosure Block",src:"mc-content-block",badge:"MC",badgeBg:"#002855",badgeColor:"#fff",
 editable:["disclosureText","complianceCode"],
 defaults:{disclosureText:"*SIP Composite gross-of-fee annualized return since inception (January 1, 2009) through June 30, 2025. Past performance does not guarantee future results. Investing involves risk, including the possible loss of principal.",complianceCode:"For Financial Professional Use Only. Not for Distribution to the Public. M-847233 | Exp. 12/15/26 | BR-EA-SIP"},
-html:d=>`<div style="background:#0A2240;padding:20px 48px 28px;border-top:1px solid rgba(255,255,255,0.04);font-family:'Source Sans 3',sans-serif;">
+html:d=>`<div style="background:#002855;padding:20px 48px 28px;border-top:1px solid rgba(255,255,255,0.04);font-family:'Roboto',sans-serif;">
 <div style="max-width:1080px;margin:0 auto;"><p style="font-size:10px;color:rgba(255,255,255,0.15);line-height:1.8;margin:0;">${d.disclosureText}</p><p style="font-size:10px;color:rgba(255,255,255,0.15);line-height:1.8;margin:6px 0 0 0;">${d.complianceCode}</p></div></div>`
 },
 {id:"lp-footer",name:"LP Eagle Footer",src:"sip-suite-landing",badge:"LP",badgeBg:"#002855",badgeColor:"#A09162",
@@ -696,12 +696,12 @@ html:d=>`<footer style="background:#ffffff;border-top:3px solid #A09162;padding:
 <div style="display:flex;gap:32px;justify-content:center;flex-wrap:wrap;padding-bottom:24px;border-bottom:1px solid #eee;"><a href="#" style="font-family:'Roboto Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:#002855;text-decoration:none;">About Us</a><a href="#" style="font-family:'Roboto Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:#002855;text-decoration:none;">Privacy Policy</a><a href="#" style="font-family:'Roboto Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:#002855;text-decoration:none;">ADV</a><a href="#" style="font-family:'Roboto Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:#002855;text-decoration:none;">Contact</a></div>
 <div style="text-align:center;padding:24px 20px;"><a href="http://www.rjinvestmentmanagement.com" target="_blank" style="font-family:'Roboto Condensed',sans-serif;font-size:16px;font-weight:300;color:#002855;display:block;margin-bottom:16px;text-decoration:none;">A Boutique of Raymond James Investment Management</a><p style="font-size:12px;color:#808084;line-height:1.6;max-width:900px;margin:0 auto 8px;">${d.legalText}</p><p style="margin-top:12px;font-size:11px;color:#bbb;">For Financial Professional Use Only. Not for Distribution to the Public.</p></div></footer>`
 },
-{id:"hub-footer",name:"Hub Footer",src:"sip-suite-hub",badge:"Hub",badgeBg:"#00263A",badgeColor:"#C8A951",
+{id:"hub-footer",name:"Hub Footer",src:"sip-suite-hub",badge:"Hub",badgeBg:"#002855",badgeColor:"#A09162",
 editable:["legalText"],
 defaults:{legalText:"©2026 Eagle Asset Management, Inc. All rights reserved."},
-html:d=>`<footer style="background:#00263A;color:rgba(255,255,255,0.5);padding:36px 40px;font-family:'Source Sans 3',sans-serif;">
-<div style="max-width:1060px;margin:0 auto;"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px;"><div style="font-family:'Source Serif 4',Georgia,serif;font-size:16px;font-weight:600;color:rgba(255,255,255,0.8);">Eagle Asset Management</div><div style="display:flex;gap:24px;"><a href="#" style="color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px;">About Eagle</a><a href="#" style="color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px;">Privacy Policy</a><a href="#" style="color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px;">Contact</a></div></div>
-<div style="font-size:12px;margin-bottom:12px;"><a href="http://www.rjinvestmentmanagement.com" target="_blank" style="color:#D4BC72;text-decoration:none;">A Boutique of Raymond James Investment Management</a></div>
+html:d=>`<footer style="background:#002855;color:rgba(255,255,255,0.5);padding:36px 40px;font-family:'Roboto',sans-serif;">
+<div style="max-width:1060px;margin:0 auto;"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:20px;"><div style="font-family:'Roboto Condensed',sans-serif;font-size:16px;font-weight:600;color:rgba(255,255,255,0.8);">Eagle Asset Management</div><div style="display:flex;gap:24px;"><a href="#" style="color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px;">About Eagle</a><a href="#" style="color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px;">Privacy Policy</a><a href="#" style="color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px;">Contact</a></div></div>
+<div style="font-size:12px;margin-bottom:12px;"><a href="http://www.rjinvestmentmanagement.com" target="_blank" style="color:#CBB88B;text-decoration:none;">A Boutique of Raymond James Investment Management</a></div>
 <div style="font-size:11px;line-height:1.6;">${d.legalText}</div>
 <div style="font-size:11px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.35);">For Financial Professional Use Only. Not for Distribution to the Public.</div></div></footer>`
 }
@@ -1011,7 +1011,7 @@ return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="v
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 ${extraLinks}
-<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Source Sans 3',sans-serif;margin:0;padding:0}</style>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Roboto',sans-serif;margin:0;padding:0}</style>
 ${extraStyles}
 </head><body>${body}</body></html>`}
 
@@ -1495,17 +1495,17 @@ function guessName(el, tag, idx) {
   if (combined.includes('cta')) return 'Call to Action';
 
   // Identify by inline style patterns (for MC content blocks)
-  if (style.includes('#0A2240') || style.includes('#002855')) {
+  if (style.includes('#002855') || style.includes('#002855')) {
     if (style.includes('padding:18px') || style.includes('padding: 18px')) return 'Brand Bar';
     if (style.includes('72px') || style.includes('80px')) {
       if (headingText) return headingText;
       return 'Major Section';
     }
   }
-  if (style.includes('#C5A55A') || style.includes('#A09162')) {
+  if (style.includes('#A09162') || style.includes('#A09162')) {
     if (el.children.length <= 2) return 'Credibility Bar';
   }
-  if (style.includes('#F8F6F1') || style.includes('#F0F0F0')) return headingText || 'Content Section';
+  if (style.includes('#F7F5F0') || style.includes('#F0F0F0')) return headingText || 'Content Section';
 
   // Fall back to heading text or generic name
   if (headingText) return headingText;
