@@ -92,7 +92,7 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 .block-html{pointer-events:none}
 
 /* RIGHT PANEL */
-.right-panel{width:440px;display:flex;flex-direction:column;border-left:1px solid var(--border);flex-shrink:0}
+.right-panel{width:600px;display:flex;flex-direction:column;border-left:1px solid var(--border);flex-shrink:0}
 .right-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--panel)}
 .right-tab{flex:1;padding:10px;text-align:center;font-size:11px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;color:var(--dim);transition:all .15s;letter-spacing:.3px}
 .right-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
@@ -174,9 +174,18 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
 .cat-count{background:rgba(197,165,90,.15);color:var(--gold);font-size:9px;font-weight:700;padding:1px 6px;border-radius:8px;margin-left:6px}
 
 /* SIDEBAR QUICK-ADD */
-.comp-add-btn{width:22px;height:22px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;opacity:0;transition:all .15s;flex-shrink:0}
-.comp-item:hover .comp-add-btn{opacity:1}
-.comp-add-btn:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.comp-add-btn,.comp-preview-btn{width:22px;height:22px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;opacity:0;transition:all .15s;flex-shrink:0}
+.comp-item:hover .comp-add-btn,.comp-item:hover .comp-preview-btn{opacity:1}
+.comp-add-btn:hover,.comp-preview-btn:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.comp-preview-btn{font-size:11px}
+
+/* SIDEBAR HOVER PREVIEW TOOLTIP */
+.sidebar-preview-tooltip{position:fixed;z-index:9000;background:var(--panel2);border:1px solid var(--gold);border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.5);overflow:hidden;pointer-events:none;width:420px;max-height:350px;opacity:0;transition:opacity .2s}
+.sidebar-preview-tooltip.visible{opacity:1;pointer-events:auto}
+.sidebar-preview-tooltip .spt-header{padding:8px 12px;background:var(--navy);display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.sidebar-preview-tooltip .spt-name{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.5px;text-transform:uppercase}
+.sidebar-preview-tooltip .spt-body{background:#fff;overflow:hidden;max-height:300px}
+.sidebar-preview-tooltip .spt-body iframe{width:420px;height:600px;border:none;transform:scale(.65);transform-origin:top left;pointer-events:none}
 
 /* CANVAS DRAG-REORDER FEEDBACK */
 .canvas-block[draggable=true]{cursor:grab}
@@ -250,6 +259,7 @@ body{font-family:'Source Sans 3',system-ui,sans-serif;background:var(--bg);color
   </div>
 </div>
 </div>
+<div class="sidebar-preview-tooltip" id="sidebarPreviewTooltip"><div class="spt-header"><span class="spt-name" id="sptName"></span></div><div class="spt-body"><iframe id="sptFrame" title="Component Preview"></iframe></div></div>
 <div class="modal-bg" id="exportModal">
   <div class="modal">
     <div class="modal-head"><h2>Export for SFMC</h2><button onclick="closeExport()">&times;</button></div>
@@ -641,8 +651,35 @@ const el=document.getElementById("sidebarScroll");let h="";
 for(const[cat,cs]of Object.entries(C)){
 h+=`<div class="cat-head open" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span>${cat}</span><span class="cat-count">${cs.length}</span><span class="arr">▶</span></div><div class="cat-items open">`;
 for(const c of cs){
-h+=`<div class="comp-item" draggable="true" data-id="${c.id}" ondragstart="onDragStart(event,'${c.id}')" ondblclick="addComp('${c.id}')"><div class="comp-badge" style="background:${c.badgeBg};color:${c.badgeColor}">${c.badge}</div><div class="comp-info"><div class="comp-name">${c.name}</div><div class="comp-src">${c.src}</div></div><button class="comp-add-btn" onclick="event.stopPropagation();addComp('${c.id}')" title="Add to canvas">+</button></div>`;
+h+=`<div class="comp-item" draggable="true" data-id="${c.id}" ondragstart="onDragStart(event,'${c.id}')" ondblclick="addComp('${c.id}')"><div class="comp-badge" style="background:${c.badgeBg};color:${c.badgeColor}">${c.badge}</div><div class="comp-info"><div class="comp-name">${c.name}</div><div class="comp-src">${c.src}</div></div><button class="comp-preview-btn" onclick="event.stopPropagation();toggleSidebarPreview(event,'${c.id}')" title="Preview component">&#128065;</button><button class="comp-add-btn" onclick="event.stopPropagation();addComp('${c.id}')" title="Add to canvas">+</button></div>`;
 }h+=`</div>`}el.innerHTML=h}
+
+// SIDEBAR PREVIEW TOOLTIP
+let sptActive=null;
+function toggleSidebarPreview(e,id){
+const tooltip=document.getElementById("sidebarPreviewTooltip");
+if(sptActive===id){tooltip.classList.remove("visible");sptActive=null;return}
+const def=findDef(id);if(!def)return;
+sptActive=id;
+document.getElementById("sptName").textContent=def.name;
+const frame=document.getElementById("sptFrame");
+const html=def.html(def.defaults);
+const doc=`<!DOCTYPE html><html><head><link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/><style>body{margin:0;padding:0;}</style></head><body>${html}</body></html>`;
+frame.srcdoc=doc;
+// Position tooltip to the right of the clicked button
+const rect=e.target.closest(".comp-item").getBoundingClientRect();
+let top=rect.top-10;
+let left=rect.right+12;
+// Clamp to viewport
+const tw=430,th=360;
+if(left+tw>window.innerWidth){left=rect.left-tw-12}
+if(top+th>window.innerHeight){top=window.innerHeight-th-10}
+if(top<10)top=10;
+tooltip.style.top=top+"px";tooltip.style.left=left+"px";
+tooltip.classList.add("visible");
+}
+function closeSidebarPreview(){const t=document.getElementById("sidebarPreviewTooltip");t.classList.remove("visible");sptActive=null}
+document.addEventListener("click",e=>{if(sptActive&&!e.target.closest(".sidebar-preview-tooltip")&&!e.target.closest(".comp-preview-btn")){closeSidebarPreview()}});
 
 function filterComps(){
 const q=document.getElementById("compSearch").value.toLowerCase();
