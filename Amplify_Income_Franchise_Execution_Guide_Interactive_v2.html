@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amplify Income Franchise Execution Guide | Eagle Asset Management</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#002855;--gold:#A09162;--gold-light:#CBB88B;--slate:#3D4F5F;--light:#F7F5F0;--muted:#6B7B8D;--bg:#F4F2ED;--sidebar-w:300px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:var(--bg);color:#333;display:flex;min-height:100vh}
+button{font-family:inherit;cursor:pointer}
+a{color:var(--navy)}
+a:hover{color:var(--gold)}
+
+/* Sidebar */
+.sidebar{width:var(--sidebar-w);background:linear-gradient(180deg,#0f172a 0%,#001a3a 100%);position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:50;display:flex;flex-direction:column}
+.sidebar-header{padding:22px 18px 14px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.sidebar-brand{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.sidebar-brand .eagle{font-size:16px;font-weight:700;color:#fff;letter-spacing:3px;text-transform:uppercase}
+.sidebar-brand .sep{color:var(--gold);opacity:0.5}
+.sidebar-brand .sub{font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:2px;text-transform:uppercase}
+.sidebar-title{font-size:13px;color:var(--gold-light);font-weight:700;letter-spacing:0.4px}
+.sidebar-subtitle{font-size:11px;color:rgba(255,255,255,0.35);margin-top:4px;line-height:1.35}
+.sidebar-nav{flex:1;padding:10px 0}
+.nav-item{padding:10px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;border-left:3px solid transparent;transition:all .15s}
+.nav-item:hover{background:rgba(255,255,255,0.03)}
+.nav-item.active{background:rgba(160,145,98,0.18);border-left-color:var(--gold)}
+.nav-num{font-size:10px;font-weight:800;color:var(--gold);opacity:.7;min-width:22px}
+.nav-item.active .nav-num{opacity:1}
+.nav-label{font-size:13px;color:rgba(255,255,255,0.72);font-weight:500;line-height:1.25}
+.nav-item.active .nav-label{color:#fff;font-weight:700}
+.nav-check{margin-left:auto;font-size:12px;color:#10B981;display:none}
+.nav-item.read .nav-check{display:block}
+.sidebar-footer{padding:14px 18px;border-top:1px solid rgba(255,255,255,0.08);font-size:10px;color:rgba(255,255,255,0.28);line-height:1.55}
+
+/* Main */
+.main{margin-left:var(--sidebar-w);flex:1;min-height:100vh}
+.main-header{background:#fff;border-bottom:1px solid #e2ddd4;padding:14px 26px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:40}
+.main-header-title{font-size:14px;font-weight:800;color:var(--navy);letter-spacing:0.2px}
+.main-header-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.main-header-actions{display:flex;gap:10px;align-items:center}
+.btn-sm{padding:6px 12px;border-radius:4px;font-size:11px;font-weight:700;border:1px solid #ddd;background:#fff;color:var(--muted)}
+.btn-sm:hover{background:#f5f5f5}
+.btn-gold{background:var(--gold);color:#fff;border-color:var(--gold)}
+.progress-bar-mini{width:140px;height:4px;background:#E5E7EB;border-radius:2px;overflow:hidden}
+.progress-bar-mini .fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:2px;transition:width .3s}
+
+.content{padding:28px;max-width:980px;margin:0 auto}
+.section{margin-bottom:44px}
+.section-num{font-size:10px;color:var(--gold);font-weight:800;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px}
+.section-title{font-size:28px;font-weight:900;color:var(--navy);margin-bottom:14px;line-height:1.18}
+.section-divider{height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:22px}
+.section p{font-size:15px;color:#1f2937;line-height:1.75;margin-bottom:14px}
+.section strong{color:var(--navy)}
+.section-body h3{font-size:18px;font-weight:900;color:var(--navy);margin:26px 0 12px}
+.section-body h4{font-size:15px;font-weight:900;color:var(--slate);margin:18px 0 8px}
+
+.tbl{width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:13px}
+.tbl th{background:var(--navy);color:#fff;font-weight:800;padding:10px 12px;text-align:left;font-size:11px;letter-spacing:0.7px;text-transform:uppercase}
+.tbl td{padding:10px 12px;border-bottom:1px solid #e8e5de;color:#111827;vertical-align:top}
+.tbl tr:nth-child(even) td{background:var(--light)}
+
+.note-box{background:#fff;border:1px solid #e2ddd4;border-radius:6px;padding:14px 16px;margin:18px 0}
+.note-label{font-size:10px;color:var(--gold);font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.note-box textarea{width:100%;border:1px solid #e8e5de;border-radius:4px;padding:10px;font-size:13px;min-height:70px;resize:vertical;color:#111827}
+
+.mark-read{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid #ddd;border-radius:4px;background:#fff;font-size:12px;color:var(--muted);margin-top:4px;transition:all .15s}
+.mark-read.done{background:#ECFDF5;border-color:#86EFAC;color:#059669}
+
+@media(max-width:980px){
+  :root{--sidebar-w:0px}
+  .sidebar{position:relative;width:100%;height:auto}
+  .main{margin-left:0}
+}
+</style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <div class="eagle">EAGLE</div><div class="sep">|</div><div class="sub">Asset Management</div>
+      </div>
+      <div class="sidebar-title">Amplify Income Franchise Execution Guide</div>
+      <div class="sidebar-subtitle">Interactive Guide (local save for read-state + notes)</div>
+    </div>
+    <div class="sidebar-nav" id="nav">
+      
+    <div class="nav-item" data-target="sec-1">
+      <span class="nav-num">01</span>
+      <span class="nav-label">Overview</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-2">
+      <span class="nav-num">02</span>
+      <span class="nav-label">1. Strategic Reframe: From Campaign to Income Franchise</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-3" style='padding-left:32px'>
+      <span class="nav-num">03</span>
+      <span class="nav-label">1.1 The Franchise Model</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-4" style='padding-left:32px'>
+      <span class="nav-num">04</span>
+      <span class="nav-label">1.2 Content Hierarchy</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-5">
+      <span class="nav-num">05</span>
+      <span class="nav-label">2. Video Series: The Recurring Content Engine</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-6" style='padding-left:32px'>
+      <span class="nav-num">06</span>
+      <span class="nav-label">2.1 Franchise Positioning (Not Product Positioning)</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-7" style='padding-left:32px'>
+      <span class="nav-num">07</span>
+      <span class="nav-label">2.2 How the Video Series Integrates With Every Touchpoint</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-8">
+      <span class="nav-num">08</span>
+      <span class="nav-label">3. Revised Production Calendar</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-9" style='padding-left:32px'>
+      <span class="nav-num">09</span>
+      <span class="nav-label">3.1 Master Calendar: March Through April 2026</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-10" style='padding-left:32px'>
+      <span class="nav-num">10</span>
+      <span class="nav-label">3.2 Monthly Video Production Rhythm (Recurring)</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-11">
+      <span class="nav-num">11</span>
+      <span class="nav-label">4. Franchise Component Deep Dives</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-12" style='padding-left:32px'>
+      <span class="nav-num">12</span>
+      <span class="nav-label">4.1 Quarterly Income Webinar</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-13" style='padding-left:32px'>
+      <span class="nav-num">13</span>
+      <span class="nav-label">4.2 Income Playbook (JPMorgan Guide to the Markets Model)</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-14" style='padding-left:32px'>
+      <span class="nav-num">14</span>
+      <span class="nav-label">4.3 Client Convos Quarterly</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-15" style='padding-left:32px'>
+      <span class="nav-num">15</span>
+      <span class="nav-label">4.4 Income Toolkit / Briefcase</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-16">
+      <span class="nav-num">16</span>
+      <span class="nav-label">5. Campaign Email Strategy (Tier 3)</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-17" style='padding-left:32px'>
+      <span class="nav-num">17</span>
+      <span class="nav-label">5.1 Email 1: SIP Suite Introduction</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-18" style='padding-left:32px'>
+      <span class="nav-num">18</span>
+      <span class="nav-label">5.2 Email 2: SIP+ Introduction</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-19" style='padding-left:32px'>
+      <span class="nav-num">19</span>
+      <span class="nav-label">5.3 Email 3: GSIP Introduction</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-20">
+      <span class="nav-num">20</span>
+      <span class="nav-label">6. Sales Enablement and RVP Activation</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-21" style='padding-left:32px'>
+      <span class="nav-num">21</span>
+      <span class="nav-label">6.1 Sales Email Template Suite</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-22" style='padding-left:32px'>
+      <span class="nav-num">22</span>
+      <span class="nav-label">6.2 Seismic DSR Packaging</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-23" style='padding-left:32px'>
+      <span class="nav-num">23</span>
+      <span class="nav-label">6.3 Sales Activation Timeline (Per Video Episode)</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-24">
+      <span class="nav-num">24</span>
+      <span class="nav-label">7. Critical Dependencies and Production Requirements</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-25" style='padding-left:32px'>
+      <span class="nav-num">25</span>
+      <span class="nav-label">7.1 Immediate Priorities (This Week Through March 3)</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-26" style='padding-left:32px'>
+      <span class="nav-num">26</span>
+      <span class="nav-label">7.2 Video Production Dependencies</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-27" style='padding-left:32px'>
+      <span class="nav-num">27</span>
+      <span class="nav-label">7.3 Platform and Technical Requirements</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-28">
+      <span class="nav-num">28</span>
+      <span class="nav-label">8. Measurement Framework</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-29" style='padding-left:32px'>
+      <span class="nav-num">29</span>
+      <span class="nav-label">8.1 Franchise Health Metrics</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    <div class="nav-item" data-target="sec-30" style='padding-left:32px'>
+      <span class="nav-num">30</span>
+      <span class="nav-label">8.2 Campaign Activation Metrics</span>
+      <span class="nav-check">✓</span>
+    </div>
+    
+    </div>
+    <div class="sidebar-footer">
+      <strong>Tip:</strong> “Read” status and notes save locally in your browser.
+      If opened in a restricted environment, local storage may be disabled.
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="main-header">
+      <div>
+        <div class="main-header-title">Amplify Income Franchise Execution Guide</div>
+        <div class="main-header-sub">Internal use only • Updated Feb 27, 2026</div>
+      </div>
+      <div class="main-header-actions">
+        <div class="progress-bar-mini" aria-label="Progress"><div class="fill" id="progressFill" style="width:0%"></div></div>
+        <button class="btn-sm" id="collapseAll">Collapse notes</button>
+        <button class="btn-sm btn-gold" id="resetAll">Reset</button>
+      </div>
+    </div>
+
+    <div class="content" id="content">
+      
+    <section class="section" id="sec-1">
+      <div class="section-num">01 Section</div>
+      <h2 class="section-title">Overview</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p><strong>EAGLE ASSET MANAGEMENT</strong></p><p><strong>Amplify Your Income Potential</strong></p><p>Integrated Campaign Execution Guide</p><p>Income Franchise Strategy, Video Series Integration, and Revised Production Calendar</p><p>Version 2.0  |  February 2026  |  <strong>CONFIDENTIAL — FOR INTERNAL USE ONLY</strong></p><p>Prepared by: Content Strategy  |  Eagle Asset Management / Raymond James Investment Management</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-1" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-1">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-2">
+      <div class="section-num">02 Section</div>
+      <h2 class="section-title">1. Strategic Reframe: From Campaign to Income Franchise</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>This document supersedes the original SIP Suite Campaign Playbook timeline and integrates all campaign elements under a unified income franchise strategy. The revised approach elevates Eagle’s income positioning from a product-level campaign to a durable content franchise modeled on the most effective distribution marketing programs in institutional asset management.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-2" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-2">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-3">
+      <div class="section-num">03 Subsection</div>
+      <h2 class="section-title">1.1 The Franchise Model</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>The highest-performing income marketing programs in the industry — PIMCO’s Income Strategy platform, JPMorgan’s Guide to the Markets, Capital Group’s Practice Lab — share a common architecture. They establish the firm as an ongoing income resource first, then position products within that ecosystem. The income narrative is permanent infrastructure; product introductions are activations within it.</p><p>Eagle’s “Amplify Your Income Potential” should operate identically. The brand is not a campaign tagline for the SIP Suite launch. It is Eagle’s income franchise umbrella under which every income-related touchpoint lives: the quarterly webinar, the monthly video series, the Income Playbook chart book, the Client Convos quarterly, the Income Toolkit, and the SIP Suite product marketing. Each component reinforces the others. No single asset carries the entire weight of the income story.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-3" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-3">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-4">
+      <div class="section-num">04 Subsection</div>
+      <h2 class="section-title">1.2 Content Hierarchy</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>The franchise operates across four tiers, each at a different cadence, serving a different function in the advisor relationship lifecycle. The tiers are designed so that content flows downhill — quarterly anchor content feeds the monthly series, which feeds the campaign activations, which feed the sustained engagement tools.</p><table class='tbl'><thead><tr><th>TIER</th><th>CADENCE</th><th>ASSETS</th><th>FUNCTION</th></tr></thead><tbody><tr><td>1. Quarterly Anchor</td><td>4x/year</td><td>Income Webinar + Income Playbook (chart book)</td><td>Tentpole event. Establishes market authority. Produces source material for all other tiers.</td></tr><tr><td>2. Monthly Pulse</td><td>12x/year</td><td>Strategic Income Playbook Video Series</td><td>Recurring engagement. Keeps Eagle visible between tentpoles. Delivers utility to advisors.</td></tr><tr><td>3. Campaign Activations</td><td>As scheduled</td><td>SIP Suite Email 1, SIP+ Email 2, GSIP Email 3, webinar promo emails</td><td>Direct product introductions. Runs within the franchise ecosystem, not outside it.</td></tr><tr><td>4. Sustained Tools</td><td>Ongoing</td><td>Client Convos, Income Toolkit/Briefcase, Social clips, Seismic DSRs</td><td>Keeps franchise alive between active campaigns. Physical and digital artifacts.</td></tr></tbody></table><p>The critical design principle: Tier 1 and Tier 2 content is positioned as market intelligence and advisor utility, not product promotion. The product case is implicit — the team producing the content is the team managing the strategies. Tier 3 is the only tier that makes an explicit product ask. This ensures the franchise maintains credibility across the full advisor audience, including those who have not yet allocated.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-4" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-4">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-5">
+      <div class="section-num">05 Section</div>
+      <h2 class="section-title">2. Video Series: The Recurring Content Engine</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>The monthly allocation video series is the most strategically important recurring asset in the franchise. It operates at Tier 2 — monthly cadence, market intelligence positioning, advisor utility focus. It is the single touchpoint that keeps Eagle’s income team visible to advisors every 30 days without requiring a product-level ask.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-5" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-5">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-6">
+      <div class="section-num">06 Subsection</div>
+      <h2 class="section-title">2.1 Franchise Positioning (Not Product Positioning)</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>The video series should be branded under the Amplify franchise, not under the SIP Suite product brand. The recommended series title is “Strategic Income Playbook” or “Amplify Income Monthly.” The content structure remains unchanged from the Supplemental Execution Guide:</p><p><strong>Opening (30 sec): </strong>Market context — what happened, what it means for income investors.</p><p><strong>Portfolio Positioning (60–90 sec): </strong>Current allocation stance, tactical shifts, and rationale.</p><p><strong>Income Lens (60 sec): </strong>Yield, credit, or dividend trends relevant to income strategies.</p><p><strong>Advisor Takeaway (30 sec): </strong>One actionable insight for the next client conversation.</p><p><strong>Close (15 sec): </strong>Standard CTA to cloud page or upcoming webinar.</p><p>Target length: 3–4 minutes. Format: talking head with supporting charts. The Advisor Takeaway is the most valuable segment — it is the clip that gets shared on social, referenced in RVP emails, and used by advisors in practice. Every video must deliver one specific, usable takeaway.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-6" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-6">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-7">
+      <div class="section-num">07 Subsection</div>
+      <h2 class="section-title">2.2 How the Video Series Integrates With Every Touchpoint</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p><strong>Cloud Page</strong></p><p>The latest monthly video occupies the primary content position on the cloud page, above the evergreen Camp suite overview video. The cloud page should feature a “Latest Episode” badge on the current month’s video and an archive slider or list of previous episodes below. This transforms the cloud page from a static product hub into a living franchise destination that advisors have a reason to revisit monthly.</p><p><strong>Sales Email Templates (RVP Monthly Playbook)</strong></p><p>The RVP playbook email leads with the monthly video, includes 2–3 key takeaways formatted as conversation starters, and closes with the next upcoming touchpoint (webinar registration or next video teaser). Template structure: personal note from the RVP (1–2 sentences), video link with speaker and topic, key takeaways, secondary CTA. The RJ version references the SIP Suite availability. The Non-RJ version frames the content as Eagle’s income market intelligence without product-specific language.</p><p><strong>Marketing Campaign Emails</strong></p><p>Email 1 (SIP Suite introduction) references the video series as an ongoing resource within the Amplify ecosystem. Emails 2 and 3 (SIP+, GSIP) incorporate relevant clips or references from the most recent monthly video that address strategy-specific themes — higher-yield positioning for SIP+, international allocation for GSIP. The monthly videos become embedded proof points within the campaign emails.</p><p><strong>Quarterly Income Webinar</strong></p><p>The webinar is positioned as the “live, extended version” of the monthly playbook. Same investment team, deeper format, live Q&amp;A. The monthly videos build familiarity with the speakers and content approach; the webinar capitalizes on that familiarity to drive live engagement. Post-webinar, the replay becomes an archive asset alongside the monthly videos on the cloud page.</p><p><strong>Social Media</strong></p><p>Each monthly video produces 2–3 short clips (30–60 seconds) for LinkedIn, focused on the Advisor Takeaway segment. Posts are branded under the Amplify franchise and link to the full episode on the cloud page. Social cadence: publish clips within 48 hours of video going live, then a second promotional push 5–7 days later for extended reach.</p><p><strong>Seismic DSR</strong></p><p>Each monthly video plus its key takeaways document is packaged as a DSR that the sales team can send 1:1. The DSR includes the video link, the takeaways formatted as bullet points, and a pre-written email body the salesperson can customize. The DSR updates monthly as part of the standard publish workflow.</p><p><strong>Income Playbook Chart Book</strong></p><p>The quarterly Income Playbook (modeled on JPMorgan’s Guide to the Markets) draws from the same source material as the monthly videos. The webinar deck provides the raw charts; the monthly videos provide the narrative context. The Playbook is the printed and digital artifact that synthesizes a quarter’s worth of income market intelligence into a reference document advisors can keep on their desk and use in client meetings.</p><p><strong>Income Toolkit / Briefcase</strong></p><p>The physical Income Toolkit includes a QR code linking to the cloud page video archive. When an advisor scans the QR code from a conference or desk drop, they land on a page populated with months of video content, the latest Income Playbook, webinar replays, and strategy factsheets. The Toolkit bridges physical distribution and digital engagement.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-7" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-7">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-8">
+      <div class="section-num">08 Section</div>
+      <h2 class="section-title">3. Revised Production Calendar</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>The following calendar reflects the updated timeline: Email 1 sends week of March 3, the Quarterly Income Webinar targets the last week of March, and the video series production continues on its established monthly cadence. All dates assume today is approximately February 20, 2026.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-8" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-8">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-9">
+      <div class="section-num">09 Subsection</div>
+      <h2 class="section-title">3.1 Master Calendar: March Through April 2026</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><table class='tbl'><thead><tr><th>DATE</th><th>ACTIVITY</th><th>CAMPAIGN TIE-IN</th><th>STATUS</th></tr></thead><tbody><tr><td>Feb 20–28</td><td>Finalize Email 1 copy. Cloud page QA and go-live. Confirm Feb video filming date. Begin webinar registration page build (On24).</td><td>Pre-launch foundation</td><td>IN PRODUCTION</td></tr><tr><td>w/o Mar 3</td><td>Email 1 sends (SIP Suite introduction). Feb allocation video films. Webinar registration page goes live. Initial webinar promos via RJnet and social.</td><td>Email 1 + Video production + Webinar promo launch</td><td>IN PRODUCTION</td></tr><tr><td>Mar 10–13</td><td>Feb allocation video goes live (target: Thu Mar 13). RVPs send monthly playbook email (day after publish). Webinar promos intensify.</td><td>First video series activation post-Email 1</td><td>PLANNING</td></tr><tr><td>Mar 12–13</td><td>Investment team 2nd Thursday meeting. March video themes and speaker confirmed.</td><td>March video production begins</td><td>PLANNING</td></tr><tr><td>Mar 17–21</td><td>March video script finalized. March video films. Second wave of webinar promotion. Combo email template (playbook + webinar) deployed by RVPs.</td><td>Pre-webinar momentum</td><td>PLANNING</td></tr><tr><td>Mar 24–28</td><td>Quarterly Income Webinar executes (last week of March). Post-webinar follow-up email within 48 hours: replay link, key takeaways, March video teaser.</td><td>Webinar + post-event activation</td><td>PLANNING</td></tr><tr><td>Mar 31–Apr 4</td><td>March allocation video goes live. RVPs send March playbook email. Income Playbook Q1 chart book assembly begins from webinar materials.</td><td>March video + Playbook production</td><td>PLANNING</td></tr><tr><td>w/o Apr 7</td><td>SIP+ overview video: script finalized. Begin Email 2 copy development. Income Playbook draft to compliance.</td><td>Pre-Email 2 production</td><td>PLANNING</td></tr><tr><td>w/o Apr 14</td><td>Email 2 sends (SIP+ introduction). SIP+ overview video films. April monthly video enters production cycle.</td><td>Email 2 + continued franchise cadence</td><td>PLANNING</td></tr><tr><td>Apr 17</td><td>April allocation video goes live. Income Playbook Q1 edition distributed: Cloud Page, RJnet, Seismic, physical copies for RVPs.</td><td>Playbook launch + monthly cadence</td><td>PLANNING</td></tr><tr><td>w/o Apr 21</td><td>GSIP overview video script finalized. Client Convos pilot edition workshopped with sales team.</td><td>Pre-Email 3 production</td><td>PLANNING</td></tr><tr><td>w/o May 5</td><td>Email 3 sends (GSIP introduction). GSIP overview video live. Income Toolkit design commissioned.</td><td>Email 3 + Toolkit initiation</td><td>PLANNING</td></tr></tbody></table></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-9" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-9">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-10">
+      <div class="section-num">10 Subsection</div>
+      <h2 class="section-title">3.2 Monthly Video Production Rhythm (Recurring)</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>The following production rhythm repeats every month. It is unchanged from the Supplemental Execution Guide but is reprinted here for reference within the revised calendar context.</p><table class='tbl'><thead><tr><th>TIMING</th><th>ACTIVITY</th><th>OWNER</th></tr></thead><tbody><tr><td>2nd Thursday</td><td>Investment team meets. Key themes, positioning changes, and market views established.</td><td>Investment Team</td></tr><tr><td>Following Wed/Thu</td><td>Script draft based on meeting takeaways. Send schedule and script to Ryan and Lucas for review. Key takeaways doc updated for email template and social promos.</td><td>Content Strategy</td></tr><tr><td>Following Week</td><td>Video filming at RJMS studios. 2-week RJMS production timeline begins.</td><td>RJMS / Content</td></tr><tr><td>3rd Thursday</td><td>Video live on Cloud Page (latest badge), Seismic DSR, RJnet. SF email template updated. Social post published. RVPs send playbook email next business day.</td><td>Digital / Sales / Social</td></tr></tbody></table></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-10" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-10">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-11">
+      <div class="section-num">11 Section</div>
+      <h2 class="section-title">4. Franchise Component Deep Dives</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-11" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-11">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-12">
+      <div class="section-num">12 Subsection</div>
+      <h2 class="section-title">4.1 Quarterly Income Webinar</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>The quarterly webinar is the Tier 1 tentpole event that anchors the entire franchise calendar. Each quarter, the webinar delivers a comprehensive income market update from the full investment team, covering macro conditions, allocation positioning, yield and credit analysis, and forward-looking strategy.</p><p>The March webinar (targeting last week of March) should be positioned as the Q1 2026 Amplify Your Income Potential Quarterly Update. It is a market intelligence event, not a product sales event. The team that manages the SIP Suite delivers the content, which establishes product familiarity implicitly without requiring an explicit sell. Advisors register for market intelligence. They attend for investment insight. They leave with awareness of the SIP Suite as the implementation vehicle.</p><p><strong>Webinar-to-Playbook Pipeline</strong></p><p>Within two weeks of the live event, the webinar deck content is repurposed into the quarterly Income Playbook chart book. The Playbook extracts the most impactful charts and data visualizations from the webinar, formats them as standalone reference pages (each page tells a complete story without narration), and adds 2–3 pages of SIP Suite positioning within the current market context. The Playbook is the artifact that outlasts the webinar — it sits on advisors’ desks, gets shared with colleagues, and resurfaces in client meetings for the next 90 days.</p><p><strong>Webinar Promotion Integration</strong></p><p>Webinar promotion leverages every tier of the franchise. The monthly video series builds familiarity with the speakers (“You’ve seen the monthly playbook. Now join the full team live.”). The RVP combo email template pairs the latest monthly video with the webinar registration link. Social posts clip content from recent monthly videos with a CTA to register for the deeper live session. RJnet banners drive awareness among the internal channel. This multi-touch promotion approach ensures the webinar benefits from months of franchise engagement rather than starting from zero awareness with each quarterly event.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-12" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-12">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-13">
+      <div class="section-num">13 Subsection</div>
+      <h2 class="section-title">4.2 Income Playbook (JPMorgan Guide to the Markets Model)</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>The Income Playbook is Eagle’s version of JPMorgan’s Guide to the Markets — a quarterly, chart-driven reference document that advisors use as a practice tool. It is not a brochure. It is not a sales piece. It is a market reference that happens to be produced by the team that manages the SIP Suite. This positioning distinction is essential to the Playbook’s utility and longevity.</p><p><strong>Content Architecture</strong></p><p>Each edition: 15–20 pages. The content is drawn directly from Camp’s quarterly income webinar deck, curated and reformatted into a chart book layout where every page tells a self-contained story. Sections include macro environment and rate outlook, yield curve and credit market analysis, equity income and dividend trend data, asset allocation positioning across the SIP Suite strategies, and historical income performance context. The final 2–3 pages position the SIP Suite within the current market environment — this is the only section with explicit product reference.</p><p><strong>Production Cadence</strong></p><p>Draft assembled from webinar deck 1–2 weeks post-webinar. Design production: 1 week for chart formatting and Amplify branding. Compliance review: 1 week. Target distribution: 3–4 weeks post-webinar. Distribution channels: Cloud Page (downloadable PDF), RJnet, Seismic, and physical copies for RVPs to carry and leave behind.</p><p><strong>First Edition Target</strong></p><p>The Q1 2026 Income Playbook first edition is assembled from the March webinar materials. Production begins the first week of April, targeting distribution by the end of April. This aligns with Email 2 (SIP+ introduction), creating a natural package: the advisor receives the SIP+ email, clicks through to the cloud page, and finds the Income Playbook as a complementary resource. The Playbook validates Eagle’s income authority; the email makes the specific product case.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-13" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-13">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-14">
+      <div class="section-num">14 Subsection</div>
+      <h2 class="section-title">4.3 Client Convos Quarterly</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>Client Convos is the client-facing companion piece that translates institutional-quality market intelligence into advisor-ready conversation frameworks. Where the Income Playbook is a reference tool for the advisor’s own use, Client Convos is designed for the advisor-client interaction. It bridges the gap between what the investment team knows and what the advisor says in the next meeting.</p><p><strong>Content Framework</strong></p><p>Each quarterly edition features 3–4 conversation starters drawn from the webinar and current market themes. Each conversation starter includes a plain-language client explanation (no jargon), a supporting data point or chart, a recommended positioning statement the advisor can use, and a connection to the relevant SIP Suite strategy (SIP, SIP+, or GSIP). The tone mirrors best-in-class client communication: clear, confident, and empathetic to client concerns about income, risk, and market uncertainty.</p><p><strong>Pilot Edition Timeline</strong></p><p>Workshop the first edition with the sales team in late April to validate format and content. The pilot draws from the March webinar themes. Feedback loop: sales input determines whether the cadence is quarterly or semi-annual, and whether the format is digital-only or includes a physical print run for RVP distribution.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-14" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-14">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-15">
+      <div class="section-num">15 Subsection</div>
+      <h2 class="section-title">4.4 Income Toolkit / Briefcase</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>The Income Toolkit is the physical manifestation of the Amplify franchise. Repurposed from the SIMS briefcase framework, it provides external wholesalers with a curated, portable collection of Eagle’s income materials that can be left behind at advisor meetings, used at conferences, and shipped as desk drops.</p><p><strong>Toolkit Contents</strong></p><p>Each Toolkit includes the three SIP Suite strategy factsheets (SIP, SIP+, Global SIP), a condensed version of the latest Income Playbook (4–6 pages), a one-page “Which Strategy Fits Your Client?” comparison card, and a QR code card linking to the cloud page video archive and full resources. The QR code is the bridge between the physical and digital ecosystems — it converts a conference interaction into an ongoing digital engagement.</p><p><strong>Distribution Strategy</strong></p><p>The Toolkit is deployed alongside the Bluetooth speaker desk drops to the top 100–200 advisor targets. The speaker is the attention-getter. The Toolkit is the substance. Each package includes a handwritten note from the RVP referencing the latest monthly video or the upcoming webinar, creating a personal connection that the physical materials reinforce. Target availability: Q2 2026, with the first print run commissioned after the Playbook first edition is finalized.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-15" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-15">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-16">
+      <div class="section-num">16 Section</div>
+      <h2 class="section-title">5. Campaign Email Strategy (Tier 3)</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>The three marketing campaign emails (SIP Suite introduction, SIP+ introduction, GSIP introduction) are Tier 3 activations that run within the franchise ecosystem. They benefit from the authority and awareness built by Tiers 1 and 2, and they direct advisors toward Tier 4 sustained engagement tools.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-16" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-16">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-17">
+      <div class="section-num">17 Subsection</div>
+      <h2 class="section-title">5.1 Email 1: SIP Suite Introduction</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p><strong>Send date: </strong>Week of March 3, 2026</p><p><strong>Audience: </strong>RJ Financial Advisors (current clients and prospects, 2 versions)</p><p><strong>Collateral linked: </strong>Cloud page (live and tested), Camp suite overview video, brochure, three factsheets</p><p>Email 1 introduces the SIP Suite but also plants the seed for the broader Amplify franchise. The email should reference the ongoing video series (“Each month, our investment team shares their current positioning in a 3–4 minute briefing built for your next client conversation”), the upcoming webinar (with registration link), and the cloud page as a living resource. This frames the email as an invitation to an ongoing relationship, not a one-time product announcement.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-17" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-17">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-18">
+      <div class="section-num">18 Subsection</div>
+      <h2 class="section-title">5.2 Email 2: SIP+ Introduction</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p><strong>Send date: </strong>Week of April 14, 2026</p><p><strong>Audience: </strong>RJ FAs (current clients and prospects). Segmentation: anyone who opened Email 1, plus anyone who didn’t open Email 1 (re-segmented from suite intro to SIP+ direct). Links to new RJ net page with SIP+ content.</p><p><strong>Collateral linked: </strong>SIP+ factsheet, SIP+ overview video (must be live), cloud page SIP+ section</p><p>Email 2 should incorporate a reference to the most recent monthly video that addresses higher-yield or credit allocation themes, creating a bridge between the franchise content and the product introduction. The webinar replay link serves as a secondary proof point for advisors who missed the live event.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-18" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-18">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-19">
+      <div class="section-num">19 Subsection</div>
+      <h2 class="section-title">5.3 Email 3: GSIP Introduction</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p><strong>Send date: </strong>Week of May 5, 2026</p><p><strong>Audience: </strong>Anyone who opened Email 1 but didn’t open Email 2, plus re-segmented non-openers</p><p><strong>Collateral linked: </strong>GSIP factsheet, GSIP overview video (must be live), cloud page GSIP section</p><p>Email 3 follows the same integration pattern: reference the latest monthly video for international or diversification themes, link to the cloud page GSIP section, and include the Income Playbook Q1 edition as a value-add for advisors who have not yet engaged with the franchise content.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-19" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-19">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-20">
+      <div class="section-num">20 Section</div>
+      <h2 class="section-title">6. Sales Enablement and RVP Activation</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>The sales enablement strategy treats the video series as the primary recurring touchpoint between the RVP and the advisor. Every monthly video produces a ready-made reason for the RVP to reach out. The key templates, email cadences, and Seismic DSR packaging are designed so the sales team can activate within 24 hours of each video going live.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-20" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-20">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-21">
+      <div class="section-num">21 Subsection</div>
+      <h2 class="section-title">6.1 Sales Email Template Suite</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>Four email templates serve different scenarios across the monthly cycle. All templates are maintained in Salesforce and updated with each new video episode.</p><p><strong>Template 1 (RJ — Monthly Playbook): </strong>Leads with the video, includes key takeaways, references SIP Suite availability, and includes a P.S. for the next webinar. Used by RVPs for their RJ advisor relationships.</p><p><strong>Template 2 (Non-RJ — Monthly Playbook): </strong>Same structure but frames content as Eagle’s income market intelligence without SIP Suite product language. Direct Kaltura video links. Used for external channel relationships.</p><p><strong>Template 3 (Re-engagement): </strong>Shorter, more direct. Targets non-openers from the prior month’s playbook email. Leads with one specific, compelling detail from the video to drive curiosity.</p><p><strong>Template 4 (Combo — Playbook + Webinar): </strong>Pairs the monthly video with the upcoming webinar registration link. Used during the 2–3 weeks leading up to each quarterly webinar. Positions the video as the appetizer and the webinar as the main course.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-21" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-21">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-22">
+      <div class="section-num">22 Subsection</div>
+      <h2 class="section-title">6.2 Seismic DSR Packaging</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>Each monthly video generates a Seismic Digital Sales Room update that includes the video link (embedded or direct Kaltura URL), the key takeaways document (2–3 talking points formatted for phone or email use), and a pre-written email body the salesperson can copy and customize. The DSR also includes the latest factsheets and the current quarter’s Income Playbook once available. DSR updates follow the same 3rd Thursday cadence as the video publish.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-22" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-22">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-23">
+      <div class="section-num">23 Subsection</div>
+      <h2 class="section-title">6.3 Sales Activation Timeline (Per Video Episode)</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p><strong>3rd Thursday (publish day): </strong>Video goes live across all platforms. Seismic DSR updated. SF email templates refreshed. Social post published.</p><p><strong>3rd Thursday + 1 day: </strong>RVPs send monthly playbook email via SF template. Non-RJ version sent to external channels. DSR announcement notifies sales team.</p><p><strong>3rd Thursday + 7 days: </strong>Re-engagement email to non-openers using Template 3. Engagement data pulled from SF, Kaltura, and Seismic. Insights shared with sales leadership for pipeline prioritization.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-23" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-23">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-24">
+      <div class="section-num">24 Section</div>
+      <h2 class="section-title">7. Critical Dependencies and Production Requirements</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-24" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-24">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-25">
+      <div class="section-num">25 Subsection</div>
+      <h2 class="section-title">7.1 Immediate Priorities (This Week Through March 3)</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p><strong>Email 1 copy: </strong>Final version approved. Must include franchise language referencing the video series and webinar in addition to the SIP Suite product introduction.</p><p><strong>Cloud page: </strong>Live and QA-tested across devices before Email 1 sends. All email CTAs in the first send direct to this page. Must feature the Camp suite overview video and any prior monthly videos in a “Monthly Playbook” section.</p><p><strong>February video: </strong>Filming scheduled for week of March 3. Script should be in development now based on the most recent investment team meeting.</p><p><strong>Webinar: </strong>On24 registration page built, Amplify-branded, with the date confirmed for last week of March. Registration link required for Email 1 inclusion and initial RJnet/social promotion.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-25" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-25">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-26">
+      <div class="section-num">26 Subsection</div>
+      <h2 class="section-title">7.2 Video Production Dependencies</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p><strong>SIP+ Overview Video: </strong>Script finalized by w/o April 7. Filmed by w/o April 11. Live by w/o April 14 (must be ready for Email 2 send). This is the tightest production window in the calendar.</p><p><strong>GSIP Overview Video: </strong>Script finalized by w/o April 21. Filmed by w/o April 25. Live by w/o May 5 (must be ready for Email 3 send).</p><p>Both overview videos are evergreen product introductions, distinct from the monthly allocation series. They should be planned and filmed with sufficient lead time to accommodate the 2-week RJMS production timeline and compliance review.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-26" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-26">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-27">
+      <div class="section-num">27 Subsection</div>
+      <h2 class="section-title">7.3 Platform and Technical Requirements</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>All platform requirements from the Supplemental Execution Guide remain in effect: Kaltura MediaSpace for video hosting with embed domain authorization for CloudPages, Salesforce Marketing Cloud for email deployment, On24 for webinar console and registration, Seismic for DSR packaging, and CloudPages for the advisor-facing hub. No changes to the technical stack. The primary technical priority is ensuring the cloud page is fully functional with Kaltura video embeds and responsive across devices before Email 1 deploys.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-27" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-27">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-28">
+      <div class="section-num">28 Section</div>
+      <h2 class="section-title">8. Measurement Framework</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>The franchise model shifts measurement from campaign-level metrics to franchise engagement depth. Traditional campaign metrics (open rates, click-through rates, conversion on a single email) remain relevant for Tier 3 activations but are insufficient to measure the health of the broader income franchise.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-28" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-28">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-29">
+      <div class="section-num">29 Subsection</div>
+      <h2 class="section-title">8.1 Franchise Health Metrics</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p><strong>Monthly video view rate: </strong>Kaltura analytics on each episode. Target: month-over-month growth in unique viewers as the series builds awareness. Track completion rate to validate the 3–4 minute format.</p><p><strong>Cloud page return visits: </strong>Percentage of visitors who return to the cloud page within 30 days. This is the key indicator that the franchise is creating a destination, not just a one-time landing experience.</p><p><strong>RVP playbook email engagement: </strong>Open and click rates on the monthly sales email templates. This measures whether the sales team is actively using the franchise assets and whether advisors are engaging with the 1:1 distribution channel.</p><p><strong>Webinar registration and attendance: </strong>Registration volume, attendance rate, and replay views. Track the percentage of webinar registrants who previously engaged with the monthly video series to validate the content ladder hypothesis.</p><p><strong>Seismic DSR sends and views: </strong>Volume of DSR sends per month and advisor engagement with DSR content. This measures sales team adoption of the franchise assets for 1:1 outreach.</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-29" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-29">Mark as read</button>
+    </section>
+    
+    <section class="section" id="sec-30">
+      <div class="section-num">30 Subsection</div>
+      <h2 class="section-title">8.2 Campaign Activation Metrics</h2>
+      <div class="section-divider"></div>
+      <div class="section-body"><p>Standard campaign metrics for Tier 3 emails: open rate, click-through rate, click-to-open rate, unsubscribe rate, and downstream conversion (factsheet downloads, cloud page visits, form submissions). Segment reporting by audience: current clients vs. prospects, Email 1 openers vs. non-openers for Emails 2 and 3.</p><p><strong>APPENDIX REFERENCE</strong></p><p>This Integrated Execution Guide operates alongside and supersedes the timeline elements of the following documents. Strategic architecture, messaging frameworks, and technical specifications from these documents remain in effect unless specifically revised herein.</p><p><strong>SIP Suite Campaign Playbook </strong>— Strategic architecture, messaging framework, audience segmentation, and content strategy. Messaging and segmentation guidance remains current.</p><p><strong>SIP Suite Supplemental Execution Guide </strong>— Cloud page technical specifications, video production cadence, webinar logistics, and recurring content frameworks. All specifications remain current; timeline milestones are superseded by Section 3 of this document.</p><p><strong>SIP Suite RJ Campaign Brief </strong>— Original campaign brief and planning notes. Consideration items and deliverable inventories remain relevant as planning reference.</p><p>M-847233  |  Exp. 12/15/26  |  BR-EA-SIP</p></div>
+
+      <div class="note-box">
+        <div class="note-label">Notes</div>
+        <textarea data-note="sec-30" placeholder="Add your notes (saved locally in this browser)..."></textarea>
+      </div>
+
+      <button class="mark-read" data-read="sec-30">Mark as read</button>
+    </section>
+    
+    </div>
+  </main>
+
+<script>
+(function() {
+  const KEY_READ = 'amplify_income_franchise_read_v2';
+  const KEY_NOTES = 'amplify_income_franchise_notes_v2';
+
+  function safeJSONParse(str, fallback) {
+    try { return JSON.parse(str) || fallback; } catch(e) { return fallback; }
+  }
+
+  const readState = safeJSONParse(localStorage.getItem(KEY_READ), {});
+  const notesState = safeJSONParse(localStorage.getItem(KEY_NOTES), {});
+
+  const navItems = Array.from(document.querySelectorAll('.nav-item'));
+  const sections = Array.from(document.querySelectorAll('.section'));
+  const progressFill = document.getElementById('progressFill');
+
+  function setActive(id) {
+    navItems.forEach(n => n.classList.toggle('active', n.dataset.target === id));
+  }
+
+  function updateReadUI() {
+    navItems.forEach(n => {
+      const id = n.dataset.target;
+      n.classList.toggle('read', !!readState[id]);
+    });
+    sections.forEach(s => {
+      const id = s.id;
+      const btn = s.querySelector('[data-read]');
+      if (!btn) return;
+      const done = !!readState[id];
+      btn.classList.toggle('done', done);
+      btn.textContent = done ? 'Read' : 'Mark as read';
+    });
+    const total = sections.length;
+    const doneCount = Object.values(readState).filter(Boolean).length;
+    const pct = total ? Math.round((doneCount/total)*100) : 0;
+    progressFill.style.width = pct + '%';
+  }
+
+  function saveRead() {
+    localStorage.setItem(KEY_READ, JSON.stringify(readState));
+  }
+
+  function saveNotes() {
+    localStorage.setItem(KEY_NOTES, JSON.stringify(notesState));
+  }
+
+  // Nav click -> scroll
+  navItems.forEach(n => {
+    n.addEventListener('click', () => {
+      const id = n.dataset.target;
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+      setActive(id);
+    });
+  });
+
+  // Mark read buttons
+  document.querySelectorAll('[data-read]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-read');
+      readState[id] = true;
+      saveRead();
+      updateReadUI();
+    });
+  });
+
+  // Notes autosave
+  document.querySelectorAll('textarea[data-note]').forEach(t => {
+    const id = t.getAttribute('data-note');
+    if (notesState[id]) t.value = notesState[id];
+    t.addEventListener('input', () => {
+      notesState[id] = t.value;
+      saveNotes();
+    });
+  });
+
+  // Collapse notes
+  document.getElementById('collapseAll').addEventListener('click', () => {
+    document.querySelectorAll('.note-box textarea').forEach(t => {
+      t.style.display = (t.style.display === 'none') ? 'block' : 'none';
+    });
+  });
+
+  // Reset
+  document.getElementById('resetAll').addEventListener('click', () => {
+    Object.keys(readState).forEach(k => delete readState[k]);
+    Object.keys(notesState).forEach(k => delete notesState[k]);
+    saveRead(); saveNotes();
+    updateReadUI();
+    document.querySelectorAll('textarea[data-note]').forEach(t => t.value='');
+  });
+
+  // Active section on scroll (simple intersection)
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries.filter(e => e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if (visible) setActive(visible.target.id);
+  }, { root: null, threshold: [0.2, 0.4, 0.6] });
+
+  sections.forEach(s => observer.observe(s));
+
+  updateReadUI();
+})();
+</script>
+</body>
+</html>

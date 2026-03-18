@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amplify Your Income Potential | The SIP Suite | Eagle Asset Management</title>
+  <meta name="description" content="Advisor-facing landing page for the Strategic Income Portfolio Suite from Eagle Asset Management." />
+  <style>
+    :root{
+      --navy:#002855;
+      --navy-deep:#001936;
+      --navy-mid:#0c4172;
+      --gold:#a09162;
+      --gold-bright:#c4aa6a;
+      --gold-pale:#ede6d6;
+      --ink:#1b2b3b;
+      --muted:#617286;
+      --line:#dde3ea;
+      --panel:#f7f5f0;
+      --white:#ffffff;
+      --shadow-sm:0 10px 28px rgba(0, 26, 58, 0.07);
+      --shadow-lg:0 20px 60px rgba(0, 26, 58, 0.12);
+      --radius-sm:10px;
+      --radius-md:18px;
+      --radius-lg:28px;
+      --sip:#1c4e80;
+      --sipplus:#1f7768;
+      --globalsip:#9b6a3b;
+      --max:1180px;
+      --ease:260ms cubic-bezier(.22,.61,.36,1);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, "Source Sans 3", "Segoe UI", Arial, sans-serif;
+      color:var(--ink);
+      background:var(--white);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    button,input,select,textarea{font:inherit}
+
+    .container{width:min(calc(100% - 40px), var(--max)); margin:0 auto}
+    .section{padding:88px 0}
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:12px;
+      font-size:11px; font-weight:700; letter-spacing:2.8px;
+      text-transform:uppercase; color:var(--gold-bright);
+      margin-bottom:18px;
+    }
+    .eyebrow::before{
+      content:""; width:30px; height:1px; background:currentColor; opacity:.6;
+    }
+    h1,h2,h3,p{margin:0}
+    h1{
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:clamp(42px, 7vw, 76px);
+      line-height:.98;
+      letter-spacing:-.03em;
+      font-weight:400;
+    }
+    h2{
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:clamp(32px, 4.8vw, 52px);
+      line-height:1.04;
+      letter-spacing:-.02em;
+      font-weight:400;
+      color:var(--navy);
+    }
+    h3{
+      font-size:24px;
+      line-height:1.2;
+      color:var(--navy);
+      font-weight:650;
+    }
+    .lede{
+      font-size:18px;
+      color:var(--muted);
+      max-width:760px;
+    }
+    .copy{font-size:17px; color:var(--muted)}
+    .grid-2{display:grid; grid-template-columns:1.15fr .85fr; gap:28px}
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:22px}
+
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background:rgba(0,25,54,.82);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .topbar-inner{
+      width:min(calc(100% - 40px), var(--max)); margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:20px; min-height:72px;
+    }
+    .brand-lockup{display:flex; align-items:center; gap:18px; color:#fff}
+    .brand-mark{
+      width:42px; height:42px; border:1px solid rgba(255,255,255,.2);
+      border-radius:50%; display:grid; place-items:center; color:var(--gold-bright);
+      font-size:12px; letter-spacing:1.6px; font-weight:700;
+    }
+    .brand-copy strong{display:block; font-size:13px; letter-spacing:1.5px; text-transform:uppercase}
+    .brand-copy span{display:block; font-size:12px; color:rgba(255,255,255,.68)}
+    .nav{display:flex; gap:18px; flex-wrap:wrap; justify-content:flex-end}
+    .nav a{
+      font-size:12px; letter-spacing:1.4px; text-transform:uppercase;
+      color:rgba(255,255,255,.74); transition:color var(--ease);
+    }
+    .nav a:hover,.nav a:focus{color:#fff}
+
+    .hero{
+      position:relative;
+      min-height:calc(100vh - 72px);
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 85% 18%, rgba(196,170,106,.18), transparent 20%),
+        radial-gradient(circle at 20% 80%, rgba(32,119,104,.12), transparent 24%),
+        linear-gradient(155deg, #001121 0%, var(--navy-deep) 38%, var(--navy) 72%, #0d4c84 100%);
+      color:#fff;
+    }
+    .hero::before,
+    .hero::after{
+      content:""; position:absolute; inset:auto; pointer-events:none;
+      border-radius:999px;
+      opacity:.38;
+    }
+    .hero::before{width:620px;height:620px;right:-180px;top:-220px;background:radial-gradient(circle, rgba(196,170,106,.2), transparent 66%)}
+    .hero::after{width:720px;height:720px;left:-260px;bottom:-360px;background:radial-gradient(circle, rgba(255,255,255,.08), transparent 64%)}
+    .hero-grid{position:relative; z-index:1; display:grid; grid-template-columns:1.08fr .92fr; gap:40px; align-items:center}
+    .hero-copy{padding:82px 0}
+    .hero-copy .subhead{
+      margin:24px 0 20px;
+      font-size:clamp(20px, 2.1vw, 28px);
+      color:rgba(255,255,255,.9);
+      max-width:700px;
+    }
+    .hero-copy .support{
+      font-size:18px; color:rgba(255,255,255,.72); max-width:640px;
+    }
+    .cta-row{display:flex; flex-wrap:wrap; gap:14px; margin-top:34px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      min-height:50px; padding:0 22px; border-radius:999px;
+      border:1px solid transparent; font-size:13px; font-weight:700; letter-spacing:1.4px;
+      text-transform:uppercase; transition:transform var(--ease), box-shadow var(--ease), border-color var(--ease), background var(--ease), color var(--ease);
+    }
+    .btn:hover,.btn:focus{transform:translateY(-1px)}
+    .btn-primary{background:var(--gold-bright); color:#1c2230; box-shadow:0 14px 34px rgba(196,170,106,.28)}
+    .btn-primary:hover,.btn-primary:focus{background:#d0b575}
+    .btn-secondary{background:rgba(255,255,255,.06); color:#fff; border-color:rgba(255,255,255,.22)}
+    .btn-secondary:hover,.btn-secondary:focus{background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.32)}
+
+    .hero-panel{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:32px;
+      box-shadow:var(--shadow-lg);
+      overflow:hidden;
+    }
+    .hero-panel-top{padding:24px 24px 18px; border-bottom:1px solid rgba(255,255,255,.08)}
+    .hero-panel-label{font-size:11px; letter-spacing:2.2px; text-transform:uppercase; color:var(--gold-bright); font-weight:700}
+    .hero-panel-title{font-size:28px; line-height:1.15; margin-top:10px; color:#fff}
+    .hero-panel-copy{color:rgba(255,255,255,.74); margin-top:12px; font-size:15px}
+    .hero-points{display:grid; gap:1px; background:rgba(255,255,255,.08)}
+    .hero-point{display:grid; grid-template-columns:auto 1fr; gap:14px; padding:18px 24px; background:rgba(0,0,0,.12)}
+    .hero-point-badge{
+      width:36px; height:36px; border-radius:50%; display:grid; place-items:center;
+      font-size:11px; font-weight:800; color:#fff;
+    }
+    .hero-point:nth-child(1) .hero-point-badge{background:var(--sip)}
+    .hero-point:nth-child(2) .hero-point-badge{background:var(--sipplus)}
+    .hero-point:nth-child(3) .hero-point-badge{background:var(--globalsip)}
+    .hero-point strong{display:block; color:#fff; font-size:15px}
+    .hero-point span{display:block; color:rgba(255,255,255,.68); font-size:14px; margin-top:2px}
+
+    .section-head{display:flex; align-items:end; justify-content:space-between; gap:24px; margin-bottom:34px}
+    .section-head .lede{max-width:640px}
+
+    .overview-wrap{
+      padding:34px; background:linear-gradient(180deg, #ffffff 0%, #fbfaf7 100%);
+      border:1px solid var(--line); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm)
+    }
+    .overview-card{padding:24px; border:1px solid var(--line); border-radius:var(--radius-md); background:var(--white)}
+    .overview-card strong{display:block; color:var(--navy); font-size:15px; margin-bottom:8px}
+    .pillars{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px; margin-top:22px}
+    .pillar{padding:16px 18px; border-radius:14px; background:var(--panel); border:1px solid #e6e0d2; color:var(--ink); font-size:15px}
+
+    .fit-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+    .fit-card{
+      padding:28px; border-radius:var(--radius-md); border:1px solid var(--line); background:#fff;
+      box-shadow:var(--shadow-sm); cursor:pointer; transition:transform var(--ease), box-shadow var(--ease), border-color var(--ease)
+    }
+    .fit-card:hover,.fit-card:focus-within{transform:translateY(-3px); box-shadow:var(--shadow-lg)}
+    .fit-card.active{border-color:rgba(0,40,85,.22); box-shadow:0 22px 54px rgba(0,26,58,.12)}
+    .fit-card[data-target="sip"].active{box-shadow:0 22px 54px rgba(28,78,128,.16)}
+    .fit-card[data-target="sipplus"].active{box-shadow:0 22px 54px rgba(31,119,104,.16)}
+    .fit-card[data-target="globalsip"].active{box-shadow:0 22px 54px rgba(155,106,59,.16)}
+    .fit-tag{display:inline-flex; align-items:center; gap:10px; font-size:11px; text-transform:uppercase; letter-spacing:1.8px; font-weight:700; margin-bottom:16px}
+    .fit-tag::before{content:""; width:10px; height:10px; border-radius:50%}
+    .fit-card[data-target="sip"] .fit-tag{color:var(--sip)}
+    .fit-card[data-target="sip"] .fit-tag::before{background:var(--sip)}
+    .fit-card[data-target="sipplus"] .fit-tag{color:var(--sipplus)}
+    .fit-card[data-target="sipplus"] .fit-tag::before{background:var(--sipplus)}
+    .fit-card[data-target="globalsip"] .fit-tag{color:var(--globalsip)}
+    .fit-card[data-target="globalsip"] .fit-tag::before{background:var(--globalsip)}
+    .fit-card p{margin-top:12px; color:var(--muted)}
+
+    .comparison-shell{
+      border:1px solid var(--line); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-sm); background:#fff
+    }
+    .comparison-head{
+      padding:20px 24px; background:var(--navy); color:#fff; display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between
+    }
+    .comparison-head span{font-size:12px; text-transform:uppercase; letter-spacing:1.6px; color:rgba(255,255,255,.72)}
+    .strategy-grid{display:grid; grid-template-columns:repeat(3,1fr)}
+    .strategy-card{padding:28px; border-right:1px solid var(--line); position:relative; background:#fff}
+    .strategy-card:last-child{border-right:none}
+    .strategy-card::before{content:""; position:absolute; left:0; top:0; right:0; height:5px}
+    .strategy-card[data-strategy="sip"]::before{background:var(--sip)}
+    .strategy-card[data-strategy="sipplus"]::before{background:var(--sipplus)}
+    .strategy-card[data-strategy="globalsip"]::before{background:var(--globalsip)}
+    .strategy-kicker{font-size:11px; text-transform:uppercase; letter-spacing:1.7px; font-weight:800}
+    .strategy-card[data-strategy="sip"] .strategy-kicker{color:var(--sip)}
+    .strategy-card[data-strategy="sipplus"] .strategy-kicker{color:var(--sipplus)}
+    .strategy-card[data-strategy="globalsip"] .strategy-kicker{color:var(--globalsip)}
+    .strategy-role{margin-top:10px; font-size:18px; color:var(--ink); font-weight:700}
+    .strategy-card p{margin-top:12px; color:var(--muted)}
+    .strategy-list{list-style:none; padding:0; margin:20px 0 0; display:grid; gap:10px}
+    .strategy-list li{position:relative; padding-left:18px; color:var(--ink); font-size:15px}
+    .strategy-list li::before{content:""; width:7px; height:7px; border-radius:50%; background:currentColor; position:absolute; left:0; top:.55em; opacity:.5}
+    .strategy-card[data-strategy="sip"] .strategy-list li{color:var(--sip)}
+    .strategy-card[data-strategy="sipplus"] .strategy-list li{color:var(--sipplus)}
+    .strategy-card[data-strategy="globalsip"] .strategy-list li{color:var(--globalsip)}
+    .strategy-panel{
+      margin-top:26px; padding:18px 18px 0; border-top:1px solid var(--line)
+    }
+    .strategy-panel .label{font-size:12px; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); font-weight:700}
+    .strategy-panel p{font-size:14px; margin:10px 0 18px}
+    .strategy-card.is-highlight{background:linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%)}
+
+    .playbook{
+      background:linear-gradient(180deg, #08192d 0%, #082742 100%);
+      color:#fff;
+      position:relative;
+      overflow:hidden;
+    }
+    .playbook::before{content:""; position:absolute; inset:auto auto -140px -100px; width:420px; height:420px; background:radial-gradient(circle, rgba(196,170,106,.14), transparent 66%); border-radius:50%}
+    .playbook::after{content:""; position:absolute; inset:40px -160px auto auto; width:360px; height:360px; background:radial-gradient(circle, rgba(31,119,104,.14), transparent 66%); border-radius:50%}
+    .playbook-grid{position:relative; z-index:1; display:grid; grid-template-columns:1fr .95fr; gap:26px; align-items:stretch}
+    .playbook-card, .video-card{border:1px solid rgba(255,255,255,.12); border-radius:26px; background:rgba(255,255,255,.05); box-shadow:var(--shadow-lg)}
+    .playbook-card{padding:32px}
+    .playbook-card h2{color:#fff}
+    .playbook-card .lede,.playbook-card .copy{color:rgba(255,255,255,.72)}
+    .playbook-points{display:grid; gap:14px; margin-top:26px}
+    .playbook-point{padding:16px 18px; border-radius:16px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08)}
+    .playbook-point strong{display:block; color:#fff; font-size:15px; margin-bottom:6px}
+    .playbook-point span{color:rgba(255,255,255,.68); font-size:14px}
+    .video-card{overflow:hidden}
+    .video-thumb{
+      min-height:320px;
+      background:
+        linear-gradient(145deg, rgba(0,0,0,.1), rgba(0,0,0,.32)),
+        radial-gradient(circle at top left, rgba(196,170,106,.18), transparent 34%),
+        linear-gradient(140deg, #0b355b 0%, #153d56 56%, #1f7768 100%);
+      display:flex; align-items:flex-end; padding:28px;
+    }
+    .video-badge{display:inline-flex; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.1); color:#fff; font-size:11px; letter-spacing:1.8px; text-transform:uppercase; font-weight:700; border:1px solid rgba(255,255,255,.16)}
+    .video-body{padding:24px 24px 28px}
+    .video-body strong{display:block; color:#fff; font-size:24px; line-height:1.2}
+    .video-body p{margin-top:12px; color:rgba(255,255,255,.7)}
+
+    .resource-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:16px}
+    .resource-card{
+      min-height:220px; padding:22px; border-radius:20px; border:1px solid var(--line); background:#fff;
+      box-shadow:var(--shadow-sm); display:flex; flex-direction:column; justify-content:space-between;
+      transition:transform var(--ease), box-shadow var(--ease), border-color var(--ease)
+    }
+    .resource-card:hover,.resource-card:focus-within{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:rgba(0,40,85,.16)}
+    .resource-meta{font-size:11px; text-transform:uppercase; letter-spacing:1.7px; color:var(--gold); font-weight:800}
+    .resource-card strong{display:block; font-size:20px; line-height:1.2; color:var(--navy); margin-top:12px}
+    .resource-card p{margin-top:10px; color:var(--muted); font-size:14px}
+    .resource-link{display:inline-flex; align-items:center; gap:10px; font-size:13px; text-transform:uppercase; letter-spacing:1.4px; color:var(--navy); font-weight:800}
+    .resource-link::after{content:"→"}
+
+    .contact-shell{
+      background:linear-gradient(180deg, #faf8f3 0%, #f2ede3 100%);
+      border:1px solid #e7dfcf; border-radius:30px; box-shadow:var(--shadow-sm); padding:34px;
+    }
+    .contact-grid{display:grid; grid-template-columns:1fr .95fr; gap:26px}
+    .contact-points{display:grid; gap:12px; margin-top:24px}
+    .contact-point{padding:16px 18px; border-radius:16px; background:rgba(255,255,255,.72); border:1px solid rgba(0,40,85,.08)}
+    .contact-point strong{display:block; color:var(--navy); font-size:15px; margin-bottom:4px}
+    .contact-point span{color:var(--muted); font-size:14px}
+    .form-card{padding:24px; border-radius:24px; background:#fff; border:1px solid rgba(0,40,85,.08); box-shadow:0 18px 40px rgba(0,26,58,.07)}
+    .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .field{display:grid; gap:7px}
+    .field.full{grid-column:1 / -1}
+    label{font-size:12px; letter-spacing:1.3px; text-transform:uppercase; color:var(--muted); font-weight:700}
+    input,select,textarea{
+      width:100%; min-height:48px; border-radius:12px; border:1px solid #d5dde5; background:#fff;
+      padding:12px 14px; color:var(--ink); transition:border-color var(--ease), box-shadow var(--ease)
+    }
+    textarea{min-height:118px; resize:vertical}
+    input:focus,select:focus,textarea:focus{outline:none; border-color:rgba(0,40,85,.4); box-shadow:0 0 0 4px rgba(0,40,85,.08)}
+    .form-note{font-size:12px; color:var(--muted); margin-top:14px}
+
+    .footer{
+      background:#071a30; color:rgba(255,255,255,.72); padding:24px 0 38px; border-top:1px solid rgba(255,255,255,.08)
+    }
+    .footer-top{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px; padding-top:12px}
+    .fine{font-size:12px; line-height:1.6; color:rgba(255,255,255,.58); margin-top:14px}
+    .top-link{font-size:12px; text-transform:uppercase; letter-spacing:1.6px; color:#fff}
+
+    @media (max-width: 1120px){
+      .resource-grid{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (max-width: 980px){
+      .hero-grid,.grid-2,.playbook-grid,.contact-grid{grid-template-columns:1fr}
+      .fit-grid,.strategy-grid{grid-template-columns:1fr}
+      .resource-grid{grid-template-columns:repeat(2,1fr)}
+      .strategy-card{border-right:none; border-bottom:1px solid var(--line)}
+      .strategy-card:last-child{border-bottom:none}
+      .topbar{position:static}
+      .hero{min-height:auto}
+      .hero-copy{padding:68px 0 28px}
+    }
+    @media (max-width: 720px){
+      .section{padding:72px 0}
+      .container,.topbar-inner{width:min(calc(100% - 28px), var(--max))}
+      .nav{display:none}
+      .resource-grid{grid-template-columns:1fr}
+      .form-grid,.pillars{grid-template-columns:1fr}
+      .contact-shell,.overview-wrap,.playbook-card,.video-body,.form-card,.strategy-card,.fit-card,.resource-card{padding-left:20px;padding-right:20px}
+      .hero-panel-top,.hero-point{padding-left:20px;padding-right:20px}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-lockup">
+        <div class="brand-mark">EAGLE</div>
+        <div class="brand-copy">
+          <strong>The SIP Suite</strong>
+          <span>Eagle Asset Management</span>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Section navigation">
+        <a href="#suite-overview">Suite Overview</a>
+        <a href="#client-fit">Advisor Client Fit</a>
+        <a href="#comparison">Compare Strategies</a>
+        <a href="#playbook">Playbook</a>
+        <a href="#resources">Resources</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <section class="hero" id="top">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">The Strategic Income Portfolio Suite</div>
+        <h1>Amplify Your Income Potential.</h1>
+        <p class="subhead">One disciplined process. Three dynamic strategies. Built to match the right income solution to every client conversation.</p>
+        <p class="support">Income discussions are not one-size-fits-all. Some clients want a steadier core allocation. Others may be willing to assume additional credit risk in pursuit of higher income potential. Others may benefit from looking beyond U.S. markets for a broader income opportunity set. The SIP Suite gives advisors a more cohesive framework for meeting each of those conversations with intention.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#suite-overview">Explore the Suite</a>
+          <a class="btn btn-secondary" href="#playbook">Watch the Latest Playbook</a>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="Suite summary">
+        <div class="hero-panel-top">
+          <div class="hero-panel-label">Advisor suite snapshot</div>
+          <div class="hero-panel-title">Three distinct approaches to income inside one actively managed framework.</div>
+          <div class="hero-panel-copy">Built to help advisors map the solution to the client objective rather than forcing every income discussion into the same portfolio answer.</div>
+        </div>
+        <div class="hero-points">
+          <div class="hero-point">
+            <div class="hero-point-badge">SIP</div>
+            <div>
+              <strong>Core income anchor</strong>
+              <span>For clients seeking steady income potential and balanced growth.</span>
+            </div>
+          </div>
+          <div class="hero-point">
+            <div class="hero-point-badge">+</div>
+            <div>
+              <strong>Higher-income extension</strong>
+              <span>For clients comfortable with a more credit-oriented income posture.</span>
+            </div>
+          </div>
+          <div class="hero-point">
+            <div class="hero-point-badge">GL</div>
+            <div>
+              <strong>Global income diversifier</strong>
+              <span>For clients open to broader geographic opportunity in pursuit of income.</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="suite-overview">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Suite Overview</div>
+          <h2>One suite. Three ways to approach income.</h2>
+        </div>
+        <p class="lede">The Strategic Income Portfolio Suite is designed to help advisors align income solutions more precisely to client objectives, risk tolerance, and market opportunity. Each strategy serves a distinct role. Each is actively managed. Each reflects the same disciplined investment philosophy from Eagle Asset Management.</p>
+      </div>
+      <div class="overview-wrap grid-2">
+        <div>
+          <p class="copy">Rather than forcing every client into the same income answer, the suite gives advisors a more complete toolkit for matching the portfolio to the conversation in front of them. It is a cleaner way to move from market backdrop to client need to strategy recommendation.</p>
+          <div class="pillars">
+            <div class="pillar">A disciplined process applied across the full suite</div>
+            <div class="pillar">Three distinct approaches to income and risk</div>
+            <div class="pillar">Built for different client priorities, not one-size-fits-all allocation decisions</div>
+            <div class="pillar">Backed by Eagle's active management perspective</div>
+          </div>
+        </div>
+        <div class="overview-card">
+          <strong>Why this matters now</strong>
+          <p class="copy">Clients are asking sharper questions about yield, downside resilience, diversification, and portfolio role. A suite approach helps advisors answer those questions with more precision and more control over how risk is introduced into the conversation.</p>
+          <strong style="margin-top:20px">How to position it</strong>
+          <p class="copy">Lead with the client objective. Then show how the suite can scale from steadier income, to higher-income potential, to broader global diversification without abandoning a consistent investment discipline.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="client-fit" style="background:linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Advisor Client Fit</div>
+          <h2>Start with the client conversation.</h2>
+        </div>
+        <p class="lede">The strongest income discussion does not begin with product features. It begins with what the client needs the portfolio to do. Select a conversation path below to surface the strategy most aligned to that objective.</p>
+      </div>
+      <div class="fit-grid" role="tablist" aria-label="Client fit options">
+        <article class="fit-card active" data-target="sip" tabindex="0" role="button" aria-pressed="true">
+          <div class="fit-tag">Steadier income anchor</div>
+          <h3>For clients seeking a steadier core allocation</h3>
+          <p>They want income potential with an emphasis on balance, diversification, and a disciplined approach to risk.</p>
+        </article>
+        <article class="fit-card" data-target="sipplus" tabindex="0" role="button" aria-pressed="false">
+          <div class="fit-tag">Higher-income step-up</div>
+          <h3>For clients willing to accept more credit risk for higher income potential</h3>
+          <p>They are open to a more opportunistic income posture, provided the risk is being actively managed and intentionally sized.</p>
+        </article>
+        <article class="fit-card" data-target="globalsip" tabindex="0" role="button" aria-pressed="false">
+          <div class="fit-tag">Broader opportunity set</div>
+          <h3>For clients open to expanding beyond U.S. markets for income diversification</h3>
+          <p>They want income potential supported by a broader opportunity set and may benefit from global dividend exposure alongside fixed income.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="comparison">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Strategy Comparison</div>
+          <h2>Three distinct solutions within one disciplined framework.</h2>
+        </div>
+        <p class="lede">Once the client objective is clear, the suite structure makes the strategy discussion more direct. Use the comparison below as a clean bridge from advisor conversation to portfolio recommendation.</p>
+      </div>
+      <div class="comparison-shell">
+        <div class="comparison-head">
+          <strong>Strategy card comparison</strong>
+          <span>Client objective first. Strategy recommendation second.</span>
+        </div>
+        <div class="strategy-grid">
+          <article class="strategy-card is-highlight" data-strategy="sip" id="strategy-sip">
+            <div class="strategy-kicker">Strategic Income Portfolio</div>
+            <h3>SIP</h3>
+            <div class="strategy-role">Core income anchor</div>
+            <p>A balanced approach for clients seeking a steadier source of income with active management across a diversified mix of income-producing assets.</p>
+            <ul class="strategy-list">
+              <li>Steady income potential and balanced growth</li>
+              <li>Useful starting point for a core income conversation</li>
+              <li>Designed for clients who want income without reaching too far out on the risk spectrum</li>
+            </ul>
+            <div class="strategy-panel">
+              <div class="label">Advisor framing</div>
+              <p>A disciplined starting point for clients who want income and balance in the same conversation.</p>
+            </div>
+          </article>
+          <article class="strategy-card" data-strategy="sipplus" id="strategy-sipplus">
+            <div class="strategy-kicker">Strategic Income Portfolio Plus</div>
+            <h3>SIP Plus</h3>
+            <div class="strategy-role">Higher-income extension</div>
+            <p>Designed for clients seeking increased income potential through a more credit-oriented posture, while still benefiting from a disciplined and actively managed process.</p>
+            <ul class="strategy-list">
+              <li>Greater income potential with additional credit exposure</li>
+              <li>Supports a step-up yield discussion</li>
+              <li>Best for clients comfortable with a more opportunistic income profile</li>
+            </ul>
+            <div class="strategy-panel">
+              <div class="label">Advisor framing</div>
+              <p>A step-up income conversation for clients willing to accept additional credit risk in exchange for higher income potential.</p>
+            </div>
+          </article>
+          <article class="strategy-card" data-strategy="globalsip" id="strategy-globalsip">
+            <div class="strategy-kicker">Global Strategic Income Portfolio</div>
+            <h3>Global SIP</h3>
+            <div class="strategy-role">Global income diversifier</div>
+            <p>Designed for clients who may benefit from a broader global opportunity set, combining dividend-oriented equities and fixed income to support a differentiated income conversation.</p>
+            <ul class="strategy-list">
+              <li>Income potential with broader geographic diversification</li>
+              <li>Supports a more global conversation around income sourcing</li>
+              <li>Useful when the advisor discussion expands beyond U.S.-only solutions</li>
+            </ul>
+            <div class="strategy-panel">
+              <div class="label">Advisor framing</div>
+              <p>A useful option when the conversation shifts toward broader diversification and a wider global income opportunity set.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section playbook" id="playbook">
+    <div class="container playbook-grid">
+      <div class="playbook-card">
+        <div class="eyebrow">Strategic Income Playbook</div>
+        <h2>Current market perspective for current income conversations.</h2>
+        <p class="lede" style="margin-top:18px">The Strategic Income Playbook gives advisors timely perspective on the market backdrop, portfolio positioning, and the issues most relevant to income-oriented client discussions. Use it to stay current, sharpen talking points, and support portfolio conversations with more conviction.</p>
+        <div class="playbook-points">
+          <div class="playbook-point">
+            <strong>Macro context</strong>
+            <span>Frame what matters most for income-oriented portfolios in the current market environment.</span>
+          </div>
+          <div class="playbook-point">
+            <strong>Allocation perspective</strong>
+            <span>Translate positioning views into a cleaner advisor narrative around risk, yield, and opportunity.</span>
+          </div>
+          <div class="playbook-point">
+            <strong>Conversation utility</strong>
+            <span>Give advisors a repeatable, credible pulse on what may matter most in client income discussions.</span>
+          </div>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#">Watch the Latest Playbook</a>
+          <a class="btn btn-secondary" href="#resources">View materials</a>
+        </div>
+      </div>
+      <div class="video-card" aria-label="Featured playbook module">
+        <div class="video-thumb">
+          <span class="video-badge">Featured monthly update</span>
+        </div>
+        <div class="video-body">
+          <strong>Latest playbook video placeholder</strong>
+          <p>Use this panel for the current video embed or thumbnail, a concise summary of the latest allocation view, and a direct action to watch the full update.</p>
+          <div class="cta-row" style="margin-top:20px">
+            <a class="btn btn-secondary" href="#">Launch video</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="resources">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Resources</div>
+          <h2>Materials built for advisor follow-up.</h2>
+        </div>
+        <p class="lede">Access the core materials that support the suite story, product positioning, and client follow-up. This section is structured to move efficiently from initial conversation to deeper portfolio discussion.</p>
+      </div>
+      <div class="resource-grid">
+        <article class="resource-card">
+          <div>
+            <div class="resource-meta">Suite brochure</div>
+            <strong>SIP Suite Overview</strong>
+            <p>Use as the primary suite-level narrative across the three strategies.</p>
+          </div>
+          <a class="resource-link" href="#">Open brochure</a>
+        </article>
+        <article class="resource-card">
+          <div>
+            <div class="resource-meta">Factsheet</div>
+            <strong>SIP Factsheet</strong>
+            <p>Use for the steadier income anchor conversation and core portfolio role.</p>
+          </div>
+          <a class="resource-link" href="#">Open factsheet</a>
+        </article>
+        <article class="resource-card">
+          <div>
+            <div class="resource-meta">Factsheet</div>
+            <strong>SIP Plus Factsheet</strong>
+            <p>Use for higher-income positioning and credit-oriented extension conversations.</p>
+          </div>
+          <a class="resource-link" href="#">Open factsheet</a>
+        </article>
+        <article class="resource-card">
+          <div>
+            <div class="resource-meta">Factsheet</div>
+            <strong>Global SIP Factsheet</strong>
+            <p>Use for global diversification and broader income opportunity discussions.</p>
+          </div>
+          <a class="resource-link" href="#">Open factsheet</a>
+        </article>
+        <article class="resource-card">
+          <div>
+            <div class="resource-meta">Sales support</div>
+            <strong>3 Reasons Flyer</strong>
+            <p>Use as a concise field tool for advisor follow-up and positioning reinforcement.</p>
+          </div>
+          <a class="resource-link" href="#">Open flyer</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="contact-shell">
+        <div class="contact-grid">
+          <div>
+            <div class="eyebrow">Connect With Our Team</div>
+            <h2>Match the right strategy to every client conversation.</h2>
+            <p class="lede" style="margin-top:18px">Whether you are evaluating which strategy may fit a specific client need, looking for additional product detail, or preparing for a portfolio discussion, your support team can help move the conversation forward.</p>
+            <div class="contact-points">
+              <div class="contact-point">
+                <strong>Discuss strategy fit</strong>
+                <span>Talk through which approach may align best to a client need or portfolio role.</span>
+              </div>
+              <div class="contact-point">
+                <strong>Request materials</strong>
+                <span>Get suite-level or strategy-level support materials for advisor follow-up.</span>
+              </div>
+              <div class="contact-point">
+                <strong>Portfolio positioning support</strong>
+                <span>Pressure-test how to introduce the suite into current market conversations.</span>
+              </div>
+              <div class="contact-point">
+                <strong>Regional support team access</strong>
+                <span>Connect with the appropriate field contact for the next step.</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-card">
+            <h3>Contact your support team</h3>
+            <p class="copy" style="margin-top:10px">Use this form block as the CloudPages lead capture module or replace it with your connected form component.</p>
+            <form action="#" method="post">
+              <div class="form-grid" style="margin-top:20px">
+                <div class="field">
+                  <label for="firstName">First name</label>
+                  <input id="firstName" name="firstName" type="text" placeholder="First name" />
+                </div>
+                <div class="field">
+                  <label for="lastName">Last name</label>
+                  <input id="lastName" name="lastName" type="text" placeholder="Last name" />
+                </div>
+                <div class="field">
+                  <label for="email">Business email</label>
+                  <input id="email" name="email" type="email" placeholder="name@firm.com" />
+                </div>
+                <div class="field">
+                  <label for="firm">Firm</label>
+                  <input id="firm" name="firm" type="text" placeholder="Firm name" />
+                </div>
+                <div class="field full">
+                  <label for="interest">Inquiry type</label>
+                  <select id="interest" name="interest">
+                    <option value="">Select an option</option>
+                    <option>Discuss strategy fit for a client need</option>
+                    <option>Request product materials</option>
+                    <option>Talk through portfolio positioning</option>
+                    <option>Connect with my regional support team</option>
+                  </select>
+                </div>
+                <div class="field full">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" placeholder="Share the client need, portfolio question, or support request."></textarea>
+                </div>
+              </div>
+              <div class="cta-row" style="margin-top:20px">
+                <button class="btn btn-primary" type="submit">Contact Your Support Team</button>
+              </div>
+              <p class="form-note">CloudPages note: replace the placeholder form action with your live form handler, DE mapping, hidden campaign parameters, and consent language as required.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <strong style="display:block; color:#fff; font-size:12px; letter-spacing:1.6px; text-transform:uppercase;">For Financial Professional Use Only</strong>
+          <div style="margin-top:6px; font-size:14px; color:rgba(255,255,255,.7);">Eagle Asset Management | The Strategic Income Portfolio Suite</div>
+        </div>
+        <a class="top-link" href="#top">Back to top</a>
+      </div>
+      <p class="fine">This page is structured as a CloudPages-ready front-end prototype. Replace placeholder links, video destinations, and form handling with your production URLs, Salesforce Marketing Cloud data extension mappings, tracking parameters, and required legal disclosures before deployment.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      const fitCards = Array.from(document.querySelectorAll('.fit-card'));
+      const strategyCards = Array.from(document.querySelectorAll('.strategy-card'));
+
+      function setActive(target){
+        fitCards.forEach(card => {
+          const isActive = card.dataset.target === target;
+          card.classList.toggle('active', isActive);
+          card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+        strategyCards.forEach(card => {
+          card.classList.toggle('is-highlight', card.dataset.strategy === target);
+        });
+        const strategy = document.querySelector('#strategy-' + target);
+        if(strategy && window.innerWidth < 981){
+          strategy.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      }
+
+      fitCards.forEach(card => {
+        card.addEventListener('click', () => setActive(card.dataset.target));
+        card.addEventListener('keydown', (e) => {
+          if(e.key === 'Enter' || e.key === ' '){
+            e.preventDefault();
+            setActive(card.dataset.target);
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

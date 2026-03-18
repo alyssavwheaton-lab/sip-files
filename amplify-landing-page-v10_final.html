@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amplify Your Income Potential | The SIP Suite | Eagle Asset Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#002855;--navy-deep:#001A3A;--navy-mid:#003A75;
+  --gold:#A09162;--gold-light:#CBB88B;--gold-pale:#E8DEC8;--gold-bright:#C4AA6A;
+  --sip-navy:#002855;--sip-gold:#A09162;--gsip-slate:#1B3F6B;
+  --white:#FFF;--off-white:#F8F6F1;--text-primary:#1A2B3C;--text-secondary:#5A6B7C;
+  --rule:#E4E0D8;--border-light:rgba(0,40,85,0.08);
+  --shadow-md:0 4px 24px rgba(0,40,85,0.08);--shadow-lg:0 12px 48px rgba(0,40,85,0.1);
+  --radius-sm:4px;--radius-md:8px;--radius-lg:12px;
+  --max-width:1120px;--transition:0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Source Sans 3','Source Sans Pro',-apple-system,sans-serif;color:var(--text-primary);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 24px}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+@keyframes waveFloat{0%,100%{transform:translateX(0)}50%{transform:translateX(-20px)}}
+@keyframes pulseGlow{0%,100%{opacity:0.3}50%{opacity:0.6}}
+@keyframes slideRight{from{width:0}to{width:48px}}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
+
+/* ── NAV ── */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;transition:background .4s,box-shadow .4s}
+.site-nav.scrolled{background:rgba(0,26,58,0.97);box-shadow:0 1px 0 rgba(160,145,98,0.15)}
+.nav-inner{max-width:var(--max-width);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-brand{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+.nav-brand-eagle{font-size:17px;font-weight:800;color:var(--white);letter-spacing:4.5px;text-transform:uppercase}
+.nav-brand-sep{width:1px;height:16px;background:var(--gold);opacity:0.3;align-self:center}
+.nav-brand-sub{font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:2px;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-links a{font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);text-decoration:none;letter-spacing:.8px;text-transform:uppercase;transition:color var(--transition);padding:4px 0}
+.nav-links a:hover,.nav-links a.active{color:var(--white)}
+.nav-cta{padding:8px 20px;border:1px solid rgba(160,145,98,0.4);color:var(--gold-light)!important;border-radius:var(--radius-sm);transition:all var(--transition)}
+.nav-cta:hover{background:var(--gold);color:var(--navy)!important;border-color:var(--gold)}
+.nav-mobile-toggle{display:none;background:none;border:none;padding:8px;cursor:pointer}
+.nav-mobile-toggle span{display:block;width:20px;height:1.5px;background:var(--white);margin:5px 0}
+
+/* ── BUTTONS ── */
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:15px 36px;background:var(--gold);color:var(--navy);font-family:inherit;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;border-radius:var(--radius-sm);cursor:pointer;text-decoration:none;transition:all var(--transition);white-space:nowrap}
+.btn-primary:hover{background:var(--gold-bright);transform:translateY(-1px);box-shadow:0 6px 24px rgba(160,145,98,0.25)}
+.btn-secondary{display:inline-flex;align-items:center;gap:10px;padding:15px 36px;background:transparent;color:rgba(255,255,255,0.7);font-family:inherit;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-sm);cursor:pointer;text-decoration:none;transition:all var(--transition)}
+.btn-secondary:hover{border-color:rgba(255,255,255,0.4);color:var(--white);background:rgba(255,255,255,0.04)}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:transparent;color:var(--navy);font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.8px;border:1.5px solid var(--navy);border-radius:var(--radius-sm);cursor:pointer;text-decoration:none;transition:all var(--transition)}
+.btn-outline:hover{background:var(--navy);color:var(--white)}
+
+/* ============================================================
+   HERO — Refined editorial with suite identity integrated
+   ============================================================ */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;background:linear-gradient(170deg,#000E1F 0%,var(--navy-deep) 30%,var(--navy) 60%,#003566 100%);overflow:hidden}
+.hero-atmo{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hero-atmo svg{position:absolute;width:160%;left:-30%}
+.hw-a{bottom:5%;opacity:.2;animation:waveFloat 14s ease-in-out infinite}
+.hw-b{bottom:18%;opacity:.12;animation:waveFloat 18s ease-in-out infinite reverse}
+.hw-c{top:15%;opacity:.07;animation:waveFloat 22s ease-in-out infinite}
+.hero-glow{position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(160,145,98,0.06) 0%,transparent 65%);top:-200px;right:-250px;animation:pulseGlow 10s ease-in-out infinite}
+.hero-content{position:relative;z-index:2;max-width:var(--max-width);margin:0 auto;padding:0 24px;width:100%;display:grid;grid-template-columns:1.1fr 0.9fr;gap:72px;align-items:center}
+.hero-left{padding:140px 0 120px;animation:fadeUp 1.1s cubic-bezier(0.16,1,0.3,1) .15s both}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:12px}
+.hero-eyebrow::before{content:'';width:48px;height:1px;background:var(--gold);opacity:.5;animation:slideRight 1s ease .6s both}
+.hero-title{font-size:clamp(48px,6.5vw,76px);font-weight:800;line-height:.96;color:var(--white);letter-spacing:-1px}
+.hero-title em{font-style:normal;color:var(--gold);display:block;margin-top:4px}
+.hero-sub{font-size:18px;font-weight:300;color:rgba(255,255,255,0.5);line-height:1.65;margin-top:28px;max-width:460px}
+.hero-actions{margin-top:44px;display:flex;gap:16px;flex-wrap:wrap}
+
+/* Hero right — Value props */
+.hero-right{animation:fadeUp 1.1s cubic-bezier(0.16,1,0.3,1) .4s both;padding-top:80px}
+.hero-props{display:flex;flex-direction:column;gap:24px}
+.hero-prop{display:flex;gap:16px;align-items:flex-start}
+.hero-prop-num{width:36px;height:36px;border-radius:50%;border:1px solid rgba(160,145,98,0.25);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--gold);flex-shrink:0}
+.hero-prop-text{font-size:15px;color:rgba(255,255,255,0.55);line-height:1.55;font-weight:300}
+.hero-prop-text strong{color:rgba(255,255,255,0.85);font-weight:600}
+.hero-bottom{position:absolute;bottom:-1px;left:0;right:0;z-index:3}
+
+/* ── SUITE STRIP ── */
+.suite-strip{background:var(--white);border-bottom:1px solid var(--rule)}
+.suite-strip-inner{display:flex;max-width:var(--max-width);margin:0 auto}
+.ss-item{flex:1;padding:24px 28px;border-right:1px solid var(--rule);display:flex;align-items:center;gap:14px;text-decoration:none;transition:background .2s;cursor:pointer}
+.ss-item:last-child{border-right:none}
+.ss-item:hover{background:var(--off-white)}
+.ss-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.ss-dot.sip{background:var(--sip-navy)}.ss-dot.sipp{background:var(--sip-gold)}.ss-dot.gsip{background:var(--gsip-slate)}
+.ss-name{font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--navy);margin-bottom:1px}
+.ss-desc{font-size:13px;color:var(--text-secondary);line-height:1.3}
+
+/* ── VIDEO ── */
+.video-section{padding:100px 0;background:var(--white)}
+.video-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center}
+.video-frame{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);background:var(--navy)}
+.video-aspect{position:relative;width:100%;padding-bottom:56.25%}
+.video-aspect iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.video-eyebrow{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.video-eyebrow::before{content:'';width:20px;height:1px;background:var(--gold)}
+.video-copy h2{font-size:clamp(28px,3.2vw,38px);font-weight:700;color:var(--navy);line-height:1.15;margin-bottom:20px}
+.video-copy p{font-size:16px;color:var(--text-secondary);line-height:1.7;font-weight:300}
+.video-meta{margin-top:28px;padding-top:20px;border-top:1px solid var(--rule);display:flex;gap:24px;font-size:12px;color:var(--text-secondary)}
+.video-meta span{display:flex;align-items:center;gap:6px}
+.video-meta svg{width:14px;height:14px;stroke:var(--gold);stroke-width:1.5;fill:none}
+
+/* ============================================================
+   STRATEGY CARDS — Brochure colors, client fit first, no commentary
+   ============================================================ */
+.strategies{padding:100px 0;background:var(--off-white);border-top:1px solid var(--rule)}
+.strategies-header{max-width:600px;margin-bottom:56px}
+.strategies-header h2{font-size:clamp(30px,3.5vw,42px);font-weight:700;color:var(--navy);line-height:1.1}
+.strategies-header p{font-size:16px;color:var(--text-secondary);line-height:1.7;font-weight:300;margin-top:16px}
+.strategy-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.strategy-card{background:var(--white);border:1px solid var(--rule);border-radius:var(--radius-lg);overflow:hidden;transition:all .4s cubic-bezier(.16,1,.3,1)}
+.strategy-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-6px)}
+.card-sip:hover{border-color:rgba(0,40,85,0.2)}
+.card-sipp:hover{border-color:rgba(160,145,98,0.3)}
+.card-gsip:hover{border-color:rgba(27,63,107,0.2)}
+.strategy-card-accent{height:4px}
+.card-sip .strategy-card-accent{background:var(--navy)}
+.card-sipp .strategy-card-accent{background:linear-gradient(90deg,var(--gold),var(--gold-bright))}
+.card-gsip .strategy-card-accent{background:var(--gsip-slate)}
+.strategy-card-body{padding:32px 28px}
+/* Client Fit at top */
+.strategy-client-fit{padding:14px 16px;background:var(--off-white);border-radius:var(--radius-sm);margin-bottom:24px;border-left:2px solid var(--rule)}
+.card-sip .strategy-client-fit{border-left-color:var(--navy)}
+.card-sipp .strategy-client-fit{border-left-color:var(--gold)}
+.card-gsip .strategy-client-fit{border-left-color:var(--gsip-slate)}
+.strategy-client-fit-label{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.card-sip .strategy-client-fit-label{color:var(--sip-navy)}
+.card-sipp .strategy-client-fit-label{color:var(--sip-gold)}
+.card-gsip .strategy-client-fit-label{color:var(--gsip-slate)}
+.strategy-client-fit-text{font-size:14px;color:var(--text-primary);line-height:1.45;font-style:italic}
+.strategy-card-name{font-size:22px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.strategy-card-tagline{font-size:13px;font-weight:500;margin-bottom:16px}
+.card-sip .strategy-card-tagline{color:var(--sip-navy)}
+.card-sipp .strategy-card-tagline{color:var(--sip-gold)}
+.card-gsip .strategy-card-tagline{color:var(--gsip-slate)}
+.strategy-card-desc{font-size:14px;color:var(--text-secondary);line-height:1.65}
+.strategy-card-meta{margin-top:24px;padding-top:20px;border-top:1px solid var(--rule);display:flex;flex-direction:column;gap:10px}
+.strategy-meta-row{display:flex;justify-content:space-between;align-items:center}
+.strategy-meta-label{font-size:11px;font-weight:600;color:var(--text-secondary);letter-spacing:.5px;text-transform:uppercase}
+.strategy-meta-value{font-size:13px;font-weight:700;color:var(--navy)}
+.strategy-card-links{display:flex;gap:14px;padding-top:16px;margin-top:16px;border-top:1px solid var(--rule)}
+.strat-link{font-size:11px;font-weight:700;color:var(--navy);text-decoration:none;display:inline-flex;align-items:center;gap:5px;letter-spacing:.3px;transition:color .2s}
+.strat-link:hover{color:var(--gold)}
+.strat-link svg{width:13px;height:13px}
+
+/* Mid-CTA */
+.mid-cta{margin-top:48px;padding:32px 40px;border:1px solid var(--rule);border-radius:var(--radius-lg);background:var(--white);display:flex;align-items:center;justify-content:space-between;gap:32px}
+.mid-cta p{font-size:15px;color:var(--text-secondary);max-width:540px;line-height:1.6}
+.mid-cta p strong{color:var(--navy)}
+
+/* ============================================================
+   ACCORDION — Shared styles for Comparison, Playbook, Downloads
+   ============================================================ */
+.accordion-section{border-top:1px solid var(--rule)}
+.accordion-trigger{width:100%;background:none;border:none;cursor:pointer;padding:28px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:inherit;transition:background .15s;text-align:left}
+.accordion-trigger:hover{background:rgba(248,246,241,0.5)}
+.accordion-trigger h3{font-size:20px;font-weight:700;color:var(--navy)}
+.accordion-trigger .acc-sub{font-size:13px;color:var(--text-secondary);font-weight:400;margin-left:12px}
+.accordion-chevron{width:20px;height:20px;transition:transform .3s;flex-shrink:0}
+.accordion-chevron svg{width:20px;height:20px;stroke:var(--text-secondary);stroke-width:2;fill:none}
+.accordion-trigger[aria-expanded="true"] .accordion-chevron{transform:rotate(180deg)}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
+.accordion-body.open{max-height:2000px}
+.accordion-body-inner{padding:0 24px 36px}
+
+/* ── COMPARISON GRID inside accordion ── */
+.comparison-section{background:var(--white);padding:0}
+.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--rule);border-radius:var(--radius-md);overflow:hidden}
+.comp-col{border-right:1px solid var(--rule)}
+.comp-col:last-child{border-right:none}
+.comp-col-head{padding:20px 24px;text-align:center}
+.comp-col-head.sip-head{background:var(--navy);color:var(--white)}
+.comp-col-head.sipp-head{background:var(--gold);color:var(--navy)}
+.comp-col-head.gsip-head{background:var(--gsip-slate);color:var(--white)}
+.comp-col-head h4{font-size:16px;font-weight:700;letter-spacing:1px}
+.comp-col-head span{font-size:11px;font-weight:400;display:block;margin-top:2px}
+.sip-head span,.gsip-head span{opacity:.7}
+.sipp-head span{opacity:.6}
+.comp-row{padding:14px 24px;border-bottom:1px solid var(--rule);font-size:13px;color:var(--text-secondary);line-height:1.5}
+.comp-row:last-child{border-bottom:none}
+.comp-row-label{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
+.comp-row-value{font-size:14px;font-weight:600;color:var(--navy)}
+
+/* ============================================================
+   INVESTMENT TEAM — Tabs for each product, headshot placeholder
+   ============================================================ */
+.team{padding:100px 0;background:var(--off-white);border-top:1px solid var(--rule)}
+.team-header{max-width:480px;margin-bottom:48px}
+.team-header h2{font-size:clamp(28px,3vw,36px);font-weight:700;color:var(--navy);line-height:1.15}
+.team-header p{font-size:16px;color:var(--text-secondary);line-height:1.7;font-weight:300;margin-top:16px}
+/* Lead quote with headshot */
+.team-lead{display:flex;gap:32px;align-items:flex-start;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid var(--rule)}
+.team-headshot{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy-mid));display:flex;align-items:center;justify-content:center;flex-shrink:0;border:3px solid var(--gold-pale);overflow:hidden;position:relative}
+.team-headshot-initials{font-size:28px;font-weight:800;color:var(--gold);letter-spacing:2px}
+.team-headshot-label{position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:8px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:10px;white-space:nowrap}
+.team-lead-quote{flex:1}
+.team-lead-quote blockquote{font-size:20px;font-weight:300;color:var(--navy);line-height:1.5;font-style:italic;padding-left:20px;border-left:2px solid var(--gold)}
+.team-lead-quote cite{display:block;margin-top:16px;padding-left:20px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-secondary);font-style:normal}
+
+/* Product team tabs */
+.team-tabs{display:flex;gap:0;border:1px solid var(--rule);border-radius:var(--radius-md) var(--radius-md) 0 0;overflow:hidden;background:var(--white)}
+.team-tab{flex:1;padding:16px;text-align:center;cursor:pointer;border-right:1px solid var(--rule);transition:background .15s,color .15s;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-secondary);background:var(--white);border-bottom:3px solid transparent}
+.team-tab:last-child{border-right:none}
+.team-tab:hover{background:var(--off-white)}
+.team-tab.active-sip{background:rgba(0,40,85,0.04);color:var(--sip-navy);border-bottom-color:var(--sip-navy)}
+.team-tab.active-sipp{background:rgba(160,145,98,0.06);color:var(--sip-gold);border-bottom-color:var(--sip-gold)}
+.team-tab.active-gsip{background:rgba(27,63,107,0.04);color:var(--gsip-slate);border-bottom-color:var(--gsip-slate)}
+.team-panel{display:none;border:1px solid var(--rule);border-top:none;border-radius:0 0 var(--radius-md) var(--radius-md);background:var(--white);padding:0}
+.team-panel.active{display:block}
+.cred-row{display:flex;gap:18px;align-items:center;padding:20px 24px;border-bottom:1px solid var(--rule);transition:background .15s}
+.cred-row:last-child{border-bottom:none}
+.cred-row:hover{background:var(--off-white)}
+.cred-initials{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--white);flex-shrink:0;letter-spacing:.5px}
+.cred-initials.ci-sip{background:var(--sip-navy)}.cred-initials.ci-sipp{background:var(--sip-gold);color:var(--navy)}.cred-initials.ci-gsip{background:var(--gsip-slate)}
+.cred-info{flex:1;min-width:0}
+.cred-info strong{font-size:15px;font-weight:700;color:var(--navy);display:block;margin-bottom:1px}
+.cred-info span{font-size:12px;color:var(--text-secondary)}
+.cred-tenure{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+.cred-tenure.ct-sip{color:var(--sip-navy)}.cred-tenure.ct-sipp{color:var(--sip-gold)}.cred-tenure.ct-gsip{color:var(--gsip-slate)}
+
+/* ============================================================
+   PLAYBOOK — Accordion episodes, expandable video
+   ============================================================ */
+.playbook{padding:100px 0;position:relative;overflow:hidden;background:linear-gradient(175deg,#000E1F 0%,var(--navy-deep) 40%,var(--navy) 100%)}
+.playbook-wave{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.playbook-wave svg{position:absolute;width:140%;left:-20%;opacity:.06}
+.playbook-inner{position:relative;z-index:2}
+.playbook-header{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:48px}
+.playbook-content h2{font-size:clamp(32px,4vw,48px);font-weight:800;color:var(--white);line-height:1.05;letter-spacing:-.5px}
+.playbook-content h2 em{font-style:normal;color:var(--gold)}
+.playbook-content p{font-size:16px;color:rgba(255,255,255,0.5);line-height:1.7;font-weight:300;margin-top:24px;max-width:420px}
+.playbook-eyebrow{font-size:10px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.playbook-eyebrow::before{content:'';width:20px;height:1px;background:var(--gold-light)}
+/* Featured video */
+.playbook-video-wrap{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);background:var(--navy-deep)}
+.playbook-video-aspect{position:relative;width:100%;padding-bottom:56.25%;background:linear-gradient(135deg,rgba(0,40,85,0.6),rgba(0,26,58,0.9))}
+.playbook-video-aspect iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.pv-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:opacity .3s}
+.pv-overlay.hidden{opacity:0;pointer-events:none}
+.pv-play{width:64px;height:64px;border-radius:50%;border:2px solid rgba(160,145,98,0.4);display:flex;align-items:center;justify-content:center;transition:all .3s;margin-bottom:12px}
+.pv-play:hover{border-color:var(--gold);background:rgba(160,145,98,0.1)}
+.pv-play svg{width:24px;height:24px;margin-left:3px}
+.pv-label{font-size:12px;color:rgba(255,255,255,0.5);font-weight:600;letter-spacing:1px}
+.pv-badge{position:absolute;top:16px;left:16px;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:12px;background:var(--gold);color:var(--navy)}
+.pv-info{padding:20px 24px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,20,40,0.5)}
+.pv-info-title{font-size:15px;font-weight:700;color:var(--white)}
+.pv-info-meta{font-size:12px;color:rgba(255,255,255,0.4)}
+/* Episode accordion rows */
+.ep-accordion{margin-top:24px}
+.ep-row{border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-md);margin-bottom:8px;overflow:hidden;transition:border-color .2s}
+.ep-row:hover{border-color:rgba(160,145,98,0.15)}
+.ep-trigger{width:100%;background:none;border:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:inherit;color:var(--white)}
+.ep-trigger-left{display:flex;align-items:center;gap:14px}
+.ep-trigger-date{font-size:11px;color:rgba(255,255,255,0.35);font-weight:600;letter-spacing:.5px;min-width:100px}
+.ep-trigger-title{font-size:14px;font-weight:600;color:rgba(255,255,255,0.7)}
+.ep-trigger-dur{font-size:11px;color:rgba(255,255,255,0.3)}
+.ep-chevron{width:16px;height:16px;transition:transform .3s}
+.ep-chevron svg{width:16px;height:16px;stroke:rgba(255,255,255,0.3);stroke-width:2;fill:none}
+.ep-trigger[aria-expanded="true"] .ep-chevron{transform:rotate(180deg)}
+.ep-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1)}
+.ep-body.open{max-height:400px}
+.ep-body-inner{padding:0 20px 20px;display:flex;gap:20px;align-items:flex-start}
+.ep-takeaway{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6;flex:1}
+.ep-takeaway strong{color:rgba(255,255,255,0.8)}
+.ep-play-btn{flex-shrink:0;padding:10px 20px;border:1px solid rgba(160,145,98,0.3);border-radius:var(--radius-sm);background:none;color:var(--gold-light);font-family:inherit;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px}
+.ep-play-btn:hover{border-color:var(--gold);background:rgba(160,145,98,0.08)}
+.ep-play-btn svg{width:12px;height:12px}
+
+/* ── DOWNLOADS accordion section ── */
+.downloads-section{background:var(--white);padding:0}
+.dl-row{display:flex;gap:24px;align-items:center;padding:16px 0;border-bottom:1px solid var(--rule)}
+.dl-row:last-child{border-bottom:none}
+.dl-name{flex:2}
+.dl-name h4{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:1px}
+.dl-name span{font-size:12px;color:var(--text-secondary)}
+.dl-type{flex:1;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.dl-btn{font-size:11px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:6px;text-decoration:none;letter-spacing:.5px;transition:color .15s}
+.dl-btn:hover{color:var(--gold)}
+.dl-btn svg{width:14px;height:14px}
+
+/* ── CONTACT ── */
+.contact{padding:100px 0;background:var(--off-white);border-top:1px solid var(--rule)}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.contact-content{max-width:420px}
+.contact-content h2{font-size:clamp(28px,3vw,36px);font-weight:700;color:var(--navy);line-height:1.15;margin-bottom:16px}
+.contact-content>p{font-size:15px;color:var(--text-secondary);line-height:1.7;font-weight:300}
+.contact-list{margin-top:32px;border-top:1px solid var(--rule)}
+.cl-item{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--rule);font-size:14px;color:var(--text-secondary)}
+.cl-item svg{width:15px;height:15px;stroke:var(--gold);stroke-width:1.5;fill:none;flex-shrink:0}
+.contact-form{background:var(--white);border-radius:var(--radius-lg);padding:40px;border:1px solid var(--rule);border-top:3px solid var(--gold);box-shadow:var(--shadow-md)}
+.cf-heading{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.cf-sub{font-size:13px;color:var(--text-secondary);margin-bottom:28px;display:block}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.5px;margin-bottom:6px}
+.form-input{width:100%;padding:12px 16px;font-family:inherit;font-size:14px;color:var(--text-primary);background:var(--white);border:1px solid var(--rule);border-radius:var(--radius-sm);transition:border-color .2s,box-shadow .2s;outline:none}
+.form-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(160,145,98,0.08)}
+.form-input::placeholder{color:#B8B8B8}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%235A6B7C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
+.form-submit{margin-top:24px;width:100%;justify-content:center}
+.form-disclaimer{margin-top:16px;font-size:11px;color:var(--text-secondary);line-height:1.5}
+.form-disclaimer a{color:var(--gold)}
+
+/* ── FOOTER ── */
+.site-footer{background:var(--navy-deep);padding:48px 0 32px;border-top:1px solid rgba(160,145,98,0.12)}
+.footer-inner{max-width:var(--max-width);margin:0 auto;padding:0 24px}
+.footer-brand{display:flex;align-items:baseline;gap:10px;margin-bottom:24px}
+.footer-brand-eagle{font-size:15px;font-weight:800;color:var(--white);letter-spacing:4px;text-transform:uppercase}
+.footer-brand-sep{width:1px;height:14px;background:var(--gold);opacity:.25;align-self:center}
+.footer-brand-sub{font-size:10px;color:rgba(255,255,255,0.25);letter-spacing:1.5px;text-transform:uppercase}
+.footer-disclosure{font-size:11px;color:rgba(255,255,255,0.25);line-height:1.7;max-width:900px}
+.footer-disclosure p{margin-bottom:12px}
+.footer-bottom{margin-top:32px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-bottom-text{font-size:11px;color:rgba(255,255,255,0.2)}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:11px;color:rgba(255,255,255,0.25);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--gold-light)}
+
+/* Mobile bar */
+.mobile-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--navy);border-top:2px solid var(--gold);padding:12px 20px;transform:translateY(100%);transition:transform .25s ease}
+.mobile-bar.visible{transform:translateY(0)}
+.mobile-bar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.mobile-bar p{font-size:12px;font-weight:600;color:rgba(255,255,255,0.6);margin:0}
+.mobile-bar .btn-primary{padding:10px 20px;font-size:11px}
+@media(max-width:768px){.mobile-bar{display:block}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .hero-content,.video-grid,.playbook-header{grid-template-columns:1fr;gap:40px}
+  .hero-right{padding-top:0}.strategy-cards{grid-template-columns:1fr;max-width:480px;margin:0 auto}
+  .mid-cta{flex-direction:column;align-items:flex-start;gap:20px}
+  .contact-inner{grid-template-columns:1fr;gap:48px}
+  .team-lead{flex-direction:column;align-items:center;text-align:center}
+  .team-lead-quote blockquote{padding-left:0;border-left:none;border-top:2px solid var(--gold);padding-top:20px}
+  .team-lead-quote cite{padding-left:0}
+  .suite-strip-inner{flex-direction:column}
+  .ss-item{border-right:none;border-bottom:1px solid var(--rule)}
+  .ss-item:last-child{border-bottom:none}
+  .comp-grid{grid-template-columns:1fr}
+  .comp-col{border-right:none;border-bottom:1px solid var(--rule)}
+  .comp-col:last-child{border-bottom:none}
+}
+@media(max-width:768px){
+  .nav-links{display:none}.nav-mobile-toggle{display:block}
+  .hero{min-height:85vh}.hero-left{padding:120px 0 80px}
+  .hero-title{font-size:44px}
+  .hero-actions{flex-direction:column}
+  .btn-primary,.btn-secondary,.btn-outline{width:100%;justify-content:center}
+  .form-row{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+  .dl-row{flex-wrap:wrap}.dl-name{flex:0 0 100%}.dl-type{display:none}
+  .ep-trigger-left{flex-direction:column;gap:4px}.ep-trigger-date{min-width:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand"><span class="nav-brand-eagle">EAGLE</span><span class="nav-brand-sep"></span><span class="nav-brand-sub">Asset Management</span></a>
+    <ul class="nav-links">
+      <li><a href="#strategies" data-section="strategies">Strategies</a></li>
+      <li><a href="#team" data-section="team">Team</a></li>
+      <li><a href="#playbook" data-section="playbook">Playbook</a></li>
+      <li><a href="#connect" class="nav-cta">Connect</a></li>
+    </ul>
+    <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-atmo">
+    <svg class="hw-a" viewBox="0 0 1440 200" fill="none"><path d="M-40 80C200 20 400 160 720 100S1200 20 1480 80" stroke="rgba(160,145,98,0.5)" stroke-width="1.5" fill="none"/><path d="M-40 130C200 70 400 190 720 130S1200 70 1480 130" stroke="rgba(100,160,220,0.3)" stroke-width="1" fill="none"/></svg>
+    <svg class="hw-b" viewBox="0 0 1440 200" fill="none"><path d="M-40 60C300 140 600 20 900 80S1300 140 1480 60" stroke="rgba(160,145,98,0.35)" stroke-width="1" fill="none"/></svg>
+    <svg class="hw-c" viewBox="0 0 1440 200" fill="none"><path d="M-40 100C200 40 500 160 800 100S1200 40 1480 100" stroke="rgba(100,160,220,0.25)" stroke-width=".8" fill="none"/></svg>
+  </div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-eyebrow">The Strategic Income Portfolio Suite</div>
+      <h1 class="hero-title">Amplify<em>Your Income Potential.</em></h1>
+      <p class="hero-sub">One disciplined process. Three dynamic strategies. Built to match the right income solution to every client conversation.</p>
+      <div class="hero-actions">
+        <a href="#video" class="btn-primary">Watch Suite Overview <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg></a>
+        <a href="#strategies" class="btn-secondary">Explore Strategies</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-props">
+        <div class="hero-prop"><div class="hero-prop-num">1</div><div class="hero-prop-text"><strong>One conversation, three solutions</strong> &mdash; a repeatable income framework for every client profile</div></div>
+        <div class="hero-prop"><div class="hero-prop-num">2</div><div class="hero-prop-text"><strong>Active, tactical management</strong> by tenured teams who dynamically adjust to market conditions</div></div>
+        <div class="hero-prop"><div class="hero-prop-num">3</div><div class="hero-prop-text"><strong>Quality-first discipline</strong> clients can hold through cycles &mdash; defense you can explain in any environment</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-bottom"><svg viewBox="0 0 1440 48" fill="none" preserveAspectRatio="none" style="width:100%;height:48px;display:block;"><path d="M0 48V16C360 36 720 0 1080 16S1440 36 1440 16V48H0Z" fill="#FFF"/></svg></div>
+</section>
+
+<!-- SUITE STRIP -->
+<div class="suite-strip">
+  <div class="suite-strip-inner">
+    <a href="#strategies" class="ss-item"><div class="ss-dot sip"></div><div><div class="ss-name">SIP</div><div class="ss-desc">Steady income &amp; consistent growth</div></div></a>
+    <a href="#strategies" class="ss-item"><div class="ss-dot sipp"></div><div><div class="ss-name">SIP Plus</div><div class="ss-desc">Amplified income potential</div></div></a>
+    <a href="#strategies" class="ss-item"><div class="ss-dot gsip"></div><div><div class="ss-name">Global SIP</div><div class="ss-desc">International income diversification</div></div></a>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<section class="video-section" id="video">
+  <div class="container">
+    <div class="video-grid">
+      <div class="video-frame reveal"><div class="video-aspect"><iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/2750352/sp/275035200/embedIframeJs/uiconf_id/45753751/partner_id/2750352?iframeembed=true&playerId=kaltura_player&entry_id=1_a5fz5af5&flashvars[streamerType]=auto&flashvars[localizationCode]=en&flashvars[sideBarContainer.plugin]=true&flashvars[sideBarContainer.position]=left&flashvars[sideBarContainer.clickToClose]=true&flashvars[chapters.plugin]=true&flashvars[chapters.layout]=vertical&flashvars[chapters.thumbnailRotator]=false&flashvars[streamSelector.plugin]=true&flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&flashvars[dualScreen.plugin]=true&flashvars[Kaltura.addCrossoriginToIframe]=true" width="100%" height="100%" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="SIP Suite Overview" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe></div></div>
+      <div class="video-copy reveal reveal-d2">
+        <div class="video-eyebrow">Suite Overview</div>
+        <h2>Hear Directly From<br>the Investment Team</h2>
+        <p>James Camp, CFA, and the SIP Suite portfolio management team walk through the philosophy, framework, and positioning behind each income strategy.</p>
+        <div class="video-meta"><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 4 min</span><span><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Eagle Investment Team</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGIES -->
+<section class="strategies" id="strategies">
+  <div class="container">
+    <div class="strategies-header reveal"><h2>One Conversation.<br>Three Income Solutions.</h2><p>Each strategy targets a distinct client income objective within the same disciplined, quality-first investment framework.</p></div>
+    <div class="strategy-cards">
+      <!-- SIP -->
+      <div class="strategy-card card-sip reveal reveal-d1"><div class="strategy-card-accent"></div><div class="strategy-card-body">
+        <div class="strategy-client-fit"><div class="strategy-client-fit-label">Client Fit</div><div class="strategy-client-fit-text">"I want reliable income and I don't want to worry about my principal."</div></div>
+        <h3 class="strategy-card-name">Strategic Income Portfolio</h3>
+        <div class="strategy-card-tagline">Steady income and consistent growth</div>
+        <p class="strategy-card-desc">Dividend-paying equities with investment-grade fixed income in one dynamic, risk-aware portfolio guided by macro indicators and fundamental insights.</p>
+        <div class="strategy-card-meta"><div class="strategy-meta-row"><span class="strategy-meta-label">Risk</span><span class="strategy-meta-value">Conservative&ndash;Moderate</span></div><div class="strategy-meta-row"><span class="strategy-meta-label">Income</span><span class="strategy-meta-value">Moderate</span></div><div class="strategy-meta-row"><span class="strategy-meta-label">Minimum</span><span class="strategy-meta-value">$250K</span></div></div>
+        <div class="strategy-card-links"><a href="#" class="strat-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Factsheet</a></div>
+      </div></div>
+      <!-- SIP Plus -->
+      <div class="strategy-card card-sipp reveal reveal-d2"><div class="strategy-card-accent"></div><div class="strategy-card-body">
+        <div class="strategy-client-fit"><div class="strategy-client-fit-label">Client Fit</div><div class="strategy-client-fit-text">"I want more yield &mdash; but I still want someone watching the risk."</div></div>
+        <h3 class="strategy-card-name">SIP Plus</h3>
+        <div class="strategy-card-tagline">Increased income potential</div>
+        <p class="strategy-card-desc">Higher-yielding dividend equities and carefully constructed BBB/BB corporate credit for investors seeking more income without compromising oversight.</p>
+        <div class="strategy-card-meta"><div class="strategy-meta-row"><span class="strategy-meta-label">Risk</span><span class="strategy-meta-value">Moderate&ndash;High</span></div><div class="strategy-meta-row"><span class="strategy-meta-label">Income</span><span class="strategy-meta-value">High</span></div><div class="strategy-meta-row"><span class="strategy-meta-label">Minimum</span><span class="strategy-meta-value">$250K TF / $500K TA</span></div></div>
+        <div class="strategy-card-links"><a href="#" class="strat-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Factsheet</a></div>
+      </div></div>
+      <!-- Global SIP -->
+      <div class="strategy-card card-gsip reveal reveal-d3"><div class="strategy-card-accent"></div><div class="strategy-card-body">
+        <div class="strategy-client-fit"><div class="strategy-client-fit-label">Client Fit</div><div class="strategy-client-fit-text">"I want income, but I also want exposure beyond just U.S. markets."</div></div>
+        <h3 class="strategy-card-name">Global SIP</h3>
+        <div class="strategy-card-tagline">Diversified, international income</div>
+        <p class="strategy-card-desc">International dividend equities integrated with domestic investment-grade fixed income to broaden and diversify the income opportunity set beyond U.S. markets.</p>
+        <div class="strategy-card-meta"><div class="strategy-meta-row"><span class="strategy-meta-label">Risk</span><span class="strategy-meta-value">Moderate</span></div><div class="strategy-meta-row"><span class="strategy-meta-label">Income</span><span class="strategy-meta-value">Moderate&ndash;High</span></div><div class="strategy-meta-row"><span class="strategy-meta-label">Minimum</span><span class="strategy-meta-value">$250K Tax-Aware</span></div></div>
+        <div class="strategy-card-links"><a href="#" class="strat-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Factsheet</a></div>
+      </div></div>
+    </div>
+    <div class="mid-cta reveal"><p><strong>Not sure which strategy fits your client?</strong> Your Regional VP can help match income objectives to the right SIP strategy and build the proposal.</p><a href="#connect" class="btn-outline">Request a Consultation</a></div>
+  </div>
+</section>
+
+<!-- COMPARISON ACCORDION -->
+<div class="accordion-section comparison-section" id="compare">
+  <div class="container">
+    <button class="accordion-trigger" aria-expanded="false" data-accordion="compare-body">
+      <div><h3>Strategy Comparison <span class="acc-sub">Side-by-side at a glance</span></h3></div>
+      <div class="accordion-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </button>
+    <div class="accordion-body" id="compare-body">
+      <div class="accordion-body-inner">
+        <div class="comp-grid">
+          <div class="comp-col">
+            <div class="comp-col-head sip-head"><h4>SIP</h4><span>The Anchor</span></div>
+            <div class="comp-row"><div class="comp-row-label">Objective</div>Steady income and consistent growth</div>
+            <div class="comp-row"><div class="comp-row-label">Client Fit</div>Retirees and clients prioritizing capital discipline and stability</div>
+            <div class="comp-row"><div class="comp-row-label">Income</div><div class="comp-row-value">Moderate</div></div>
+            <div class="comp-row"><div class="comp-row-label">Risk</div>Conservative&ndash;Moderate</div>
+            <div class="comp-row"><div class="comp-row-label">Minimum</div><div class="comp-row-value">$250K</div></div>
+          </div>
+          <div class="comp-col">
+            <div class="comp-col-head sipp-head"><h4>SIP Plus</h4><span>The Step-Up</span></div>
+            <div class="comp-row"><div class="comp-row-label">Objective</div>Increased income potential</div>
+            <div class="comp-row"><div class="comp-row-label">Client Fit</div>Clients seeking higher cash flow who accept moderate volatility within a quality framework</div>
+            <div class="comp-row"><div class="comp-row-label">Income</div><div class="comp-row-value">High</div></div>
+            <div class="comp-row"><div class="comp-row-label">Risk</div>Moderate&ndash;High</div>
+            <div class="comp-row"><div class="comp-row-label">Minimum</div><div class="comp-row-value">$250K TF / $500K TA</div></div>
+          </div>
+          <div class="comp-col">
+            <div class="comp-col-head gsip-head"><h4>Global SIP</h4><span>The Diversifier</span></div>
+            <div class="comp-row"><div class="comp-row-label">Objective</div>Diversified, international income</div>
+            <div class="comp-row"><div class="comp-row-label">Client Fit</div>Investors seeking global diversification with an income-oriented approach</div>
+            <div class="comp-row"><div class="comp-row-label">Income</div><div class="comp-row-value">Moderate&ndash;High</div></div>
+            <div class="comp-row"><div class="comp-row-label">Risk</div>Moderate</div>
+            <div class="comp-row"><div class="comp-row-label">Minimum</div><div class="comp-row-value">$250K Tax-Aware</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INVESTMENT TEAM -->
+<section class="team" id="team">
+  <div class="container">
+    <div class="team-header reveal"><h2>The People Behind<br>the Process</h2><p>Eagle's independent investment teams bring distinct expertise to each strategy within a unified, risk-conscious framework.</p></div>
+    <!-- Lead with headshot -->
+    <div class="team-lead reveal">
+      <div class="team-headshot"><span class="team-headshot-initials">JC</span><span class="team-headshot-label">Headshot</span></div>
+      <div class="team-lead-quote">
+        <blockquote>"[Portfolio manager pull quote &mdash; income philosophy, current positioning, or risk approach. Replace with compliance-approved language.]"</blockquote>
+        <cite>James Camp, CFA &nbsp;|&nbsp; Managing Director, Fixed Income</cite>
+      </div>
+    </div>
+    <!-- Tabbed teams -->
+    <div class="team-tabs" id="teamTabs">
+      <div class="team-tab active-sip" data-tab="tab-sip">SIP Team</div>
+      <div class="team-tab" data-tab="tab-sipp">SIP Plus Team</div>
+      <div class="team-tab" data-tab="tab-gsip">Global SIP Team</div>
+    </div>
+    <div class="team-panel active" id="tab-sip">
+      <div class="cred-row"><div class="cred-initials ci-sip">JC</div><div class="cred-info"><strong>James Camp, CFA</strong><span>Managing Director, Fixed Income</span></div><div class="cred-tenure ct-sip">30+ Yrs</div></div>
+      <div class="cred-row"><div class="cred-initials ci-sip">[XX]</div><div class="cred-info"><strong>[Portfolio Manager Name]</strong><span>[Title] &mdash; Equity Income</span></div><div class="cred-tenure ct-sip">[XX]+ Yrs</div></div>
+      <div class="cred-row"><div class="cred-initials ci-sip">[XX]</div><div class="cred-info"><strong>[Analyst Name]</strong><span>[Title] &mdash; Fixed Income Research</span></div><div class="cred-tenure ct-sip">[XX]+ Yrs</div></div>
+    </div>
+    <div class="team-panel" id="tab-sipp">
+      <div class="cred-row"><div class="cred-initials ci-sipp">JC</div><div class="cred-info"><strong>James Camp, CFA</strong><span>Managing Director, Fixed Income</span></div><div class="cred-tenure ct-sipp">30+ Yrs</div></div>
+      <div class="cred-row"><div class="cred-initials ci-sipp">[XX]</div><div class="cred-info"><strong>[Portfolio Manager Name]</strong><span>[Title] &mdash; High Yield Credit</span></div><div class="cred-tenure ct-sipp">[XX]+ Yrs</div></div>
+    </div>
+    <div class="team-panel" id="tab-gsip">
+      <div class="cred-row"><div class="cred-initials ci-gsip">[XX]</div><div class="cred-info"><strong>[Portfolio Manager Name]</strong><span>[Title] &mdash; Global Equities</span></div><div class="cred-tenure ct-gsip">[XX]+ Yrs</div></div>
+      <div class="cred-row"><div class="cred-initials ci-gsip">[XX]</div><div class="cred-info"><strong>[Portfolio Manager Name]</strong><span>[Title] &mdash; International Dividend</span></div><div class="cred-tenure ct-gsip">[XX]+ Yrs</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAYBOOK -->
+<section class="playbook" id="playbook">
+  <div class="playbook-wave"><svg viewBox="0 0 1440 200" style="bottom:10%"><path d="M-40 80C200 20 400 160 720 100S1200 20 1480 80" stroke="rgba(160,145,98,0.5)" stroke-width="1" fill="none"/></svg><svg viewBox="0 0 1440 200" style="top:25%"><path d="M-40 60C300 140 600 20 900 80S1300 140 1480 60" stroke="rgba(100,160,220,0.3)" stroke-width=".8" fill="none"/></svg></div>
+  <div class="container">
+    <div class="playbook-inner">
+      <div class="playbook-header">
+        <div class="playbook-content reveal">
+          <div class="playbook-eyebrow">Monthly Series</div>
+          <h2>Strategic Income<br><em>Playbook.</em></h2>
+          <p>A concise monthly market briefing from Eagle's investment team. Current positioning, income themes, and one actionable insight &mdash; in under four minutes.</p>
+        </div>
+        <div class="playbook-video-wrap reveal reveal-d2" id="playbookVideo">
+          <div class="playbook-video-aspect">
+            <span class="pv-badge">March 2026</span>
+            <div class="pv-overlay" id="pvOverlay" onclick="document.getElementById('pvOverlay').classList.add('hidden')">
+              <div class="pv-play"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <div class="pv-label">Rates, Rotation &amp; Income Positioning</div>
+            </div>
+          </div>
+          <div class="pv-info"><span class="pv-info-title">March 2026: Rates, Rotation &amp; Positioning</span><span class="pv-info-meta">3:42 &bull; James Camp, CFA</span></div>
+        </div>
+      </div>
+      <!-- Episode accordion -->
+      <div class="ep-accordion">
+        <div class="ep-row">
+          <button class="ep-trigger" aria-expanded="false" data-ep="ep1"><div class="ep-trigger-left"><span class="ep-trigger-date">Feb 2026</span><span class="ep-trigger-title">Navigating Credit Spreads in a Shifting Landscape</span></div><span class="ep-trigger-dur">3:28</span><div class="ep-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></button>
+          <div class="ep-body" id="ep1"><div class="ep-body-inner"><div class="ep-takeaway"><strong>Key takeaway:</strong> Credit spreads tightened meaningfully in February, creating selective opportunities in BB-rated corporates. The team maintained overweight positioning in quality high-yield while reducing duration exposure ahead of expected rate volatility.</div><button class="ep-play-btn" onclick="this.closest('.ep-row').querySelector('.ep-trigger').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Episode</button></div></div>
+        </div>
+        <div class="ep-row">
+          <button class="ep-trigger" aria-expanded="false" data-ep="ep2"><div class="ep-trigger-left"><span class="ep-trigger-date">Jan 2026</span><span class="ep-trigger-title">Dividend Quality in an Uncertain Rate Environment</span></div><span class="ep-trigger-dur">3:55</span><div class="ep-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></button>
+          <div class="ep-body" id="ep2"><div class="ep-body-inner"><div class="ep-takeaway"><strong>Key takeaway:</strong> The team shifted equity emphasis toward companies with consistent dividend growth histories and strong free cash flow coverage, prioritizing sustainability of income over current yield in an environment where rate uncertainty may pressure lower-quality payers.</div><button class="ep-play-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Episode</button></div></div>
+        </div>
+        <div class="ep-row">
+          <button class="ep-trigger" aria-expanded="false" data-ep="ep3"><div class="ep-trigger-left"><span class="ep-trigger-date">Dec 2025</span><span class="ep-trigger-title">Year-End Review &amp; 2026 Income Outlook</span></div><span class="ep-trigger-dur">4:12</span><div class="ep-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></button>
+          <div class="ep-body" id="ep3"><div class="ep-body-inner"><div class="ep-takeaway"><strong>Key takeaway:</strong> 2025 delivered strong total returns across all three strategies. Looking ahead, the team sees a constructive backdrop for income investors, with moderating inflation supporting both equity dividends and fixed income positioning entering 2026.</div><button class="ep-play-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Episode</button></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOADS ACCORDION -->
+<div class="accordion-section downloads-section" id="resources">
+  <div class="container">
+    <button class="accordion-trigger" aria-expanded="false" data-accordion="dl-body">
+      <div><h3>Strategy Materials <span class="acc-sub">Factsheets, brochures &amp; commentaries</span></h3></div>
+      <div class="accordion-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    </button>
+    <div class="accordion-body" id="dl-body">
+      <div class="accordion-body-inner">
+        <div class="dl-row"><div class="dl-name"><h4>SIP Suite Overview</h4><span>Full Suite Brochure</span></div><div class="dl-type">Brochure</div><div><a href="#" class="dl-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</a></div></div>
+        <div class="dl-row"><div class="dl-name"><h4>SIP Factsheet</h4><span>Strategic Income Portfolio</span></div><div class="dl-type">Factsheet</div><div><a href="#" class="dl-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</a></div></div>
+        <div class="dl-row"><div class="dl-name"><h4>SIP Plus Factsheet</h4><span>Strategic Income Portfolio Plus</span></div><div class="dl-type">Factsheet</div><div><a href="#" class="dl-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</a></div></div>
+        <div class="dl-row"><div class="dl-name"><h4>Global SIP Factsheet</h4><span>Global Strategic Income Portfolio</span></div><div class="dl-type">Factsheet</div><div><a href="#" class="dl-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</a></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="connect">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-content reveal">
+        <h2>Ready to Amplify Your Clients' Income?</h2>
+        <p>Your Regional VP and Internal Consultant team can help build a SIP Suite income strategy tailored to your clients' goals.</p>
+        <div class="contact-list">
+          <div class="cl-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Full brochure and factsheet package</div>
+          <div class="cl-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Client-ready presentation materials</div>
+          <div class="cl-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Strategy comparison and client fit guidance</div>
+          <div class="cl-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Portfolio construction and proposal support</div>
+        </div>
+      </div>
+      <form class="contact-form reveal reveal-d2" id="contactForm" onsubmit="return false;">
+        <h3 class="cf-heading">Request Information</h3>
+        <span class="cf-sub">An Eagle representative will follow up within one business day.</span>
+        <div class="form-row"><div class="form-group"><label class="form-label" for="firstName">First Name *</label><input class="form-input" type="text" id="firstName" placeholder="First name" required></div><div class="form-group"><label class="form-label" for="lastName">Last Name *</label><input class="form-input" type="text" id="lastName" placeholder="Last name" required></div></div>
+        <div class="form-group"><label class="form-label" for="email">Business Email *</label><input class="form-input" type="email" id="email" placeholder="you@firm.com" required></div>
+        <div class="form-row"><div class="form-group"><label class="form-label" for="firm">Firm Name</label><input class="form-input" type="text" id="firm" placeholder="Firm or broker-dealer"></div><div class="form-group"><label class="form-label" for="phone">Phone</label><input class="form-input" type="tel" id="phone" placeholder="(555) 000-0000"></div></div>
+        <div class="form-group"><label class="form-label" for="interest">Area of Interest</label><select class="form-input form-select" id="interest"><option value="" disabled selected>Select an option</option><option>SIP Suite Overview</option><option>Strategic Income Portfolio (SIP)</option><option>SIP Plus</option><option>Global SIP</option><option>Monthly Video Series</option><option>Schedule a Meeting</option></select></div>
+        <button type="submit" class="btn-primary form-submit">Submit Request</button>
+        <p class="form-disclaimer">For Financial Professional Use Only. Not for distribution to the public. By submitting this form you agree to be contacted by Eagle Asset Management. <a href="https://www.eagleasset.com/about-us/privacy-policy">Privacy Policy</a></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="footer-brand-eagle">EAGLE</span><span class="footer-brand-sep"></span><span class="footer-brand-sub">Asset Management</span></div>
+    <div class="footer-disclosure"><p>Eagle Asset Management, Inc. ("Eagle") is a wholly owned subsidiary of Raymond James Investment Management ("RJIM"). RJIM is an SEC registered investment adviser and wholly owned subsidiary of Raymond James Financial, Inc.</p><p>The information provided should not be construed as a recommendation to buy, sell, or hold any particular security. Past performance does not guarantee future results. Investing involves risk including the possible loss of principal. Equity Income investing involves risks, including that dividend-issuing companies may choose not to pay a dividend. Fixed income investing involves risk, including interest-rate risk, credit risk and reinvestment risk. Strategies that invest in below-investment-grade securities involve greater credit and liquidity risk. International investments involve additional risks, including currency fluctuations, political and economic instability. Diversification and asset allocation do not ensure a profit or protect against loss.</p><p>For financial advisor use only. Not for distribution to the general public.</p><p>M-847233 &nbsp;|&nbsp; Exp. 12/15/26 &nbsp;|&nbsp; BR-EA-SIP</p></div>
+    <div class="footer-bottom"><span class="footer-bottom-text">&copy; 2026 Eagle Asset Management, Inc. All rights reserved. 880 Carillon Parkway, St. Petersburg, FL 33716</span><div class="footer-links"><a href="https://www.eagleasset.com/about-us/privacy-policy">Privacy Policy</a><a href="#">Disclosures</a><a href="https://eagleasset.com" target="_blank" rel="noopener">eagleasset.com</a></div></div>
+  </div>
+</footer>
+
+<div class="mobile-bar" id="mobilebar"><div class="mobile-bar-inner"><p>Amplify Your Income</p><a href="#connect" class="btn-primary">Connect</a></div></div>
+
+<!-- SCRIPTS -->
+<script>
+(function(){
+  'use strict';
+
+  // Reveal
+  var els=document.querySelectorAll('.reveal');
+  var io=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting){en.target.classList.add('visible');io.unobserve(en.target)}})},{threshold:.1,rootMargin:'0px 0px -32px 0px'});
+  els.forEach(function(el){io.observe(el)});
+
+  // Nav
+  var nav=document.getElementById('siteNav'),hero=document.getElementById('hero'),mb=document.getElementById('mobilebar');
+  var secs=['strategies','team','playbook','connect'];
+  function onScroll(){
+    var y=window.pageYOffset;
+    nav.classList.toggle('scrolled',y>80);
+    if(mb){var hb=hero?hero.getBoundingClientRect().bottom:0;mb.classList.toggle('visible',hb<-100)}
+    var cur='';secs.forEach(function(id){var el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=120)cur=id});
+    document.querySelectorAll('.nav-links a[data-section]').forEach(function(l){l.classList.toggle('active',l.getAttribute('data-section')===cur)});
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var id=this.getAttribute('href');if(id==='#')return;var t=document.querySelector(id);if(t){e.preventDefault();window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-nav.offsetHeight-16,behavior:'smooth'})}})});
+
+  // Accordions (Comparison, Downloads)
+  document.querySelectorAll('.accordion-trigger').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var expanded=this.getAttribute('aria-expanded')==='true';
+      this.setAttribute('aria-expanded',!expanded);
+      var body=document.getElementById(this.getAttribute('data-accordion'));
+      body.classList.toggle('open',!expanded);
+    });
+  });
+
+  // Episode accordions
+  document.querySelectorAll('.ep-trigger').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var expanded=this.getAttribute('aria-expanded')==='true';
+      this.setAttribute('aria-expanded',!expanded);
+      var body=document.getElementById(this.getAttribute('data-ep'));
+      body.classList.toggle('open',!expanded);
+    });
+  });
+
+  // Team tabs
+  var tabs=document.querySelectorAll('.team-tab');
+  var panels=document.querySelectorAll('.team-panel');
+  var tabClasses=['active-sip','active-sipp','active-gsip'];
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(){
+      var target=this.getAttribute('data-tab');
+      tabs.forEach(function(t){tabClasses.forEach(function(c){t.classList.remove(c)})});
+      panels.forEach(function(p){p.classList.remove('active')});
+      var idx=Array.from(tabs).indexOf(this);
+      this.classList.add(tabClasses[idx]);
+      document.getElementById(target).classList.add('active');
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>

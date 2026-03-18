@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SIP Suite Strategy Cards (vNext)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body style="margin:0">
+<!-- =========================
+     SIP Suite Strategy Cards (vNext)
+     SFMC CloudPage Component
+     ========================= -->
+
+<style>
+  .sip-stg-wrap{background:#F8F6F1;padding:64px 40px;font-family:'Source Sans 3',Arial,sans-serif;color:#1A1D21;}
+  .sip-stg-inner{max-width:1080px;margin:0 auto;}
+  .sip-stg-head{max-width:760px;margin-bottom:28px;}
+  .sip-stg-kicker{font-size:11px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;color:#A09162;margin:0 0 10px;}
+  .sip-stg-title{font-size:28px;font-weight:900;line-height:1.15;color:#002855;margin:0 0 10px;}
+  .sip-stg-sub{font-size:14px;line-height:1.65;color:#5A6270;margin:0;}
+
+  .sip-stg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px;}
+  @media(max-width:980px){.sip-stg-grid{grid-template-columns:1fr;}}
+  .sip-card{background:#fff;border:1px solid #E8E5DE;border-radius:12px;overflow:hidden;position:relative;box-shadow:0 10px 26px rgba(10,34,64,0.08);}
+  .sip-card-topline{height:4px;width:100%;}
+  .sip-card-pad{padding:18px 18px 16px;}
+
+  .sip-pillrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px;}
+  .sip-pill{font-size:10px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;border-radius:999px;padding:6px 10px;display:inline-flex;align-items:center;gap:8px;}
+  .sip-pill .dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:rgba(255,255,255,0.9);}
+  .sip-pill-ghost{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;border:1px solid #E8E5DE;border-radius:999px;padding:6px 10px;color:#6B7280;background:#fff;}
+
+  .sip-name{font-size:16px;font-weight:900;color:#002855;margin:0 0 6px;line-height:1.2;}
+  .sip-oneliner{font-size:13px;font-weight:700;color:#5A6270;margin:0 0 12px;line-height:1.35;}
+
+  .sip-clientbox{background:#FAFAF8;border:1px solid #EEEAE1;border-radius:10px;padding:12px 12px;margin:0 0 12px;}
+  .sip-clientlbl{font-size:10px;font-weight:900;letter-spacing:1.8px;text-transform:uppercase;color:#8B929D;margin:0 0 6px;}
+  .sip-quote{font-size:13px;font-weight:800;color:#002855;margin:0 0 8px;line-height:1.35;}
+  .sip-fit{font-size:12px;color:#5A6270;margin:0;line-height:1.55;}
+
+  .sip-rows{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px;}
+  .sip-row{display:flex;gap:10px;align-items:flex-start;border-top:1px solid #EEEAE1;padding-top:10px;}
+  .sip-row:first-child{border-top:none;padding-top:0;}
+  .sip-row-l{width:92px;flex:0 0 92px;}
+  .sip-lbl{font-size:10px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;color:#8B929D;margin:0;}
+  .sip-val{font-size:12px;color:#1A1D21;margin:2px 0 0;line-height:1.45;font-weight:600;}
+
+  .sip-actions{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid #EEEAE1;}
+  .sip-link{font-size:11px;font-weight:900;letter-spacing:1.4px;text-transform:uppercase;color:#002855;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
+  .sip-link:hover{text-decoration:underline;}
+  .sip-btn{font-size:11px;font-weight:900;letter-spacing:1.4px;text-transform:uppercase;border-radius:8px;padding:10px 12px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;}
+  .sip-btn-ghost{background:#fff;border-color:#E8E5DE;color:#002855;}
+
+  details.sip-more{border-top:1px solid #EEEAE1;}
+  details.sip-more > summary{cursor:pointer;list-style:none;padding:14px 18px;font-size:11px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;color:#A09162;display:flex;justify-content:space-between;align-items:center;}
+  details.sip-more > summary::-webkit-details-marker{display:none;}
+  .sip-more-body{padding:0 18px 18px;}
+  .sip-talklbl{font-size:10px;font-weight:900;letter-spacing:1.8px;text-transform:uppercase;color:#8B929D;margin:0 0 8px;}
+  .sip-talk{font-size:13px;color:#1A1D21;line-height:1.6;margin:0;}
+
+</style>
+
+<div class="sip-stg-wrap" id="sip-strategies">
+  <div class="sip-stg-inner">
+    <div class="sip-stg-head">
+      <div class="sip-stg-kicker">The SIP Suite</div>
+      <h2 class="sip-stg-title">Three strategies. One disciplined process.</h2>
+      <p class="sip-stg-sub">A consistent framework to support client income needs across varying objectives and risk profiles—without restarting due diligence each time.</p>
+    </div>
+
+    <div class="sip-stg-grid">
+
+      <!-- =========================
+           CARD 1: SIP (Steady Income)
+           ========================= -->
+      <div class="sip-card">
+        <div class="sip-card-topline sip-color-bg"></div>
+        <div class="sip-card-pad">
+
+          <div class="sip-pillrow">
+            <span class="sip-pill sip-color-bg"><span class="dot"></span>SIP</span>
+            <span class="sip-pill-ghost">Steady income</span>
+          </div>
+
+          <h3 class="sip-name">Strategic Income Portfolio</h3>
+          <p class="sip-oneliner">Steady income and consistent growth.</p>
+
+          <div class="sip-clientbox">
+            <div class="sip-clientlbl">Client says</div>
+            <p class="sip-quote">“I want income I can rely on—without taking unnecessary risk.”</p>
+            <p class="sip-fit">Approaching or in retirement. Prioritizes stability, capital discipline, and a steady income profile.</p>
+          </div>
+
+          <div class="sip-rows">
+            <div class="sip-row">
+              <div class="sip-row-l"><p class="sip-lbl">Objective</p></div>
+              <p class="sip-val">Seeks steady income and consistent growth through a dynamically managed blend of equities, fixed income, and cash.</p>
+            </div>
+            <div class="sip-row">
+              <div class="sip-row-l"><p class="sip-lbl">Risk</p></div>
+              <p class="sip-val">Conservative–Moderate</p>
+            </div>
+            <div class="sip-row">
+              <div class="sip-row-l"><p class="sip-lbl">Income</p></div>
+              <p class="sip-val">Steady income potential</p>
+            </div>
+          </div>
+
+          <div class="sip-actions">
+            <a class="sip-link" href="#connect">Connect with your support team</a>
+            <a class="sip-btn sip-btn-ghost" href="REPLACE_WITH_SIP_FACTSHEET_URL" target="_blank" rel="noopener">Download factsheet</a>
+          </div>
+        </div>
+
+        <details class="sip-more">
+          <summary>Advisor talk track <span>▾</span></summary>
+          <div class="sip-more-body">
+            <div class="sip-talklbl">How to position</div>
+            <p class="sip-talk">Use SIP as the income anchor: a risk-aware, actively managed multi-asset approach designed to support income needs while maintaining capital discipline as conditions evolve.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- =========================
+           CARD 2: SIP Plus (Higher Income)
+           ========================= -->
+      <div class="sip-card">
+        <div class="sip-card-topline sipplus-color-bg"></div>
+        <div class="sip-card-pad">
+
+          <div class="sip-pillrow">
+            <span class="sip-pill sipplus-color-bg"><span class="dot"></span>SIP Plus</span>
+            <span class="sip-pill-ghost">Higher income</span>
+          </div>
+
+          <h3 class="sip-name">Strategic Income Portfolio Plus</h3>
+          <p class="sip-oneliner">Higher income potential with disciplined credit and dividend focus.</p>
+
+          <div class="sip-clientbox">
+            <div class="sip-clientlbl">Client says</div>
+            <p class="sip-quote">“I’m willing to accept some volatility if it improves my income outcome.”</p>
+            <p class="sip-fit">Income-oriented investors seeking a higher-yield profile and comfortable with moderate volatility.</p>
+          </div>
+
+          <div class="sip-rows">
+            <div class="sip-row">
+              <div class="sip-row-l"><p class="sip-lbl">Objective</p></div>
+              <p class="sip-val">Seeks higher income potential through dividend equities and structured high-yield exposure (primarily BB), within a risk-conscious allocation framework.</p>
+            </div>
+            <div class="sip-row">
+              <div class="sip-row-l"><p class="sip-lbl">Risk</p></div>
+              <p class="sip-val">Moderate</p>
+            </div>
+            <div class="sip-row">
+              <div class="sip-row-l"><p class="sip-lbl">Income</p></div>
+              <p class="sip-val">Higher income potential</p>
+            </div>
+          </div>
+
+          <div class="sip-actions">
+            <a class="sip-link" href="#connect">Connect with your support team</a>
+            <a class="sip-btn sip-btn-ghost" href="REPLACE_WITH_SIPPLUS_FACTSHEET_URL" target="_blank" rel="noopener">Download factsheet</a>
+          </div>
+        </div>
+
+        <details class="sip-more">
+          <summary>Advisor talk track <span>▾</span></summary>
+          <div class="sip-more-body">
+            <div class="sip-talklbl">How to position</div>
+            <p class="sip-talk">Position SIP Plus when the plan needs more income potential: it keeps the suite’s disciplined process but increases the income toolkit via higher-yielding credit exposure—designed for clients who can tolerate a bit more movement for more income opportunity.</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- =========================
+           CARD 3: Global SIP (Global Income)
+           ========================= -->
+      <div class="sip-card">
+        <div class="sip-card-topline globalsip-color-bg"></div>
+        <div class="sip-card-pad">
+
+          <div class="sip-pillrow">
+            <span class="sip-pill globalsip-color-bg"><span class="dot"></span>Global SIP</span>
+            <span class="sip-pill-ghost">Global income</span>
+          </div>
+
+          <h3 class="sip-name">Global Strategic Income Portfolio</h3>
+          <p class="sip-oneliner">Diversified income with international dividend exposure.</p>
+
+          <div class="sip-clientbox">
+            <div class="sip-clientlbl">Client says</div>
+            <p class="sip-quote">“I want income, but I don’t want my outcome tied only to the U.S.”</p>
+            <p class="sip-fit">Clients seeking diversified income sources across regions and sectors beyond U.S.-only exposures.</p>
+          </div>
+
+          <div class="sip-rows">
+            <div class="sip-row">
+              <div class="sip-row-l"><p class="sip-lbl">Objective</p></div>
+              <p class="sip-val">Seeks diversified income potential by broadening the opportunity set beyond U.S. markets through international dividend exposure alongside fixed income.</p>
+            </div>
+            <div class="sip-row">
+              <div class="sip-row-l"><p class="sip-lbl">Risk</p></div>
+              <p class="sip-val">Moderate (includes international exposure)</p>
+            </div>
+            <div class="sip-row">
+              <div class="sip-row-l"><p class="sip-lbl">Income</p></div>
+              <p class="sip-val">Diversified, global income potential</p>
+            </div>
+          </div>
+
+          <div class="sip-actions">
+            <a class="sip-link" href="#connect">Connect with your support team</a>
+            <a class="sip-btn sip-btn-ghost" href="REPLACE_WITH_GLOBALSIP_FACTSHEET_URL" target="_blank" rel="noopener">Download factsheet</a>
+          </div>
+        </div>
+
+        <details class="sip-more">
+          <summary>Advisor talk track <span>▾</span></summary>
+          <div class="sip-more-body">
+            <div class="sip-talklbl">How to position</div>
+            <p class="sip-talk">Use Global SIP when you want to diversify the income engine—adding international dividend exposure to broaden sources of yield and reduce reliance on any single market backdrop.</p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

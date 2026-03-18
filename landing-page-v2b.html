@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amplify Your Income Potential | Eagle Asset Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ═══ RESET & BASE ═══ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body { font-family: 'Source Sans 3', sans-serif; color: #333; background: #fafaf8; line-height: 1.6; }
+img { max-width: 100%; height: auto; display: block; }
+a { text-decoration: none; }
+
+/* ═══ DESIGN TOKENS — VERSION B: HUB-STYLE MODERN ═══ */
+:root {
+  /* Brand */
+  --navy: #002855;
+  --gold: #A09162;
+  --gold-light: #B8A878;
+  --white: #ffffff;
+  --warm-white: #fafaf8;
+  --cream: #f4f3ef;
+  --gray-200: #e4e3df;
+  --gray-300: #cccbc6;
+  --gray-600: #6b6b6b;
+  --gray-800: #333;
+
+  /* Typography — Source Sans 3 throughout */
+  --font-main: 'Source Sans 3', sans-serif;
+
+  /* Spacing — tighter editorial feel */
+  --section-pad: 56px;
+  --section-pad-mobile: 40px;
+  --container-max: 1040px;
+  --container-narrow: 680px;
+
+  /* Components */
+  --card-radius: 6px;
+  --btn-radius: 4px;
+  --badge-radius: 100px;
+  --transition: 0.2s ease;
+}
+
+/* ═══ LAYOUT ═══ */
+.container { max-width: var(--container-max); margin: 0 auto; padding: 0 28px; }
+.container-narrow { max-width: var(--container-narrow); margin: 0 auto; padding: 0 28px; }
+
+/* ═══ TYPOGRAPHY ═══ */
+h1, h2, h3, h4 { font-family: var(--font-main); font-weight: 700; line-height: 1.15; }
+h2 { font-size: 28px; color: var(--navy); margin-bottom: 12px; }
+h3 { font-size: 20px; color: var(--navy); }
+.section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 8px;
+}
+.section-intro { font-size: 16px; color: var(--gray-600); line-height: 1.7; max-width: 600px; }
+.gold-side-rule { width: 3px; height: 32px; background: var(--gold); border-radius: 2px; }
+
+/* ═══ BUTTONS ═══ */
+.btn-primary {
+  display: inline-block; padding: 12px 28px;
+  background: var(--gold); color: var(--navy);
+  font-family: var(--font-main); font-size: 15px; font-weight: 700;
+  border-radius: var(--btn-radius); border: none; cursor: pointer;
+  transition: background var(--transition);
+}
+.btn-primary:hover { background: var(--gold-light); }
+
+.btn-ghost {
+  display: inline-block; padding: 12px 28px;
+  background: transparent; color: var(--white);
+  font-family: var(--font-main); font-size: 15px; font-weight: 600;
+  border: 1.5px solid rgba(255,255,255,0.3); border-radius: var(--btn-radius);
+  cursor: pointer; transition: all var(--transition);
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.05); }
+
+.btn-outline {
+  display: inline-block; padding: 10px 24px;
+  background: transparent; color: var(--navy);
+  font-family: var(--font-main); font-size: 14px; font-weight: 600;
+  border: 1.5px solid var(--gray-300); border-radius: var(--btn-radius);
+  cursor: pointer; transition: all var(--transition);
+}
+.btn-outline:hover { border-color: var(--navy); }
+
+/* ═══ BADGE ═══ */
+.badge {
+  display: inline-block; padding: 3px 12px;
+  background: var(--gold); color: var(--white);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  border-radius: var(--badge-radius);
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 1: EAGLE HEADER + HERO
+   ═══════════════════════════════════════════════ */
+.site-header {
+  background: var(--navy);
+  padding: 16px 0;
+  border-bottom: 2px solid var(--gold);
+}
+.site-header .container {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.header-logo {
+  font-family: var(--font-main); font-size: 18px; font-weight: 900;
+  color: var(--white); letter-spacing: 5px;
+}
+.header-logo-sub {
+  font-size: 11px; font-weight: 400;
+  color: rgba(255,255,255,0.4); letter-spacing: 0.3px; margin-left: 12px;
+}
+.header-nav { display: flex; gap: 20px; align-items: center; }
+.header-nav a {
+  font-family: var(--font-main); font-size: 13px; font-weight: 400;
+  color: rgba(255,255,255,0.5); transition: color var(--transition);
+}
+.header-nav a:hover { color: var(--white); }
+
+/* HERO — centered layout with wave pattern */
+.hero {
+  background: var(--navy);
+  padding: 64px 0 56px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-wave {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  pointer-events: none;
+}
+.hero-wave svg { display: block; width: 100%; height: auto; }
+.hero .container { position: relative; z-index: 1; }
+.hero-eyebrow {
+  font-size: 11px; font-weight: 700;
+  color: var(--gold); letter-spacing: 2.5px; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: 48px; font-weight: 900; color: var(--white);
+  line-height: 1.1; letter-spacing: -0.3px;
+  margin-bottom: 12px;
+}
+.hero-sub {
+  font-size: 19px; font-weight: 400;
+  color: rgba(255,255,255,0.65); margin-bottom: 20px;
+}
+/* Strategy strip under subheadline */
+.hero-strip {
+  display: flex; gap: 24px; justify-content: center; align-items: center;
+  margin-bottom: 24px;
+}
+.hero-strip-item {
+  font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+.hero-strip-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gold); opacity: 0.5;
+}
+.hero-body {
+  font-size: 16px; font-weight: 300;
+  color: rgba(255,255,255,0.5); line-height: 1.7;
+  max-width: 560px; margin: 0 auto 28px;
+}
+/* Gold gradient rule */
+.hero-rule {
+  width: 120px; height: 2px; margin: 0 auto 28px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* STICKY NAV — pill-style */
+.sticky-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 0;
+}
+.sticky-nav .container {
+  display: flex; align-items: center; gap: 4px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  padding: 8px 28px;
+}
+.sticky-nav a {
+  font-family: var(--font-main); font-size: 12px; font-weight: 600;
+  color: var(--gray-600); white-space: nowrap;
+  padding: 6px 14px; border-radius: var(--badge-radius);
+  transition: all var(--transition);
+}
+.sticky-nav a:hover { color: var(--navy); background: var(--cream); }
+
+/* ═══════════════════════════════════════════════
+   SECTION 2: EDITORIAL STATEMENT
+   ═══════════════════════════════════════════════ */
+.editorial {
+  padding: var(--section-pad) 0;
+  background: var(--white);
+}
+.editorial-inner {
+  display: flex; gap: 20px; align-items: flex-start;
+}
+.editorial-text {
+  font-size: 20px; font-weight: 300;
+  color: var(--navy); line-height: 1.65;
+  max-width: 640px;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 3: PRACTICE MANAGEMENT FRAME
+   ═══════════════════════════════════════════════ */
+.practice-frame {
+  padding: var(--section-pad) 0;
+  background: var(--cream);
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 4: SUITE INTRO VIDEO
+   ═══════════════════════════════════════════════ */
+.suite-video {
+  padding: var(--section-pad) 0;
+  background: var(--white);
+}
+.video-wrapper {
+  max-width: var(--container-narrow);
+  margin: 24px auto 0;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  background: #000;
+}
+.video-wrapper .video-placeholder {
+  width: 100%; aspect-ratio: 16/9;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.4); font-size: 14px;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 5: THREE STRATEGY CARDS
+   ═══════════════════════════════════════════════ */
+.strategy-cards {
+  padding: var(--section-pad) 0;
+  background: var(--cream);
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+.strategy-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--card-radius);
+  padding: 24px;
+}
+.strategy-label {
+  font-size: 10px; font-weight: 700;
+  color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.strategy-card h3 { font-size: 18px; margin-bottom: 14px; }
+.strategy-meta { margin-bottom: 14px; }
+.strategy-meta-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 5px 0; border-bottom: 1px solid var(--cream);
+  font-size: 13px;
+}
+.strategy-meta-label { color: var(--gray-600); }
+.strategy-meta-value { color: var(--navy); font-weight: 600; }
+.strategy-card p {
+  font-size: 14px; line-height: 1.65; color: var(--gray-600);
+  margin-bottom: 14px;
+}
+.strategy-alloc {
+  font-size: 12px; color: var(--gray-600); padding: 8px 0;
+  border-top: 1px solid var(--cream);
+  margin-bottom: 14px;
+}
+.strategy-card .btn-outline { width: 100%; text-align: center; }
+.strategy-cards-cta { text-align: center; }
+
+/* ═══════════════════════════════════════════════
+   SECTION 6: COMPARISON TABLE
+   ═══════════════════════════════════════════════ */
+.comparison {
+  padding: var(--section-pad) 0;
+  background: var(--white);
+}
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-top: 28px;
+}
+.comparison-table thead th {
+  background: var(--navy); color: var(--white);
+  font-weight: 700;
+  padding: 12px 16px; text-align: left;
+  font-size: 13px; letter-spacing: 0.3px;
+}
+.comparison-table thead th:first-child { border-radius: var(--card-radius) 0 0 0; }
+.comparison-table thead th:last-child { border-radius: 0 var(--card-radius) 0 0; }
+.comparison-table tbody td {
+  padding: 12px 16px; border-bottom: 1px solid var(--gray-200);
+  vertical-align: top;
+}
+.comparison-table tbody tr:nth-child(even) { background: var(--cream); }
+.comparison-table tbody td:first-child { font-weight: 600; color: var(--navy); }
+
+/* ═══════════════════════════════════════════════
+   SECTION 7: PLAYBOOK VIDEO SERIES
+   ═══════════════════════════════════════════════ */
+.video-series {
+  padding: var(--section-pad) 0;
+  background: var(--cream);
+}
+.video-series-latest {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 36px;
+  align-items: start;
+  margin-top: 28px;
+  margin-bottom: 48px;
+}
+.video-series-player {
+  border-radius: var(--card-radius);
+  overflow: hidden; background: #000;
+}
+.video-series-player .video-placeholder {
+  width: 100%; aspect-ratio: 16/9;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.4); font-size: 14px;
+}
+.video-series-meta h3 { font-size: 18px; margin-bottom: 6px; }
+.video-series-speaker { font-size: 13px; color: var(--gray-600); margin-bottom: 14px; }
+.video-series-summary { font-size: 15px; color: var(--gray-800); line-height: 1.7; margin-bottom: 16px; }
+.video-series-takeaways { margin-bottom: 20px; }
+.video-series-takeaways h4 {
+  font-size: 12px; font-weight: 700;
+  color: var(--navy); text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.video-series-takeaways ul { list-style: none; padding: 0; }
+.video-series-takeaways li {
+  padding: 5px 0 5px 14px; font-size: 14px; color: var(--gray-600);
+  border-left: 2px solid var(--gold); margin-bottom: 6px;
+}
+
+/* Episode archive */
+.episode-archive { margin-top: 8px; }
+.episode-archive h3 { font-size: 16px; margin-bottom: 16px; }
+.archive-list { list-style: none; padding: 0; }
+.archive-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 0; border-bottom: 1px solid var(--gray-200);
+}
+.archive-item-info { display: flex; align-items: center; gap: 14px; }
+.archive-date { font-size: 12px; font-weight: 600; color: var(--gray-600); min-width: 72px; }
+.archive-title { font-size: 14px; color: var(--gray-800); }
+.archive-link { font-size: 13px; font-weight: 600; color: var(--navy); transition: color var(--transition); }
+.archive-link:hover { color: var(--gold); }
+.archive-toggle {
+  background: none; border: none; cursor: pointer;
+  font-family: var(--font-main); font-size: 13px; font-weight: 700;
+  color: var(--navy); padding: 10px 0;
+}
+.archive-toggle:hover { color: var(--gold); }
+.archive-hidden { display: none; }
+
+/* ═══════════════════════════════════════════════
+   SECTION 8: PHILOSOPHY
+   ═══════════════════════════════════════════════ */
+.philosophy {
+  padding: var(--section-pad) 0;
+  background: var(--navy);
+  color: var(--white);
+}
+.philosophy h2 { color: var(--white); }
+.philosophy .section-intro { color: rgba(255,255,255,0.55); margin-bottom: 40px; }
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.pillar {
+  padding: 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--card-radius);
+}
+.pillar-number {
+  font-size: 28px; font-weight: 900; color: var(--gold); opacity: 0.5;
+  margin-bottom: 8px;
+}
+.pillar h3 { font-size: 15px; color: var(--white); margin-bottom: 8px; }
+.pillar p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+/* ═══════════════════════════════════════════════
+   SECTION 9: TEAM CREDIBILITY
+   ═══════════════════════════════════════════════ */
+.team-section {
+  padding: var(--section-pad) 0;
+  background: var(--white);
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 28px;
+  margin-bottom: 36px;
+}
+.team-card {
+  text-align: center; padding: 20px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--card-radius);
+}
+.team-avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--cream); margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--gray-600);
+}
+.team-card h3 { font-size: 15px; margin-bottom: 3px; }
+.team-card .team-title { font-size: 12px; color: var(--gray-600); margin-bottom: 6px; }
+.team-card .team-exp { font-size: 11px; color: var(--gold); font-weight: 600; }
+.team-quote {
+  max-width: 600px; margin: 0 auto;
+  text-align: center; padding: 24px;
+  border-top: 1px solid var(--gray-200);
+}
+.team-quote blockquote {
+  font-size: 17px; font-weight: 300;
+  font-style: italic; color: var(--navy); line-height: 1.7;
+  margin-bottom: 10px;
+}
+.team-quote cite { font-style: normal; font-size: 13px; color: var(--gray-600); }
+
+/* ═══════════════════════════════════════════════
+   SECTION 10: ACCORDION
+   ═══════════════════════════════════════════════ */
+.accordion-section {
+  padding: var(--section-pad) 0;
+  background: var(--cream);
+}
+.accordion-section h2 { margin-bottom: 28px; }
+.accordion-list { max-width: 680px; margin: 0 auto; }
+.accordion-item {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--card-radius);
+  margin-bottom: 8px; background: var(--white);
+  overflow: hidden;
+}
+.accordion-trigger {
+  width: 100%; display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 20px; background: none; border: none; cursor: pointer;
+  font-family: var(--font-main); font-size: 15px; font-weight: 700;
+  color: var(--navy); text-align: left;
+}
+.accordion-trigger .acc-icon {
+  font-size: 18px; color: var(--gold); transition: transform var(--transition);
+  font-weight: 300;
+}
+.accordion-trigger[aria-expanded="true"] .acc-icon { transform: rotate(45deg); }
+.accordion-panel {
+  padding: 0 20px 16px;
+  font-size: 14px; color: var(--gray-600); line-height: 1.7;
+  display: none;
+}
+.accordion-panel.open { display: block; }
+
+/* ═══════════════════════════════════════════════
+   SECTION 11: DOWNLOADS
+   ═══════════════════════════════════════════════ */
+.downloads {
+  padding: var(--section-pad) 0;
+  background: var(--white);
+}
+.downloads-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+.download-card {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--card-radius);
+  padding: 20px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.download-icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+  background: var(--cream); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: var(--navy);
+}
+.download-info h3 { font-size: 14px; margin-bottom: 4px; }
+.download-info p { font-size: 13px; color: var(--gray-600); line-height: 1.6; margin-bottom: 8px; }
+.download-info .avail-note { font-size: 11px; color: var(--gold); font-weight: 600; margin-bottom: 8px; }
+.download-link { font-size: 13px; font-weight: 600; color: var(--navy); transition: color var(--transition); }
+.download-link:hover { color: var(--gold); }
+
+/* ═══════════════════════════════════════════════
+   SECTION 12: SMART CAPTURE FORM
+   ═══════════════════════════════════════════════ */
+.form-section {
+  padding: var(--section-pad) 0;
+  background: var(--cream);
+}
+.form-container {
+  max-width: 520px; margin: 24px auto 0;
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: var(--card-radius); padding: 32px;
+}
+.sc-placeholder {
+  text-align: center; padding: 20px;
+  font-size: 13px; color: var(--gray-600);
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION 13: FOOTER
+   ═══════════════════════════════════════════════ */
+.footer-cta {
+  padding: var(--section-pad) 0;
+  background: var(--navy);
+  text-align: center;
+}
+.footer-cta h2 { color: var(--white); }
+.footer-cta p {
+  font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7;
+  max-width: 520px; margin: 0 auto 24px;
+}
+.footer-cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+.compliance-footer {
+  background: var(--white); padding: 20px 0;
+  border-top: 1px solid var(--gray-200);
+}
+.compliance-text {
+  font-size: 11px; line-height: 1.7; color: #999; text-align: center;
+  max-width: 680px; margin: 0 auto;
+}
+
+.site-footer {
+  background: var(--navy); border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 24px 0;
+}
+.footer-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; color: rgba(255,255,255,0.3);
+}
+.footer-links { display: flex; gap: 16px; }
+.footer-links a { color: rgba(255,255,255,0.3); font-size: 11px; transition: color var(--transition); }
+.footer-links a:hover { color: var(--white); }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════ */
+@media (max-width: 959px) {
+  .hero h1 { font-size: 38px; }
+  .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .video-series-latest { grid-template-columns: 1fr; }
+  .cards-grid { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; margin-bottom: 32px; }
+  .comparison-table { font-size: 13px; }
+  .comparison-table thead th, .comparison-table tbody td { padding: 10px 12px; }
+}
+
+@media (max-width: 599px) {
+  :root { --section-pad: 40px; }
+  h2 { font-size: 24px; }
+  .container { padding: 0 16px; }
+  .hero { padding: 40px 0 48px; }
+  .hero h1 { font-size: 32px; }
+  .hero-body { font-size: 15px; }
+  .hero-ctas { flex-direction: column; align-items: center; }
+  .hero-ctas .btn-primary, .hero-ctas .btn-ghost { text-align: center; width: 100%; max-width: 300px; }
+  .hero-strip { gap: 12px; }
+  .hero-strip-item { font-size: 10px; }
+  .header-nav { display: none; }
+  .pillars-grid { grid-template-columns: 1fr; gap: 16px; }
+  .team-grid { grid-template-columns: 1fr; max-width: 280px; margin-left: auto; margin-right: auto; }
+  .downloads-grid { grid-template-columns: 1fr; }
+  .comparison-table { display: block; overflow-x: auto; }
+  .editorial-inner { flex-direction: column; }
+  .editorial-text { font-size: 18px; }
+  .sticky-nav .container { padding: 6px 16px; }
+  .sticky-nav a { font-size: 11px; padding: 5px 10px; }
+  .footer-inner { flex-direction: column; gap: 10px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 1: EAGLE HEADER + HERO
+     ═══════════════════════════════════════════════ -->
+
+<!-- EAGLE BRANDED HEADER -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-logo">
+      <!-- Replace with Eagle logo: <img src="[EAGLE_LOGO_URL]" alt="Eagle Asset Management" width="130"> -->
+      <span>EAGLE</span>
+      <span class="header-logo-sub">Asset Management</span>
+    </div>
+    <nav class="header-nav">
+      <a href="#strategies">Strategies</a>
+      <a href="#video-series">Monthly Video</a>
+      <a href="#resources">Resources</a>
+      <a href="#connect">Connect</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO — centered layout with wave pattern -->
+<section class="hero" id="hero">
+  <div class="container">
+    <p class="hero-eyebrow">Eagle Asset Management</p>
+    <h1>Amplify Your<br>Income Potential</h1>
+    <p class="hero-sub">One disciplined process. Three dynamic strategies.</p>
+    <div class="hero-strip">
+      <span class="hero-strip-item">SIP</span>
+      <span class="hero-strip-dot"></span>
+      <span class="hero-strip-item">SIP Plus</span>
+      <span class="hero-strip-dot"></span>
+      <span class="hero-strip-item">Global SIP</span>
+    </div>
+    <div class="hero-rule"></div>
+    <p class="hero-body">Your clients' income needs are evolving. The Amplify Income Hub brings together Eagle's monthly market intelligence, quarterly live events, and practice-ready tools &mdash; all built around a multi-asset income approach designed to help you serve every client profile.</p>
+    <div class="hero-ctas">
+      <a href="#connect" class="btn-primary">Connect with Your Dedicated Support Team</a>
+      <a href="#video-series" class="btn-ghost">Explore Videos, Webinars, and Tools</a>
+    </div>
+  </div>
+  <!-- SVG wave decoration -->
+  <div class="hero-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,40 C360,60 720,20 1080,40 C1260,50 1380,45 1440,40 L1440,60 L0,60 Z" fill="#fafaf8" opacity="1"/>
+      <path d="M0,45 C480,58 960,28 1440,45" fill="none" stroke="rgba(160,145,98,0.15)" stroke-width="1"/>
+    </svg>
+  </div>
+</section>
+
+<!-- STICKY NAV — pill style -->
+<nav class="sticky-nav" role="navigation" aria-label="Page sections">
+  <div class="container">
+    <a href="#editorial">Overview</a>
+    <a href="#strategies">Strategies</a>
+    <a href="#comparison">Compare</a>
+    <a href="#video-series">Videos</a>
+    <a href="#philosophy">Approach</a>
+    <a href="#team">Team</a>
+    <a href="#resources">Resources</a>
+    <a href="#connect">Connect</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 2: EDITORIAL STATEMENT
+     ═══════════════════════════════════════════════ -->
+
+<section class="editorial" id="editorial">
+  <div class="container">
+    <div class="editorial-inner">
+      <div class="gold-side-rule"></div>
+      <p class="editorial-text">
+        Help amplify your clients' income through broader diversification and higher-yield opportunities &mdash; all with the same tactical, risk-conscious core SIP approach you trust.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 3: PRACTICE MANAGEMENT FRAME
+     ═══════════════════════════════════════════════ -->
+
+<section class="practice-frame" id="practice">
+  <div class="container">
+    <p class="section-label">Practice Framework</p>
+    <h2>One Conversation. Three Solutions. Every Client.</h2>
+    <p class="section-intro">
+      Income is one of the most complex and time-consuming conversations advisors have. The SIP Suite gives you a single, repeatable framework to address the full spectrum of client income needs &mdash; from the conservative retiree anchoring on preservation, to the income-seeking client willing to accept measured credit risk, to the globally oriented portfolio looking beyond U.S. markets.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 4: SUITE INTRO VIDEO
+     ═══════════════════════════════════════════════ -->
+
+<section class="suite-video" id="suite-video">
+  <div class="container">
+    <p class="section-label">Overview</p>
+    <h2>The SIP Suite in Three Minutes</h2>
+    <p class="section-intro">
+      A quick introduction to Eagle's three-strategy income approach &mdash; how it works, who it serves, and why advisors are using it to simplify their income conversations.
+    </p>
+    <div class="video-wrapper">
+      <!-- Replace with Kaltura embed:
+      <iframe src="[KALTURA_EMBED_URL]" width="720" height="405" frameborder="0" allowfullscreen title="SIP Suite Overview Video" loading="lazy"></iframe>
+      -->
+      <div class="video-placeholder">[KALTURA VIDEO EMBED &mdash; SIP Suite Overview]</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 5: THREE STRATEGY CARDS
+     ═══════════════════════════════════════════════ -->
+
+<section class="strategy-cards" id="strategies">
+  <div class="container">
+    <p class="section-label">Strategy Fit Map</p>
+    <h2>Three Strategies. One Disciplined Process.</h2>
+    <p class="section-intro">
+      Each SIP Suite strategy targets a distinct client profile. The same actively managed, multi-asset approach drives all three &mdash; the difference is in the income posture and allocation emphasis.
+    </p>
+
+    <div class="cards-grid">
+
+      <!-- SIP CARD -->
+      <article class="strategy-card">
+        <p class="strategy-label">Income Anchor</p>
+        <h3>SIP &mdash; Strategic Income Plan</h3>
+        <div class="strategy-meta">
+          <div class="strategy-meta-row">
+            <span class="strategy-meta-label">Income Posture</span>
+            <span class="strategy-meta-value">Steady</span>
+          </div>
+          <div class="strategy-meta-row">
+            <span class="strategy-meta-label">Risk Posture</span>
+            <span class="strategy-meta-value">Conservative to Moderate</span>
+          </div>
+        </div>
+        <p>Diversified exposure across stocks, bonds, and cash designed to support steady income production and capital discipline.</p>
+        <div class="strategy-alloc">Stocks 35-65% &nbsp;|&nbsp; Bonds 35-65% &nbsp;|&nbsp; Cash 0-30%</div>
+        <a href="[SIP_FACTSHEET_URL]?utm_source=sfmc&utm_medium=cloudpage&utm_campaign=amplify-hub&utm_content=factsheet-sip" class="btn-outline">View SIP Factsheet</a>
+      </article>
+
+      <!-- SIP PLUS CARD -->
+      <article class="strategy-card">
+        <p class="strategy-label">Higher Income Potential</p>
+        <h3>SIP Plus</h3>
+        <div class="strategy-meta">
+          <div class="strategy-meta-row">
+            <span class="strategy-meta-label">Income Posture</span>
+            <span class="strategy-meta-value">Increased</span>
+          </div>
+          <div class="strategy-meta-row">
+            <span class="strategy-meta-label">Risk Posture</span>
+            <span class="strategy-meta-value">Moderate to High</span>
+          </div>
+        </div>
+        <p>Targets higher income potential through selective, quality-first exposure to structured high-yield bonds (primarily BB-rated) within the same disciplined multi-asset process.</p>
+        <div class="strategy-alloc">Stocks 35-65% &nbsp;|&nbsp; Bonds 35-65% &nbsp;|&nbsp; Cash 0-30%</div>
+        <a href="[SIPPLUS_FACTSHEET_URL]?utm_source=sfmc&utm_medium=cloudpage&utm_campaign=amplify-hub&utm_content=factsheet-sipplus" class="btn-outline">View SIP Plus Factsheet</a>
+      </article>
+
+      <!-- GLOBAL SIP CARD -->
+      <article class="strategy-card">
+        <p class="strategy-label">Broaden Income Sources</p>
+        <h3>Global SIP</h3>
+        <div class="strategy-meta">
+          <div class="strategy-meta-row">
+            <span class="strategy-meta-label">Income Posture</span>
+            <span class="strategy-meta-value">Moderate to High</span>
+          </div>
+          <div class="strategy-meta-row">
+            <span class="strategy-meta-label">Risk Posture</span>
+            <span class="strategy-meta-value">Moderate</span>
+          </div>
+        </div>
+        <p>Broadens income sources with international dividend exposure, adding geographic diversification to the suite's disciplined multi-asset approach.</p>
+        <div class="strategy-alloc">Stocks 35-65% &nbsp;|&nbsp; Bonds 35-65% &nbsp;|&nbsp; Cash 0-30%</div>
+        <a href="[GSIP_FACTSHEET_URL]?utm_source=sfmc&utm_medium=cloudpage&utm_campaign=amplify-hub&utm_content=factsheet-gsip" class="btn-outline">View Global SIP Factsheet</a>
+      </article>
+
+    </div>
+
+    <div class="strategy-cards-cta">
+      <a href="#connect" class="btn-primary">Connect with Your Dedicated Support Team</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 6: COMPARISON TABLE
+     ═══════════════════════════════════════════════ -->
+
+<section class="comparison" id="comparison">
+  <div class="container">
+    <p class="section-label">Side-by-Side</p>
+    <h2>Strategy Comparison at a Glance</h2>
+    <p class="section-intro">
+      All three strategies share the same disciplined, actively managed multi-asset process. Here is how they differ across key dimensions.
+    </p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th scope="col">Dimension</th>
+          <th scope="col">SIP</th>
+          <th scope="col">SIP Plus</th>
+          <th scope="col">Global SIP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Investment Objective</td>
+          <td>Steady income and capital discipline</td>
+          <td>Higher income potential</td>
+          <td>Diversified international income</td>
+        </tr>
+        <tr>
+          <td>Client Fit</td>
+          <td>Income anchor &mdash; retirees and capital-preservation-oriented clients</td>
+          <td>Income seekers willing to accept measured credit risk</td>
+          <td>Portfolios seeking geographic diversification</td>
+        </tr>
+        <tr>
+          <td>Income Posture</td>
+          <td>Steady</td>
+          <td>Increased</td>
+          <td>Moderate to High</td>
+        </tr>
+        <tr>
+          <td>Risk Posture</td>
+          <td>Conservative to Moderate</td>
+          <td>Moderate to High</td>
+          <td>Moderate</td>
+        </tr>
+        <tr>
+          <td>Equity Allocation</td>
+          <td>35-65%</td>
+          <td>35-65%</td>
+          <td>35-65%</td>
+        </tr>
+        <tr>
+          <td>Fixed Income Allocation</td>
+          <td>35-65%</td>
+          <td>35-65%</td>
+          <td>35-65%</td>
+        </tr>
+        <tr>
+          <td>Cash Allocation</td>
+          <td>0-30%</td>
+          <td>0-30%</td>
+          <td>0-30%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 7: PLAYBOOK VIDEO SERIES
+     ═══════════════════════════════════════════════ -->
+
+<section class="video-series" id="video-series">
+  <div class="container">
+
+    <!-- Latest Episode -->
+    <div style="margin-bottom: 20px;">
+      <span class="badge">Latest Episode</span>
+    </div>
+
+    <div class="video-series-latest">
+      <div class="video-series-player">
+        <!-- Replace with Kaltura embed:
+        <iframe src="[KALTURA_MONTHLY_EMBED_URL]" width="720" height="405" frameborder="0" allowfullscreen title="[VIDEO TITLE]" loading="lazy"></iframe>
+        -->
+        <div class="video-placeholder">[KALTURA VIDEO EMBED &mdash; Monthly Episode]</div>
+      </div>
+      <div class="video-series-meta">
+        <h2 style="font-size: 20px;">Strategic Income Playbook &mdash; [MONTH YEAR]</h2>
+        <p class="video-series-speaker">[SPEAKER NAME], [TITLE], Eagle Asset Management</p>
+        <p class="video-series-summary">
+          [EPISODE SUMMARY &mdash; Written after video is recorded. Should include the month's market context, one key allocation positioning insight, and the Advisor Takeaway.]
+        </p>
+        <div class="video-series-takeaways">
+          <h4>Key Takeaways</h4>
+          <ul>
+            <li>[TAKEAWAY 1 &mdash; formatted as a conversation starter for the advisor's next client meeting]</li>
+            <li>[TAKEAWAY 2]</li>
+            <li>[TAKEAWAY 3]</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Episode Archive -->
+    <div class="episode-archive">
+      <h3>Monthly Episode Archive</h3>
+      <p style="font-size: 14px; color: var(--gray-600); line-height: 1.7; margin-bottom: 16px;">
+        Each month, Eagle's income team delivers a 3-4 minute briefing on current allocation positioning, income trends, and one actionable takeaway for your next client conversation.
+      </p>
+      <ul class="archive-list">
+        <li class="archive-item">
+          <div class="archive-item-info">
+            <span class="archive-date">[MONTH YEAR]</span>
+            <span class="archive-title">[VIDEO TITLE &mdash; Latest Episode]</span>
+          </div>
+          <a href="#" class="archive-link">Watch &rarr;</a>
+        </li>
+        <li class="archive-item">
+          <div class="archive-item-info">
+            <span class="archive-date">[MONTH YEAR]</span>
+            <span class="archive-title">[VIDEO TITLE]</span>
+          </div>
+          <a href="#" class="archive-link">Watch &rarr;</a>
+        </li>
+        <li class="archive-item">
+          <div class="archive-item-info">
+            <span class="archive-date">[MONTH YEAR]</span>
+            <span class="archive-title">[VIDEO TITLE]</span>
+          </div>
+          <a href="#" class="archive-link">Watch &rarr;</a>
+        </li>
+        <li class="archive-item">
+          <div class="archive-item-info">
+            <span class="archive-date">[MONTH YEAR]</span>
+            <span class="archive-title">[VIDEO TITLE]</span>
+          </div>
+          <a href="#" class="archive-link">Watch &rarr;</a>
+        </li>
+        <!-- Additional episodes hidden by default -->
+        <li class="archive-item archive-hidden">
+          <div class="archive-item-info">
+            <span class="archive-date">[MONTH YEAR]</span>
+            <span class="archive-title">[VIDEO TITLE]</span>
+          </div>
+          <a href="#" class="archive-link">Watch &rarr;</a>
+        </li>
+      </ul>
+      <button class="archive-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='false'?'true':'false'); document.querySelectorAll('.archive-hidden').forEach(function(el){el.style.display=el.style.display==='flex'?'none':'flex'});">
+        Show All Episodes &darr;
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 8: PHILOSOPHY (NAVY BG, 4 PILLARS)
+     ═══════════════════════════════════════════════ -->
+
+<section class="philosophy" id="philosophy">
+  <div class="container">
+    <p class="section-label" style="color: var(--gold);">Investment Philosophy</p>
+    <h2>A Disciplined Approach to Income</h2>
+    <p class="section-intro">
+      Every SIP Suite strategy is built on the same four investment principles &mdash; applied consistently across equities, fixed income, and cash to pursue sustainable income outcomes.
+    </p>
+
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-number">01</div>
+        <h3>Capital Discipline</h3>
+        <p>Manage downside risk through active allocation across asset classes, seeking to preserve principal while generating income.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">02</div>
+        <h3>Steady Income Production</h3>
+        <p>Pursue consistent income through a diversified multi-asset approach, balancing yield with quality across market conditions.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">03</div>
+        <h3>Broad Market Exposure</h3>
+        <p>Access equities, fixed income, and cash across domestic and international markets to diversify income sources and reduce concentration.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">04</div>
+        <h3>Active Management</h3>
+        <p>Tactical allocation adjustments as market conditions evolve &mdash; positioning the portfolio proactively, not reactively.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 9: TEAM CREDIBILITY
+     ═══════════════════════════════════════════════ -->
+
+<section class="team-section" id="team">
+  <div class="container">
+    <p class="section-label">Investment Team</p>
+    <h2>Your Income Investment Team</h2>
+    <p class="section-intro">
+      The team behind the SIP Suite brings decades of multi-asset income management experience, supported by Eagle's broader investment resources.
+    </p>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">Photo</div>
+        <h3>[PORTFOLIO MANAGER 1]</h3>
+        <p class="team-title">[TITLE]</p>
+        <p class="team-exp">[XX] years experience</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">Photo</div>
+        <h3>[PORTFOLIO MANAGER 2]</h3>
+        <p class="team-title">[TITLE]</p>
+        <p class="team-exp">[XX] years experience</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">Photo</div>
+        <h3>[PORTFOLIO MANAGER 3]</h3>
+        <p class="team-title">[TITLE]</p>
+        <p class="team-exp">[XX] years experience</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">Photo</div>
+        <h3>[PORTFOLIO MANAGER 4]</h3>
+        <p class="team-title">[TITLE]</p>
+        <p class="team-exp">[XX] years experience</p>
+      </div>
+    </div>
+
+    <div class="team-quote">
+      <blockquote>
+        &ldquo;[PULL QUOTE FROM PORTFOLIO MANAGER &mdash; e.g., Our approach is simple: match the right income strategy to each client's needs, then manage it with discipline across market conditions.]&rdquo;
+      </blockquote>
+      <cite>&mdash; [PORTFOLIO MANAGER NAME], [TITLE]</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 10: OPTIONAL ACCORDION
+     ═══════════════════════════════════════════════ -->
+
+<section class="accordion-section" id="details">
+  <div class="container">
+    <p class="section-label">Learn More</p>
+    <h2>More About the SIP Suite</h2>
+
+    <div class="accordion-list">
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" aria-expanded="false" onclick="var p=this.nextElementSibling;var open=p.classList.toggle('open');this.setAttribute('aria-expanded',open);">
+          <span>How does the SIP Suite differ from individual income products?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="accordion-panel">
+          <p>The SIP Suite is a coordinated framework &mdash; three strategies that share the same investment process, team, and philosophy. Rather than selecting individual income products independently, advisors can use the suite to match clients to the strategy that fits their income posture and risk profile, all within a consistent approach.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" aria-expanded="false" onclick="var p=this.nextElementSibling;var open=p.classList.toggle('open');this.setAttribute('aria-expanded',open);">
+          <span>What types of clients is the SIP Suite designed for?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="accordion-panel">
+          <p>The three strategies map to distinct client profiles: SIP serves as the income anchor for clients prioritizing capital discipline and steady income. SIP Plus targets clients seeking higher income potential who are willing to accept measured credit risk. Global SIP broadens income sources for portfolios that need geographic diversification beyond U.S. markets.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" aria-expanded="false" onclick="var p=this.nextElementSibling;var open=p.classList.toggle('open');this.setAttribute('aria-expanded',open);">
+          <span>How are allocation decisions made across the suite?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="accordion-panel">
+          <p>Eagle's income investment team actively manages allocation across equities, fixed income, and cash within defined ranges (Stocks 35-65%, Bonds 35-65%, Cash 0-30%). Tactical adjustments are made as market conditions evolve, positioning the portfolio proactively rather than reactively.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" aria-expanded="false" onclick="var p=this.nextElementSibling;var open=p.classList.toggle('open');this.setAttribute('aria-expanded',open);">
+          <span>What ongoing resources does Eagle provide with the SIP Suite?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="accordion-panel">
+          <p>Eagle's income team publishes a monthly video briefing with current allocation positioning and actionable takeaways, hosts quarterly live webinars with Q&amp;A, and maintains the Amplify Income Hub with strategy factsheets, the Income Playbook, and practice-ready tools &mdash; all updated regularly.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 11: DOWNLOADS
+     ═══════════════════════════════════════════════ -->
+
+<section class="downloads" id="resources">
+  <div class="container">
+    <p class="section-label">Resources</p>
+    <h2>Practice-Ready Resources</h2>
+    <p class="section-intro">
+      Tools to support your income conversations &mdash; updated quarterly or as new materials become available.
+    </p>
+
+    <div class="downloads-grid">
+
+      <div class="download-card">
+        <div class="download-icon">PDF</div>
+        <div class="download-info">
+          <h3>Income Playbook</h3>
+          <p>Eagle's quarterly chart-driven reference for income market trends, allocation context, and strategy positioning.</p>
+          <p class="avail-note">Q1 2026 edition &mdash; available late April</p>
+          <a href="[PLAYBOOK_PDF_URL]?utm_source=sfmc&utm_medium=cloudpage&utm_campaign=amplify-hub&utm_content=download-playbook" class="download-link">Download the Income Playbook (PDF) &rarr;</a>
+        </div>
+      </div>
+
+      <div class="download-card">
+        <div class="download-icon">PDF</div>
+        <div class="download-info">
+          <h3>SIP Suite Brochure</h3>
+          <p>The complete overview of Eagle's three-strategy income approach &mdash; positioning, allocation ranges, and client fit.</p>
+          <a href="[BROCHURE_PDF_URL]?utm_source=sfmc&utm_medium=cloudpage&utm_campaign=amplify-hub&utm_content=download-brochure" class="download-link">Download the Brochure (PDF) &rarr;</a>
+        </div>
+      </div>
+
+      <div class="download-card">
+        <div class="download-icon">PDF</div>
+        <div class="download-info">
+          <h3>Strategy Factsheets</h3>
+          <p>Individual factsheets for SIP, SIP Plus, and Global SIP with current performance and positioning detail.</p>
+          <a href="[FACTSHEETS_URL]?utm_source=sfmc&utm_medium=cloudpage&utm_campaign=amplify-hub&utm_content=download-factsheets" class="download-link">View Factsheets &rarr;</a>
+        </div>
+      </div>
+
+      <div class="download-card">
+        <div class="download-icon">PDF</div>
+        <div class="download-info">
+          <h3>Client Conversation Starters</h3>
+          <p>Advisor-ready frameworks that translate market intelligence into client-facing language.</p>
+          <p class="avail-note">Pilot edition &mdash; late April</p>
+          <a href="[CONVOS_PDF_URL]?utm_source=sfmc&utm_medium=cloudpage&utm_campaign=amplify-hub&utm_content=download-convos" class="download-link">Download Client Convos (PDF) &rarr;</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 12: SMART CAPTURE FORM
+     ═══════════════════════════════════════════════ -->
+
+<section class="form-section" id="connect">
+  <div class="container">
+    <p class="section-label">Get in Touch</p>
+    <h2 style="text-align: center;">Connect with Your Dedicated Support Team</h2>
+    <p class="section-intro" style="text-align: center; margin: 0 auto;">
+      Your Market Leader and Internal Consultant Team are available to walk through the SIP Suite, review client fit, and connect you to the full resource library.
+    </p>
+
+    <div class="form-container">
+      <!-- AMPscript Smart Capture Form — replace div below with:
+           %%=ContentBlockByName("SIP-Suite-SmartCapture-Form")=%%
+           when deploying to SFMC CloudPages -->
+      <div class="sc-placeholder">
+        <p style="margin-bottom: 6px; font-weight: 600; color: var(--navy);">SFMC Smart Capture Form</p>
+        <p>Fields: First Name, Last Name, Email, Firm/BD, State (required) | CRD, Strategy Interest, AUM Tier, Contact Method (optional)</p>
+        <p style="margin-top: 10px; font-size: 11px; color: #999;">Hidden: Source=Amplify-LP-2026 | Campaign ID=SIP-AMPLIFY-2026</p>
+        <p style="margin-top: 14px;">
+          <span style="display: inline-block; padding: 10px 24px; background: var(--gold); color: var(--navy); font-weight: 700; border-radius: 4px; font-size: 14px;">Request Information</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 13: EAGLE BRANDED FOOTER
+     ═══════════════════════════════════════════════ -->
+
+<!-- Footer CTA -->
+<section class="footer-cta">
+  <div class="container">
+    <h2>Ready to Put These Resources to Work?</h2>
+    <p>Your Market Leader and Internal Consultant Team are available to walk through the SIP Suite, review client fit, and connect you to the full resource library.</p>
+    <div class="footer-cta-buttons">
+      <a href="#connect" class="btn-primary">Connect with Your Dedicated Support Team</a>
+      <a href="#hero" class="btn-ghost">Back to Top</a>
+    </div>
+  </div>
+</section>
+
+<!-- Compliance Footer -->
+<div class="compliance-footer">
+  <div class="container">
+    <p class="compliance-text">
+      [COMPLIANCE DISCLOSURE TEXT &mdash; Insert approved legal and regulatory disclosures. Past performance does not guarantee future results. All allocation ranges are consistent with approved product materials. Investing involves risk, including possible loss of principal.]
+    </p>
+    <p class="compliance-text" style="margin-top: 6px;">
+      [FIRM NAME] | [ADDRESS] | [REGULATORY DISCLOSURES]
+    </p>
+  </div>
+</div>
+
+<!-- Eagle Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <!-- Replace with Eagle logo: <img src="[EAGLE_LOGO_URL]" alt="Eagle Asset Management" width="90"> -->
+        <span style="font-family: var(--font-main); font-size: 13px; font-weight: 900; color: rgba(255,255,255,0.4); letter-spacing: 4px;">EAGLE</span>
+        <span style="color: rgba(255,255,255,0.15); margin: 0 6px;">|</span>
+        <span style="font-size: 10px; color: rgba(255,255,255,0.25);">Asset Management</span>
+      </div>
+      <div class="footer-links">
+        <a href="[PRIVACY_URL]">Privacy Policy</a>
+        <a href="[TERMS_URL]">Terms of Use</a>
+        <a href="[DISCLOSURES_URL]">Disclosures</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

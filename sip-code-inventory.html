@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SIP Code Inventory</title>
+<style>
+  :root {
+    --navy:#0A2240; --navy2:#163A63; --gold:#C5A55A; --bg:#F4F6F8; --panel:#fff; --line:#D7E0E8;
+    --text:#152536; --muted:#5F7081; --repo:#1F7A4D; --cloud:#1E5AA8; --archive:#7A4FA3; --soft:#EEF3F8;
+    --shadow:0 14px 32px rgba(10,34,64,.08); --radius:18px;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color:var(--text); background:var(--bg); }
+  .shell { display:grid; grid-template-columns: 280px 1fr; min-height:100vh; }
+  .sidebar {
+    background:linear-gradient(180deg, var(--navy), var(--navy2)); color:#fff; padding:28px 22px; position:sticky; top:0; align-self:start; height:100vh;
+    border-right: 1px solid rgba(255,255,255,.08);
+  }
+  .brand { font-size:12px; text-transform:uppercase; letter-spacing:2px; color:#d9e4ef; }
+  .brand strong { color:#f1ddaa; }
+  .side-title { font-family: Georgia, "Times New Roman", serif; font-size:28px; line-height:1.15; margin:16px 0 12px; }
+  .side-copy { color:#d3dce6; font-size:14px; line-height:1.55; }
+  .navlist { margin:24px 0 0; padding:0; list-style:none; }
+  .navlist li a {
+    display:block; color:#fff; text-decoration:none; padding:10px 12px; border-radius:12px; margin-bottom:8px;
+    background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); font-size:14px;
+  }
+  .navlist li a:hover { background:rgba(255,255,255,.08); }
+  .main { padding:28px; }
+  .hero, .panel { background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); }
+  .hero { padding:28px; }
+  .eyebrow { color:var(--gold); text-transform:uppercase; letter-spacing:2.2px; font-size:12px; font-weight:700; }
+  h1 { margin:10px 0 14px; font-family: Georgia, "Times New Roman", serif; font-size:38px; line-height:1.15; color:var(--navy); }
+  .lede { max-width:1000px; color:#33475b; font-size:17px; line-height:1.6; }
+  .stats { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:22px; }
+  .stat { background:linear-gradient(180deg,#fff,#f8fbfd); border:1px solid var(--line); border-radius:16px; padding:16px; }
+  .stat .k { font-size:11px; text-transform:uppercase; letter-spacing:1.4px; color:var(--muted); font-weight:700; }
+  .stat .v { font-size:30px; font-weight:800; color:var(--navy); margin-top:6px; }
+  .section { margin-top:24px; }
+  .section h2 { margin:0 0 10px; font-size:24px; color:var(--navy); }
+  .section p { margin:0; color:var(--muted); line-height:1.55; }
+  .two-col { display:grid; grid-template-columns: 1.15fr .85fr; gap:18px; margin-top:24px; }
+  .panel { padding:22px; }
+  .panel h3 { margin:0 0 10px; color:var(--navy); font-size:20px; }
+  .callout { background:rgba(197,165,90,.1); border:1px solid rgba(197,165,90,.35); border-radius:14px; padding:14px 16px; color:#4a3b18; margin-top:12px; }
+  .checklist { margin:0; padding-left:18px; color:#33475b; line-height:1.7; }
+  .filters { display:flex; gap:10px; flex-wrap:wrap; margin:16px 0 14px; }
+  .filter-btn {
+    border:1px solid var(--line); background:#fff; padding:10px 14px; border-radius:999px; cursor:pointer; font-weight:700; color:var(--text);
+  }
+  .filter-btn.active { background:var(--navy); color:#fff; border-color:var(--navy); }
+  .search { width:100%; max-width:420px; padding:12px 14px; border-radius:12px; border:1px solid var(--line); font-size:14px; }
+  .table-wrap { overflow:auto; border:1px solid var(--line); border-radius:18px; background:#fff; box-shadow:var(--shadow); }
+  table { width:100%; border-collapse:collapse; min-width:1050px; }
+  th, td { padding:14px 16px; border-bottom:1px solid var(--line); vertical-align:top; text-align:left; }
+  th { background:#f9fbfd; font-size:12px; letter-spacing:1.3px; text-transform:uppercase; color:var(--navy); position:sticky; top:0; }
+  tr:hover td { background:#fcfdff; }
+  .badge { display:inline-block; padding:7px 10px; border-radius:999px; font-size:11px; text-transform:uppercase; letter-spacing:1.3px; font-weight:800; }
+  .badge.repo { background:rgba(31,122,77,.11); color:var(--repo); }
+  .badge.cloud { background:rgba(30,90,168,.11); color:var(--cloud); }
+  .badge.archive { background:rgba(122,79,163,.11); color:var(--archive); }
+  .file-name { font-weight:700; color:var(--navy); }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:var(--soft); padding:3px 6px; border-radius:8px; font-size:12px; }
+  pre {
+    margin:0; background:#0f1725; color:#dce7f3; border-radius:18px; padding:18px; overflow:auto; border:1px solid #202a39;
+  }
+  .footer { color:var(--muted); font-size:13px; margin-top:18px; }
+  .hidden-row { display:none; }
+  @media (max-width: 1180px) {
+    .shell { grid-template-columns:1fr; }
+    .sidebar { position:relative; height:auto; }
+    .stats { grid-template-columns:repeat(2,1fr); }
+    .two-col { grid-template-columns:1fr; }
+  }
+  @media (max-width: 760px) {
+    .main { padding:18px; }
+    h1 { font-size:30px; }
+    .stats { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">Eagle Asset Management <strong>/ SIP Suite</strong></div>
+    <div class="side-title">SIP code inventory</div>
+    <div class="side-copy">Working control page for routing files into the GitHub repo, the cloud asset vault, or archive. Built to function like the inventory page you want living inside <strong>sip-campaign-os</strong>.</div>
+    <ul class="navlist">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#routing">File routing</a></li>
+      <li><a href="#repo-structure">Repo structure</a></li>
+      <li><a href="#workflow">Workflow rules</a></li>
+    </ul>
+  </aside>
+
+  <main class="main">
+    <section class="hero" id="overview">
+      <div class="eyebrow">Working page</div>
+      <h1>Organize the SIP build system once, then work cleanly across computers.</h1>
+      <div class="lede">
+        This page treats <strong>sip-campaign-os</strong> as the source of truth for active HTML builds, shared modules, and reusable code library assets. Heavy collateral, captures, and office files stay in cloud storage. Legacy numbered drafts stay in archive so the repo remains usable instead of turning into a version landfill.
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="k">Files reviewed</div><div class="v">33</div></div>
+        <div class="stat"><div class="k">Move to repo</div><div class="v">7</div></div>
+        <div class="stat"><div class="k">Keep in cloud</div><div class="v">9</div></div>
+        <div class="stat"><div class="k">Archive only</div><div class="v">17</div></div>
+        <div class="stat"><div class="k">HTML files</div><div class="v">24</div></div>
+      </div>
+    </section>
+
+    <section class="two-col section">
+      <div class="panel">
+        <h3>Recommended operating model</h3>
+        <ul class="checklist">
+          <li><strong>GitHub repo:</strong> active SIP Suite landing pages, reusable components, builder tools, shared styles/scripts, and this inventory page.</li>
+          <li><strong>Cloud asset vault:</strong> PDFs, PowerPoint, Word files, screenshots, MHTML captures, and non-code support material.</li>
+          <li><strong>Archive:</strong> old numbered HTML iterations that are useful for forensic reference but not part of the live working spine.</li>
+          <li><strong>Library in your folders:</strong> move reusable section patterns and utilities into <code>library/</code> so they can be pulled from any machine.</li>
+        </ul>
+        <div class="callout">Rule of thumb: if you actively build from it, commit it. If you mainly reference it, store it in the asset vault. If it is old but still useful, archive it outside the active source path.</div>
+      </div>
+      <div class="panel">
+        <h3>Priority files to anchor the repo</h3>
+        <ul class="checklist">
+          <li><code>src/landing-pages/sip-suite-v21.html</code> as the primary active build.</li>
+          <li><code>src/landing-pages/workbench/sip-suite-v17-base-v20-playbook-team.html</code> as the merge reference.</li>
+          <li><code>library/tools/sip-builder.html</code> for repeatable page assembly.</li>
+          <li><code>docs/sip-code-inventory.html</code> as the operating page for inventory and routing.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="routing">
+      <h2>File routing inventory</h2>
+      <p>Use the filters to view repo candidates, cloud assets, or archive-only files. The target path column shows where each file should live in the future-state system.</p>
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="repo">Repo</button>
+        <button class="filter-btn" data-filter="cloud">Cloud</button>
+        <button class="filter-btn" data-filter="archive">Archive</button>
+        <input id="searchBox" class="search" type="search" placeholder="Search file name..." />
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>File</th>
+              <th>Destination</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Target path</th>
+              <th>Why</th>
+            </tr>
+          </thead>
+          <tbody id="inventoryTable">
+            
+      <tr data-dest="cloud" data-name="2q25 global sip factsheet - rj.pdf">
+        <td><div class="file-name">2Q25 Global SIP Factsheet - RJ.pdf</div></td>
+        <td><span class="badge cloud">Cloud</span></td>
+        <td>PDF</td>
+        <td>Keep in cloud asset vault</td>
+        <td><code>SIP Campaign Assets/PDF/2Q25 Global SIP Factsheet - RJ.pdf</code></td>
+        <td>Reference or collateral asset that should remain accessible across machines without bloating the repo.</td>
+      </tr>
+    
+      <tr data-dest="cloud" data-name="2q25 sip factsheet - rj.pdf">
+        <td><div class="file-name">2Q25 SIP Factsheet - RJ.pdf</div></td>
+        <td><span class="badge cloud">Cloud</span></td>
+        <td>PDF</td>
+        <td>Keep in cloud asset vault</td>
+        <td><code>SIP Campaign Assets/PDF/2Q25 SIP Factsheet - RJ.pdf</code></td>
+        <td>Reference or collateral asset that should remain accessible across machines without bloating the repo.</td>
+      </tr>
+    
+      <tr data-dest="cloud" data-name="2q25 sip plus factsheet - rj.pdf">
+        <td><div class="file-name">2Q25 SIP Plus Factsheet - RJ.pdf</div></td>
+        <td><span class="badge cloud">Cloud</span></td>
+        <td>PDF</td>
+        <td>Keep in cloud asset vault</td>
+        <td><code>SIP Campaign Assets/PDF/2Q25 SIP Plus Factsheet - RJ.pdf</code></td>
+        <td>Reference or collateral asset that should remain accessible across machines without bloating the repo.</td>
+      </tr>
+    
+      <tr data-dest="cloud" data-name="eagle sip 3 reasons flyer (soi) (1).pdf">
+        <td><div class="file-name">Eagle SIP 3 Reasons Flyer (SOI) (1).PDF</div></td>
+        <td><span class="badge cloud">Cloud</span></td>
+        <td>PDF</td>
+        <td>Keep in cloud asset vault</td>
+        <td><code>SIP Campaign Assets/PDF/Eagle SIP 3 Reasons Flyer (SOI) (1).PDF</code></td>
+        <td>Reference or collateral asset that should remain accessible across machines without bloating the repo.</td>
+      </tr>
+    
+      <tr data-dest="cloud" data-name="sip suite rj campaign brief .pdf">
+        <td><div class="file-name">SIP Suite RJ campaign Brief .pdf</div></td>
+        <td><span class="badge cloud">Cloud</span></td>
+        <td>PDF</td>
+        <td>Keep in cloud asset vault</td>
+        <td><code>SIP Campaign Assets/PDF/SIP Suite RJ campaign Brief .pdf</code></td>
+        <td>Reference or collateral asset that should remain accessible across machines without bloating the repo.</td>
+      </tr>
+    
+      <tr data-dest="cloud" data-name="updated _amplify_income_franchise_execution_guide.docx">
+        <td><div class="file-name">UPDATED _Amplify_Income_Franchise_Execution_Guide.docx</div></td>
+        <td><span class="badge cloud">Cloud</span></td>
+        <td>DOCX</td>
+        <td>Keep in cloud asset vault</td>
+        <td><code>SIP Campaign Assets/DOCX/UPDATED _Amplify_Income_Franchise_Execution_Guide.docx</code></td>
+        <td>Reference or collateral asset that should remain accessible across machines without bloating the repo.</td>
+      </tr>
+    
+      <tr data-dest="cloud" data-name="v3 sip suite overview piece_for compliance.pptx">
+        <td><div class="file-name">V3 SIP Suite Overview Piece_for compliance.pptx</div></td>
+        <td><span class="badge cloud">Cloud</span></td>
+        <td>PPTX</td>
+        <td>Keep in cloud asset vault</td>
+        <td><code>SIP Campaign Assets/PPTX/V3 SIP Suite Overview Piece_for compliance.pptx</code></td>
+        <td>Reference or collateral asset that should remain accessible across machines without bloating the repo.</td>
+      </tr>
+    
+      <tr data-dest="cloud" data-name="alyssa&#x27;s notebook.mhtml">
+        <td><div class="file-name">alyssa&#x27;s Notebook.mhtml</div></td>
+        <td><span class="badge cloud">Cloud</span></td>
+        <td>MHTML</td>
+        <td>Keep in cloud asset vault</td>
+        <td><code>SIP Campaign Assets/MHTML/alyssa&#x27;s Notebook.mhtml</code></td>
+        <td>Reference or collateral asset that should remain accessible across machines without bloating the repo.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="amplify-lp-v15-r1.html">
+        <td><div class="file-name">amplify-lp-v15-r1.html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive reference</td>
+        <td><code>archive/reference-builds/amplify-lp-v15-r1.html</code></td>
+        <td>Useful reference lineage, but separate from the current SIP Suite working baseline.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="amplify-lp-v15-r1_1.html">
+        <td><div class="file-name">amplify-lp-v15-r1_1.html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive reference</td>
+        <td><code>archive/reference-builds/amplify-lp-v15-r1_1.html</code></td>
+        <td>Useful reference lineage, but separate from the current SIP Suite working baseline.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="amplify-lp-v15-r1_2.html">
+        <td><div class="file-name">amplify-lp-v15-r1_2.html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive reference</td>
+        <td><code>archive/reference-builds/amplify-lp-v15-r1_2.html</code></td>
+        <td>Useful reference lineage, but separate from the current SIP Suite working baseline.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="amplify-lp-v15_1.html">
+        <td><div class="file-name">amplify-lp-v15_1.html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive reference</td>
+        <td><code>archive/reference-builds/amplify-lp-v15_1.html</code></td>
+        <td>Useful reference lineage, but separate from the current SIP Suite working baseline.</td>
+      </tr>
+    
+      <tr data-dest="repo" data-name="sip-builder_1.html">
+        <td><div class="file-name">sip-builder_1.html</div></td>
+        <td><span class="badge repo">Repo</span></td>
+        <td>HTML</td>
+        <td>Keep active</td>
+        <td><code>library/tools/sip-builder.html</code></td>
+        <td>Reusable builder utility that supports repeatable landing-page production.</td>
+      </tr>
+    
+      <tr data-dest="repo" data-name="sip-code-inventory-organized.html">
+        <td><div class="file-name">sip-code-inventory-organized.html</div></td>
+        <td><span class="badge repo">Repo</span></td>
+        <td>HTML</td>
+        <td>Create as working control page</td>
+        <td><code>docs/sip-code-inventory.html</code></td>
+        <td>Core working page for cross-computer inventory, routing, and governance.</td>
+      </tr>
+    
+      <tr data-dest="repo" data-name="sip-suite-production_gtm-edits_1.html">
+        <td><div class="file-name">sip-suite-production_GTM-edits_1.html</div></td>
+        <td><span class="badge repo">Repo</span></td>
+        <td>HTML</td>
+        <td>Keep as GTM reference</td>
+        <td><code>src/landing-pages/workbench/sip-suite-production-gtm-edits.html</code></td>
+        <td>Named GTM edit stream likely contains messaging and layout decisions worth retaining.</td>
+      </tr>
+    
+      <tr data-dest="repo" data-name="sip-suite-v16-production.html">
+        <td><div class="file-name">sip-suite-v16-production.html</div></td>
+        <td><span class="badge repo">Repo</span></td>
+        <td>HTML</td>
+        <td>Keep as milestone</td>
+        <td><code>archive/production-milestones/sip-suite-v16-production.html</code></td>
+        <td>Production-marked reference point for rollback and comparison.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="sip-suite-v17 (1).html">
+        <td><div class="file-name">sip-suite-v17 (1).html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive draft</td>
+        <td><code>archive/legacy/sip-suite-v17 (1).html</code></td>
+        <td>Older numbered iteration retained for history only, not day-to-day work.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="sip-suite-v17 (2).html">
+        <td><div class="file-name">sip-suite-v17 (2).html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive draft</td>
+        <td><code>archive/legacy/sip-suite-v17 (2).html</code></td>
+        <td>Older numbered iteration retained for history only, not day-to-day work.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="sip-suite-v17 (3).html">
+        <td><div class="file-name">sip-suite-v17 (3).html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive draft</td>
+        <td><code>archive/legacy/sip-suite-v17 (3).html</code></td>
+        <td>Older numbered iteration retained for history only, not day-to-day work.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="sip-suite-v17 (4).html">
+        <td><div class="file-name">sip-suite-v17 (4).html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive draft</td>
+        <td><code>archive/legacy/sip-suite-v17 (4).html</code></td>
+        <td>Older numbered iteration retained for history only, not day-to-day work.</td>
+      </tr>
+    
+      <tr data-dest="repo" data-name="sip-suite-v17-base-v20-playbook-team.html">
+        <td><div class="file-name">sip-suite-v17-base-v20-playbook-team.html</div></td>
+        <td><span class="badge repo">Repo</span></td>
+        <td>HTML</td>
+        <td>Keep as merge reference</td>
+        <td><code>src/landing-pages/workbench/sip-suite-v17-base-v20-playbook-team.html</code></td>
+        <td>Meaningful composite source with section logic worth preserving during iteration.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="sip-suite-v18.html">
+        <td><div class="file-name">sip-suite-v18.html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive draft</td>
+        <td><code>archive/drafts/sip-suite-v18.html</code></td>
+        <td>Intermediate numbered iteration; keep accessible but out of the active repo spine.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="sip-suite-v19.html">
+        <td><div class="file-name">sip-suite-v19.html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive draft</td>
+        <td><code>archive/drafts/sip-suite-v19.html</code></td>
+        <td>Intermediate numbered iteration; keep accessible but out of the active repo spine.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="sip-suite-v19_1.html">
+        <td><div class="file-name">sip-suite-v19_1.html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive draft</td>
+        <td><code>archive/drafts/sip-suite-v19_1.html</code></td>
+        <td>Intermediate numbered iteration; keep accessible but out of the active repo spine.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="sip-suite-v20.html">
+        <td><div class="file-name">sip-suite-v20.html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive draft</td>
+        <td><code>archive/drafts/sip-suite-v20.html</code></td>
+        <td>Intermediate numbered iteration; keep accessible but out of the active repo spine.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="sip-suite-v20_1.html">
+        <td><div class="file-name">sip-suite-v20_1.html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive draft</td>
+        <td><code>archive/drafts/sip-suite-v20_1.html</code></td>
+        <td>Intermediate numbered iteration; keep accessible but out of the active repo spine.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="sip-suite-v20_2.html">
+        <td><div class="file-name">sip-suite-v20_2.html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive draft</td>
+        <td><code>archive/drafts/sip-suite-v20_2.html</code></td>
+        <td>Intermediate numbered iteration; keep accessible but out of the active repo spine.</td>
+      </tr>
+    
+      <tr data-dest="repo" data-name="sip-suite-v21.html">
+        <td><div class="file-name">sip-suite-v21.html</div></td>
+        <td><span class="badge repo">Repo</span></td>
+        <td>HTML</td>
+        <td>Primary active build</td>
+        <td><code>src/landing-pages/sip-suite-v21.html</code></td>
+        <td>Latest named SIP Suite page candidate and likely best working baseline.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="sip-suite-v3 copy.html">
+        <td><div class="file-name">sip-suite-v3 copy.html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive draft</td>
+        <td><code>archive/legacy/sip-suite-v3 copy.html</code></td>
+        <td>Older numbered iteration retained for history only, not day-to-day work.</td>
+      </tr>
+    
+      <tr data-dest="repo" data-name="sip-suite-v4.1-updated.html">
+        <td><div class="file-name">sip-suite-v4.1-updated.html</div></td>
+        <td><span class="badge repo">Repo</span></td>
+        <td>HTML</td>
+        <td>Selective keep</td>
+        <td><code>archive/selected-legacy/sip-suite-v4.1-updated.html</code></td>
+        <td>Only retain if this build contains modules or hierarchy later versions lost.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="sip-suite-v6.html">
+        <td><div class="file-name">sip-suite-v6.html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive draft</td>
+        <td><code>archive/legacy/sip-suite-v6.html</code></td>
+        <td>Older numbered iteration retained for history only, not day-to-day work.</td>
+      </tr>
+    
+      <tr data-dest="archive" data-name="sip-suite-v7 (1).html">
+        <td><div class="file-name">sip-suite-v7 (1).html</div></td>
+        <td><span class="badge archive">Archive</span></td>
+        <td>HTML</td>
+        <td>Archive draft</td>
+        <td><code>archive/legacy/sip-suite-v7 (1).html</code></td>
+        <td>Older numbered iteration retained for history only, not day-to-day work.</td>
+      </tr>
+    
+      <tr data-dest="cloud" data-name="v20v3.mhtml">
+        <td><div class="file-name">v20v3.mhtml</div></td>
+        <td><span class="badge cloud">Cloud</span></td>
+        <td>MHTML</td>
+        <td>Keep in cloud asset vault</td>
+        <td><code>SIP Campaign Assets/MHTML/v20v3.mhtml</code></td>
+        <td>Reference or collateral asset that should remain accessible across machines without bloating the repo.</td>
+      </tr>
+    
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="two-col section" id="repo-structure">
+      <div class="panel">
+        <h3>Recommended repo structure</h3>
+<pre>sip-campaign-os/
+  src/
+    landing-pages/
+      sip-suite-v21.html
+      workbench/
+    modules/
+    components/
+  library/
+    tools/
+      sip-builder.html
+    patterns/
+    shared-sections/
+    utilities/
+  docs/
+    sip-code-inventory.html
+    naming-conventions.md
+    publish-process.md
+  archive/
+    production-milestones/
+    selected-legacy/
+    drafts/</pre>
+      </div>
+      <div class="panel" id="workflow">
+        <h3>Workflow rules</h3>
+        <ul class="checklist">
+          <li>Use branches for meaningful design or content changes rather than creating another standalone file version.</li>
+          <li>Keep only one primary active landing page in <code>src/landing-pages/</code>.</li>
+          <li>Move duplicate numbered iterations into <code>archive/</code> once their useful sections are harvested.</li>
+          <li>Store PDF, PPTX, DOCX, and MHTML files in a shared cloud folder such as <code>SIP Campaign Assets/</code>.</li>
+          <li>Name files by function, not panic: avoid chains like <code>final-new-updated-v2</code>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="footer">Recommended placement in GitHub: <code>docs/sip-code-inventory.html</code></div>
+  </main>
+</div>
+
+<script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const rows = document.querySelectorAll('#inventoryTable tr');
+  const searchBox = document.getElementById('searchBox');
+  let activeFilter = 'all';
+
+  function applyFilters() {
+    const q = searchBox.value.trim().toLowerCase();
+    rows.forEach(row => {
+      const dest = row.getAttribute('data-dest');
+      const name = row.getAttribute('data-name');
+      const filterMatch = activeFilter === 'all' || dest === activeFilter;
+      const searchMatch = !q || name.includes(q);
+      row.classList.toggle('hidden-row', !(filterMatch && searchMatch));
+    });
+  }
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.getAttribute('data-filter');
+      applyFilters();
+    });
+  });
+
+  searchBox.addEventListener('input', applyFilters);
+</script>
+</body>
+</html>

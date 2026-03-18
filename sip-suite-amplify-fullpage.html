@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIP Suite | Amplify Your Income Potential</title>
+
+<!-- Optional fonts (remove if your SFMC unit blocks external font calls) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   SIP SUITE / AMPLIFY TOKENS
+   ========================================================= */
+:root{
+  --navy:#002855;
+  --gold:#A09162;
+
+  --ink:#111827;
+  --muted:#6B7280;
+  --rule:#E5E7EB;
+  --bg:#F7F6F3;
+  --white:#FFFFFF;
+
+  /* Product accents (update if brochure box hexes differ) */
+  --sip:#002855;      /* SIP */
+  --sipplus:#A09162;  /* SIP Plus */
+  --gsip:#4A7FB5;     /* Global SIP */
+}
+
+/* Base */
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:Roboto,Arial,sans-serif}
+h1,h2,h3{font-family:"Roboto Condensed",Arial,sans-serif;margin:0}
+p{margin:0}
+a{text-decoration:none}
+img{max-width:100%;display:block}
+
+/* Layout */
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.section{padding:56px 0}
+.alt{background:var(--bg)}
+.card{background:var(--white);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.pad{padding:20px 18px}
+.grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;align-items:start}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rule{height:1px;background:var(--rule);margin:18px 0}
+
+/* Type */
+.kicker{
+  font-family:"Roboto Condensed",Arial,sans-serif;
+  font-weight:700; letter-spacing:2.6px; text-transform:uppercase;
+  font-size:11px; color:var(--gold);
+}
+.h2{
+  color:var(--navy);
+  text-transform:uppercase;
+  font-size:34px;
+  letter-spacing:.2px;
+}
+.subcopy{color:var(--muted);line-height:1.7;max-width:820px}
+
+/* Buttons */
+.btn{
+  display:inline-block;border-radius:10px;
+  padding:12px 18px;
+  font-family:"Roboto Condensed",Arial,sans-serif;
+  font-weight:700; letter-spacing:.6px; text-transform:uppercase;
+  font-size:12px; border:1px solid transparent;
+}
+.btn-primary{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.btn-outline-dark{background:transparent;border-color:rgba(17,24,39,.18);color:var(--navy)}
+.btn-ghost{background:transparent;border-color:rgba(255,255,255,.30);color:rgba(255,255,255,.88)}
+.link{color:var(--navy);font-weight:700}
+
+/* =========================================================
+   HEADER (CloudPage-friendly)
+   ========================================================= */
+.header{position:sticky;top:0;z-index:60;background:#fff;border-bottom:3px solid var(--gold)}
+.header .bar{display:flex;align-items:center;gap:18px;padding:14px 0}
+.brand{display:flex;gap:10px;align-items:baseline;white-space:nowrap}
+.brand .e{
+  letter-spacing:4px;font-weight:700;color:var(--navy);
+  font-size:18px;font-family:"Roboto Condensed",Arial,sans-serif
+}
+.brand .am{
+  font-size:11px;line-height:1.2;color:rgba(17,24,39,.62);
+  font-weight:700;text-transform:uppercase;letter-spacing:.6px;
+  font-family:"Roboto Condensed",Arial,sans-serif
+}
+.nav{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
+.nav a{
+  font-family:"Roboto Condensed",Arial,sans-serif;
+  font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+  font-size:12px;color:rgba(17,24,39,.70)
+}
+.nav a:hover{text-decoration:underline}
+
+/* Sticky advisor nav */
+.sticky{position:sticky;top:58px;z-index:55;background:#fff;border-bottom:1px solid var(--rule)}
+.sticky .inner{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 0;overflow:auto;-webkit-overflow-scrolling:touch
+}
+.sep{color:var(--rule)}
+.note{margin-left:auto;font-size:11px;color:var(--muted);white-space:nowrap}
+
+/* =========================================================
+   HERO (Amplify motif)
+   ========================================================= */
+.hero{background:var(--navy);position:relative;overflow:hidden}
+.hero .wave{position:absolute;inset:0;opacity:.12;pointer-events:none}
+.hero h1{
+  color:#fff;text-transform:uppercase;line-height:.95;
+  font-size:64px
+}
+.hero .fine{
+  display:block;margin-top:10px;
+  font-size:18px;letter-spacing:5px;font-weight:300;
+  color:rgba(255,255,255,.55)
+}
+.hero p{max-width:680px;color:rgba(255,255,255,.72);font-size:16px;line-height:1.7}
+.proof{margin-top:34px;border-top:1px solid rgba(255,255,255,.10);padding-top:18px;display:flex;gap:22px;flex-wrap:wrap}
+.proof .t{color:var(--gold);font-weight:800;font-size:18px}
+.proof .d{color:rgba(255,255,255,.60);font-size:12px;line-height:1.4}
+
+/* =========================================================
+   VIDEO + FIELD FLOW
+   ========================================================= */
+.video{
+  border-radius:14px;overflow:hidden;border:1px solid var(--rule);
+  background:#0B1220;min-height:340px;position:relative
+}
+.play{
+  width:56px;height:56px;border-radius:999px;
+  background:rgba(160,145,98,.95);
+  display:flex;align-items:center;justify-content:center;
+  color:#002855;font-weight:900;font-size:18px;
+  position:absolute;left:18px;top:18px;
+  border:1px solid rgba(255,255,255,.25)
+}
+.video .overlay{
+  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:18px;background:linear-gradient(180deg,rgba(11,18,32,0) 0%,rgba(11,18,32,.84) 70%);
+  color:#fff
+}
+
+/* =========================================================
+   STRATEGY CARDS
+   ========================================================= */
+.fit{margin-top:14px;padding-top:14px;border-top:1px solid var(--rule);font-size:12px;line-height:1.6}
+.small-links{margin-top:14px;display:flex;gap:14px;flex-wrap:wrap}
+.small-links a{font-size:12px}
+
+/* =========================================================
+   STRATEGY FINDER (CSS-only, no JS)
+   ========================================================= */
+.sf{background:var(--navy);padding:54px 0}
+.sf-wrap{max-width:960px;margin:0 auto;padding:0 24px}
+.sf-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;overflow:hidden}
+.sf-top{
+  padding:22px 20px;border-bottom:1px solid rgba(255,255,255,.10);
+  color:rgba(255,255,255,.65);font-size:12px;letter-spacing:2px;
+  text-transform:uppercase;font-family:"Roboto Condensed",Arial,sans-serif
+}
+.sf-grid{display:grid;grid-template-columns:1.2fr .8fr}
+.sf-q{padding:18px 20px}
+.sf-opt{
+  display:block;padding:14px;border-radius:10px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.03);
+  margin-top:10px;cursor:pointer
+}
+.sf-opt strong{display:block;color:#fff;font-size:13px}
+.sf-opt span{display:block;color:rgba(255,255,255,.60);font-size:12px;margin-top:4px;line-height:1.5}
+.sf-res{padding:18px 20px;border-left:1px solid rgba(255,255,255,.10)}
+.sf-res h3{color:#fff;text-transform:uppercase;font-size:18px;margin:0}
+.chip{
+  display:inline-block;margin-top:10px;padding:6px 10px;border-radius:999px;
+  font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase
+}
+.chip-sip{background:rgba(0,40,85,.55);border:1px solid rgba(255,255,255,.18);color:#fff}
+.chip-plus{background:rgba(160,145,98,.18);border:1px solid rgba(160,145,98,.45);color:#fff}
+.chip-gsip{background:rgba(74,127,181,.20);border:1px solid rgba(74,127,181,.55);color:#fff}
+.panel{display:none;margin-top:12px;color:rgba(255,255,255,.68);font-size:12px;line-height:1.6}
+#sf-a:checked ~ .sf-grid .panel-a,
+#sf-b:checked ~ .sf-grid .panel-b,
+#sf-c:checked ~ .sf-grid .panel-c{display:block}
+
+/* =========================================================
+   CONNECT / CONVERSION
+   ========================================================= */
+.form input, .form select, .form textarea{
+  width:100%;padding:10px 12px;border:1px solid var(--rule);
+  border-radius:8px;font-size:13px;font-family:Roboto,Arial,sans-serif
+}
+.form .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form small{display:block;margin-top:10px;font-size:11px;line-height:1.55;color:var(--muted)}
+
+/* =========================================================
+   FOOTER / DISCLOSURES
+   ========================================================= */
+.footer{background:#0B1220;color:rgba(255,255,255,.78);padding:28px 0}
+details{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:12px 14px}
+summary{cursor:pointer;font-weight:800;color:#fff}
+
+/* Responsive */
+@media(max-width:980px){
+  .hero h1{font-size:52px}
+  .grid2{grid-template-columns:1fr}
+  .sticky{top:56px}
+}
+@media(max-width:860px){
+  .grid3{grid-template-columns:1fr}
+  .sf-grid{grid-template-columns:1fr}
+  .sf-res{border-left:none;border-top:1px solid rgba(255,255,255,.10)}
+  .form .row{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .hero h1{font-size:44px}
+  .nav{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="wrap">
+    <div class="bar">
+      <div class="brand" aria-label="Eagle Asset Management">
+        <div class="e">EAGLE</div>
+        <div class="am">Asset<br>Management</div>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#overview">Overview</a>
+        <a href="#suite">Suite</a>
+        <a href="#finder">Strategy Finder</a>
+        <a href="#resources">Resources</a>
+        <a href="#connect">Connect</a>
+      </nav>
+
+      <a class="btn btn-primary" href="#connect" style="margin-left:auto">Request materials</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero" aria-label="Amplify hero">
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1200 360" preserveAspectRatio="none" fill="none" style="width:100%;height:100%">
+      <path d="M-100,180 C140,120 320,260 520,170 C720,80 900,220 1120,150" stroke="rgba(74,127,181,0.65)" stroke-width="2"/>
+      <path d="M-60,230 C180,150 360,300 560,210 C760,120 940,270 1160,190" stroke="rgba(74,127,181,0.35)" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <div class="wrap" style="padding:62px 24px 34px;position:relative">
+    <div class="kicker">The Strategic Income Portfolio Suite</div>
+
+    <h1 style="margin-top:18px">
+      Amplify<br>
+      <span style="color:var(--gold)">Your Income</span><br>
+      <span class="fine">Potential.</span>
+    </h1>
+
+    <p style="margin-top:18px">
+      A multi-asset suite of solutions with a flexible income approach—built to support client income needs across varying risk profiles.
+    </p>
+
+    <p style="margin-top:14px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55)">
+      One disciplined process. Three dynamic strategies.
+    </p>
+
+    <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <a class="btn btn-primary" href="#finder">Find the best-fit strategy</a>
+      <a class="btn btn-ghost" href="#overview">Watch overview</a>
+      <a class="btn btn-ghost" href="#resources">Get factsheets</a>
+    </div>
+
+    <div class="proof">
+      <div style="min-width:180px">
+        <div class="t">Diversified sources</div>
+        <div class="d">Across equities, fixed income, and cash</div>
+      </div>
+      <div style="min-width:180px">
+        <div class="t">Active &amp; tactical</div>
+        <div class="d">Designed for changing market regimes</div>
+      </div>
+      <div style="min-width:180px">
+        <div class="t">Risk-aware positioning</div>
+        <div class="d">Suite structure supports different risk profiles</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sticky" aria-label="On-page navigation">
+  <div class="wrap">
+    <div class="inner">
+      <a class="link" href="#overview" style="white-space:nowrap">Overview</a>
+      <span class="sep">|</span>
+      <a class="link" href="#suite" style="white-space:nowrap">Suite</a>
+      <span class="sep">|</span>
+      <a class="link" href="#finder" style="white-space:nowrap">Strategy Finder</a>
+      <span class="sep">|</span>
+      <a class="link" href="#resources" style="white-space:nowrap">Resources</a>
+      <span class="sep">|</span>
+      <a class="link" href="#connect" style="white-space:nowrap">Connect</a>
+
+      <span class="note">For Financial Professional and/or Client use only</span>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="overview">
+  <div class="wrap">
+    <div class="kicker" style="color:var(--navy)">Overview</div>
+    <h2 class="h2" style="margin-top:10px">A fast, advisor-ready story</h2>
+    <p class="subcopy" style="margin-top:10px">
+      Start with the suite narrative, then match the strategy to the client need in seconds.
+    </p>
+
+    <div class="grid2" style="margin-top:18px">
+      <div class="video" aria-label="SIP Suite overview video placeholder">
+        <a class="play" href="#" aria-label="Play video">▶</a>
+        <div class="overlay">
+          <div style="font-family:'Roboto Condensed',Arial,sans-serif;font-weight:800;letter-spacing:1.2px;text-transform:uppercase">
+            SIP Suite overview (2–3 min)
+          </div>
+          <div style="margin-top:8px;color:rgba(255,255,255,.70);font-size:12px;line-height:1.5">
+            Swap link to Kaltura / Seismic DSR / hosted video destination.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="pad">
+          <div class="kicker">How advisors use it</div>
+          <h3 style="margin-top:8px;color:var(--navy);text-transform:uppercase;font-size:22px">
+            Recommended flow
+          </h3>
+
+          <div style="margin-top:12px;display:grid;gap:10px">
+            <div style="padding:12px;border:1px solid var(--rule);border-radius:10px">
+              <div style="font-weight:900;color:var(--navy)">1) Introduce</div>
+              <div style="margin-top:4px;color:var(--muted);font-size:12px;line-height:1.55">
+                Position the suite as an “income system” built for different client profiles.
+              </div>
+            </div>
+            <div style="padding:12px;border:1px solid var(--rule);border-radius:10px">
+              <div style="font-weight:900;color:var(--navy)">2) Match</div>
+              <div style="margin-top:4px;color:var(--muted);font-size:12px;line-height:1.55">
+                Use the Strategy Finder to identify the best starting point.
+              </div>
+            </div>
+            <div style="padding:12px;border:1px solid var(--rule);border-radius:10px">
+              <div style="font-weight:900;color:var(--navy)">3) Deliver</div>
+              <div style="margin-top:4px;color:var(--muted);font-size:12px;line-height:1.55">
+                Send the factsheet and coordinate follow-up with your support team.
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap">
+            <a class="btn btn-primary" href="#finder">Go to Strategy Finder</a>
+            <a class="btn btn-outline-dark" href="#resources">Get factsheets</a>
+          </div>
+
+          <div class="rule"></div>
+          <p style="font-size:12px;color:var(--muted);line-height:1.6">
+            Built for high-impact conversations: clear positioning, quick match, clean next steps.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="suite">
+  <div class="wrap">
+    <div class="kicker" style="color:var(--navy)">Suite</div>
+    <h2 class="h2" style="margin-top:10px">Three strategies, one process</h2>
+    <p class="subcopy" style="margin-top:10px">
+      Use the suite to support client income needs across different risk profiles, while keeping your story consistent.
+    </p>
+
+    <div class="grid3" style="margin-top:22px">
+      <div class="card" style="border-top:4px solid var(--sip)">
+        <div class="pad">
+          <div class="kicker" style="color:var(--sip)">Income anchor</div>
+          <h3 style="margin-top:6px;color:var(--navy);text-transform:uppercase;font-size:26px">SIP</h3>
+          <p style="margin-top:10px;color:var(--muted);font-size:13px;line-height:1.6">
+            Seeks steady income and consistent growth.
+          </p>
+          <div class="fit"><strong>Best fit:</strong> stability and capital discipline in multi-asset lineups.</div>
+          <div class="small-links">
+            <a class="link" href="#">Factsheet</a>
+            <a class="link" href="#">Commentary</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-top:4px solid var(--sipplus)">
+        <div class="pad">
+          <div class="kicker">Increased income</div>
+          <h3 style="margin-top:6px;color:var(--navy);text-transform:uppercase;font-size:26px">SIP Plus</h3>
+          <p style="margin-top:10px;color:var(--muted);font-size:13px;line-height:1.6">
+            Seeks higher income potential.
+          </p>
+          <div class="fit"><strong>Best fit:</strong> higher-yielding exposure for clients accepting moderate volatility.</div>
+          <div class="small-links">
+            <a class="link" href="#">Factsheet</a>
+            <a class="link" href="#">Commentary</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-top:4px solid var(--gsip)">
+        <div class="pad">
+          <div class="kicker" style="color:var(--gsip)">Global income</div>
+          <h3 style="margin-top:6px;color:var(--navy);text-transform:uppercase;font-size:26px">Global SIP</h3>
+          <p style="margin-top:10px;color:var(--muted);font-size:13px;line-height:1.6">
+            Seeks diversified, international income.
+          </p>
+          <div class="fit"><strong>Best fit:</strong> broaden income sources beyond U.S. markets via international dividend exposure.</div>
+          <div class="small-links">
+            <a class="link" href="#">Factsheet</a>
+            <a class="link" href="#">Commentary</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:14px;font-size:11px;color:var(--muted)">
+      Illustrative only. Actual yield and volatility may vary.
+    </p>
+  </div>
+</section>
+
+<section class="sf" id="finder">
+  <div class="sf-wrap">
+    <div class="kicker">Strategy Finder</div>
+    <h2 style="margin-top:12px;color:#fff;text-transform:uppercase;font-size:34px">
+      Which strategy fits your client?
+    </h2>
+    <p style="margin-top:10px;color:rgba(255,255,255,.65);max-width:760px;line-height:1.6">
+      Choose the primary need and we’ll point you to the best starting place.
+    </p>
+
+    <div class="sf-box" style="margin-top:18px">
+      <div class="sf-top">One disciplined process. Three dynamic strategies.</div>
+
+      <input id="sf-a" type="radio" name="sf" style="position:absolute;left:-9999px" checked>
+      <input id="sf-b" type="radio" name="sf" style="position:absolute;left:-9999px">
+      <input id="sf-c" type="radio" name="sf" style="position:absolute;left:-9999px">
+
+      <div class="sf-grid">
+        <div class="sf-q">
+          <label class="sf-opt" for="sf-a">
+            <strong>Steady Paycheck</strong>
+            <span>Reliable income with stability focus</span>
+          </label>
+          <label class="sf-opt" for="sf-b">
+            <strong>Higher Cash Flow</strong>
+            <span>Higher income potential within a disciplined framework</span>
+          </label>
+          <label class="sf-opt" for="sf-c">
+            <strong>Diversified Sources</strong>
+            <span>Broaden income opportunity set beyond U.S. markets</span>
+          </label>
+        </div>
+
+        <div class="sf-res">
+          <h3>Recommended start</h3>
+
+          <div class="panel panel-a">
+            <span class="chip chip-sip">SIP</span>
+            <p style="margin-top:10px">
+              Start here for clients prioritizing stability and capital discipline.
+            </p>
+            <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+              <a class="btn btn-primary" href="#">View SIP factsheet</a>
+              <a class="btn btn-ghost" href="#connect">Connect</a>
+            </div>
+          </div>
+
+          <div class="panel panel-b">
+            <span class="chip chip-plus">SIP Plus</span>
+            <p style="margin-top:10px">
+              Start here for clients seeking higher income potential and accepting moderate volatility.
+            </p>
+            <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+              <a class="btn btn-primary" href="#">View SIP Plus factsheet</a>
+              <a class="btn btn-ghost" href="#connect">Connect</a>
+            </div>
+          </div>
+
+          <div class="panel panel-c">
+            <span class="chip chip-gsip">Global SIP</span>
+            <p style="margin-top:10px">
+              Start here to broaden income sources with international exposure.
+            </p>
+            <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+              <a class="btn btn-primary" href="#">View Global SIP factsheet</a>
+              <a class="btn btn-ghost" href="#connect">Connect</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:14px;color:rgba(255,255,255,.55);font-size:11px;line-height:1.5">
+      This guide is for informational purposes only and does not constitute investment advice.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="resources">
+  <div class="wrap">
+    <div class="kicker" style="color:var(--navy)">Resources</div>
+    <h2 class="h2" style="margin-top:10px">Send-ready materials</h2>
+    <p class="subcopy" style="margin-top:10px">
+      Use these assets to support client conversations, follow-up, and internal due diligence.
+    </p>
+
+    <div class="grid3" style="margin-top:18px">
+      <div class="card">
+        <div class="pad">
+          <h3 style="color:var(--navy);text-transform:uppercase;font-size:18px">Suite overview</h3>
+          <p style="margin-top:8px;color:var(--muted);font-size:12px;line-height:1.6">
+            One-page narrative to frame the suite and set context for best-fit positioning.
+          </p>
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn btn-primary" href="#">Download</a>
+            <a class="btn btn-outline-dark" href="#connect">Request a kit</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="pad">
+          <h3 style="color:var(--navy);text-transform:uppercase;font-size:18px">Factsheets</h3>
+          <p style="margin-top:8px;color:var(--muted);font-size:12px;line-height:1.6">
+            SIP / SIP Plus / Global SIP. Keep your follow-up clear and consistent.
+          </p>
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn btn-primary" href="#">Get all three</a>
+            <a class="btn btn-outline-dark" href="#finder">Match first</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="pad">
+          <h3 style="color:var(--navy);text-transform:uppercase;font-size:18px">Commentary</h3>
+          <p style="margin-top:8px;color:var(--muted);font-size:12px;line-height:1.6">
+            Timely perspective to support income conversations and positioning discipline.
+          </p>
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn btn-primary" href="#">View latest</a>
+            <a class="btn btn-outline-dark" href="#connect">Talk through it</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+    <p style="font-size:12px;color:var(--muted);line-height:1.7;max-width:860px">
+      If you want to incorporate a CE gate, place it behind “Request a kit” and route responses to the appropriate support team follow-up.
+    </p>
+  </div>
+</section>
+
+<section class="section alt" id="connect">
+  <div class="wrap grid2">
+    <div>
+      <div class="kicker" style="color:var(--gold)">Continue the conversation</div>
+      <h2 class="h2" style="margin-top:10px">Connect with your dedicated support team</h2>
+      <p class="subcopy" style="margin-top:10px">
+        Your Regional Vice President and Internal Consultant team can help build a SIP income strategy to fit your client needs.
+      </p>
+
+      <div class="card" style="margin-top:18px;border-left:4px solid var(--gold)">
+        <div class="pad">
+          <h3 style="color:var(--navy);text-transform:uppercase;font-size:18px">Best next steps</h3>
+          <div style="margin-top:10px;display:grid;gap:10px">
+            <div style="padding:12px;border:1px solid var(--rule);border-radius:10px">
+              <div style="font-weight:900;color:var(--navy)">Portfolio fit</div>
+              <div style="margin-top:4px;color:var(--muted);font-size:12px;line-height:1.55">Talk through client objective, constraints, and implementation.</div>
+            </div>
+            <div style="padding:12px;border:1px solid var(--rule);border-radius:10px">
+              <div style="font-weight:900;color:var(--navy)">Positioning support</div>
+              <div style="margin-top:4px;color:var(--muted);font-size:12px;line-height:1.55">Use the suite story to keep conversations consistent across clients.</div>
+            </div>
+            <div style="padding:12px;border:1px solid var(--rule);border-radius:10px">
+              <div style="font-weight:900;color:var(--navy)">Materials</div>
+              <div style="margin-top:4px;color:var(--muted);font-size:12px;line-height:1.55">Receive a kit with factsheets and suite overview.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-top:4px solid var(--gold)">
+      <div class="pad form">
+        <div class="kicker" style="color:var(--navy)">Request a callback</div>
+        <p style="margin-top:10px;color:var(--muted);font-size:12px;line-height:1.6">
+          Share a few details and your team will follow up.
+        </p>
+
+        <form method="post" action="#" style="margin-top:12px">
+          <div class="row">
+            <input name="FirstName" placeholder="First name" aria-label="First name">
+            <input name="LastName" placeholder="Last name" aria-label="Last name">
+          </div>
+
+          <div style="margin-top:10px">
+            <input type="email" name="Email" placeholder="Email" aria-label="Email">
+          </div>
+
+          <div style="margin-top:10px">
+            <input name="Firm" placeholder="Firm / BD" aria-label="Firm / BD">
+          </div>
+
+          <div style="margin-top:10px">
+            <select name="Interest" aria-label="Primary interest">
+              <option value="">Primary interest</option>
+              <option value="SIP">SIP</option>
+              <option value="SIPPlus">SIP Plus</option>
+              <option value="GlobalSIP">Global SIP</option>
+              <option value="Suite">Suite overview</option>
+            </select>
+          </div>
+
+          <div style="margin-top:12px">
+            <button class="btn btn-primary" type="submit" style="width:100%;text-align:center">
+              Connect with my team
+            </button>
+          </div>
+
+          <small>
+            This material is for informational purposes only and does not constitute investment advice or a recommendation to buy or sell any security.
+          </small>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" aria-label="Disclosures">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start">
+      <div style="max-width:780px">
+        <div style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.65)">
+          Disclosures
+        </div>
+
+        <details style="margin-top:10px">
+          <summary>Read important information</summary>
+          <div style="margin-top:10px;font-size:11px;line-height:1.55;color:rgba(255,255,255,.72)">
+            The information provided should not be construed as a recommendation to buy, sell or hold any particular strategy or security.
+            The data is shown for informational purposes only and is not indicative of future portfolio characteristics or returns.
+            Past performance does not guarantee future results.
+          </div>
+        </details>
+
+        <div style="margin-top:12px;font-size:11px;line-height:1.55;color:rgba(255,255,255,.62)">
+          For Financial Professional and/or Client use only. 880 Carillon Parkway | St. Petersburg, FL 33716 | eagleasset.com
+        </div>
+      </div>
+
+      <div style="min-width:240px">
+        <div style="font-family:'Roboto Condensed',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.65)">
+          Quick links
+        </div>
+        <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px">
+          <a href="#overview" style="color:#fff;font-weight:700">Overview</a>
+          <a href="#suite" style="color:#fff;font-weight:700">Suite</a>
+          <a href="#finder" style="color:#fff;font-weight:700">Strategy Finder</a>
+          <a href="#connect" style="color:#fff;font-weight:700">Connect</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

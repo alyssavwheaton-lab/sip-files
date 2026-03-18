@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amplify Your Income Potential | The SIP Suite | Eagle Asset Management</title>
+  <meta name="description" content="A premium campaign landing page for Eagle Asset Management's SIP Suite, designed to help advisors match the right income strategy to the right client conversation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f7f8;
+      --surface:#ffffff;
+      --surface-2:#f0f3f6;
+      --ink:#102231;
+      --ink-soft:#415364;
+      --line:#d7e0e7;
+      --brand:#0f3b63;
+      --brand-2:#184f84;
+      --accent:#8f6a2f;
+      --accent-soft:#f4ecdf;
+      --success:#1b5a52;
+      --radius:24px;
+      --radius-sm:16px;
+      --shadow:0 24px 60px rgba(16,34,49,.10);
+      --max:1200px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Source Sans 3", Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(143,106,47,.08), transparent 34%),
+        radial-gradient(circle at top right, rgba(24,79,132,.07), transparent 36%),
+        var(--bg);
+      line-height:1.5;
+    }
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    button,input,select,textarea{font:inherit}
+
+    .container{width:min(calc(100% - 32px), var(--max));margin:0 auto}
+    .section{padding:88px 0}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;
+      font-size:.86rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--brand-2)
+    }
+    .eyebrow::before{
+      content:"";width:34px;height:1px;background:rgba(24,79,132,.35)
+    }
+    h1,h2,h3,h4{margin:0 0 14px}
+    h1,h2{
+      font-family:"Source Serif 4", Georgia, serif;
+      font-weight:600;line-height:1.02;letter-spacing:-.02em
+    }
+    h1{font-size:clamp(2.7rem,6vw,5.5rem)}
+    h2{font-size:clamp(2rem,4vw,3.5rem)}
+    h3{font-size:1.35rem;line-height:1.2}
+    p{margin:0 0 16px;color:var(--ink-soft);font-size:1.05rem}
+    .lede{font-size:1.18rem;max-width:840px}
+    .grid{display:grid;gap:24px}
+    .btns{display:flex;gap:14px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:14px 22px;border-radius:999px;border:1px solid transparent;
+      font-weight:700;transition:.24s ease;cursor:pointer
+    }
+    .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;box-shadow:0 14px 32px rgba(15,59,99,.20)}
+    .btn-primary:hover{transform:translateY(-1px)}
+    .btn-secondary{background:#fff;border-color:var(--line);color:var(--ink)}
+    .btn-secondary:hover{border-color:rgba(15,59,99,.3);background:#fbfcfd}
+    .btn-ghost{background:transparent;border-color:rgba(255,255,255,.22);color:#fff}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 14px;border-radius:999px;background:rgba(15,59,99,.06);
+      color:var(--brand);font-size:.92rem;font-weight:700
+    }
+
+    .topbar{
+      position:sticky;top:0;z-index:30;
+      backdrop-filter:blur(16px);
+      background:rgba(246,247,248,.82);
+      border-bottom:1px solid rgba(215,224,231,.85)
+    }
+    .nav{
+      min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px
+    }
+    .brand{
+      display:flex;flex-direction:column;gap:4px
+    }
+    .brand strong{
+      font-size:1rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)
+    }
+    .brand span{font-size:.86rem;color:var(--ink-soft)}
+    .nav-links{
+      display:flex;align-items:center;gap:22px;flex-wrap:wrap
+    }
+    .nav-links a{
+      font-weight:700;color:var(--ink-soft)
+    }
+    .nav-links a:hover{color:var(--brand)}
+    .nav-cta{display:flex;gap:12px;align-items:center}
+
+    .hero{
+      padding:54px 0 42px;
+    }
+    .hero-shell{
+      position:relative;overflow:hidden;border-radius:32px;
+      background:
+        linear-gradient(130deg, rgba(255,255,255,.98), rgba(246,248,250,.96)),
+        linear-gradient(135deg,var(--brand),#f7fafc);
+      border:1px solid rgba(215,224,231,.95);
+      box-shadow:var(--shadow);
+      padding:clamp(28px,4vw,52px);
+    }
+    .hero-shell::after{
+      content:"";position:absolute;inset:auto -140px -160px auto;width:420px;height:420px;border-radius:50%;
+      background:radial-gradient(circle, rgba(143,106,47,.18), transparent 62%);
+      pointer-events:none
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:end
+    }
+    .hero-copy p{max-width:760px}
+    .hero-proof{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px
+    }
+    .proof-card{
+      background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;min-height:120px
+    }
+    .proof-card strong{
+      display:block;font-size:1.9rem;color:var(--brand);margin-bottom:6px
+    }
+    .hero-rail{
+      display:grid;gap:14px
+    }
+    .strategy-tile{
+      background:linear-gradient(180deg,#fff, #f8fafb);
+      border:1px solid var(--line);border-radius:22px;padding:18px 18px 16px;
+      display:grid;gap:10px
+    }
+    .strategy-tile small{font-size:.82rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent)}
+    .strategy-tile h3{margin:0}
+    .strategy-tile p{font-size:.98rem;margin:0}
+    .mini-tags{display:flex;gap:8px;flex-wrap:wrap}
+    .mini-tags span{
+      background:var(--surface-2);border-radius:999px;padding:7px 10px;font-size:.84rem;color:var(--ink-soft);font-weight:700
+    }
+
+    .campaign-band{
+      padding:26px 0 0
+    }
+    .campaign-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:16px
+    }
+    .campaign-card{
+      background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px
+    }
+    .campaign-card h4{margin:0 0 6px;font-size:1rem;color:var(--brand)}
+    .campaign-card p{font-size:.97rem;margin:0}
+
+    .video-wrap{
+      display:grid;grid-template-columns:1.04fr .96fr;gap:28px;align-items:stretch
+    }
+    .frame{
+      border-radius:28px;overflow:hidden;min-height:420px;background:#0a2033;border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow)
+    }
+    .frame iframe{width:100%;height:100%;border:0}
+    .info-card{
+      background:linear-gradient(180deg,#fff,#f8fafb);border:1px solid var(--line);border-radius:28px;padding:28px;display:grid;gap:20px
+    }
+    .learn-list{display:grid;gap:12px}
+    .learn-item{
+      background:var(--surface-2);border-radius:18px;padding:16px 16px 14px
+    }
+    .learn-item strong{display:block;color:var(--ink);margin-bottom:4px}
+
+    .section-head{
+      display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:28px
+    }
+    .section-head p{max-width:720px}
+
+    .strategy-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:20px
+    }
+    .strategy-card{
+      position:relative;background:#fff;border:1px solid var(--line);border-radius:28px;padding:24px;display:grid;gap:18px;box-shadow:0 18px 40px rgba(16,34,49,.05)
+    }
+    .strategy-card::before{
+      content:"";position:absolute;inset:0 auto auto 0;height:6px;width:100%;border-radius:28px 28px 0 0;
+      background:linear-gradient(90deg,var(--brand), rgba(143,106,47,.85))
+    }
+    .strategy-label{
+      display:flex;justify-content:space-between;gap:12px;align-items:start
+    }
+    .strategy-kpis{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:12px
+    }
+    .kpi{
+      background:var(--surface-2);border-radius:16px;padding:14px
+    }
+    .kpi strong{display:block;color:var(--brand);font-size:1rem;margin-bottom:4px}
+    .feature-list{display:grid;gap:10px}
+    .feature{
+      display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:start;color:var(--ink-soft)
+    }
+    .feature::before{
+      content:"";width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:7px
+    }
+
+    .compare-shell{
+      background:#fff;border:1px solid var(--line);border-radius:30px;overflow:hidden;box-shadow:var(--shadow)
+    }
+    table{border-collapse:collapse;width:100%}
+    th,td{padding:18px 20px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+    thead th{
+      background:#f8fafc;font-size:.94rem;text-transform:uppercase;letter-spacing:.08em;color:var(--brand)
+    }
+    tbody tr:last-child td{border-bottom:0}
+    tbody td:first-child{font-weight:800;color:var(--ink)}
+    .chip{
+      display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;background:var(--surface-2);font-size:.84rem;font-weight:700;color:var(--ink-soft)
+    }
+
+    .trust-grid{
+      display:grid;grid-template-columns:1.05fr .95fr;gap:22px
+    }
+    .quote-card,.team-card,.playbook-card,.resource-card,.contact-card,.contact-benefits{
+      background:#fff;border:1px solid var(--line);border-radius:28px;padding:28px
+    }
+    .quote-card{
+      background:linear-gradient(150deg, rgba(15,59,99,.98), rgba(24,79,132,.92));
+      color:#fff;box-shadow:var(--shadow)
+    }
+    .quote-card p,.quote-card .meta{color:rgba(255,255,255,.82)}
+    blockquote{
+      margin:0;font-family:"Source Serif 4", Georgia, serif;font-size:clamp(1.5rem,2.4vw,2.1rem);line-height:1.2
+    }
+    .meta{display:flex;gap:10px;flex-wrap:wrap;font-size:.95rem;font-weight:600}
+    .team-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px
+    }
+    .team-person{
+      background:var(--surface-2);border-radius:20px;padding:16px
+    }
+    .team-person strong{display:block}
+    .team-person span{font-size:.95rem;color:var(--ink-soft)}
+
+    .playbook-grid,.resource-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:18px
+    }
+    .playbook-card small,.resource-card small{display:block;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+    .playbook-card p,.resource-card p{font-size:1rem}
+    .playbook-card .btn,.resource-card .btn{margin-top:auto}
+    .resource-type{display:flex;justify-content:space-between;gap:10px;align-items:center;font-weight:800;color:var(--brand)}
+
+    .connect-grid{
+      display:grid;grid-template-columns:.92fr 1.08fr;gap:24px
+    }
+    .contact-benefits{
+      background:linear-gradient(180deg,#fff, #f8fafb)
+    }
+    .benefit-list{display:grid;gap:14px;margin-top:18px}
+    .benefit{
+      display:grid;grid-template-columns:54px 1fr;gap:14px;align-items:start
+    }
+    .benefit-badge{
+      width:54px;height:54px;border-radius:18px;background:var(--accent-soft);display:grid;place-items:center;font-weight:800;color:var(--accent)
+    }
+    .form-grid{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:14px
+    }
+    .field{
+      display:grid;gap:7px
+    }
+    .field label{font-weight:700;color:var(--ink)}
+    .field input,.field select,.field textarea{
+      width:100%;padding:14px 16px;border-radius:16px;border:1px solid var(--line);background:#fff;color:var(--ink)
+    }
+    .field input:focus,.field select:focus,.field textarea:focus{
+      outline:none;border-color:rgba(24,79,132,.45);box-shadow:0 0 0 4px rgba(24,79,132,.08)
+    }
+    .field.full{grid-column:1 / -1}
+    .fineprint{font-size:.92rem;color:var(--ink-soft)}
+    .footer{
+      padding:28px 0 54px;color:var(--ink-soft)
+    }
+    .footer-shell{
+      display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:22px
+    }
+
+    .mobile-cta{
+      display:none
+    }
+
+    @media (max-width: 1080px){
+      .hero-grid,.video-wrap,.trust-grid,.connect-grid{grid-template-columns:1fr}
+      .campaign-grid,.strategy-grid,.playbook-grid,.resource-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width: 760px){
+      .section{padding:72px 0}
+      .topbar .nav{padding:10px 0}
+      .nav-links{display:none}
+      .hero-proof,.campaign-grid,.strategy-grid,.team-grid,.playbook-grid,.resource-grid,.form-grid{grid-template-columns:1fr}
+      .section-head{display:grid}
+      .hero-shell{padding:24px}
+      .proof-card strong{font-size:1.6rem}
+      .quote-card,.team-card,.playbook-card,.resource-card,.contact-card,.contact-benefits{padding:22px}
+      .compare-shell{overflow:auto}
+      table{min-width:760px}
+      .mobile-cta{
+        display:flex;position:sticky;bottom:16px;z-index:20;justify-content:center
+      }
+      .mobile-cta a{
+        background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;padding:14px 20px;border-radius:999px;
+        box-shadow:0 14px 30px rgba(15,59,99,.28);font-weight:800
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="https://eagleasset.com" aria-label="Eagle Asset Management">
+        <strong>Eagle Asset Management</strong>
+        <span>A Raymond James Investment Management Boutique</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#strategies">Strategies</a>
+        <a href="#compare">Compare</a>
+        <a href="#team">Team</a>
+        <a href="#playbook">Playbook</a>
+        <a href="#resources">Resources</a>
+        <a href="#connect">Connect</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-secondary" href="#video">Watch Overview</a>
+        <a class="btn btn-primary" href="#connect">Talk to Your Team</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-shell">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <span class="eyebrow">The Strategic Income Portfolio Suite</span>
+              <h1>Amplify Your Income Potential.</h1>
+              <p class="lede">One disciplined process. Three distinct strategies. A premium, advisor-ready framework built to help you match the right income solution to the right client conversation.</p>
+              <div class="btns">
+                <a class="btn btn-primary" href="#video">Watch Suite Overview</a>
+                <a class="btn btn-secondary" href="#strategies">Explore the Strategies</a>
+              </div>
+              <div class="hero-proof">
+                <div class="proof-card">
+                  <strong>3</strong>
+                  <span>income strategies mapped to distinct advisor conversations</span>
+                </div>
+                <div class="proof-card">
+                  <strong>1</strong>
+                  <span>unified investment framework spanning equity income and fixed income</span>
+                </div>
+                <div class="proof-card">
+                  <strong>Advisor-ready</strong>
+                  <span>positioning, resources, and support designed to move from interest to action</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-rail" aria-label="Strategy overview">
+              <div class="strategy-tile">
+                <small>The Anchor</small>
+                <h3>Strategic Income Portfolio</h3>
+                <p>Steady income and consistent growth for clients who value balance, discipline, and resilience.</p>
+                <div class="mini-tags">
+                  <span>Conservative–Moderate</span>
+                  <span>Core allocation</span>
+                  <span>U.S. focused</span>
+                </div>
+              </div>
+              <div class="strategy-tile">
+                <small>The Step-Up</small>
+                <h3>SIP Plus</h3>
+                <p>Increased income potential for clients willing to accept more credit exposure within a risk-aware process.</p>
+                <div class="mini-tags">
+                  <span>Moderate risk</span>
+                  <span>Higher income</span>
+                  <span>Credit-driven</span>
+                </div>
+              </div>
+              <div class="strategy-tile">
+                <small>The Diversifier</small>
+                <h3>Global SIP</h3>
+                <p>International dividend income diversification for clients seeking broader opportunity beyond domestic markets.</p>
+                <div class="mini-tags">
+                  <span>Global equity sleeve</span>
+                  <span>Dividend focus</span>
+                  <span>Diversified income</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="campaign-band">
+          <div class="campaign-grid">
+            <div class="campaign-card">
+              <h4>Brand clarity</h4>
+              <p>Sharper positioning and stronger premium cues than the earlier versions, with a more confident boutique-brand presentation.</p>
+            </div>
+            <div class="campaign-card">
+              <h4>Campaign focus</h4>
+              <p>Primary and secondary CTAs are streamlined around viewing, comparing, and connecting instead of splitting attention across too many paths.</p>
+            </div>
+            <div class="campaign-card">
+              <h4>Advisor utility</h4>
+              <p>The page turns product architecture into a practical conversation map, which makes the suite easier to sell and easier to remember.</p>
+            </div>
+            <div class="campaign-card">
+              <h4>Evergreen structure</h4>
+              <p>Time-sensitive references were reduced so the experience stays current longer and requires fewer refreshes between campaigns.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="video">
+      <div class="container">
+        <div class="video-wrap">
+          <div class="frame">
+            <iframe
+              title="SIP Suite Overview"
+              src="https://cdnapisec.kaltura.com/p/2750352/sp/275035200/embedIframeJs/uiconf_id/45753751/partner_id/2750352?iframeembed=true&playerId=kaltura_player&entry_id=1_a5fz5af5&flashvars[streamerType]=auto&flashvars[localizationCode]=en"
+              allow="autoplay *; fullscreen *; encrypted-media *"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <aside class="info-card">
+            <div>
+              <span class="eyebrow">Suite Overview</span>
+              <h2>Built for advisor conversations that need both confidence and choice.</h2>
+              <p>The strongest parts of the uploaded concepts are combined here: the brand polish from v13A, the narrative clarity from v8, the campaign directness from v11, and the richer support structure from v7.</p>
+            </div>
+            <div class="learn-list">
+              <div class="learn-item">
+                <strong>One framework, three outcomes</strong>
+                <span>Show how each strategy addresses a different income objective without leaving a disciplined philosophy.</span>
+              </div>
+              <div class="learn-item">
+                <strong>Why the suite matters now</strong>
+                <span>Connect market complexity back to quality income, risk awareness, and portfolio construction discipline.</span>
+              </div>
+              <div class="learn-item">
+                <strong>How to move the conversation forward</strong>
+                <span>Give advisors a clear next step: compare strategies, download materials, or connect with the team.</span>
+              </div>
+            </div>
+            <div class="btns">
+              <a class="btn btn-primary" href="#compare">View Comparison</a>
+              <a class="btn btn-secondary" href="#resources">Download Materials</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="strategies">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Strategy Architecture</span>
+            <h2>One campaign. Three clean pathways to relevance.</h2>
+          </div>
+          <p>Earlier versions described the suite well, but this version makes it easier for advisors to self-select the right conversation. Each card is built to answer three questions fast: who is it for, why now, and where does it fit.</p>
+        </div>
+
+        <div class="strategy-grid">
+          <article class="strategy-card">
+            <div class="strategy-label">
+              <div>
+                <span class="pill">The Anchor</span>
+                <h3>Strategic Income Portfolio</h3>
+              </div>
+              <span class="chip">Core solution</span>
+            </div>
+            <p>Designed for clients seeking steady income and disciplined capital appreciation through a balanced mix of dividend-paying equities and investment-grade fixed income.</p>
+            <div class="strategy-kpis">
+              <div class="kpi">
+                <strong>Client fit</strong>
+                Retirees and stability-focused income investors
+              </div>
+              <div class="kpi">
+                <strong>Risk profile</strong>
+                Conservative to moderate
+              </div>
+            </div>
+            <div class="feature-list">
+              <div class="feature">Balanced, multi-asset construction anchored in quality.</div>
+              <div class="feature">Advisor-friendly starting point for broad income conversations.</div>
+              <div class="feature">Clear role as the suite’s most foundational allocation.</div>
+            </div>
+            <div class="btns">
+              <a class="btn btn-secondary" href="#resources">Get Factsheet</a>
+            </div>
+          </article>
+
+          <article class="strategy-card">
+            <div class="strategy-label">
+              <div>
+                <span class="pill">The Step-Up</span>
+                <h3>SIP Plus</h3>
+              </div>
+              <span class="chip">Higher income</span>
+            </div>
+            <p>Built for clients who want increased cash flow and understand the trade-off of taking on greater credit exposure inside a disciplined, actively managed process.</p>
+            <div class="strategy-kpis">
+              <div class="kpi">
+                <strong>Client fit</strong>
+                Yield-seeking investors comfortable with moderate volatility
+              </div>
+              <div class="kpi">
+                <strong>Risk profile</strong>
+                Moderate
+              </div>
+            </div>
+            <div class="feature-list">
+              <div class="feature">Clearer campaign differentiation than prior drafts.</div>
+              <div class="feature">Strong role in “need more income” advisor conversations.</div>
+              <div class="feature">Positioned as a deliberate step-up, not a style drift.</div>
+            </div>
+            <div class="btns">
+              <a class="btn btn-secondary" href="#resources">Get Factsheet</a>
+            </div>
+          </article>
+
+          <article class="strategy-card">
+            <div class="strategy-label">
+              <div>
+                <span class="pill">The Diversifier</span>
+                <h3>Global SIP</h3>
+              </div>
+              <span class="chip">International reach</span>
+            </div>
+            <p>Created for clients who want income diversification beyond domestic markets through an international dividend-oriented equity sleeve combined with quality fixed income.</p>
+            <div class="strategy-kpis">
+              <div class="kpi">
+                <strong>Client fit</strong>
+                Investors seeking broader opportunity and geographic diversification
+              </div>
+              <div class="kpi">
+                <strong>Risk profile</strong>
+                Moderate
+              </div>
+            </div>
+            <div class="feature-list">
+              <div class="feature">Most differentiated branding story within the suite.</div>
+              <div class="feature">Expands the campaign beyond U.S.-only income framing.</div>
+              <div class="feature">Useful for advisors who need a diversification-led angle.</div>
+            </div>
+            <div class="btns">
+              <a class="btn btn-secondary" href="#resources">Get Factsheet</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="compare">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Comparison</span>
+            <h2>Side-by-side at a glance.</h2>
+          </div>
+          <p>v11 and v13A had the most campaign-efficient comparison language. This version keeps that brevity, then sharpens the visual hierarchy so the scan pattern works better on both desktop and mobile.</p>
+        </div>
+
+        <div class="compare-shell">
+          <table aria-label="Strategy comparison table">
+            <thead>
+              <tr>
+                <th>Dimension</th>
+                <th>Strategic Income Portfolio</th>
+                <th>SIP Plus</th>
+                <th>Global SIP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Primary role</td>
+                <td>Core income anchor</td>
+                <td>Income amplification</td>
+                <td>International diversification</td>
+              </tr>
+              <tr>
+                <td>Best conversation starter</td>
+                <td><span class="chip">“I want reliable income with discipline.”</span></td>
+                <td><span class="chip">“I need more cash flow.”</span></td>
+                <td><span class="chip">“I want income beyond the U.S.”</span></td>
+              </tr>
+              <tr>
+                <td>Client fit</td>
+                <td>Retirees and stability-oriented allocators</td>
+                <td>Yield seekers who accept more credit risk</td>
+                <td>Investors seeking broader opportunity sets</td>
+              </tr>
+              <tr>
+                <td>Risk profile</td>
+                <td>Conservative–Moderate</td>
+                <td>Moderate</td>
+                <td>Moderate</td>
+              </tr>
+              <tr>
+                <td>Core building blocks</td>
+                <td>Dividend-paying U.S. equities + investment-grade fixed income</td>
+                <td>Equities + more flexible credit-oriented income sleeve</td>
+                <td>International dividend equities + quality fixed income</td>
+              </tr>
+              <tr>
+                <td>Why it matters in campaign</td>
+                <td>Broadest fit and easiest entry point</td>
+                <td>Best “step-up” offer for income-minded prospects</td>
+                <td>Strongest differentiation and portfolio-construction angle</td>
+              </tr>
+              <tr>
+                <td>Suggested CTA emphasis</td>
+                <td>Brochure + core factsheet</td>
+                <td>Factsheet + advisor discussion</td>
+                <td>Factsheet + diversification story</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="team">
+      <div class="container">
+        <div class="trust-grid">
+          <div class="quote-card">
+            <span class="eyebrow" style="color:rgba(255,255,255,.78)">Investment Team</span>
+            <blockquote>“Income investors are not just chasing yield. They are looking for discipline, consistency, and a framework they can stay with through changing markets.”</blockquote>
+            <div class="meta" style="margin-top:18px">
+              <span>James Camp, CFA</span>
+              <span>Managing Director</span>
+              <span>Lead Portfolio Manager</span>
+            </div>
+            <p style="margin-top:18px">Among the uploaded drafts, v13A carried the strongest trust and brand tone. This section builds on that by making expertise feel more central and more premium without overcomplicating the story.</p>
+          </div>
+
+          <div class="team-card">
+            <span class="eyebrow">Why the team story matters</span>
+            <h2>Independent expertise. Unified framework.</h2>
+            <p>The page now treats the team as proof, not filler. That increases confidence for advisor audiences who need to understand both the investment depth and the discipline behind the suite.</p>
+            <div class="team-grid">
+              <div class="team-person">
+                <strong>Equity Income Team</strong>
+                <span>Quality dividend sourcing, valuation discipline, portfolio durability.</span>
+              </div>
+              <div class="team-person">
+                <strong>Fixed Income Team</strong>
+                <span>Credit analysis, duration positioning, income resilience.</span>
+              </div>
+              <div class="team-person">
+                <strong>Suite Framework</strong>
+                <span>One coordinated process translating expertise into advisor-ready outcomes.</span>
+              </div>
+            </div>
+            <div class="btns" style="margin-top:18px">
+              <a class="btn btn-secondary" href="#connect">Connect With Your Team</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="playbook">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Ongoing Engagement</span>
+            <h2>Strategic Income Playbook.</h2>
+          </div>
+          <p>v7 had the strongest sense of an ongoing campaign ecosystem. This refined playbook block keeps that momentum builder while reducing clutter and preserving a premium feel.</p>
+        </div>
+
+        <div class="playbook-grid">
+          <article class="playbook-card">
+            <small>Latest episode</small>
+            <h3>Where the team sees income opportunity now</h3>
+            <p>A concise briefing designed to help advisors connect current market conditions to client portfolio decisions.</p>
+            <a class="btn btn-secondary" href="#video">Watch Overview</a>
+          </article>
+          <article class="playbook-card">
+            <small>Advisor use case</small>
+            <h3>Turn market insight into client-ready talking points</h3>
+            <p>Support follow-up outreach, portfolio reviews, and prospecting conversations with a consistent monthly narrative.</p>
+            <a class="btn btn-secondary" href="#resources">Get Materials</a>
+          </article>
+          <article class="playbook-card">
+            <small>Campaign benefit</small>
+            <h3>Extend engagement beyond the initial visit</h3>
+            <p>Give this landing page a repeat-visit reason so the campaign has longer shelf life and stronger advisor recall.</p>
+            <a class="btn btn-primary" href="#connect">Request Access</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="resources">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Sales Enablement</span>
+            <h2>Resources that support action.</h2>
+          </div>
+          <p>The new resource stack keeps the breadth from v7 while using the cleaner card system from the newer versions. It is designed to feel useful, organized, and conversion-oriented.</p>
+        </div>
+
+        <div class="resource-grid">
+          <article class="resource-card">
+            <small>Suite brochure</small>
+            <div class="resource-type"><span>Amplify Your Income Potential</span><span>PDF</span></div>
+            <p>Overview of the full suite, advisor use cases, and the high-level positioning story across all three strategies.</p>
+            <a class="btn btn-secondary" href="#">Download</a>
+          </article>
+          <article class="resource-card">
+            <small>Core factsheet</small>
+            <div class="resource-type"><span>Strategic Income Portfolio</span><span>PDF</span></div>
+            <p>Detailed strategy snapshot for advisors who need a balanced, foundational income allocation.</p>
+            <a class="btn btn-secondary" href="#">Download</a>
+          </article>
+          <article class="resource-card">
+            <small>Income extension</small>
+            <div class="resource-type"><span>SIP Plus</span><span>PDF</span></div>
+            <p>Focused support for higher-income conversations where advisors need a clearly differentiated next step.</p>
+            <a class="btn btn-secondary" href="#">Download</a>
+          </article>
+          <article class="resource-card">
+            <small>Diversification story</small>
+            <div class="resource-type"><span>Global SIP</span><span>PDF</span></div>
+            <p>International dividend framing for clients who want income diversification beyond domestic allocations.</p>
+            <a class="btn btn-secondary" href="#">Download</a>
+          </article>
+          <article class="resource-card">
+            <small>Advisor follow-up</small>
+            <div class="resource-type"><span>Commentary / Playbook</span><span>PDF</span></div>
+            <p>Periodic insights that keep the campaign fresh and provide a reason to return after the first visit.</p>
+            <a class="btn btn-secondary" href="#">Download</a>
+          </article>
+          <article class="resource-card">
+            <small>Contact path</small>
+            <div class="resource-type"><span>Request tailored support</span><span>Form</span></div>
+            <p>Move from content consumption to one-to-one engagement with the regional VP and internal consultant team.</p>
+            <a class="btn btn-primary" href="#connect">Get Started</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="connect">
+      <div class="container">
+        <div class="connect-grid">
+          <div class="contact-benefits">
+            <span class="eyebrow">Connect With Eagle</span>
+            <h2>Make the next step feel easy.</h2>
+            <p>Across the uploaded versions, the biggest conversion opportunity was reducing friction at the moment of intent. This final section narrows the ask, raises trust, and keeps the benefits concrete.</p>
+            <div class="benefit-list">
+              <div class="benefit">
+                <div class="benefit-badge">01</div>
+                <div>
+                  <h3>Get the right materials fast</h3>
+                  <p>Suite brochure, factsheets, and advisor-ready support tailored to the conversation you are having.</p>
+                </div>
+              </div>
+              <div class="benefit">
+                <div class="benefit-badge">02</div>
+                <div>
+                  <h3>Clarify product fit</h3>
+                  <p>Use the team to map the right strategy to the right client objective with more confidence and less back-and-forth.</p>
+                </div>
+              </div>
+              <div class="benefit">
+                <div class="benefit-badge">03</div>
+                <div>
+                  <h3>Support live opportunities</h3>
+                  <p>Bring the suite into current portfolio reviews, proposal discussions, and income-focused prospecting efforts.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <span class="eyebrow">Request Information</span>
+            <h2>Talk to your VP and internal consultant team.</h2>
+            <p>Use this as the CloudPages conversion endpoint or wire it to your existing SFMC form handling.</p>
+
+            <form id="contactForm" method="post" action="#">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="firstName">First name</label>
+                  <input id="firstName" name="firstName" type="text" autocomplete="given-name" required>
+                </div>
+                <div class="field">
+                  <label for="lastName">Last name</label>
+                  <input id="lastName" name="lastName" type="text" autocomplete="family-name" required>
+                </div>
+                <div class="field">
+                  <label for="email">Business email</label>
+                  <input id="email" name="email" type="email" autocomplete="email" required>
+                </div>
+                <div class="field">
+                  <label for="firm">Firm</label>
+                  <input id="firm" name="firm" type="text" autocomplete="organization">
+                </div>
+                <div class="field">
+                  <label for="phone">Phone</label>
+                  <input id="phone" name="phone" type="tel" autocomplete="tel">
+                </div>
+                <div class="field">
+                  <label for="interest">Primary interest</label>
+                  <select id="interest" name="interest">
+                    <option value="">Select one</option>
+                    <option>Strategic Income Portfolio</option>
+                    <option>SIP Plus</option>
+                    <option>Global SIP</option>
+                    <option>Full SIP Suite overview</option>
+                    <option>Advisor materials / factsheets</option>
+                  </select>
+                </div>
+                <div class="field full">
+                  <label for="message">How can we help?</label>
+                  <textarea id="message" name="message" rows="5" placeholder="Tell us which strategy, client profile, or advisor conversation you want help with."></textarea>
+                </div>
+              </div>
+              <div class="btns" style="margin-top:18px">
+                <button class="btn btn-primary" type="submit">Request Information</button>
+                <a class="btn btn-secondary" href="https://www.eagleasset.com/about-us/privacy-policy">Privacy Policy</a>
+              </div>
+              <p class="fineprint" style="margin-top:14px">Replace the form action, hidden fields, and validation logic with your Salesforce Marketing Cloud CloudPages processing pattern as needed.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-shell">
+      <div>© Eagle Asset Management</div>
+      <div>
+        <a href="https://eagleasset.com">eagleasset.com</a>
+        &nbsp;•&nbsp;
+        <a href="https://www.eagleasset.com/about-us/privacy-policy">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="mobile-cta">
+    <a href="#connect">Talk to Your Team</a>
+  </div>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function (event) {
+      if (this.getAttribute('action') === '#') {
+        event.preventDefault();
+        alert('Wire this form to your CloudPages processing endpoint before publishing.');
+      }
+    });
+  </script>
+</body>
+</html>

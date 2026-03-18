@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIP Suite Campaign Hub</title>
+  <style>
+    :root {
+      --navy:#002b5c;
+      --navy-2:#0f3d73;
+      --gold:#c5a55a;
+      --gold-2:#dcc38b;
+      --cream:#f7f5f0;
+      --stone:#e7e0d2;
+      --text:#1f2a37;
+      --muted:#5b6573;
+      --white:#ffffff;
+      --sip:#3d7ea6;
+      --sipplus:#4f8f8b;
+      --gsip:#a56b43;
+      --shadow:0 12px 28px rgba(0,43,92,.10);
+      --radius:18px;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg, #fbfaf7 0%, #f4f0e8 100%);
+    }
+    a { color:inherit; text-decoration:none; }
+    .layout {
+      display:grid;
+      grid-template-columns: 260px 1fr;
+      min-height:100vh;
+    }
+    .sidebar {
+      position:sticky;
+      top:0;
+      height:100vh;
+      background:linear-gradient(180deg, var(--navy) 0%, #07203f 100%);
+      color:var(--white);
+      padding:28px 20px;
+      overflow:auto;
+      border-right:1px solid rgba(255,255,255,.08);
+    }
+    .brand-mark {
+      font-size:12px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--gold-2);
+      margin-bottom:10px;
+      font-weight:700;
+    }
+    .brand-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size:28px;
+      line-height:1.1;
+      margin:0 0 12px;
+    }
+    .brand-copy {
+      color:rgba(255,255,255,.76);
+      font-size:14px;
+      line-height:1.55;
+      margin:0 0 24px;
+    }
+    .nav-group { margin-bottom:26px; }
+    .nav-label {
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:rgba(255,255,255,.48);
+      margin-bottom:10px;
+      font-weight:700;
+    }
+    .nav-link {
+      display:block;
+      padding:10px 12px;
+      border-radius:12px;
+      color:rgba(255,255,255,.88);
+      font-size:14px;
+      margin-bottom:6px;
+      transition:.2s ease;
+    }
+    .nav-link:hover, .nav-link.active {
+      background:rgba(255,255,255,.10);
+      color:#fff;
+    }
+    .sidebar-card {
+      margin-top:16px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:14px;
+    }
+    .sidebar-card h4 {
+      margin:0 0 8px;
+      font-size:14px;
+      color:#fff;
+    }
+    .sidebar-card p {
+      margin:0;
+      font-size:13px;
+      line-height:1.55;
+      color:rgba(255,255,255,.76);
+    }
+    .content {
+      padding:34px;
+    }
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(0,43,92,.96), rgba(15,61,115,.92)),
+        radial-gradient(circle at top right, rgba(197,165,90,.28), transparent 34%);
+      color:#fff;
+      border-radius:26px;
+      padding:42px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::after {
+      content:"";
+      position:absolute;
+      right:-40px;
+      top:-10px;
+      width:240px;
+      height:240px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(197,165,90,.28), transparent 68%);
+    }
+    .kicker {
+      display:inline-block;
+      font-size:11px;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:var(--gold-2);
+      font-weight:800;
+      margin-bottom:14px;
+    }
+    h1, h2, h3 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight:500;
+      margin:0;
+    }
+    h1 { font-size:44px; line-height:1.05; max-width:740px; }
+    .hero p {
+      max-width:720px;
+      font-size:18px;
+      line-height:1.65;
+      color:rgba(255,255,255,.88);
+      margin:16px 0 0;
+    }
+    .hero-meta {
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:14px;
+      margin-top:28px;
+    }
+    .meta-card {
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      padding:16px;
+    }
+    .meta-card strong {
+      display:block;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--gold-2);
+      margin-bottom:8px;
+    }
+    .meta-card span {
+      font-size:15px;
+      line-height:1.5;
+      color:#fff;
+    }
+    section {
+      margin-top:28px;
+      scroll-margin-top:24px;
+    }
+    .panel {
+      background:#fff;
+      border:1px solid var(--stone);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:var(--shadow);
+    }
+    .section-head {
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:16px;
+      margin-bottom:18px;
+    }
+    .section-head p {
+      margin:8px 0 0;
+      color:var(--muted);
+      line-height:1.6;
+      max-width:760px;
+    }
+    .grid-3, .grid-2, .grid-4 {
+      display:grid;
+      gap:18px;
+    }
+    .grid-2 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .grid-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .grid-4 { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .card {
+      border:1px solid var(--stone);
+      border-radius:18px;
+      padding:20px;
+      background:linear-gradient(180deg, #fff 0%, #fcfbf8 100%);
+    }
+    .card h3 { font-size:22px; margin-bottom:8px; }
+    .card p { margin:0; line-height:1.6; color:var(--muted); font-size:15px; }
+    .suite-card {
+      position:relative;
+      padding-top:54px;
+    }
+    .swatch {
+      position:absolute;
+      top:0; left:0; right:0; height:10px;
+      border-radius:18px 18px 0 0;
+    }
+    .tag {
+      display:inline-block;
+      margin:0 0 8px;
+      font-size:11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-weight:800;
+      color:var(--muted);
+    }
+    .comparison {
+      width:100%;
+      border-collapse:collapse;
+      font-size:14px;
+      overflow:hidden;
+      border-radius:18px;
+    }
+    .comparison th, .comparison td {
+      border:1px solid var(--stone);
+      padding:14px 12px;
+      vertical-align:top;
+      text-align:left;
+      line-height:1.55;
+    }
+    .comparison th {
+      background:var(--cream);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--navy);
+    }
+    .fit-box {
+      background:var(--cream);
+      border:1px solid var(--stone);
+      border-radius:18px;
+      padding:18px;
+    }
+    .fit-box h4 {
+      margin:0 0 8px;
+      color:var(--navy);
+      font-size:17px;
+    }
+    .fit-box p {
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:15px;
+    }
+    .module {
+      border:1px solid var(--stone);
+      border-radius:18px;
+      padding:18px;
+      background:#fff;
+    }
+    .module ul { padding-left:18px; margin:10px 0 0; color:var(--muted); }
+    .module li { margin-bottom:8px; line-height:1.55; }
+    .tabs {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:18px;
+    }
+    .tab {
+      border:1px solid var(--stone);
+      background:#fff;
+      color:var(--navy);
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .tab.active {
+      background:var(--navy);
+      color:#fff;
+      border-color:var(--navy);
+    }
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
+    .email-shell {
+      background:#edf2f8;
+      border-radius:20px;
+      padding:28px 18px;
+      border:1px solid #d9e3ef;
+    }
+    .email {
+      max-width:760px;
+      margin:0 auto;
+      background:#fff;
+      border:1px solid var(--stone);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 12px 30px rgba(0,43,92,.08);
+    }
+    .email-header {
+      background:linear-gradient(135deg, var(--navy), var(--navy-2));
+      color:#fff;
+      padding:26px 30px;
+    }
+    .email-header .eyebrow {
+      font-size:11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--gold-2);
+      font-weight:800;
+      margin-bottom:10px;
+    }
+    .email-header h3 {
+      font-size:34px;
+      line-height:1.12;
+    }
+    .email-body {
+      padding:28px 30px;
+      font-size:16px;
+      line-height:1.75;
+      color:var(--text);
+    }
+    .email-body p { margin:0 0 16px; }
+    .cta {
+      display:inline-block;
+      background:var(--gold);
+      color:var(--navy);
+      padding:14px 18px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:14px;
+      letter-spacing:.02em;
+    }
+    .subtle {
+      color:var(--muted);
+      font-size:14px;
+    }
+    .resource-list {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+    .resource-item {
+      border:1px solid var(--stone);
+      border-radius:16px;
+      padding:16px;
+      background:#fff;
+    }
+    .resource-item strong {
+      display:block;
+      color:var(--navy);
+      margin-bottom:6px;
+    }
+    .resource-item span {
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.55;
+    }
+    .contact-box {
+      background:linear-gradient(135deg, #fff 0%, #f8f4ea 100%);
+      border:1px solid var(--stone);
+      border-radius:20px;
+      padding:22px;
+    }
+    .footer-note {
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.55;
+    }
+    .pill-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+    .pill {
+      font-size:12px;
+      padding:8px 10px;
+      border-radius:999px;
+      background:var(--cream);
+      border:1px solid var(--stone);
+      color:var(--navy);
+      font-weight:700;
+    }
+    code.inline {
+      background:#f1f5f9;
+      padding:2px 7px;
+      border-radius:8px;
+      font-size:13px;
+    }
+    @media (max-width: 1100px) {
+      .layout { grid-template-columns:1fr; }
+      .sidebar { position:relative; height:auto; }
+      .content { padding:20px; }
+      .hero { padding:30px 24px; }
+      h1 { font-size:36px; }
+      .grid-4 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .grid-3, .grid-2, .hero-meta, .resource-list { grid-template-columns:1fr; }
+    }
+    @media (max-width: 680px) {
+      .content { padding:14px; }
+      .panel, .hero { border-radius:18px; }
+      .email-header, .email-body, .panel { padding:22px 18px; }
+      h1 { font-size:30px; }
+      .email-header h3 { font-size:28px; }
+      .grid-4 { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand-mark">Eagle Asset Management</div>
+      <h2 class="brand-title">SIP Suite Campaign Hub</h2>
+      <p class="brand-copy">Editable master file combining the advisor-facing landing page structure, launch emails, and Seismic follow-up drafts in one place.</p>
+
+      <div class="nav-group">
+        <div class="nav-label">CloudPage</div>
+        <a class="nav-link active" href="#overview">Suite overview</a>
+        <a class="nav-link" href="#client-fit">Advisor client fit</a>
+        <a class="nav-link" href="#comparison">Strategy comparison</a>
+        <a class="nav-link" href="#playbook">Playbook module</a>
+        <a class="nav-link" href="#resources">Resources</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-label">Email assets</div>
+        <a class="nav-link" href="#emails">Advisor emails</a>
+        <a class="nav-link" href="#seismic">Seismic emails</a>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>What this version fixes</h4>
+        <p>It adds the missing email sections, keeps the page structure you requested, and stays editable as a single HTML asset for review, revision, and SFMC handoff.</p>
+      </div>
+    </aside>
+
+    <main class="content">
+      <div class="hero">
+        <div class="kicker">Advisor-facing franchise build</div>
+        <h1>Amplify the income conversation with a suite built for differentiated client needs.</h1>
+        <p>The Strategic Income Portfolio suite gives advisors a clearer way to position income across conservative allocation needs, step-up yield conversations, and globally oriented diversification—without losing the discipline, risk framing, or portfolio role clients expect in the current market backdrop.</p>
+        <div class="hero-meta">
+          <div class="meta-card">
+            <strong>Audience</strong>
+            <span>Financial advisors evaluating income solutions for client portfolios.</span>
+          </div>
+          <div class="meta-card">
+            <strong>Campaign role</strong>
+            <span>Flagship destination for emails, Seismic distribution, and sales follow-up.</span>
+          </div>
+          <div class="meta-card">
+            <strong>Primary action</strong>
+            <span>Connect with your sales or support team for suite positioning and next-step materials.</span>
+          </div>
+        </div>
+      </div>
+
+      <section id="overview">
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <div class="kicker" style="color:var(--gold);">3. Suite overview</div>
+              <h2>The SIP suite at a glance</h2>
+              <p>Three strategies. Three distinct use cases. One cleaner advisor conversation around income, quality, and portfolio role.</p>
+            </div>
+          </div>
+          <div class="grid-3">
+            <div class="card suite-card">
+              <div class="swatch" style="background:var(--sip);"></div>
+              <div class="tag">SIP</div>
+              <h3>Strategic Income Portfolio</h3>
+              <p>Core income anchor for clients seeking a balanced approach to yield, quality, and diversification. Useful when the conversation starts with dependable portfolio income and a measured risk profile.</p>
+            </div>
+            <div class="card suite-card">
+              <div class="swatch" style="background:var(--sipplus);"></div>
+              <div class="tag">SIP Plus</div>
+              <h3>Strategic Income Portfolio Plus</h3>
+              <p>Step-up income option for clients willing to accept a broader opportunity set in pursuit of higher income potential. Useful when advisors need to address cash-flow needs without defaulting to a single-sector answer.</p>
+            </div>
+            <div class="card suite-card">
+              <div class="swatch" style="background:var(--gsip);"></div>
+              <div class="tag">Global SIP</div>
+              <h3>Global Strategic Income Portfolio</h3>
+              <p>Globally oriented income strategy for clients who may benefit from a wider set of opportunities across regions and sectors. Useful when concentration risk or relative-value dispersion becomes part of the allocation discussion.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="client-fit">
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <div class="kicker" style="color:var(--gold);">4. Advisor client fit</div>
+              <h2>How advisors can frame client fit</h2>
+              <p>These are conversation starters built around portfolio role, cash-flow needs, and risk tolerance—not product-first language.</p>
+            </div>
+          </div>
+          <div class="grid-3">
+            <div class="fit-box">
+              <h4>For clients prioritizing stability</h4>
+              <p>Position SIP as a disciplined income anchor when the advisor needs a steadier core fixed income allocation and a credible way to discuss quality, diversification, and income durability.</p>
+            </div>
+            <div class="fit-box">
+              <h4>For clients seeking more income</h4>
+              <p>Position SIP Plus when the advisor needs a more assertive income conversation, particularly where traditional core bond exposure may feel insufficient relative to spending needs or distribution goals.</p>
+            </div>
+            <div class="fit-box">
+              <h4>For clients needing broader diversification</h4>
+              <p>Position Global SIP when the advisor wants to discuss opportunity sets beyond a domestic lens and pair income objectives with a more global relative-value framework.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="comparison">
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <div class="kicker" style="color:var(--gold);">5. Strategy card comparison</div>
+              <h2>Conversation-ready comparison table</h2>
+              <p>This is structured to help an RVP or external sales partner quickly identify which solution may be most relevant in the field.</p>
+            </div>
+          </div>
+          <table class="comparison">
+            <thead>
+              <tr>
+                <th>Attribute</th>
+                <th>SIP</th>
+                <th>SIP Plus</th>
+                <th>Global SIP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Primary role</strong></td>
+                <td>Core income anchor</td>
+                <td>Higher-income step-up</td>
+                <td>Global diversification plus income</td>
+              </tr>
+              <tr>
+                <td><strong>Advisor use case</strong></td>
+                <td>Clients seeking balanced income and a measured risk posture</td>
+                <td>Clients needing more income potential and broader opportunity exposure</td>
+                <td>Clients where a global opportunity set may improve portfolio construction</td>
+              </tr>
+              <tr>
+                <td><strong>Conversation opener</strong></td>
+                <td>“How are you anchoring income while maintaining quality discipline?”</td>
+                <td>“Where can you increase income without defaulting to a narrow solution set?”</td>
+                <td>“Where might global opportunity and diversification matter more now?”</td>
+              </tr>
+              <tr>
+                <td><strong>Client profile</strong></td>
+                <td>Conservative to moderate income allocator</td>
+                <td>Moderate client comfortable with more flexible income sourcing</td>
+                <td>Client open to non-U.S. opportunity and broader diversification</td>
+              </tr>
+              <tr>
+                <td><strong>Field positioning</strong></td>
+                <td>Income consistency, diversification, portfolio ballast</td>
+                <td>Income prioritization, flexibility, broader credit toolkit</td>
+                <td>Global breadth, diversification, relative-value opportunity</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pill-row">
+            <div class="pill">Use numerals in field copy</div>
+            <div class="pill">Lead with portfolio role</div>
+            <div class="pill">Avoid product-heavy opening language</div>
+            <div class="pill">Keep the follow-up consultative</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="playbook">
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <div class="kicker" style="color:var(--gold);">6. Playbook module</div>
+              <h2>Strategic Income Playbook module</h2>
+              <p>A modular block that can sit lower on the page to support ongoing engagement without overpowering the suite story.</p>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="module">
+              <h3 style="font-size:24px;">Monthly allocation perspective</h3>
+              <p class="subtle">Short-form video or article module that extends the conversation after the suite introduction.</p>
+              <ul>
+                <li>Macro backdrop and what changed since the last allocation review</li>
+                <li>How the team is thinking about income, quality, and risk appetite now</li>
+                <li>What advisors may want to watch in the weeks ahead</li>
+              </ul>
+            </div>
+            <div class="module">
+              <h3 style="font-size:24px;">Why this module works</h3>
+              <p class="subtle">It keeps the franchise active between major campaign flights and gives the field a reason to revisit the page.</p>
+              <ul>
+                <li>Supports recurring advisor touchpoints</li>
+                <li>Creates a credible reason for RVP follow-up</li>
+                <li>Connects market context back to suite positioning</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="resources">
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <div class="kicker" style="color:var(--gold);">7. Resources</div>
+              <h2>Suggested companion resources</h2>
+              <p>Support the landing page with sales-ready follow-through assets that help advisors continue the evaluation process.</p>
+            </div>
+          </div>
+          <div class="resource-list">
+            <div class="resource-item"><strong>SIP Suite overview brochure</strong><span>High-level suite positioning, comparison, and portfolio role overview.</span></div>
+            <div class="resource-item"><strong>Individual strategy fact sheets</strong><span>Deeper detail by strategy for advisors moving from interest to evaluation.</span></div>
+            <div class="resource-item"><strong>Playbook archive</strong><span>Monthly market and allocation commentary to keep advisors engaged.</span></div>
+            <div class="resource-item"><strong>Sales desk talking points</strong><span>Quick-reference field language for RVPs and support teams.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <div class="kicker" style="color:var(--gold);">8. Contact</div>
+              <h2>Advisor next step</h2>
+              <p>Keep the CTA straightforward and field-friendly. The point is to move from interest to a targeted follow-up conversation.</p>
+            </div>
+          </div>
+          <div class="contact-box">
+            <h3 style="font-size:28px; margin-bottom:10px;">Discuss where the SIP suite may fit in client portfolios.</h3>
+            <p style="margin:0 0 18px; color:var(--muted); line-height:1.7;">Connect with your sales or support team for suite materials, positioning guidance, and conversation support tailored to the client scenario in front of you.</p>
+            <a class="cta" href="#">Contact your sales or support team</a>
+            <div class="footer-note">For financial professional use only. Replace the placeholder CTA with the production-approved destination or regional contact workflow.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="emails">
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <div class="kicker" style="color:var(--gold);">Advisor emails</div>
+              <h2>The 2 missing email drafts</h2>
+              <p>These are built to sound like advisor-facing asset manager emails, with the portfolio role and market relevance doing the heavy lifting.</p>
+            </div>
+          </div>
+          <div class="tabs" data-tabs>
+            <button class="tab active" data-tab="email1">Email 1</button>
+            <button class="tab" data-tab="email2">Email 2</button>
+          </div>
+
+          <div class="tab-panel active" id="email1">
+            <div class="email-shell">
+              <div class="email">
+                <div class="email-header">
+                  <div class="eyebrow">Advisor email 1</div>
+                  <h3>A more deliberate way to discuss income now</h3>
+                </div>
+                <div class="email-body" contenteditable="true">
+                  <p>Income conversations are shifting. With rate expectations, credit spreads, and client cash-flow needs all competing for attention, many advisors are re-evaluating how they frame fixed income allocations across client portfolios.</p>
+                  <p>The SIP Suite was built for that conversation.</p>
+                  <p>It brings together 3 complementary strategies—SIP, SIP Plus, and Global SIP—so advisors can better align income objectives with the portfolio role, risk posture, and diversification needs of the client in front of them.</p>
+                  <p>Rather than forcing one solution into every income discussion, the suite offers a more practical way to position income across a range of client scenarios.</p>
+                  <p><a class="cta" href="#">Explore the SIP Suite</a></p>
+                  <p class="subtle">For financial professional use only.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="email2">
+            <div class="email-shell">
+              <div class="email">
+                <div class="email-header">
+                  <div class="eyebrow">Advisor email 2</div>
+                  <h3>Match the income conversation to the client need</h3>
+                </div>
+                <div class="email-body" contenteditable="true">
+                  <p>Not every income allocation call is the same.</p>
+                  <p>Some clients are looking for a steadier core allocation. Others may need more income potential. Others still may benefit from a broader global opportunity set as diversification becomes more relevant in portfolio construction.</p>
+                  <p>That is where the SIP Suite can help.</p>
+                  <p>On the campaign page, you can quickly compare SIP, SIP Plus, and Global SIP by client fit, portfolio role, and advisor conversation use case—making it easier to move from product awareness to a more targeted allocation discussion.</p>
+                  <p><a class="cta" href="#">See the suite comparison</a></p>
+                  <p class="subtle">Connect with your sales or support team for strategy materials and positioning support.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="seismic">
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <div class="kicker" style="color:var(--gold);">Seismic emails</div>
+              <h2>Seismic-ready follow-up drafts</h2>
+              <p>Shorter, more personal follow-up language appropriate for field distribution after interest or page engagement.</p>
+            </div>
+          </div>
+          <div class="tabs" data-tabs>
+            <button class="tab active" data-tab="seis1">Seismic 1</button>
+            <button class="tab" data-tab="seis2">Seismic 2</button>
+          </div>
+
+          <div class="tab-panel active" id="seis1">
+            <div class="email-shell">
+              <div class="email">
+                <div class="email-header">
+                  <div class="eyebrow">Seismic email 1</div>
+                  <h3>SIP Suite materials for your income conversations</h3>
+                </div>
+                <div class="email-body" contenteditable="true">
+                  <p>[First Name],</p>
+                  <p>I wanted to share a quick resource that may be useful as you evaluate income positioning across client portfolios.</p>
+                  <p>The SIP Suite brings together 3 strategies designed to support different income use cases—from a more balanced core approach to higher-income conversations and globally oriented diversification.</p>
+                  <p>If it would be helpful, I can send over the suite overview and talk through where SIP, SIP Plus, or Global SIP may be most relevant based on the types of client needs you are seeing.</p>
+                  <p><a class="cta" href="#">View the SIP Suite page</a></p>
+                  <p class="subtle">Best,<br />[Sender Name]</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-panel" id="seis2">
+            <div class="email-shell">
+              <div class="email">
+                <div class="email-header">
+                  <div class="eyebrow">Seismic email 2</div>
+                  <h3>A quick way to compare the 3 SIP suite strategies</h3>
+                </div>
+                <div class="email-body" contenteditable="true">
+                  <p>[First Name],</p>
+                  <p>Following up with a resource that may make the income conversation easier to frame.</p>
+                  <p>The SIP Suite page lays out the 3 strategies side by side, including how each may fit different client objectives and portfolio roles. It is designed to help advisors quickly move from a general income discussion to a more targeted strategy conversation.</p>
+                  <p>Happy to send the materials directly or walk through where one strategy may stand out relative to another.</p>
+                  <p><a class="cta" href="#">Review the strategy comparison</a></p>
+                  <p class="subtle">Best,<br />[Sender Name]</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <div class="kicker" style="color:var(--gold);">Editing notes</div>
+              <h2>How to use this file</h2>
+              <p>The email bodies are <code class="inline">contenteditable</code>, so you can open the file in a browser and revise copy directly for review. For production, move the approved copy into your SFMC templates and replace placeholder links with final destinations.</p>
+            </div>
+          </div>
+          <div class="grid-4">
+            <div class="card"><h3 style="font-size:20px;">Editable</h3><p>Single-file HTML with inline CSS and editable email sections.</p></div>
+            <div class="card"><h3 style="font-size:20px;">Structured</h3><p>Matches your requested page order: suite overview, client fit, comparison, playbook, resources, contact.</p></div>
+            <div class="card"><h3 style="font-size:20px;">Field-friendly</h3><p>Positioning is built around advisor use cases and sales conversations.</p></div>
+            <div class="card"><h3 style="font-size:20px;">Ready for next pass</h3><p>Suitable for a tighter SFMC production conversion once content and CTA routing are approved.</p></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.querySelectorAll('[data-tabs]').forEach(group => {
+      const tabs = group.querySelectorAll('.tab');
+      const section = group.parentElement;
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          section.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+          const target = section.querySelector('#' + tab.dataset.tab);
+          if (target) target.classList.add('active');
+        });
+      });
+    });
+
+    const links = document.querySelectorAll('.nav-link');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
